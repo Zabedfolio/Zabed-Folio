@@ -29,7 +29,6 @@ export async function GET() {
     const projects = await fetchProjectsFromJsonServer();
     return NextResponse.json(projects);
   } catch {
-    // Soft fallback keeps portfolio usable if json-server is down.
     return NextResponse.json(db.projects);
   }
 }

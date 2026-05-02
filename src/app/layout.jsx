@@ -1,9 +1,8 @@
-import type { Metadata } from "next";
 import { GeistMono, GeistSans } from "geist/font";
 import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
-export const metadata: Metadata = {
+export const metadata = {
   title: "Zabed Hossain — Frontend Developer & Creative Engineer",
   description:
     "Portfolio of Zabed Hossain, a frontend developer building cinematic Next.js experiences with sharp interaction design and production-ready execution.",
@@ -28,7 +27,7 @@ export const metadata: Metadata = {
   robots: "index, follow"
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
