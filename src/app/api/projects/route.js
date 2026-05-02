@@ -11,24 +11,20 @@ async function fetchProjectsFromJsonServer() {
   try {
     const response = await fetch(JSON_SERVER_URL, {
       signal: controller.signal,
-      cache: "no-store"
+      cache: "no-store",
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to read from json-server");
-    }
-
-    return response.json();
+    if (!response.ok) throw new Error("Bad response from json-server");
+    return await response.json();
+  } catch {
+    return null; // ← always return null on any failure
   } finally {
     clearTimeout(timeout);
   }
 }
 
 export async function GET() {
-  try {
-    const projects = await fetchProjectsFromJsonServer();
-    return NextResponse.json(projects);
-  } catch {
-    return NextResponse.json(db.projects);
-  }
+  const projects = await fetchProjectsFromJsonServer();
+  // If json-server failed for ANY reason, use the static fallback
+  return NextResponse.json(projects ?? db.projects);
 }

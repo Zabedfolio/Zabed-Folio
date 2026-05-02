@@ -11,15 +11,14 @@ async function fetchProjectFromJsonServer(id) {
   try {
     const response = await fetch(`${JSON_SERVER_URL}?id=${encodeURIComponent(id)}`, {
       signal: controller.signal,
-      cache: "no-store"
+      cache: "no-store",
     });
 
-    if (!response.ok) {
-      throw new Error("Failed to read from json-server");
-    }
-
+    if (!response.ok) throw new Error("Bad response from json-server");
     const projects = await response.json();
-    return projects[0] || null;
+    return projects[0] ?? null;
+  } catch {
+    return null; // ← always return null on any failure
   } finally {
     clearTimeout(timeout);
   }
@@ -28,23 +27,14 @@ async function fetchProjectFromJsonServer(id) {
 export async function GET(_request, { params }) {
   const normalizedId = decodeURIComponent(params.id || "").toLowerCase();
 
-  try {
-    const project = await fetchProjectFromJsonServer(normalizedId);
+  const project =
+    (await fetchProjectFromJsonServer(normalizedId)) ??
+    db.projects.find((p) => String(p.id).toLowerCase() === normalizedId) ??
+    null;
 
-    if (!project) {
-      return NextResponse.json({ message: "Project not found" }, { status: 404 });
-    }
-
-    return NextResponse.json(project);
-  } catch {
-    const fallbackProject = db.projects.find(
-      (project) => String(project.id).toLowerCase() === normalizedId
-    );
-
-    if (!fallbackProject) {
-      return NextResponse.json({ message: "Project not found" }, { status: 404 });
-    }
-
-    return NextResponse.json(fallbackProject);
+  if (!project) {
+    return NextResponse.json({ message: "Project not found" }, { status: 404 });
   }
+
+  return NextResponse.json(project);
 }
