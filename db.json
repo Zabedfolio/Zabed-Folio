@@ -1,0 +1,43 @@
+{
+  "projects": [
+    {
+      "id": "nebula-commerce",
+      "title": "Nebula Commerce",
+      "category": "Full Stack",
+      "year": "2026",
+      "description": "A conversion-focused commerce experience with cinematic product storytelling, cart flows, and performance-first storefront architecture.",
+      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
+      "tags": ["Next.js", "MongoDB", "Stripe", "Framer Motion"],
+      "challenge": "The biggest challenge was balancing luxurious motion with fast product browsing, especially across high-density catalog surfaces.",
+      "improvements": "Next iteration would add personalized merchandising, A/B tested product narrative blocks, and deeper inventory intelligence.",
+      "liveUrl": "https://vercel.com",
+      "githubUrl": "https://github.com"
+    },
+    {
+      "id": "horizon-studio",
+      "title": "Horizon Studio",
+      "category": "Frontend",
+      "year": "2025",
+      "description": "A premium creative agency platform with animated case studies, immersive transitions, and flexible CMS-driven content zones.",
+      "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
+      "tags": ["React", "Tailwind", "GSAP", "Sanity"],
+      "challenge": "The project demanded high-impact storytelling without sacrificing accessibility or maintainability for the editorial team.",
+      "improvements": "A stronger design ops pipeline and more granular motion preferences would make future content publishing smoother.",
+      "liveUrl": "https://vercel.com",
+      "githubUrl": "https://github.com"
+    },
+    {
+      "id": "atlas-board",
+      "title": "Atlas Board",
+      "category": "Design",
+      "year": "2024",
+      "description": "A design-system-driven dashboard for product operations with tight information hierarchy, modular UI patterns, and polished data views.",
+      "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
+      "tags": ["Next.js", "TypeScript", "Radix UI", "Figma"],
+      "challenge": "The hard part was creating enterprise-grade density while still making the interface feel elegant and visually breathable.",
+      "improvements": "Future work would expand the component token system and formalize advanced accessibility testing in CI.",
+      "liveUrl": "https://vercel.com",
+      "githubUrl": "https://github.com"
+    }
+  ]
+}
