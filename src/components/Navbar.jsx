@@ -3,7 +3,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiOutlineMenuAlt4, HiOutlineX } from "react-icons/hi";
 
 const navItems = [
@@ -22,6 +22,58 @@ export default function Navbar() {
   const navBg = useTransform(scrollY, [0, 200], ["rgba(5,5,5,0)", "rgba(5,5,5,0.85)"]);
   const navBorder = useTransform(scrollY, [0, 200], ["rgba(255,255,255,0)", "rgba(255,255,255,0.07)"]);
   const navBlur = useTransform(scrollY, [0, 200], [0, 24]);
+
+  // Track active section based on scroll position
+  useEffect(() => {
+    const sectionIds = navItems.map((item) => item.href.replace("#", ""));
+
+    const observers: IntersectionObserver[] = [];
+
+    // We track which sections are currently visible and pick the topmost one
+    const visibleSections = new Set<string>();
+
+    const updateActive = () => {
+      // Among all visible sections, pick the one that appears first in navItems order
+      for (const item of navItems) {
+        const id = item.href.replace("#", "");
+        if (visibleSections.has(id)) {
+          setActive(item.href);
+          return;
+        }
+      }
+    };
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              visibleSections.add(id);
+            } else {
+              visibleSections.delete(id);
+            }
+          });
+          updateActive();
+        },
+        {
+          // Section is considered "active" when it occupies at least 30% of the viewport
+          // Adjust rootMargin to shift the trigger point (negative top = trigger later when scrolling down)
+          rootMargin: "-20% 0px -60% 0px",
+          threshold: 0,
+        }
+      );
+
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => {
+      observers.forEach((obs) => obs.disconnect());
+    };
+  }, []);
 
   return (
     <motion.header
