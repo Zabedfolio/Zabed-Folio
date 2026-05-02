@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { fadeUp, slideRight, staggerContainer } from "@/utils/motionVariants";
+import pic from "@/assets/zabed.png"
 
 const stats = [
   { value: "3+", label: "Years" },
@@ -65,7 +66,7 @@ export default function About() {
           >
             <div className="relative h-full w-full overflow-hidden rounded-[1.4rem]">
               <Image
-                src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1000&q=80"
+                src={pic}
                 alt="Portrait"
                 fill
                 className="object-cover"

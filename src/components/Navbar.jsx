@@ -36,7 +36,7 @@ export default function Navbar() {
         <div className="flex h-20 items-center justify-between gap-4">
           <Link href="#" className="relative z-10 leading-tight">
             <div className="text-sm font-bold uppercase tracking-[0.35em] text-white">ZABED</div>
-            <div className="text-sm font-bold uppercase tracking-[0.35em] text-[#ff4d00]">HOSSAIN</div>
+            <div className="text-sm font-bold uppercase tracking-[0.35em] text-[#ff4d00]">MAHMUD</div>
           </Link>
 
           <nav className="hidden rounded-full border border-white/10 bg-white/[0.03] p-1.5 backdrop-blur-xl md:flex">

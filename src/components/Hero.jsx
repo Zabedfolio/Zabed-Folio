@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRef } from "react";
 import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
+import avtr from "@/assets/avtr.png"
 
 const socialLinks = [
   { href: "https://github.com", icon: FaGithub, label: "GitHub" },
@@ -63,7 +64,7 @@ export default function Hero() {
               className="relative h-28 w-28 overflow-hidden rounded-2xl"
             >
               <Image
-                src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&q=80"
+                src={avtr}
                 alt="Developer portrait"
                 fill
                 className="object-cover"
