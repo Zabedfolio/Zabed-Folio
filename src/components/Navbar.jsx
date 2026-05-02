@@ -23,17 +23,12 @@ export default function Navbar() {
   const navBorder = useTransform(scrollY, [0, 200], ["rgba(255,255,255,0)", "rgba(255,255,255,0.07)"]);
   const navBlur = useTransform(scrollY, [0, 200], [0, 24]);
 
-  // Track active section based on scroll position
   useEffect(() => {
     const sectionIds = navItems.map((item) => item.href.replace("#", ""));
-
-    const observers: IntersectionObserver[] = [];
-
-    // We track which sections are currently visible and pick the topmost one
-    const visibleSections = new Set<string>();
+    const observers = [];
+    const visibleSections = new Set();
 
     const updateActive = () => {
-      // Among all visible sections, pick the one that appears first in navItems order
       for (const item of navItems) {
         const id = item.href.replace("#", "");
         if (visibleSections.has(id)) {
@@ -59,8 +54,6 @@ export default function Navbar() {
           updateActive();
         },
         {
-          // Section is considered "active" when it occupies at least 30% of the viewport
-          // Adjust rootMargin to shift the trigger point (negative top = trigger later when scrolling down)
           rootMargin: "-20% 0px -60% 0px",
           threshold: 0,
         }
@@ -80,7 +73,7 @@ export default function Navbar() {
       style={{
         backgroundColor: navBg,
         borderBottomColor: navBorder,
-        backdropFilter: useTransform(navBlur, (value) => `blur(${value}px) saturate(180%)`)
+        backdropFilter: useTransform(navBlur, (v) => `blur(${v}px) saturate(180%)`)
       }}
       className="sticky top-0 z-50 border-b"
     >
@@ -128,7 +121,7 @@ export default function Navbar() {
             </Dialog.Trigger>
 
             <AnimatePresence>
-              {open ? (
+              {open && (
                 <Dialog.Portal forceMount>
                   <Dialog.Overlay asChild>
                     <motion.div
@@ -138,6 +131,7 @@ export default function Navbar() {
                       exit={{ opacity: 0 }}
                     />
                   </Dialog.Overlay>
+
                   <Dialog.Content asChild>
                     <motion.div
                       initial={{ opacity: 0, y: -20 }}
@@ -146,7 +140,9 @@ export default function Navbar() {
                       className="fixed inset-0 z-[60] flex flex-col justify-between p-6"
                     >
                       <div className="flex items-center justify-between">
-                        <div className="text-sm font-bold uppercase tracking-[0.35em] text-white">Navigation</div>
+                        <div className="text-sm font-bold uppercase tracking-[0.35em] text-white">
+                          Navigation
+                        </div>
                         <Dialog.Close asChild>
                           <button className="rounded-full border border-white/10 bg-white/[0.04] p-3 text-white">
                             <HiOutlineX className="text-xl" />
@@ -183,7 +179,7 @@ export default function Navbar() {
                     </motion.div>
                   </Dialog.Content>
                 </Dialog.Portal>
-              ) : null}
+              )}
             </AnimatePresence>
           </Dialog.Root>
         </div>
