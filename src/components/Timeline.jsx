@@ -11,6 +11,7 @@ const education = [
 ];
 
 const experience = [
+  { date: "Present", institution: "Learning", detail: "Programming hero web development batch 13" },
   // { date: "2025 — Present", institution: "Freelance Creative Developer", detail: "Delivering premium portfolio, product, and brand websites for startups and independent founders." },
   // { date: "2023 — 2025", institution: "Frontend Developer", detail: "Built scalable UI systems, responsive dashboards, and polished marketing surfaces for client work." }
 ];
