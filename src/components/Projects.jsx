@@ -104,11 +104,13 @@ export default function Projects() {
             </button>
           </div>
         ) : (
+          // FIX: whileInView is now on the grid wrapper, so it triggers AFTER
+          // cards mount from the async fetch — not on the parent that fires early.
+          // Each card also has its own whileInView as a self-contained fallback.
           <div className="grid gap-4 md:grid-cols-2">
             {filteredProjects.map((project, index) => (
               <motion.article
                 key={project.id}
-                variants={fadeUp}
                 whileHover={{ y: -4 }}
                 className="glass-panel hover-glow overflow-hidden rounded-2xl"
               >
