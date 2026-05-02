@@ -6,13 +6,13 @@ import { useState } from "react";
 import { fadeUp, slideLeft, slideRight, staggerContainer } from "@/utils/motionVariants";
 
 const education = [
-  { date: "2022 — Present", institution: "BSc in Computer Science", detail: "Focused on modern web engineering, software architecture, and interactive systems." },
-  { date: "2020 — 2022", institution: "Advanced Frontend Self-Study", detail: "Built production projects while deepening expertise in React ecosystems and motion-driven UI." }
+  { date: "2023 — Present", institution: "BSc in Computer Science", detail: "International Islamic University Chittagong" },
+  { date: "2020 — 2022", institution: "Complete Web Development Batch 13", detail: "Programming Hero" }
 ];
 
 const experience = [
-  { date: "2025 — Present", institution: "Freelance Creative Developer", detail: "Delivering premium portfolio, product, and brand websites for startups and independent founders." },
-  { date: "2023 — 2025", institution: "Frontend Developer", detail: "Built scalable UI systems, responsive dashboards, and polished marketing surfaces for client work." }
+  // { date: "2025 — Present", institution: "Freelance Creative Developer", detail: "Delivering premium portfolio, product, and brand websites for startups and independent founders." },
+  // { date: "2023 — 2025", institution: "Frontend Developer", detail: "Built scalable UI systems, responsive dashboards, and polished marketing surfaces for client work." }
 ];
 
 export default function Timeline() {
@@ -36,7 +36,7 @@ export default function Timeline() {
 
         <Tabs.Root value={activeTab} onValueChange={setActiveTab}>
           <Tabs.List className="glass-panel flex w-fit rounded-full p-1.5">
-            {["education", "experience"].map((tab) => (
+            {["education", "experience"]?.map((tab) => (
               <Tabs.Trigger key={tab} value={tab} className="relative rounded-full px-5 py-2 text-sm capitalize text-white/55 data-[state=active]:text-white">
                 {activeTab === tab && <motion.span layoutId="timelineTab" className="absolute inset-0 rounded-full border border-[#ff4d00]/25 bg-[#ff4d00]/10" />}
                 <span className="relative z-10">{tab}</span>

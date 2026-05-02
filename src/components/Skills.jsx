@@ -15,13 +15,13 @@ const skills = [
   { name: "React", category: "Frontend", icon: FaReact, color: "#61dafb" },
   { name: "Tailwind CSS", category: "Frontend", icon: RiTailwindCssFill, color: "#38bdf8" },
   { name: "Framer Motion", category: "Frontend", icon: SiFramer, color: "#ff4d9c" },
-  { name: "Node.js", category: "Backend", icon: FaNodeJs, color: "#79c15b" },
+  // { name: "Node.js", category: "Backend", icon: FaNodeJs, color: "#79c15b" },
   { name: "MongoDB", category: "Backend", icon: SiMongodb, color: "#13aa52" },
-  { name: "Database Design", category: "Backend", icon: RiDatabase2Line, color: "#ff8c00" },
-  { name: "TypeScript", category: "Tools", icon: SiTypescript, color: "#3178c6" },
+  // { name: "Database Design", category: "Backend", icon: RiDatabase2Line, color: "#ff8c00" },
+  // { name: "TypeScript", category: "Tools", icon: SiTypescript, color: "#3178c6" },
   { name: "Git", category: "Tools", icon: FaGitAlt, color: "#f1502f" },
   { name: "Vercel", category: "Tools", icon: SiVercel, color: "#ffffff" },
-  { name: "AWS", category: "Tools", icon: FaAws, color: "#ff9900" },
+  // { name: "AWS", category: "Tools", icon: FaAws, color: "#ff9900" },
   { name: "Figma", category: "Design", icon: FaFigma, color: "#f24e1e" },
   { name: "UI Systems", category: "Design", icon: RiLayoutMasonryLine, color: "#ff4d00" }
 ];
@@ -74,7 +74,7 @@ export default function Skills() {
 
           <Tabs.Content value={active} className="mt-8">
             <motion.div variants={staggerContainer} initial="hidden" animate="show" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {filteredSkills.map((skill) => {
+              {filteredSkills?.map((skill) => {
                 const Icon = skill.icon;
                 return (
                   <motion.div

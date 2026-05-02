@@ -13,7 +13,7 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-3">
           <div>
             <div className="text-sm font-bold uppercase tracking-[0.35em] text-white">ZABED</div>
-            <div className="text-sm font-bold uppercase tracking-[0.35em] text-[#ff4d00]">HOSSAIN</div>
+            <div className="text-sm font-bold uppercase tracking-[0.35em] text-[#ff4d00]">MAHMUD</div>
             <p className="mt-4 max-w-sm text-white/45">Cinematic digital experiences for brands and products that need more than a template.</p>
           </div>
 
