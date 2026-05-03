@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaAws, FaFigma, FaGitAlt, FaNodeJs, FaReact } from "react-icons/fa";
 import { RiDatabase2Line, RiLayoutMasonryLine, RiTailwindCssFill } from "react-icons/ri";
-import { SiFramer, SiMongodb, SiNextdotjs,SiBetterauth,SiIconify, SiTypescript, SiVercel,SiHeroui,SiDaisyui } from "react-icons/si";
+import { SiFramer, SiMongodb, SiNextdotjs,SiBetterauth,SiIconify,SiGooglecloud, SiTypescript, SiVercel,SiHeroui,SiDaisyui } from "react-icons/si";
 import { fadeUp, scaleIn, staggerContainer } from "@/utils/motionVariants";
 
-const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library"];
+const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library","Authentication"];
 
 const skills = [
   { name: "Next.js", category: "Frontend", icon: SiNextdotjs, color: "#ffffff" },
@@ -17,7 +17,7 @@ const skills = [
   { name: "Framer Motion", category: "Frontend", icon: SiFramer, color: "#ff4d9c" },
   { name: "Node.js", category: "Backend", icon: FaNodeJs, color: "#79c15b" },
   { name: "MongoDB", category: "Backend", icon: SiMongodb, color: "#13aa52" },
-  { name: "Better Auth", category: "Tools", icon: SiBetterauth, color: "#ffffff" },
+  { name: "Better Auth", category: "Authentication", icon: SiBetterauth, color: "#ffffff" },
   // { name: "Database Design", category: "Backend", icon: RiDatabase2Line, color: "#ff8c00" },
   // { name: "TypeScript", category: "Tools", icon: SiTypescript, color: "#3178c6" },
   { name: "Git", category: "Tools", icon: FaGitAlt, color: "#f1502f" },
@@ -27,7 +27,8 @@ const skills = [
   { name: "UI Systems", category: "Design", icon: RiLayoutMasonryLine, color: "#ff4d00" },
   { name: "Hero UI", category: "UI Library", icon: SiHeroui, color: "#00d8ff" },
   { name: "DaisyUI", category: "UI Library", icon: SiDaisyui, color: "#5a0ef8" },
-  { name: "React Iconify", category: "Tools", icon: SiIconify, color: "#61dafb" }
+  { name: "React Iconify", category: "Tools", icon: SiIconify, color: "#61dafb" },
+  { name: "Google Cloud Console", category: "Authentication", icon: SiGooglecloud, color: "#e94334" }
 ];
 
 export default function Skills() {

@@ -26,14 +26,14 @@ export default function Footer() {
           </div>
 
           <div className="space-y-3 text-white/55">
-            <a href="https://github.com" target="_blank" rel="noreferrer" className="block transition hover:text-white">
+            <a href="https://github.com/Zabedfolio" target="_blank" rel="noreferrer" className="block transition hover:text-white">
               GitHub
             </a>
-            <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="block transition hover:text-white">
+            <a href="https://www.linkedin.com/in/zabedfolio/" target="_blank" rel="noreferrer" className="block transition hover:text-white">
               LinkedIn
             </a>
             <a href="mailto:hello@zabed.dev" className="block transition hover:text-white">
-              hello@zabed.dev
+              zabedfolio@gmail.com
             </a>
           </div>
         </div>

@@ -3,18 +3,19 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
-import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter,FaInstagram } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
 import avtr from "@/assets/avtr.png"
 
 const socialLinks = [
-  { href: "https://github.com", icon: FaGithub, label: "GitHub" },
-  { href: "https://linkedin.com", icon: FaLinkedinIn, label: "LinkedIn" },
-  { href: "https://twitter.com", icon: FaTwitter, label: "Twitter" },
-  { href: "https://facebook.com", icon: FaFacebookF, label: "Facebook" }
+  { href: "https://github.com/Zabedfolio", icon: FaGithub, label: "GitHub" },
+  { href: "https://www.linkedin.com/in/zabedfolio/", icon: FaLinkedinIn, label: "LinkedIn" },
+  // { href: "https://twitter.com", icon: FaTwitter, label: "Twitter" },
+  { href: "https://www.facebook.com/profile.php?id=61585623848571", icon: FaFacebookF, label: "Facebook" },
+  { href: "https://www.instagram.com/zaabed_maahmud/", icon: FaInstagram, label: "Instagram" }
 ];
 
-const marqueeItems = ["WEBFLOW", "VERCEL", "NEXT.JS", "AWS", "FIGMA", "MONGODB"];
+const marqueeItems = ["REACT", "VERCEL", "NEXT.JS", "BETTER AUTH", "FIGMA", "MONGODB", "NODEJS", "FRAMER MOTION", "HERO UI", "DAISY UI", "GRAVITY UI"];
 
 export default function Hero() {
   const heroRef = useRef(null);
@@ -49,7 +50,7 @@ export default function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ff4d00]/70" />
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-[#ff4d00]" />
             </span>
-            Available for projects · May 2026
+            Still Learning · May 2026
           </motion.div>
 
           <motion.div
@@ -96,7 +97,7 @@ export default function Hero() {
             transition={{ delay: 0.2 }}
             className="mx-auto mt-8 max-w-3xl text-lg leading-8 text-white/60 sm:text-xl"
           >
-            Frontend developer and creative engineer crafting immersive interfaces, premium digital systems, and deeply polished web experiences with performance at their core.
+            Not just code. Craft. I build frontend experiences that perform as hard as they look — immersive, precise, and built to last.
           </motion.p>
 
           <motion.div
@@ -126,7 +127,7 @@ export default function Hero() {
           </motion.div>
 
           <div className="mt-10 flex items-center justify-center gap-3">
-            {socialLinks.map(({ href, icon: Icon, label }) => (
+            {socialLinks?.map(({ href, icon: Icon, label }) => (
               <motion.a
                 key={label}
                 href={href}
