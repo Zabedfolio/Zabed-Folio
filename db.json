@@ -1,24 +1,6 @@
 {
   "projects": [
     {
-      "id": "ai-hub",
-      "title": "AI Hub",
-      "category": "Frontend",
-      "year": "2026",
-      "description": "Experience the full spectrum of frontier intelligence — all the most advanced AI models, unified under a single, powerful subscription.",
-      "image": "https://i.ibb.co.com/CK7HmBhK/aihub.png",
-      "tags": [
-        "Next.js",
-        "React",
-        "Tailwind",
-        "Daisy UI"
-      ],
-      "challenge": "The primary challenge was achieving a balance between high-end, visually rich motion design and maintaining fast, seamless product browsing performance—especially across dense catalog views with multiple interactive elements.",
-      "improvements": "Future iterations will focus on implementing personalized recommendations, A/B testing for product storytelling components, and integrating smarter inventory insights to enhance user decision-making and overall engagement.",
-      "liveUrl": "https://ai-model-hub-zabed.netlify.app/",
-      "githubUrl": "https://github.com/Zabedfolio/AI-Model-Hub"
-    },
-    {
       "id": "tile-nest",
       "title": "TileNest",
       "category": "Frontend",
@@ -64,6 +46,81 @@
       "improvements": "Future enhancements include personalized news feeds, real-time updates, improved search and filtering, and stronger content moderation and editorial workflow tools to support scalable journalism.",
       "liveUrl": "https://dragon-news-zabedfolio.vercel.app/",
       "githubUrl": "https://github.com/Zabedfolio/Dragon-News"
+    },
+    {
+      "id": "keenkeeper",
+      "title": "Keen Keeper",
+      "category": "Frontend",
+      "year": "2026",
+      "description": "Your personal shelf of meaningful connections. Browse, tend, and nurture the relationships that matter most.",
+      "image": "https://i.ibb.co.com/VYn2FXd4/keenkeeper.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind",
+        "Daisy UI",
+        "Vercel"
+      ],
+      "challenge": "The key challenge was designing a system that feels personal and emotionally intuitive while still being structured enough to manage and browse meaningful relationships without becoming cluttered or overwhelming.",
+      "improvements": "Future iterations could introduce smart reminders for staying in touch, relationship tagging and grouping, and lightweight analytics to help users reflect on connection frequency and relationship health over time.",
+      "liveUrl": "https://kin-keeper-zabedfolio.vercel.app/",
+      "githubUrl": "https://github.com/Zabedfolio/KinKeeper"
+    },
+    {
+      "id": "dreambpl",
+      "title": "BPL Dream 11",
+      "category": "Frontend",
+      "year": "2026",
+      "description": "Assemble Your Ultimate Dream 11 Cricket Team,Beyond Boundaries Beyond Limits",
+      "image": "https://i.ibb.co.com/v4d5c1z6/bpl.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind",
+        "Daisy UI",
+        "Netlify"
+      ],
+      "challenge": "The main challenge was designing an engaging team-building experience that balances strategic player selection with clear UI feedback, while keeping performance smooth during dynamic squad updates and comparisons.",
+      "improvements": "Future enhancements could include player statistics integration, real-time match data updates, budget optimization suggestions, and head-to-head team comparison features to make squad building more competitive and data-driven.",
+      "liveUrl": "https://bpl-dream-15.netlify.app/",
+      "githubUrl": "https://github.com/Zabedfolio/BPL-Dream-11"
+    },
+    {
+      "id": "digitools",
+      "title": "Digitools",
+      "category": "Frontend",
+      "year": "2026",
+      "description": "Access premium AI tools, design assets, templates, and productivity software—all in one place.Start creating faster today. Explore Products",
+      "image": "https://i.ibb.co.com/C50Crfdz/digitools.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind",
+        "Daisy UI",
+        "Netlify"
+      ],
+      "challenge": "The key challenge was structuring a diverse collection of AI tools, design assets, and templates into a unified, intuitive browsing experience while maintaining fast navigation and consistent UI patterns across varied content types.",
+      "improvements": "Future iterations could introduce smart categorization using AI-based tagging, personalized tool recommendations, user collections or saved workflows, and deeper integrations with external APIs for real-time tool access and updates.",
+      "liveUrl": "https://digitools-zabed.netlify.app/",
+      "githubUrl": "https://github.com/Zabedfolio/Digitools"
+    },
+    {
+      "id": "ai-hub",
+      "title": "AI Hub",
+      "category": "Frontend",
+      "year": "2026",
+      "description": "Experience the full spectrum of frontier intelligence — all the most advanced AI models, unified under a single, powerful subscription.",
+      "image": "https://i.ibb.co.com/CK7HmBhK/aihub.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind",
+        "Daisy UI"
+      ],
+      "challenge": "The primary challenge was achieving a balance between high-end, visually rich motion design and maintaining fast, seamless product browsing performance—especially across dense catalog views with multiple interactive elements.",
+      "improvements": "Future iterations will focus on implementing personalized recommendations, A/B testing for product storytelling components, and integrating smarter inventory insights to enhance user decision-making and overall engagement.",
+      "liveUrl": "https://ai-model-hub-zabed.netlify.app/",
+      "githubUrl": "https://github.com/Zabedfolio/AI-Model-Hub"
     }
   ]
 }
