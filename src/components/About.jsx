@@ -6,9 +6,9 @@ import { fadeUp, slideRight, staggerContainer } from "@/utils/motionVariants";
 import pic from "@/assets/zabed.png"
 
 const stats = [
-  { value: "3+", label: "Years" },
-  { value: "20+", label: "Projects" },
-  { value: "10+", label: "Clients" }
+  { value: "6+", label: "Months" },
+  { value: "10+", label: "Projects" },
+  // { value: "10+", label: "Clients" }
 ];
 
 export default function About() {
@@ -48,7 +48,7 @@ export default function About() {
           </motion.div>
 
           <motion.div variants={fadeUp} className="grid gap-4 sm:grid-cols-3">
-            {stats.map((stat) => (
+            {stats?.map((stat) => (
               <div key={stat.label} className="glass-panel hover-glow rounded-2xl border-l-2 border-l-[#ff4d00] p-5">
                 <div className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-[-0.04em] text-white">{stat.value}</div>
                 <div className="font-mono text-xs uppercase tracking-[0.24em] text-white/35">{stat.label}</div>
