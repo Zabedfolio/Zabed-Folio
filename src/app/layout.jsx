@@ -3,6 +3,7 @@ import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
 export const metadata = {
+  metadataBase: new URL("https://zabedfolio.vercel.app"),
   title: "Zabed Mahmud — Frontend Developer & Creative Engineer",
   description:
     "Portfolio of Zabed Mahmud, a frontend developer building cinematic Next.js experiences with sharp interaction design and production-ready execution.",
