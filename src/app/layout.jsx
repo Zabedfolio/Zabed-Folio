@@ -3,12 +3,12 @@ import CustomCursor from "@/components/CustomCursor";
 import "./globals.css";
 
 export const metadata = {
-  title: "Zabed Hossain — Frontend Developer & Creative Engineer",
+  title: "Zabed Mahmud — Frontend Developer & Creative Engineer",
   description:
-    "Portfolio of Zabed Hossain, a frontend developer building cinematic Next.js experiences with sharp interaction design and production-ready execution.",
+    "Portfolio of Zabed Mahmud, a frontend developer building cinematic Next.js experiences with sharp interaction design and production-ready execution.",
   keywords: ["frontend developer", "react", "nextjs", "portfolio", "bangladesh"],
   openGraph: {
-    title: "Zabed Hossain — Frontend Developer & Creative Engineer",
+    title: "Zabed Mahmud — Frontend Developer & Creative Engineer",
     description: "Cinematic developer portfolio built with Next.js, Tailwind CSS, Framer Motion, and Radix UI.",
     images: [
       {
@@ -21,7 +21,7 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Zabed Hossain — Frontend Developer & Creative Engineer",
+    title: "Zabed Mahmud — Frontend Developer & Creative Engineer",
     description: "Cinematic developer portfolio built with Next.js and Framer Motion."
   },
   robots: "index, follow"
