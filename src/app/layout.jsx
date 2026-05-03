@@ -6,7 +6,7 @@ export const metadata = {
   metadataBase: new URL("https://zabedfolio.vercel.app"),
   title: "Zabed Mahmud — Frontend Developer & Creative Engineer",
   description:
-    "Portfolio of Zabed Mahmud, a frontend developer building cinematic Next.js experiences with sharp interaction design and production-ready execution.",
+    "Portfolio of Zabed Mahmud, a frontend developer building Next.js experiences with sharp interaction design and production-ready execution.",
   keywords: ["frontend developer", "react", "nextjs", "portfolio", "bangladesh"],
   openGraph: {
     title: "Zabed Mahmud — Frontend Developer & Creative Engineer",

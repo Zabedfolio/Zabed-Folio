@@ -18,6 +18,7 @@ const skills = [
   { name: "Node.js", category: "Backend", icon: FaNodeJs, color: "#79c15b" },
   { name: "MongoDB", category: "Backend", icon: SiMongodb, color: "#13aa52" },
   { name: "Better Auth", category: "Tools", icon: SiBetterauth, color: "#ffffff" },
+  
   // { name: "Database Design", category: "Backend", icon: RiDatabase2Line, color: "#ff8c00" },
   // { name: "TypeScript", category: "Tools", icon: SiTypescript, color: "#3178c6" },
   { name: "Git", category: "Tools", icon: FaGitAlt, color: "#f1502f" },
