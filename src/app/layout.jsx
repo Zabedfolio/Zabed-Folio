@@ -12,7 +12,7 @@ export const metadata = {
     description: "Cinematic developer portfolio built with Next.js, Tailwind CSS, Framer Motion, and Radix UI.",
     images: [
       {
-        url: "https://i.ibb.co.com/JRzktzRs/avtr.png",
+        url: "https://i.ibb.co/JRzktzRs/avtr.png",
         width: 1200,
         height: 630
       }
