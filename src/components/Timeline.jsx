@@ -7,7 +7,7 @@ import { fadeUp, slideLeft, slideRight, staggerContainer } from "@/utils/motionV
 
 const education = [
   { date: "2023 — Present", institution: "BSc in Computer Science & Engineering", detail: "International Islamic University Chittagong" },
-  { date: "2020 — 2022", institution: "Complete Web Development Batch 13", detail: "Programming Hero" }
+  { date: "January,2026 — Present", institution: "Complete Web Development Batch 13", detail: "Programming Hero" }
 ];
 
 const experience = [
