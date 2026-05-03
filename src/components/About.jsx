@@ -29,6 +29,7 @@ export default function About() {
             The person behind the code.
           </motion.h2>
           <motion.div variants={fadeUp} className="space-y-5 text-lg leading-8 text-white/58">
+          <p>Hi, I'm <span className="font-bold text-[#ff5f1a]">Zabed Mahmud</span></p>
             <p>
               I started by obsessing over how interfaces feel, not just how they function. That curiosity evolved into a
               practice built around <span className="font-medium text-white">precision, atmosphere, and storytelling</span>.
