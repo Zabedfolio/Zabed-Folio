@@ -1,43 +1,69 @@
 {
   "projects": [
     {
-      "id": "nebula-commerce",
-      "title": "Nebula Commerce",
-      "category": "Full Stack",
-      "year": "2026",
-      "description": "A conversion-focused commerce experience with cinematic product storytelling, cart flows, and performance-first storefront architecture.",
-      "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["Next.js", "MongoDB", "Stripe", "Framer Motion"],
-      "challenge": "The biggest challenge was balancing luxurious motion with fast product browsing, especially across high-density catalog surfaces.",
-      "improvements": "Next iteration would add personalized merchandising, A/B tested product narrative blocks, and deeper inventory intelligence.",
-      "liveUrl": "https://vercel.com",
-      "githubUrl": "https://github.com"
-    },
-    {
-      "id": "horizon-studio",
-      "title": "Horizon Studio",
+      "id": "ai-hub",
+      "title": "AI Hub",
       "category": "Frontend",
-      "year": "2025",
-      "description": "A premium creative agency platform with animated case studies, immersive transitions, and flexible CMS-driven content zones.",
-      "image": "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["React", "Tailwind", "GSAP", "Sanity"],
-      "challenge": "The project demanded high-impact storytelling without sacrificing accessibility or maintainability for the editorial team.",
-      "improvements": "A stronger design ops pipeline and more granular motion preferences would make future content publishing smoother.",
-      "liveUrl": "https://vercel.com",
-      "githubUrl": "https://github.com"
+      "year": "2026",
+      "description": "Experience the full spectrum of frontier intelligence — all the most advanced AI models, unified under a single, powerful subscription.",
+      "image": "https://i.ibb.co.com/CK7HmBhK/aihub.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind",
+        "Daisy UI"
+      ],
+      "challenge": "The primary challenge was achieving a balance between high-end, visually rich motion design and maintaining fast, seamless product browsing performance—especially across dense catalog views with multiple interactive elements.",
+      "improvements": "Future iterations will focus on implementing personalized recommendations, A/B testing for product storytelling components, and integrating smarter inventory insights to enhance user decision-making and overall engagement.",
+      "liveUrl": "https://ai-model-hub-zabed.netlify.app/",
+      "githubUrl": "https://github.com/Zabedfolio/AI-Model-Hub"
     },
     {
-      "id": "atlas-board",
-      "title": "Atlas Board",
-      "category": "Design",
-      "year": "2024",
-      "description": "A design-system-driven dashboard for product operations with tight information hierarchy, modular UI patterns, and polished data views.",
-      "image": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80",
-      "tags": ["Next.js", "TypeScript", "Radix UI", "Figma"],
-      "challenge": "The hard part was creating enterprise-grade density while still making the interface feel elegant and visually breathable.",
-      "improvements": "Future work would expand the component token system and formalize advanced accessibility testing in CI.",
-      "liveUrl": "https://vercel.com",
-      "githubUrl": "https://github.com"
+      "id": "tile-nest",
+      "title": "TileNest",
+      "category": "Frontend",
+      "year": "2026",
+      "description": "A modern tile showcase platform designed to explore, filter, and visualize a wide range of tile designs. It combines smooth animations with structured browsing to help users discover styles, patterns, and layouts efficiently.",
+      "image": "https://i.ibb.co.com/RpxtygvX/tilenest.png",
+      "tags": [
+        "React",
+        "Tailwind",
+        "Next.js",
+        "Hero UI",
+        "Daisy UI",
+        "Better Auth",
+        "Gravity UI",
+        "MongoDB",
+        "Framer Motion",
+        "Vercel",
+        "Google Cloud Console"
+      ],
+      "challenge": "The main challenge was handling a visually dense grid of tile assets while preserving performance and ensuring smooth interactions, especially when applying filters, animations, and dynamic content loading.",
+      "improvements": "Future improvements include advanced filtering by material and finish, user-driven collections or favorites, and optimized media loading strategies to further enhance performance across large tile datasets.",
+      "liveUrl": "https://tiles-gallery-zabedfolio.vercel.app/",
+      "githubUrl": "https://github.com/Zabedfolio/Tiles-Gallery"
+    },
+    {
+      "id": "dragon-news",
+      "title": "Dragon News",
+      "category": "Frontend",
+      "year": "2026",
+      "description": "A modern news platform built to deliver timely, unbiased journalism with a clean reading experience. It features structured content sections, category-based navigation, and responsive layouts to ensure seamless access across devices.",
+      "image": "https://i.ibb.co.com/hRhrNZ6P/dragonnews.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind",
+        "Daisy UI",
+        "Google Cloud Console",
+        "MongoDB",
+        "Better Auth",
+        "Vercel"
+      ],
+      "challenge": "The main challenge was organizing large volumes of news content into a clear, digestible structure while maintaining fast load times and ensuring a smooth reading experience across different screen sizes.",
+      "improvements": "Future enhancements include personalized news feeds, real-time updates, improved search and filtering, and stronger content moderation and editorial workflow tools to support scalable journalism.",
+      "liveUrl": "https://dragon-news-zabedfolio.vercel.app/",
+      "githubUrl": "https://github.com/Zabedfolio/Dragon-News"
     }
   ]
 }

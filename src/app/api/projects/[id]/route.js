@@ -25,8 +25,8 @@ async function fetchProjectFromJsonServer(id) {
 }
 
 export async function GET(_request, { params }) {
-  const normalizedId = decodeURIComponent(params.id || "").toLowerCase();
-
+  const { id } = await params;
+  const normalizedId = decodeURIComponent(id || "").toLowerCase();
   const project =
     (await fetchProjectFromJsonServer(normalizedId)) ??
     db.projects.find((p) => String(p.id).toLowerCase() === normalizedId) ??

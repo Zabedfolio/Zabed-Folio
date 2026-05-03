@@ -59,10 +59,12 @@ export default function ProjectDetails({ projectId }) {
         </div>
       ) : project ? (
         <div className="glass-panel overflow-hidden rounded-[2rem]">
-          <div className="relative h-72">
-            <Image src={project.image} alt={project.title} fill className="object-cover" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
-          </div>
+          {project.image ? (
+            <div className="relative h-72">
+              <Image src={project.image} alt={project.title ?? "Project image"} fill className="object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/30 to-transparent" />
+            </div>
+          ) : null}
 
           <div className="space-y-8 p-6 sm:p-10">
             <div className="space-y-4">
@@ -72,7 +74,7 @@ export default function ProjectDetails({ projectId }) {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              {project.tags.map((tag) => (
+              {(project?.tags ?? []).map((tag) => (
                 <span key={tag} className="rounded-full border border-white/10 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.24em] text-white/45">
                   {tag}
                 </span>
