@@ -6,11 +6,28 @@ import { FaEnvelope, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { fadeUp, staggerContainer } from "@/utils/motionVariants";
+import emailjs from "emailjs-com";
+
 
 const contactCards = [
-  { label: "Email", value: "hello@zabed.dev", icon: FaEnvelope },
-  { label: "Phone", value: "+880 1234 567890", icon: FaPhoneAlt },
-  { label: "WhatsApp", value: "+880 1234 567890", icon: FaWhatsapp }
+  {
+    label: "Email",
+    value: "zabedfolio@gmail.com",
+    icon: FaEnvelope,
+    href: "mailto:zabedfolio@gmail.com"
+  },
+  {
+    label: "Phone",
+    value: "+880 1979 333880",
+    icon: FaPhoneAlt,
+    href: "tel:+8801979333880"
+  },
+  {
+    label: "WhatsApp",
+    value: "+880 1979 333880",
+    icon: FaWhatsapp,
+    href: "https://wa.me/8801979333880"
+  }
 ];
 
 const initialState = {
@@ -29,19 +46,38 @@ export default function Contact() {
     setForm((current) => ({ ...current, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setLoading(true);
+  const handleSubmit = async (event) => {
+  event.preventDefault();
+  setLoading(true);
 
-    window.setTimeout(() => {
-      setLoading(false);
-      setForm(initialState);
-      toast.success("Message captured. Thanks for reaching out.", {
-        className: "toast-theme",
-        bodyClassName: "text-sm"
-      });
-    }, 1200);
+  const templateParams = {
+    name: form.name,
+    email: form.email,
+    phone: form.phone,
+    message: form.message,
   };
+
+  try {
+    await emailjs.send(
+      "service_t1jbkqn",     
+      "template_xhala38",     
+      templateParams,
+      "aPfInZVkZDN3gQXkT"       
+    );
+
+    toast.success("Message sent successfully!", {
+      className: "toast-theme",
+      bodyClassName: "text-sm",
+    });
+
+    setForm(initialState);
+  } catch (error) {
+    console.error("EmailJS Error:", error);
+    toast.error("Failed to send message. Try again.");
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <div id="contact" className="section-shell py-24 sm:py-32">
@@ -58,16 +94,27 @@ export default function Contact() {
           </motion.p>
 
           <motion.div variants={fadeUp} className="space-y-4">
-            {contactCards.map(({ label, value, icon: Icon }) => (
-              <div key={label} className="glass-panel hover-glow flex items-center gap-4 rounded-2xl p-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#ff4d00]/20 bg-[#ff4d00]/10 text-[#ff8c00]">
-                  <Icon />
+            {contactCards.map(({ label, value, icon: Icon, href }) => (
+              <a
+                key={label}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block"
+              >
+                <div className="glass-panel hover-glow flex items-center gap-4 rounded-2xl p-4 cursor-pointer">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-[#ff4d00]/20 bg-[#ff4d00]/10 text-[#ff8c00]">
+                    <Icon />
+                  </div>
+
+                  <div>
+                    <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/30">
+                      {label}
+                    </div>
+                    <div className="mt-1 text-white/75">{value}</div>
+                  </div>
                 </div>
-                <div>
-                  <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-white/30">{label}</div>
-                  <div className="mt-1 text-white/75">{value}</div>
-                </div>
-              </div>
+              </a>
             ))}
           </motion.div>
 
