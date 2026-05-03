@@ -59,12 +59,12 @@ export default function Skills() {
         </div>
 
         <Tabs.Root value={active} onValueChange={setActive}>
-          <Tabs.List className="glass-panel flex w-fit flex-wrap gap-2 rounded-full p-1.5">
+          <Tabs.List className="glass-panel flex w-full max-w-full flex-wrap justify-center gap-1.5 rounded-2xl p-1.5 sm:w-fit sm:gap-2 sm:rounded-full">
             {filters.map((filter) => (
               <Tabs.Trigger
                 key={filter}
                 value={filter}
-                className="relative rounded-full px-4 py-2 text-sm text-white/55 transition data-[state=active]:text-white"
+                className="relative whitespace-nowrap rounded-full px-3 py-1.5 text-xs text-white/55 transition data-[state=active]:text-white sm:px-4 sm:py-2 sm:text-sm"
               >
                 {active === filter && (
                   <motion.span
@@ -90,7 +90,7 @@ export default function Skills() {
                   >
                     <div className="flex items-start justify-between">
                       <Icon className="text-[28px]" style={{ color: skill.color }} />
-                      <span className="rounded-full border border-white/10 px-2 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-white/35">
+                      <span className="whitespace-nowrap rounded-full border border-white/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-white/35 sm:text-[10px] sm:tracking-[0.22em]">
                         {skill.category}
                       </span>
                     </div>

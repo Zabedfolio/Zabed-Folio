@@ -13,7 +13,7 @@ export default function ParallaxCanvas() {
 
   return (
     <>
-      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden [contain:paint]">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_120%,#1a0800_0%,#0d0400_40%,#050505_100%)]" />
         <GridOverlay />
         <GlowBlobs />

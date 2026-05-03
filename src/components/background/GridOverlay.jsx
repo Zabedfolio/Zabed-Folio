@@ -18,7 +18,7 @@ export default function GridOverlay() {
       className="absolute inset-x-0 bottom-[-12%] h-[62vh] opacity-70"
     >
       <svg
-        className="h-full w-full [transform:perspective(600px)_rotateX(60deg)]"
+        className="bg-grid-tilt h-full w-full"
         viewBox="0 0 1600 800"
         fill="none"
         preserveAspectRatio="none"
