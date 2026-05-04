@@ -26,12 +26,12 @@
       "githubUrl": "https://github.com/Zabedfolio/Tiles-Gallery"
     },
     {
-      "id": "dragon-news",
-      "title": "Dragon News",
+      "id": "pixgen-ai",
+      "title": "Pixgen AI",
       "category": "Frontend",
       "year": "2026",
-      "description": "A modern news platform built to deliver timely, unbiased journalism with a clean reading experience. It features structured content sections, category-based navigation, and responsive layouts to ensure seamless access across devices.",
-      "image": "https://i.ibb.co.com/hRhrNZ6P/dragonnews.png",
+      "description": "A creative AI-powered platform where users can discover, explore, and use high-quality prompts to generate stunning images effortlessly using modern generative AI workflows.",
+      "image": "https://i.ibb.co.com/pjQ7jv3X/pixgen.png",
       "tags": [
         "Next.js",
         "React",
@@ -40,12 +40,13 @@
         "Google Cloud Console",
         "MongoDB",
         "Better Auth",
-        "Vercel"
+        "Vercel",
+        "Hero UI"
       ],
-      "challenge": "The main challenge was organizing large volumes of news content into a clear, digestible structure while maintaining fast load times and ensuring a smooth reading experience across different screen sizes.",
-      "improvements": "Future enhancements include personalized news feeds, real-time updates, improved search and filtering, and stronger content moderation and editorial workflow tools to support scalable journalism.",
-      "liveUrl": "https://dragon-news-zabedfolio.vercel.app/",
-      "githubUrl": "https://github.com/Zabedfolio/Dragon-News"
+      "challenge": "The main challenge was designing a structured and intuitive prompt discovery experience that allows users to efficiently browse, filter, and understand high-quality image generation prompts while keeping the UI fast, responsive, and visually engaging across all devices.",
+      "improvements": "Future enhancements include personalized prompt recommendations, real-time prompt updates, improved search and filtering, and a stronger content moderation system. Additionally, email verification with OTP using Better Auth will be implemented to enhance account security and user trust, along with a more scalable authentication flow.",
+      "liveUrl": "https://pixgen-ai-zabedfolio.vercel.app/",
+      "githubUrl": "https://github.com/Zabedfolio/Pixgen-AI"
     },
     {
       "id": "keenkeeper",
