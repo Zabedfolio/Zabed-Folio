@@ -1,6 +1,27 @@
 {
   "projects": [
     {
+      "id": "sportnest",
+      "title": "SportNest",
+      "category": "Full Stack",
+      "year": "2026",
+      "description": "A full-stack sports facility booking platform that helps players, teams, and organizers discover venues, reserve time slots, and manage bookings in one place.",
+      "image": "https://i.ibb.co.com/PvBJ98M9/Mockup-Views-2x-PNG-20260522-558.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind",
+        "Daisy UI",
+        "MongoDB",
+        "Better Auth",
+        "Vercel"
+      ],
+      "challenge": "The key challenge was designing a seamless booking experience with real-time slot selection while managing authentication, protected routes, and a decoupled client-server architecture — all without friction for the end user.",
+      "improvements": "Future iterations could introduce payment gateway integration, booking cancellation and rescheduling, owner dashboards with analytics, real-time availability updates via WebSockets, and a review and rating system for facilities.",
+      "liveUrl": "https://sport-nest-zabedfolio.vercel.app/",
+      "githubUrl": "https://github.com/Zabedfolio/SportNest-Client"
+    },
+    {
       "id": "tile-nest",
       "title": "TileNest",
       "category": "Frontend",
