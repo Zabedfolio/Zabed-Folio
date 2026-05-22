@@ -39,7 +39,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-white/5 pt-6 font-mono text-xs uppercase tracking-[0.2em] text-white/15">
-          © 2026 Zabed Mahmud · Made with Next.js & ♥
+          © 2026 Zabed Mahmud — All rights reserved.
         </div>
       </div>
     </footer>
