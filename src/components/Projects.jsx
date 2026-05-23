@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { projectCategories } from "@/data/projects";
 import { fetchProjects } from "@/utils/projectApi";
 import { fadeUp, staggerContainer } from "@/utils/motionVariants";
@@ -13,7 +14,10 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [marqueeEnabled, setMarqueeEnabled] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [canScrollPrev, setCanScrollPrev] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+  const carouselRef = useRef(null);
 
   const loadProjects = useCallback(async () => {
     try {
@@ -32,29 +36,80 @@ export default function Projects() {
     loadProjects();
   }, [loadProjects]);
 
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-reduced-motion: no-preference) and (pointer: fine)");
-    const update = () => setMarqueeEnabled(media.matches);
-    update();
-    media.addEventListener("change", update);
-    return () => media.removeEventListener("change", update);
-  }, []);
-
   const filteredProjects = useMemo(() => {
     return activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory);
   }, [activeCategory, projects]);
 
-  const marqueeProjects = useMemo(() => {
-    if (filteredProjects.length <= 1) return filteredProjects;
-    if (!marqueeEnabled) return filteredProjects;
-    return [...filteredProjects, ...filteredProjects];
-  }, [filteredProjects, marqueeEnabled]);
+  const syncCarousel = useCallback(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
 
-  const renderProjectCard = (project, index, { duplicateKey = false } = {}) => (
+    const { scrollLeft, clientWidth, scrollWidth } = carousel;
+    setCanScrollPrev(scrollLeft > 4);
+    setCanScrollNext(scrollLeft + clientWidth < scrollWidth - 4);
+
+    const cards = carousel.querySelectorAll("[data-project-card]");
+    if (!cards.length) return;
+
+    const center = scrollLeft + clientWidth / 2;
+    let nearest = 0;
+    let nearestDistance = Infinity;
+
+    cards.forEach((card, index) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const distance = Math.abs(center - cardCenter);
+      if (distance < nearestDistance) {
+        nearestDistance = distance;
+        nearest = index;
+      }
+    });
+
+    setActiveIndex(nearest);
+  }, []);
+
+  useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    carousel.scrollTo({ left: 0, behavior: "instant" });
+    setActiveIndex(0);
+    syncCarousel();
+
+    const onScroll = () => syncCarousel();
+    carousel.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+
+    return () => {
+      carousel.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+  }, [filteredProjects, syncCarousel]);
+
+  const scrollCarousel = (direction) => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const card = carousel.querySelector("[data-project-card]");
+    const step = card ? card.offsetWidth + 16 : carousel.clientWidth * 0.9;
+    carousel.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
+
+  const scrollToIndex = (index) => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const card = carousel.querySelectorAll("[data-project-card]")[index];
+    if (!card) return;
+
+    carousel.scrollTo({ left: card.offsetLeft, behavior: "smooth" });
+  };
+
+  const renderProjectCard = (project, index) => (
     <motion.article
-      key={duplicateKey ? `${project.id}-dup-${index}` : project.id}
+      key={project.id}
+      data-project-card
       whileHover={{ y: -4 }}
-      className="glass-panel hover-glow w-[min(88vw,420px)] shrink-0 snap-start overflow-hidden rounded-2xl"
+      className="glass-panel hover-glow w-[min(88vw,420px)] shrink-0 snap-start overflow-hidden rounded-2xl lg:w-[calc((100%-1rem)/2)]"
     >
       <div className="relative h-52 overflow-hidden">
         <Image
@@ -67,10 +122,10 @@ export default function Projects() {
       </div>
       <div className="space-y-4 p-6">
         <div className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff4d00]">
-          {String((index % filteredProjects.length) + 1).padStart(2, "0")} · {project.year}
+          {String(index + 1).padStart(2, "0")} · {project.year}
         </div>
         <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white">{project.title}</h3>
-        <p className="line-clamp-3 text-white/55">{project.description}</p>
+        <p className="text-white/55">{project.description}</p>
         <div className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <span key={tag} className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
@@ -84,6 +139,8 @@ export default function Projects() {
       </div>
     </motion.article>
   );
+
+  const showControls = filteredProjects.length > 1;
 
   return (
     <div id="projects" className="section-shell py-24 sm:py-32">
@@ -123,7 +180,7 @@ export default function Projects() {
         {loading ? (
           <div className="flex gap-4 overflow-hidden">
             {Array.from({ length: 3 }).map((_, index) => (
-              <div key={index} className="glass-panel w-[min(88vw,420px)] shrink-0 overflow-hidden rounded-2xl">
+              <div key={index} className="glass-panel w-[min(88vw,420px)] shrink-0 overflow-hidden rounded-2xl lg:w-[calc((100%-1rem)/2)]">
                 <div className="h-52 animate-pulse bg-white/[0.04]" />
                 <div className="space-y-4 p-6">
                   <div className="h-3 w-28 animate-pulse rounded bg-white/[0.06]" />
@@ -159,27 +216,58 @@ export default function Projects() {
             whileInView="show"
             viewport={{ once: true, amount: 0.15 }}
             variants={fadeUp}
-            className="relative"
+            className="space-y-6"
           >
             <div
-              className={filteredProjects.length > 1 ? "projects-marquee" : "overflow-x-auto"}
+              ref={carouselRef}
+              className="projects-carousel flex gap-4 overflow-x-auto scroll-smooth py-1"
               aria-label="Project showcase"
             >
-              <div
-                key={`${activeCategory}-${marqueeEnabled}`}
-                className={
-                  filteredProjects.length > 1 && marqueeEnabled
-                    ? "projects-marquee-track py-1"
-                    : "flex gap-4 py-1"
-                }
-              >
-                {marqueeProjects.map((project, index) =>
-                  renderProjectCard(project, index, {
-                    duplicateKey: marqueeEnabled && index >= filteredProjects.length,
-                  })
-                )}
-              </div>
+              {filteredProjects.map((project, index) => renderProjectCard(project, index))}
             </div>
+
+            {showControls && (
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="font-mono text-[11px] uppercase tracking-[0.24em] text-white/35">
+                  {String(activeIndex + 1).padStart(2, "0")} / {String(filteredProjects.length).padStart(2, "0")}
+                </p>
+
+                <div className="flex flex-1 items-center gap-1.5 sm:max-w-md sm:px-6">
+                  {filteredProjects.map((project, index) => (
+                    <button
+                      key={project.id}
+                      type="button"
+                      aria-label={`Go to project ${index + 1}`}
+                      onClick={() => scrollToIndex(index)}
+                      className={`h-0.5 flex-1 rounded-full transition duration-300 ${
+                        index === activeIndex ? "bg-[#ff4d00]" : "bg-white/10 hover:bg-white/20"
+                      }`}
+                    />
+                  ))}
+                </div>
+
+                <div className="flex gap-2">
+                  <button
+                    type="button"
+                    aria-label="Previous project"
+                    onClick={() => scrollCarousel(-1)}
+                    disabled={!canScrollPrev}
+                    className="glass-panel flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/60 transition hover:border-[#ff4d00]/30 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+                  >
+                    <FiChevronLeft className="text-lg" />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next project"
+                    onClick={() => scrollCarousel(1)}
+                    disabled={!canScrollNext}
+                    className="glass-panel flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-white/60 transition hover:border-[#ff4d00]/30 hover:text-white disabled:pointer-events-none disabled:opacity-30"
+                  >
+                    <FiChevronRight className="text-lg" />
+                  </button>
+                </div>
+              </div>
+            )}
           </motion.div>
         )}
       </motion.div>

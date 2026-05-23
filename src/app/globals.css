@@ -117,51 +117,14 @@ body::selection {
   }
 }
 
-.projects-marquee {
-  overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 6%,
-    #000 94%,
-    transparent
-  );
+.projects-carousel {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
 }
 
-.projects-marquee-track {
-  display: flex;
-  width: max-content;
-  gap: 1rem;
-  animation: projects-marquee 48s linear infinite;
-  will-change: transform;
-}
-
-.projects-marquee-track:hover,
-.projects-marquee-track:focus-within {
-  animation-play-state: paused;
-}
-
-@keyframes projects-marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@media (prefers-reduced-motion: reduce), (pointer: coarse) {
-  .projects-marquee {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: thin;
-    mask-image: none;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .projects-marquee-track {
-    animation: none;
-    padding-bottom: 0.25rem;
-  }
+.projects-carousel::-webkit-scrollbar {
+  display: none;
 }
 
