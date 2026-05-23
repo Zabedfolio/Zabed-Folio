@@ -13,6 +13,7 @@ export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [marqueeEnabled, setMarqueeEnabled] = useState(false);
 
   const loadProjects = useCallback(async () => {
     try {
@@ -31,9 +32,58 @@ export default function Projects() {
     loadProjects();
   }, [loadProjects]);
 
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-reduced-motion: no-preference) and (pointer: fine)");
+    const update = () => setMarqueeEnabled(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
   const filteredProjects = useMemo(() => {
     return activeCategory === "All" ? projects : projects.filter((project) => project.category === activeCategory);
   }, [activeCategory, projects]);
+
+  const marqueeProjects = useMemo(() => {
+    if (filteredProjects.length <= 1) return filteredProjects;
+    if (!marqueeEnabled) return filteredProjects;
+    return [...filteredProjects, ...filteredProjects];
+  }, [filteredProjects, marqueeEnabled]);
+
+  const renderProjectCard = (project, index, { duplicateKey = false } = {}) => (
+    <motion.article
+      key={duplicateKey ? `${project.id}-dup-${index}` : project.id}
+      whileHover={{ y: -4 }}
+      className="glass-panel hover-glow w-[min(88vw,420px)] shrink-0 snap-start overflow-hidden rounded-2xl"
+    >
+      <div className="relative h-52 overflow-hidden">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition duration-700 hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
+      </div>
+      <div className="space-y-4 p-6">
+        <div className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff4d00]">
+          {String((index % filteredProjects.length) + 1).padStart(2, "0")} · {project.year}
+        </div>
+        <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white">{project.title}</h3>
+        <p className="line-clamp-3 text-white/55">{project.description}</p>
+        <div className="flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <span key={tag} className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <Link href={`/projects/${project.id}`} className="inline-flex items-center gap-2 text-sm text-white transition hover:text-[#ff8c00]">
+          View Details <span aria-hidden>→</span>
+        </Link>
+      </div>
+    </motion.article>
+  );
 
   return (
     <div id="projects" className="section-shell py-24 sm:py-32">
@@ -71,9 +121,9 @@ export default function Projects() {
         </div>
 
         {loading ? (
-          <div className="grid gap-4 md:grid-cols-2">
-            {Array.from({ length: 2 }).map((_, index) => (
-              <div key={index} className="glass-panel overflow-hidden rounded-2xl">
+          <div className="flex gap-4 overflow-hidden">
+            {Array.from({ length: 3 }).map((_, index) => (
+              <div key={index} className="glass-panel w-[min(88vw,420px)] shrink-0 overflow-hidden rounded-2xl">
                 <div className="h-52 animate-pulse bg-white/[0.04]" />
                 <div className="space-y-4 p-6">
                   <div className="h-3 w-28 animate-pulse rounded bg-white/[0.06]" />
@@ -104,45 +154,33 @@ export default function Projects() {
             </button>
           </div>
         ) : (
-          // FIX: whileInView is now on the grid wrapper, so it triggers AFTER
-          // cards mount from the async fetch — not on the parent that fires early.
-          // Each card also has its own whileInView as a self-contained fallback.
-          <div className="grid gap-4 md:grid-cols-2">
-            {filteredProjects.map((project, index) => (
-              <motion.article
-                key={project.id}
-                whileHover={{ y: -4 }}
-                className="glass-panel hover-glow overflow-hidden rounded-2xl"
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={fadeUp}
+            className="relative"
+          >
+            <div
+              className={filteredProjects.length > 1 ? "projects-marquee" : "overflow-x-auto"}
+              aria-label="Project showcase"
+            >
+              <div
+                key={`${activeCategory}-${marqueeEnabled}`}
+                className={
+                  filteredProjects.length > 1 && marqueeEnabled
+                    ? "projects-marquee-track py-1"
+                    : "flex gap-4 py-1"
+                }
               >
-                <div className="relative h-52 overflow-hidden">
-                  <Image
-                    src={project.image}
-                    alt={project.title}
-                    fill
-                    className="object-cover transition duration-700 hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-                </div>
-                <div className="space-y-4 p-6">
-                  <div className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff4d00]">
-                    {String(index + 1).padStart(2, "0")} · {project.year}
-                  </div>
-                  <h3 className="text-2xl font-semibold tracking-[-0.03em] text-white">{project.title}</h3>
-                  <p className="text-white/55">{project.description}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-white/35">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <Link href={`/projects/${project.id}`} className="inline-flex items-center gap-2 text-sm text-white transition hover:text-[#ff8c00]">
-                    View Details <span aria-hidden>→</span>
-                  </Link>
-                </div>
-              </motion.article>
-            ))}
-          </div>
+                {marqueeProjects.map((project, index) =>
+                  renderProjectCard(project, index, {
+                    duplicateKey: marqueeEnabled && index >= filteredProjects.length,
+                  })
+                )}
+              </div>
+            </div>
+          </motion.div>
         )}
       </motion.div>
     </div>
