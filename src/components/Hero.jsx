@@ -3,15 +3,14 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
-import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
-import avtr from "@/assets/avtr.png"
+import avtr from "@/assets/avtr.png";
 import Link from "next/link";
 
 const socialLinks = [
   { href: "https://github.com/Zabedfolio", icon: FaGithub, label: "GitHub" },
   { href: "https://www.linkedin.com/in/zabedfolio/", icon: FaLinkedinIn, label: "LinkedIn" },
-  // { href: "https://twitter.com", icon: FaTwitter, label: "Twitter" },
   { href: "https://www.facebook.com/profile.php?id=61585623848571", icon: FaFacebookF, label: "Facebook" },
   { href: "https://www.instagram.com/zaabed_maahmud/", icon: FaInstagram, label: "Instagram" }
 ];
@@ -41,6 +40,8 @@ export default function Hero() {
     <section ref={heroRef} className="relative z-10 flex min-h-[100dvh] items-center">
       <div className="section-shell">
         <motion.div style={{ filter: blur, opacity, scale, y }} className="mx-auto max-w-5xl text-center">
+
+          {/* Badge */}
           <motion.div
             style={{ filter: badgeBlur }}
             initial={{ opacity: 0, y: 16 }}
@@ -54,27 +55,39 @@ export default function Hero() {
             Still Learning · May 2026
           </motion.div>
 
+          {/* Image + Arrow */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="mx-auto mb-8 w-fit rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-2 shadow-accent-glow"
+            className="mx-auto mb-8 w-fit rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-2 shadow-accent-glow relative"
           >
+            {/* Handwritten text + arrow */}
+            <div className="absolute -top-10 -right-16 flex flex-col items-center">
+              <span className="text-sm text-white/70 italic font-[cursive] rotate-[-8deg]">
+                Click for more details
+              </span>
+              <span className="text-2xl rotate-45">↘</span>
+            </div>
+
             <motion.div
               animate={reducedMotion ? {} : { y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="relative h-28 w-28 overflow-hidden rounded-2xl"
+              className="relative h-28 w-28 overflow-hidden rounded-2xl cursor-pointer"
             >
-              <Image
-                src={avtr}
-                alt="Developer portrait"
-                fill
-                className="object-cover"
-                priority
-              />
+              <Link href="https://zabedfolio.vercel.app/more-about-page">
+                <Image
+                  src={avtr}
+                  alt="Developer portrait"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </Link>
             </motion.div>
           </motion.div>
 
+          {/* Headline */}
           <motion.div style={{ filter: headlineBlur }} className="space-y-2">
             <h1 className="text-[clamp(3.5rem,8vw,6.9rem)] font-extrabold leading-[0.92] tracking-[-0.04em] text-white">
               <motion.span initial={{ y: 60, opacity: 0, filter: "blur(8px)" }} animate={{ y: 0, opacity: 1, filter: "blur(0px)" }} className="block">
@@ -91,6 +104,7 @@ export default function Hero() {
             </h1>
           </motion.div>
 
+          {/* Subtext */}
           <motion.p
             style={{ filter: subBlur }}
             initial={{ opacity: 0, y: 18 }}
@@ -101,6 +115,7 @@ export default function Hero() {
             Not just code. Craft. I build frontend experiences that perform as hard as they look — immersive, precise, and built to last.
           </motion.p>
 
+          {/* Buttons */}
           <motion.div
             style={{ filter: buttonsBlur }}
             initial={{ opacity: 0, y: 24 }}
@@ -116,6 +131,7 @@ export default function Hero() {
             >
               View My Work
             </motion.a>
+
             <motion.a
               href="/resume.pdf"
               download
@@ -125,20 +141,9 @@ export default function Hero() {
             >
               Download Resume
             </motion.a>
-            <motion.div
-              whileHover={reducedMotion ? {} : { y: -2 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Link
-                href="/more-about-page"
-                className="inline-flex rounded-full border border-white/15 bg-white/[0.06] px-7 py-4 text-sm font-medium text-white/90 backdrop-blur-xl transition hover:bg-white/[0.1]"
-              >
-                More About Me
-              </Link>
-              
-            </motion.div>
           </motion.div>
 
+          {/* Social Icons */}
           <div className="mt-10 flex items-center justify-center gap-3">
             {socialLinks?.map(({ href, icon: Icon, label }) => (
               <motion.a
@@ -154,6 +159,7 @@ export default function Hero() {
             ))}
           </div>
 
+          {/* Marquee */}
           <div className="mt-16 overflow-hidden border-y border-white/10 py-5">
             <motion.div
               animate={reducedMotion ? {} : { x: ["0%", "-50%"] }}
@@ -166,6 +172,7 @@ export default function Hero() {
             </motion.div>
           </div>
 
+          {/* Scroll */}
           <motion.a
             href="#about"
             animate={reducedMotion ? {} : { y: [0, 8, 0] }}
@@ -175,6 +182,7 @@ export default function Hero() {
             <span className="font-mono text-[11px] uppercase tracking-[0.24em]">Scroll</span>
             <FiChevronDown className="text-xl" />
           </motion.a>
+
         </motion.div>
       </div>
     </section>
