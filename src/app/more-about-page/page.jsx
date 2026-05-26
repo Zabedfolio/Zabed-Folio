@@ -171,6 +171,47 @@ function HoverImage({ src, alt, label }) {
   );
 }
 
+function GithubContributions() {
+  const [contributions, setContributions] = useState(null);
+
+  useEffect(() => {
+    fetch('/api/github-stats')
+      .then((res) => res.json())
+      .then((data) => setContributions(data.contributions));
+  }, []);
+
+  return (
+    <div className="group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10">
+
+      {/* ambient glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+      <div className="relative z-10 flex h-full flex-col justify-between">
+        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
+          GitHub activity
+        </span>
+
+        <div className="mt-1 flex items-end gap-2">
+          <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tracking-tight text-[#1a1a1a]">
+            {contributions !== null ? (
+              <>
+                {contributions}
+                <span className="text-[#ff5f1a]">+</span>
+              </>
+            ) : (
+              '--'
+            )}
+          </span>
+        </div>
+
+        <span className="font-mono text-[10px] text-black/30">
+          total GitHub contributions
+        </span>
+      </div>
+    </div>
+  );
+}
+
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function MoreAboutPage() {
   const seconds = useJourneySeconds();
@@ -238,23 +279,38 @@ export default function MoreAboutPage() {
           </motion.h1>
 
           {/* ── Live timer ── */}
+          {/* ── Live Stats ── */}
           <motion.div
             variants={fade(0.1)}
-            className="inline-flex flex-col gap-1 rounded-2xl border border-[#ff5f1a]/30 bg-white px-6 py-4 shadow-sm shadow-[#ff5f1a]/10"
+            className="flex flex-col gap-4 sm:flex-row"
           >
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-black/40">
-              Seconds since I started this journey
-            </span>
-            <span className="font-mono text-[clamp(1.6rem,4vw,2.8rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] flex items-end">
-              {formatSeconds(seconds).split("").map((char, i) => (
-                <AnimatedDigit key={i} char={char} />
-              ))}
-            </span>
-            <span className="font-mono text-[10px] text-black/30">
-              counting from January 1, 2026 · live · never stops
-            </span>
+
+            {/* Journey Timer */}
+            <div className="group relative overflow-hidden rounded-2xl border border-[#ff5f1a]/25 bg-white px-6 py-5 shadow-sm shadow-[#ff5f1a]/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#ff5f1a]/15">
+
+              {/* subtle glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+              <div className="relative z-10 flex flex-col gap-1">
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
+                  Journey running for
+                </span>
+
+                <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] flex items-end">
+                  {formatSeconds(seconds).split("").map((char, i) => (
+                    <AnimatedDigit key={i} char={char} />
+                  ))}
+                </span>
+
+                <span className="font-mono text-[10px] text-black/30">
+                  live seconds since Jan 1, 2026
+                </span>
+              </div>
+            </div>
+
+            {/* GitHub Contributions */}
+            <GithubContributions />
           </motion.div>
-        </motion.div>
       </section>
 
       {/* ── Divider ── */}
