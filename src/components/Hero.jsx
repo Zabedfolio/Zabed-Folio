@@ -3,7 +3,7 @@
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
-import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter,FaInstagram } from "react-icons/fa";
+import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
 import avtr from "@/assets/avtr.png"
 
@@ -124,6 +124,17 @@ export default function Hero() {
             >
               Download Resume
             </motion.a>
+            <motion.div
+              whileHover={reducedMotion ? {} : { y: -2 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              <Link
+                href="/more-about-page"
+                className="inline-flex rounded-full border border-white/15 bg-white/[0.06] px-7 py-4 text-sm font-medium text-white/90 backdrop-blur-xl transition hover:bg-white/[0.1]"
+              >
+                More About Me
+              </Link>
+            </motion.div>
           </motion.div>
 
           <div className="mt-10 flex items-center justify-center gap-3">
