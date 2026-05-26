@@ -65,7 +65,7 @@ export default function ResumePage() {
                                 A full-stack sports facility booking platform where users can discover venues, reserve time slots, and manage bookings with secure
                                 authentication.
                             </p>
-                            <ol className="text-gray-600 space-y-1 text-sm  mt-2 list-decimal list-inside">
+                            <ol className="text-gray-600 space-y-1 text-sm  mt-2 list-disc list-inside">
                                 <li>Users can browse, filter, and view sports facilities with pricing, capacity, and available time slot details.</li>
                                 <li>Session-based authentication (Better Auth + MongoDB) allows users to register, log in, and access protected booking and
                                     management pages securely.</li>
