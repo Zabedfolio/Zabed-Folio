@@ -134,7 +134,7 @@ export default function Hero() {
                 className="inline-flex rounded-full border border-white/15 bg-white/[0.06] px-7 py-4 text-sm font-medium text-white/90 backdrop-blur-xl transition hover:bg-white/[0.1]"
               >
                 More About Me
-                <span className="relative flex h-6 w-6 items-center justify-center rounded-full bg-[#ff5f1a]/20 text-[#ff5f1a] transition-transform duration-300 group-hover:translate-x-0.5">
+                <span className="relative flex ml-1 h-6 w-6 items-center justify-center rounded-full bg-[#ff5f1a]/20 text-[#ff5f1a] transition-transform duration-300 group-hover:translate-x-0.5">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 16 16"
