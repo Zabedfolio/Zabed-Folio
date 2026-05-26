@@ -62,13 +62,7 @@ export default function Hero() {
             transition={{ delay: 0.1 }}
             className="mx-auto mb-8 w-fit rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-2 shadow-accent-glow relative"
           >
-            {/* Handwritten text + arrow */}
-            <div className="absolute -top-10 -right-16 flex flex-col items-center">
-              <span className="text-sm text-white/70 italic font-[cursive] rotate-[-8deg]">
-                Click for more details
-              </span>
-              <span className="text-2xl rotate-45">↘</span>
-            </div>
+            
 
             <motion.div
               animate={reducedMotion ? {} : { y: [0, -10, 0] }}
