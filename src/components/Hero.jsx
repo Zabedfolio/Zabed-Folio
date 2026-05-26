@@ -77,7 +77,7 @@ export default function Hero() {
                 width="80"
                 height="80"
                 viewBox="0 0 100 100"
-                className="mt-2 text-white/70"
+                className="text-white/70"
                 fill="none"
               >
                 <path
