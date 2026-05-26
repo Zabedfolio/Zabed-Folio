@@ -86,7 +86,7 @@ function AnimatedDigit({ char }) {
 
   if (!isDigit) {
     return (
-      <span className="inline-block text-[#ff5f1a]/40">{char}</span>
+      <span className="inline-block text-[#ff5f1a]/50">{char}</span>
     );
   }
 
@@ -133,7 +133,7 @@ function HoverImage({ src, alt, label }) {
       onMouseLeave={() => setVisible(false)}
       onMouseMove={handleMouseMove}
     >
-      <span className="cursor-default font-semibold text-white underline decoration-dashed decoration-[#ff5f1a]/50 underline-offset-4">
+      <span className="cursor-default font-semibold text-[#1a1a1a] underline decoration-dashed decoration-[#ff5f1a]/60 underline-offset-4">
         {label}
       </span>
 
@@ -146,7 +146,7 @@ function HoverImage({ src, alt, label }) {
             initial={{ opacity: 0, scale: 0.88, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="block overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/60"
+            className="block overflow-hidden rounded-2xl border border-black/10 shadow-2xl shadow-black/20"
             style={{ width: 260, height: 170 }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -161,7 +161,7 @@ function HoverImage({ src, alt, label }) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.1 }}
-            className="mt-1.5 block text-center font-mono text-[10px] tracking-widest text-white/30"
+            className="mt-1.5 block text-center font-mono text-[10px] tracking-widest text-black/40"
           >
             {alt}
           </motion.span>
@@ -176,13 +176,14 @@ export default function MoreAboutPage() {
   const seconds = useJourneySeconds();
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-white">
+    // bg: #EEEEEE mixed toward white — use #F4F4F4 as base, white as surface
+    <main className="min-h-screen bg-[#eeeeee] text-[#1a1a1a]">
 
       {/* ── Back link ── */}
       <div className="section-shell pt-10">
         <Link
           href="/"
-          className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-white/35 transition-colors hover:text-white/70"
+          className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-black/35 transition-colors hover:text-black/70"
         >
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3 rotate-180 transition-transform duration-300 group-hover:-translate-x-0.5">
             <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
@@ -208,20 +209,20 @@ export default function MoreAboutPage() {
 
           <motion.h1
             variants={fade(0.05)}
-            className="text-[clamp(2.4rem,6vw,5rem)] font-bold leading-[1.05] tracking-[-0.04em]"
+            className="text-[clamp(2.4rem,6vw,5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a]"
           >
             Hey, I'm{" "}
             <span className="text-[#ff5f1a]">Zabed.</span>
             <br />
-            <span className="text-white/30">Still learning. Always building.</span>
+            <span className="text-black/30">Still learning. Always building.</span>
           </motion.h1>
 
           {/* ── Live timer ── */}
           <motion.div
             variants={fade(0.1)}
-            className="inline-flex flex-col gap-1 rounded-2xl border border-[#ff5f1a]/20 bg-[#ff5f1a]/5 px-6 py-4"
+            className="inline-flex flex-col gap-1 rounded-2xl border border-[#ff5f1a]/30 bg-white px-6 py-4 shadow-sm shadow-[#ff5f1a]/10"
           >
-            <span className="font-mono text-xs uppercase tracking-[0.2em] text-white/30">
+            <span className="font-mono text-xs uppercase tracking-[0.2em] text-black/40">
               Seconds since I started this journey
             </span>
             <span className="font-mono text-[clamp(1.6rem,4vw,2.8rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] flex items-end">
@@ -229,7 +230,7 @@ export default function MoreAboutPage() {
                 <AnimatedDigit key={i} char={char} />
               ))}
             </span>
-            <span className="font-mono text-[10px] text-white/20">
+            <span className="font-mono text-[10px] text-black/30">
               counting from January 1, 2026 · live · never stops
             </span>
           </motion.div>
@@ -238,7 +239,7 @@ export default function MoreAboutPage() {
 
       {/* ── Divider ── */}
       <div className="section-shell">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
       </div>
 
       {/* ── Journey + Stack ── */}
@@ -253,12 +254,12 @@ export default function MoreAboutPage() {
 
           {/* Left: paragraphs */}
           <div>
-            <motion.p variants={fade()} className="mb-12 font-mono text-xs uppercase tracking-[0.24em] text-white/30">
+            <motion.p variants={fade()} className="mb-12 font-mono text-xs uppercase tracking-[0.24em] text-black/35">
               The journey
             </motion.p>
-            <div className="space-y-8 text-[1.05rem] leading-[1.9] text-white/50">
+            <div className="space-y-8 text-[1.05rem] leading-[1.9] text-black/55">
               <motion.p variants={fade(0.05)}>
-                It started in <span className="font-semibold text-white">March 2024</span> — I came across a full web development playlist online. Something about it pulled me in. I started watching, started trying things out, copying HTML into a file and seeing it appear in a browser. It was small, but it felt like unlocking a door.
+                It started in <span className="font-semibold text-[#1a1a1a]">March 2024</span> — I came across a full web development playlist online. Something about it pulled me in. I started watching, started trying things out, copying HTML into a file and seeing it appear in a browser. It was small, but it felt like unlocking a door.
               </motion.p>
 
               {/* July 2024 — hover image popup */}
@@ -273,13 +274,13 @@ export default function MoreAboutPage() {
               </motion.p>
 
               <motion.p variants={fade(0.15)}>
-                By <span className="font-semibold text-white">September 2024</span>, I picked it back up. But I'll be honest — I wasn't consistent. Between then and December 2025, I watched maybe 50–60 videos total. No rhythm, no plan. I'd go weeks without touching it. I knew I wanted to build things, but I hadn't yet committed to actually doing it.
+                By <span className="font-semibold text-[#1a1a1a]">September 2024</span>, I picked it back up. But I'll be honest — I wasn't consistent. Between then and December 2025, I watched maybe 50–60 videos total. No rhythm, no plan. I'd go weeks without touching it. I knew I wanted to build things, but I hadn't yet committed to actually doing it.
               </motion.p>
               <motion.p variants={fade(0.2)}>
-                Then on <span className="font-semibold text-white">December 24, 2025</span>, a Facebook video caught my attention — Programming Hero's web development course. It was the last day to enroll. I didn't overthink it. I signed up.
+                Then on <span className="font-semibold text-[#1a1a1a]">December 24, 2025</span>, a Facebook video caught my attention — Programming Hero's web development course. It was the last day to enroll. I didn't overthink it. I signed up.
               </motion.p>
               <motion.p variants={fade(0.25)}>
-                <span className="font-semibold text-white">January 1, 2026.</span> Class started. And this time, something was different. HTML, CSS, Tailwind, JavaScript — actually understanding it, not just copying it. Then React, Next.js, Express.js, REST APIs, MongoDB. Each one harder than the last. Each one making the ones before it make more sense.
+                <span className="font-semibold text-[#1a1a1a]">January 1, 2026.</span> Class started. And this time, something was different. HTML, CSS, Tailwind, JavaScript — actually understanding it, not just copying it. Then React, Next.js, Express.js, REST APIs, MongoDB. Each one harder than the last. Each one making the ones before it make more sense.
               </motion.p>
               <motion.p variants={fade(0.3)}>
                 I'm still in it. My{" "}
@@ -287,7 +288,7 @@ export default function MoreAboutPage() {
                   href="https://zabedfolio.github.io/Knowledge_A01/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group/link relative inline-flex items-baseline gap-1 font-semibold text-white underline decoration-[#ff5f1a]/40 underline-offset-4 transition-all hover:decoration-[#ff5f1a]"
+                  className="group/link relative inline-flex items-baseline gap-1 font-semibold text-[#1a1a1a] underline decoration-[#ff5f1a]/50 underline-offset-4 transition-all hover:decoration-[#ff5f1a]"
                 >
                   first project
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" className="mb-0.5 h-2.5 w-2.5 opacity-40 transition-opacity group-hover/link:opacity-100">
@@ -299,16 +300,16 @@ export default function MoreAboutPage() {
             </div>
             <motion.blockquote
               variants={fade(0.35)}
-              className="mt-14 border-l-2 border-[#ff5f1a]/30 pl-6 text-base italic leading-8 text-white/30"
+              className="mt-14 border-l-2 border-[#ff5f1a]/40 pl-6 text-base italic leading-8 text-black/35"
             >
               "The best time to start was March 2024. The second best time is{" "}
-              <span className="font-semibold not-italic text-white/60">right now.</span>"
+              <span className="font-semibold not-italic text-black/60">right now.</span>"
             </motion.blockquote>
           </div>
 
           {/* Right: stack — sticky so it stays in view while you read */}
           <div className="lg:sticky lg:top-24">
-            <motion.p variants={fade()} className="mb-8 font-mono text-xs uppercase tracking-[0.24em] text-white/30">
+            <motion.p variants={fade()} className="mb-8 font-mono text-xs uppercase tracking-[0.24em] text-black/35">
               What I've learned so far
             </motion.p>
             <div className="space-y-3">
@@ -326,12 +327,12 @@ export default function MoreAboutPage() {
                 <motion.div
                   key={item.label}
                   variants={fade(i * 0.05)}
-                  className="group flex items-center justify-between rounded-xl border border-white/6 bg-white/[0.03] px-5 py-4 transition-colors hover:border-[#ff5f1a]/20 hover:bg-white/[0.05]"
+                  className="group flex items-center justify-between rounded-xl border border-black/8 bg-white px-5 py-4 shadow-sm transition-all hover:border-[#ff5f1a]/30 hover:shadow-md hover:shadow-[#ff5f1a]/8"
                 >
-                  <span className="font-medium text-white/80 transition-colors group-hover:text-white">
+                  <span className="font-medium text-black/70 transition-colors group-hover:text-[#1a1a1a]">
                     {item.label}
                   </span>
-                  <span className="font-mono text-xs text-white/25 transition-colors group-hover:text-white/40">
+                  <span className="font-mono text-xs text-black/30 transition-colors group-hover:text-black/50">
                     {item.note}
                   </span>
                 </motion.div>
@@ -344,7 +345,7 @@ export default function MoreAboutPage() {
 
       {/* ── Divider ── */}
       <div className="section-shell">
-        <div className="h-px w-full bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
       </div>
 
       {/* ── Social links ── */}
@@ -356,7 +357,7 @@ export default function MoreAboutPage() {
           variants={stagger}
           className="flex flex-col items-start gap-6"
         >
-          <motion.p variants={fade()} className="font-mono text-xs uppercase tracking-[0.24em] text-white/30">
+          <motion.p variants={fade()} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35">
             Find me on
           </motion.p>
           <motion.div variants={fade(0.05)} className="flex items-center gap-4">
@@ -366,7 +367,7 @@ export default function MoreAboutPage() {
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative flex items-center gap-0 overflow-hidden rounded-full border border-white/8 bg-white/[0.04] p-3 text-white/40 transition-all duration-300 hover:border-[#ff5f1a]/30 hover:bg-[#ff5f1a]/8 hover:text-[#ff5f1a] hover:gap-2 hover:pl-4 hover:pr-5"
+                className="group relative flex items-center gap-0 overflow-hidden rounded-full border border-black/10 bg-white p-3 text-black/40 shadow-sm transition-all duration-300 hover:border-[#ff5f1a]/40 hover:bg-[#ff5f1a] hover:text-white hover:gap-2 hover:pl-4 hover:pr-5 hover:shadow-md hover:shadow-[#ff5f1a]/25"
               >
                 {s.icon}
                 <span className="max-w-0 overflow-hidden whitespace-nowrap font-mono text-xs font-medium tracking-wide transition-all duration-300 group-hover:max-w-[80px]">
@@ -385,12 +386,12 @@ export default function MoreAboutPage() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="glass-panel hover-glow rounded-3xl p-10 text-center"
+          className="rounded-3xl border border-black/8 bg-white p-10 text-center shadow-sm"
         >
-          <p className="mb-2 font-mono text-xs uppercase tracking-[0.24em] text-white/30">
+          <p className="mb-2 font-mono text-xs uppercase tracking-[0.24em] text-black/35">
             Want to work together?
           </p>
-          <h2 className="mb-6 text-3xl font-bold tracking-tight">
+          <h2 className="mb-6 text-3xl font-bold tracking-tight text-[#1a1a1a]">
             Let's build something{" "}
             <span className="text-[#ff5f1a]">memorable.</span>
           </h2>
@@ -398,7 +399,7 @@ export default function MoreAboutPage() {
             <motion.button
               whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
-              className="rounded-full bg-[#ff5f1a] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#ff5f1a]/20 transition-opacity hover:opacity-90"
+              className="rounded-full bg-[#ff5f1a] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#ff5f1a]/25 transition-opacity hover:opacity-90"
             >
               Get in touch
             </motion.button>
