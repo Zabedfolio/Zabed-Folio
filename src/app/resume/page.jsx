@@ -23,13 +23,6 @@ export default function ResumePage() {
           <p className="mt-3 text-lg text-gray-600">
             Junior Frontend Developer
           </p>
-
-          {/* Navigation */}
-          <div className="mt-6 flex justify-center gap-6 text-sm font-medium">
-            <Link href="/" className="hover:underline">Home</Link>
-            <Link href="/projects" className="hover:underline">Projects</Link>
-            <Link href="/contact" className="hover:underline">Contact</Link>
-          </div>
         </motion.div>
 
         {/* Card */}
