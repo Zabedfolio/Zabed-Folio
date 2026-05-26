@@ -212,7 +212,27 @@ export default function MoreAboutPage() {
             className="text-[clamp(2.4rem,6vw,5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a]"
           >
             Hey, I'm{" "}
-            <span className="text-[#ff5f1a]">Zabed.</span>
+            <span className="inline-flex items-center gap-4 flex-wrap">
+              <span className="text-[#ff5f1a]">Zabed.</span>
+              <span
+                className="relative inline-block"
+                style={{
+                  transform: "rotate(-4deg)",
+                  transformOrigin: "bottom center",
+                }}
+              >
+                <img
+                  src="/og-image.png"
+                  alt="Zabed"
+                  className="rounded-2xl object-cover shadow-lg shadow-black/15 border border-black/8"
+                  style={{
+                    width: "clamp(3.5rem, 7vw, 5.5rem)",
+                    height: "clamp(3.5rem, 7vw, 5.5rem)",
+                  }}
+                  draggable={false}
+                />
+              </span>
+            </span>
             <br />
             <span className="text-black/30">Still learning. Always building.</span>
           </motion.h1>
