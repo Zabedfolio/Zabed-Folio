@@ -93,7 +93,7 @@ function AnimatedDigit({ char }) {
   return (
     <span
       className="relative inline-block overflow-hidden"
-      style={{ height: "1.15em", verticalAlign: "bottom" }}
+      style={{ height: "1.15em", width: "0.62em", verticalAlign: "bottom" }}
     >
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
@@ -102,7 +102,13 @@ function AnimatedDigit({ char }) {
           animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
           exit={{ y: "-100%", opacity: 0, filter: "blur(4px)" }}
           transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 flex items-end justify-center"
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "center",
+          }}
         >
           {char}
         </motion.span>
@@ -260,7 +266,7 @@ export default function MoreAboutPage() {
                 Then came{" "}
                 <HoverImage
                   src="https://i.ibb.co.com/rf7qNgB2/credit-prothom-alo.webp"
-                  alt="July Uprising — Prothom Alo"
+                  alt="July Uprising"
                   label="July 2024"
                 />
                 . Bangladesh saw a massive student uprising, the internet was cut off, and everything went still. That gap wasn't just a pause — it was a full stop. Weeks passed with nothing. The momentum I had built quietly faded away.
