@@ -65,7 +65,7 @@ export default function Hero() {
             className="mx-auto mb-8 w-fit rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-2 shadow-accent-glow relative"
           >
             {/* Handwritten text + arrow */}
-            <div className="absolute top-1/2 -right-30 -translate-y-1/2 flex flex-col items-center">
+            <div className="absolute top-1/2 -right-20 -translate-y-1/2 flex flex-col items-center">
               <span className="text-sm text-white/70 italic font-[Imperial Script] rotate-[-8deg]">
                 My Journey
               </span>
