@@ -281,6 +281,8 @@ export default function MoreAboutPage() {
                 { label: "Next.js", note: "full-stack React" },
                 { label: "Express.js + REST APIs", note: "backend basics" },
                 { label: "MongoDB", note: "databases" },
+                { label: "Better Auth", note: "authentication" },
+                { label: "JWT", note: "json web token" },
               ].map((item, i) => (
                 <motion.div
                   key={item.label}
