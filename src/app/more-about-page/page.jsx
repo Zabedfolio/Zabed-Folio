@@ -205,7 +205,7 @@ function GithubContributions() {
         </div>
 
         <span className="font-mono text-[10px] text-black/30">
-          total GitHub contributions
+          total GitHub contributions in 2026
         </span>
       </div>
     </div>
