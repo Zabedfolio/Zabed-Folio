@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { FaAws, FaFigma, FaGitAlt, FaNodeJs, FaReact } from "react-icons/fa";
 import { RiDatabase2Line, RiLayoutMasonryLine, RiTailwindCssFill } from "react-icons/ri";
-import { SiFramer, SiMongodb, SiNextdotjs,SiBetterauth,SiIconify,SiGooglecloud, SiTypescript, SiVercel,SiHeroui,SiDaisyui } from "react-icons/si";
+import { SiFramer, SiMongodb, SiNextdotjs,SiBetterauth,SiIconify,SiGooglecloud, SiTypescript, SiVercel,SiHeroui,SiDaisyui, SiExpress } from "react-icons/si";
 import { fadeUp, scaleIn, staggerContainer } from "@/utils/motionVariants";
 
 const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library"];
@@ -13,6 +13,7 @@ const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library"];
 const skills = [
   { name: "Next.js", category: "Frontend", icon: SiNextdotjs, color: "#ffffff" },
   { name: "React", category: "Frontend", icon: FaReact, color: "#61dafb" },
+  { name: "Express.js", category: "Backend", icon: SiExpress, color: "#ffffff" },
   { name: "Tailwind CSS", category: "Frontend", icon: RiTailwindCssFill, color: "#38bdf8" },
   { name: "Framer Motion", category: "Frontend", icon: SiFramer, color: "#ff4d9c" },
   { name: "Node.js", category: "Backend", icon: FaNodeJs, color: "#79c15b" },
