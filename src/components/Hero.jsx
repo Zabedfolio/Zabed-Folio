@@ -68,7 +68,7 @@ export default function Hero() {
               <span className="text-sm text-white/70 italic font-[Imperial Script] rotate-[-8deg]">
                 My Journey
               </span>
-              <span className="text-2xl rotate-180">
+              <span className="text-2xl rotate-200">
                 <HiMiniArrowTrendingUp />
               </span>
             </div>
