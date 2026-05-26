@@ -59,23 +59,48 @@ export default function ResumePage() {
                     <div className="mb-8">
                         <h2 className="text-xl font-semibold mb-2">Projects</h2>
 
-                        <div className="mb-4">
-                            <h3 className="font-semibold">SportNest – Sports Facility Booking Platform</h3>
-                            <p className="text-gray-600 text-sm">
-                                A full-stack sports facility booking platform where users can discover venues, reserve time slots, and manage bookings with secure
-                                authentication.
-                            </p>
-                            <ol className="text-gray-600 space-y-1 text-sm  mt-2 list-disc list-inside">
-                                <li>Users can browse, filter, and view sports facilities with pricing, capacity, and available time slot details.</li>
-                                <li>Session-based authentication (Better Auth + MongoDB) allows users to register, log in, and access protected booking and
-                                    management pages securely.</li>
-                                <li>Real-time slot selection and booking system lets authenticated users reserve specific time slots, with a personal My Bookings
-                                    dashboard to view and manage reservations.</li>
-                                <li>Facility owners can list, update, and delete their venues through a dedicated management flow with role-based protected
-                                    routes.</li>
-                            </ol>
+                        {resumeProject.map((project, index) => (
+                            <div key={index} className="mb-6">
 
-                        </div>
+                                <div className="flex items-center gap-2 flex-wrap">
+                                    <h3 className="font-semibold">{project.title}</h3>
+
+                                    <span className="text-gray-400">|</span>
+
+                                    <Link href={project.clientLink} className="text-blue-600 hover:underline text-sm">
+                                        Client
+                                    </Link>
+
+                                    <span className="text-gray-400">|</span>
+
+                                    <Link href={project.serverLink} className="text-blue-600 hover:underline text-sm">
+                                        Server
+                                    </Link>
+
+                                    <span className="text-gray-400">|</span>
+
+                                    <Link
+                                        href={project.liveLink}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-green-600 hover:underline text-sm"
+                                    >
+                                        Live
+                                    </Link>
+                                </div>
+
+                                <p className="text-gray-600 text-sm mt-2">
+                                    {project.description}
+                                </p>
+
+                                <ul className="text-gray-600 space-y-1 text-sm mt-2 list-disc list-inside">
+                                    {project.features.map((feature, i) => (
+                                        <li key={i}>{feature}</li>
+                                    ))}
+                                </ul>
+
+                            </div>
+                        ))}
                     </div>
 
                     {/* Education */}
