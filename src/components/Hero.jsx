@@ -65,11 +65,11 @@ export default function Hero() {
             className="mx-auto mb-8 w-fit rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-2 shadow-accent-glow relative"
           >
             {/* Handwritten text + arrow */}
-            <div className="absolute top-1/2 -right-10 -translate-y-1/2 flex flex-col items-center">
+            <div className="absolute top-1/2 -right-32 -translate-y-1/2 flex flex-col items-center">
 
               {/* Text */}
               <span className="text-sm text-white/70 italic font-[Imperial Script] rotate-[-6deg] whitespace-nowrap">
-                Take a Look at My Journey
+                Take a Look <br></br> at My Journey
               </span>
 
               {/* Curved Arrow */}
