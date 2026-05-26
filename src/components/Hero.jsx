@@ -8,6 +8,7 @@ import { FiChevronDown } from "react-icons/fi";
 import avtr from "@/assets/avtr.png";
 import Link from "next/link";
 import { HiMiniArrowTrendingUp } from "react-icons/hi2";
+import { TbArrowGuideFilled } from "react-icons/tb";
 
 const socialLinks = [
   { href: "https://github.com/Zabedfolio", icon: FaGithub, label: "GitHub" },
@@ -68,8 +69,8 @@ export default function Hero() {
               <span className="text-sm text-white/70 italic font-[Imperial Script] rotate-[-8deg]">
                 My Journey
               </span>
-              <span className="text-2xl rotate-200">
-                <HiMiniArrowTrendingUp />
+              <span className="text-2xl rotate-180">
+                <TbArrowGuideFilled />
               </span>
             </div>
 
