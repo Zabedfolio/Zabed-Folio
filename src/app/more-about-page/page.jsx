@@ -311,6 +311,7 @@ export default function MoreAboutPage() {
             {/* GitHub Contributions */}
             <GithubContributions />
           </motion.div>
+          </motion.div>
       </section>
 
       {/* ── Divider ── */}
