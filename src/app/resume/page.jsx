@@ -84,7 +84,7 @@ export default function ResumePage() {
                                         href={project.liveLink}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="text-green-600 hover:underline text-sm"
+                                        className="text-blue-600 hover:underline text-sm"
                                     >
                                         Live
                                     </Link>
