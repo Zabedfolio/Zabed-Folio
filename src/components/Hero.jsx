@@ -64,12 +64,12 @@ export default function Hero() {
             className="mx-auto mb-8 w-fit rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-2 shadow-accent-glow relative"
           >
             {/* Handwritten text + arrow */}
-            <div className="absolute top-1/2 -right-10 -translate-y-1/2 flex flex-col items-center">
-              <span className="text-sm text-white/70 italic font-[Imperial Script] rotate-[-8deg]">
+            <div className="absolute top-1/2 right-[-55px] -translate-y-1/2 flex items-center gap-2">
+              <span className="text-sm text-white/70 italic font-[Imperial Script] rotate-[-6deg] whitespace-nowrap">
                 My Journey
               </span>
-              <span className="text-2xl rotate-45">
-                <HiMiniArrowTrendingUp />
+              <span className="text-xl">
+                <HiMiniArrowTrendingUp className="rotate-180" />
               </span>
             </div>
 
