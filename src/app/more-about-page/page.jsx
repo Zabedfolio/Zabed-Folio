@@ -221,16 +221,51 @@ export default function MoreAboutPage() {
     <main className="min-h-screen bg-[#eeeeee] text-[#1a1a1a]">
 
       {/* ── Back link ── */}
-      <div className="section-shell pt-10">
+      {/* ── Top Navigation (Back + Resume) ── */}
+      <div className="section-shell pt-10 flex items-center justify-between">
+
+        {/* Back Home */}
         <Link
           href="/"
           className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-black/35 transition-colors hover:text-black/70"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" className="h-3 w-3 rotate-180 transition-transform duration-300 group-hover:-translate-x-0.5">
-            <path fillRule="evenodd" d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z" clipRule="evenodd" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-3 w-3 rotate-180 transition-transform duration-300 group-hover:-translate-x-0.5"
+          >
+            <path
+              fillRule="evenodd"
+              d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z"
+              clipRule="evenodd"
+            />
           </svg>
           Back home
         </Link>
+
+        {/* My Resume Button */}
+        <Link href="/resume">
+          <motion.div
+            whileHover={{ y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            className="group relative inline-flex items-center gap-2 rounded-full border border-[#ff5f1a]/30 bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-[#1a1a1a] shadow-sm transition-all hover:border-[#ff5f1a] hover:bg-[#ff5f1a] hover:text-white hover:shadow-md hover:shadow-[#ff5f1a]/20"
+          >
+            <span className="relative z-10">My Resume</span>
+
+            <svg
+              className="h-3 w-3 transition-transform duration-300 group-hover:translate-x-0.5"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+            >
+              <path d="M6 3l5 5-5 5V3z" />
+            </svg>
+
+            {/* subtle glow */}
+            <span className="absolute inset-0 rounded-full bg-gradient-to-r from-[#ff5f1a]/0 via-[#ff5f1a]/10 to-[#ff5f1a]/0 opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+          </motion.div>
+        </Link>
+
       </div>
 
       {/* ── Hero ── */}
@@ -311,7 +346,7 @@ export default function MoreAboutPage() {
             {/* GitHub Contributions */}
             <GithubContributions />
           </motion.div>
-          </motion.div>
+        </motion.div>
       </section>
 
       {/* ── Divider ── */}

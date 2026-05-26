@@ -67,7 +67,7 @@ export default function Hero() {
             {/* Handwritten text + arrow */}
             <div className="absolute top-1/2 -right-20 -translate-y-1/2 flex flex-col items-center">
               <span className="text-sm text-white/70 italic font-[Imperial Script] rotate-[-8deg]">
-                My Journey
+                Take a Look at My Journey
               </span>
               <span className="text-2xl rotate-180">
                 <TbArrowGuideFilled />
