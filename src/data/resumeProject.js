@@ -1,9 +1,9 @@
 export const resumeProject = [
   {
     title: "SportNest – Sports Facility Booking Platform",
-    clientLink: "/client",
-    serverLink: "/server",
-    liveLink: "https://live-link.com",
+    clientLink: "https://github.com/Zabedfolio/SportNest-Client",
+    serverLink: "https://github.com/Zabedfolio/SportNest-Server",
+    liveLink: "https://sport-nest-zabedfolio.vercel.app/",
     description:
       "A full-stack sports facility booking platform where users can discover venues, reserve time slots, and manage bookings with secure authentication.",
     features: [
