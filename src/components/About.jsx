@@ -78,7 +78,7 @@ export default function About() {
 
           {/* ── More about me button ── */}
           <motion.div variants={fadeUp}>
-            <Link href="/more">
+            <Link href="/more-about-page">
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
