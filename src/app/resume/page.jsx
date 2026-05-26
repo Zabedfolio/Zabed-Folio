@@ -1,108 +1,242 @@
 'use client';
 
-import { motion, useReducedMotion } from "framer-motion";
-import Link from "next/link";
-import { HiArrowDownTray } from "react-icons/hi2";
+import {
+  Document,
+  Page,
+  Text,
+  View,
+  StyleSheet,
+  PDFDownloadLink,
+  Link,
+} from '@react-pdf/renderer';
 
-export default function ResumePage() {
-  const reducedMotion = useReducedMotion();
+const styles = StyleSheet.create({
+  page: {
+    padding: 40,
+    fontSize: 11,
+    fontFamily: 'Helvetica',
+    lineHeight: 1.6,
+    color: '#1f2937',
+  },
 
+  header: {
+    marginBottom: 24,
+    textAlign: 'center',
+  },
+
+  name: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    marginBottom: 6,
+  },
+
+  role: {
+    fontSize: 14,
+    color: '#6b7280',
+    marginBottom: 10,
+  },
+
+  contact: {
+    fontSize: 10,
+    color: '#4b5563',
+  },
+
+  section: {
+    marginBottom: 20,
+  },
+
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    paddingBottom: 4,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e5e7eb',
+  },
+
+  text: {
+    fontSize: 11,
+    color: '#374151',
+  },
+
+  projectCard: {
+    marginBottom: 14,
+  },
+
+  projectTitle: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginBottom: 4,
+  },
+
+  bullet: {
+    marginLeft: 10,
+    marginBottom: 2,
+  },
+
+  skillsGrid: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: 4,
+  },
+
+  footer: {
+    marginTop: 20,
+    textAlign: 'center',
+    fontSize: 10,
+    color: '#9ca3af',
+  },
+});
+
+function ResumePDF() {
   return (
-    <section className="min-h-screen bg-white text-gray-900 flex items-center justify-center px-6 py-16">
-      <div className="max-w-4xl w-full">
+    <Document>
+      <Page size="A4" style={styles.page}>
 
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12"
-        >
-          <h1 className="text-5xl font-extrabold tracking-tight">
-            Zabed Mahmud
-          </h1>
-          <p className="mt-3 text-lg text-gray-600">
-            Junior Frontend Developer
-          </p>
-        </motion.div>
+        <View style={styles.header}>
+          <Text style={styles.name}>Zabed Mahmud</Text>
+          <Text style={styles.role}>Junior Frontend Developer</Text>
 
-        {/* Card */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="rounded-3xl border border-gray-200 p-8 shadow-sm"
-        >
+          <Text style={styles.contact}>
+            +8801979333880 | zabedfolio@gmail.com
+          </Text>
 
-          {/* Objective */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">Career Objective</h2>
-            <p className="text-gray-600 leading-relaxed">
-              Passionate Junior Frontend Developer focused on building performant,
-              user-friendly web applications using modern frameworks like React
-              and Next.js.
-            </p>
-          </div>
+          <Text style={styles.contact}>
+            LinkedIn | GitHub | Portfolio
+          </Text>
+        </View>
 
-          {/* Skills */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">Technical Skills</h2>
-            <ul className="text-gray-600 space-y-1">
-              <li>• HTML5, CSS3, JavaScript (ES6+)</li>
-              <li>• React.js, Next.js, Vue.js, Tailwind CSS</li>
-              <li>• Node.js, Express.js, REST APIs</li>
-              <li>• Git, GitHub</li>
-            </ul>
-          </div>
+        {/* Objective */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Career Objective</Text>
 
-          {/* Projects */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">Projects</h2>
+          <Text style={styles.text}>
+            Passionate and detail-oriented Junior Frontend Developer
+            focused on building performant, user-friendly web applications
+            using modern JavaScript frameworks like React and Next.js.
+          </Text>
+        </View>
 
-            <div className="mb-4">
-              <h3 className="font-semibold">SportNest</h3>
-              <p className="text-gray-600 text-sm">
-                Sports facility booking platform with authentication,
-                real-time slot booking, and management dashboard.
-              </p>
-            </div>
+        {/* Skills */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Technical Skills</Text>
 
-            <div>
-              <h3 className="font-semibold">WanderLust</h3>
-              <p className="text-gray-600 text-sm">
-                Travel booking platform with Google OAuth, booking system,
-                and admin management features.
-              </p>
-            </div>
-          </div>
+          <View style={styles.skillsGrid}>
+            <Text>• HTML5, CSS3, JavaScript (ES6+)</Text>
+            <Text>• React.js, Next.js, Vue.js, Tailwind CSS</Text>
+            <Text>• Node.js, Express.js, REST APIs</Text>
+            <Text>• Git, GitHub</Text>
+          </View>
+        </View>
 
-          {/* Education */}
-          <div className="mb-8">
-            <h2 className="text-xl font-semibold mb-2">Education</h2>
-            <p className="text-gray-600">
-              B.Sc. in Computer Science & Engineering <br />
-              International Islamic University Chittagong (2023 – Present)
-            </p>
-          </div>
+        {/* Projects */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Projects</Text>
 
-          {/* Button */}
-          <motion.div
-            whileHover={reducedMotion ? {} : { y: -3 }}
-            whileTap={{ scale: 0.97 }}
-            className="flex justify-center mt-10"
-          >
-            <a
-              href="/resume.pdf"
-              download
-              className="flex items-center gap-2 rounded-full bg-black text-white px-6 py-3 text-sm font-medium shadow-md hover:bg-gray-800 transition"
-            >
-              <HiArrowDownTray />
-              Download PDF
-            </a>
-          </motion.div>
+          <View style={styles.projectCard}>
+            <Text style={styles.projectTitle}>
+              SportNest — Sports Facility Booking Platform
+            </Text>
 
-        </motion.div>
+            <Text style={styles.bullet}>
+              • Authentication with Better Auth + MongoDB
+            </Text>
 
-      </div>
-    </section>
+            <Text style={styles.bullet}>
+              • Real-time slot booking system
+            </Text>
+
+            <Text style={styles.bullet}>
+              • Facility management dashboard
+            </Text>
+          </View>
+
+          <View style={styles.projectCard}>
+            <Text style={styles.projectTitle}>
+              WanderLust — Travel Booking Platform
+            </Text>
+
+            <Text style={styles.bullet}>
+              • Google OAuth & email authentication
+            </Text>
+
+            <Text style={styles.bullet}>
+              • Trip booking and reservation system
+            </Text>
+
+            <Text style={styles.bullet}>
+              • Admin destination management dashboard
+            </Text>
+          </View>
+        </View>
+
+        {/* Education */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Education</Text>
+
+          <Text style={styles.text}>
+            B.Sc. in Computer Science & Engineering
+          </Text>
+
+          <Text style={styles.text}>
+            International Islamic University Chattogram
+          </Text>
+
+          <Text style={styles.text}>
+            2023 – Present
+          </Text>
+        </View>
+
+        {/* Extra */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>
+            Extra-Curricular Activities
+          </Text>
+
+          <Text style={styles.text}>
+            Executive Board Member — WhiteBoard Initiatives
+          </Text>
+
+          <Text style={styles.text}>
+            Leadership • Teamwork • Team Management
+          </Text>
+        </View>
+
+        {/* Languages */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Languages</Text>
+
+          <Text style={styles.text}>
+            Bengali — Native
+          </Text>
+
+          <Text style={styles.text}>
+            English — Professional Working Proficiency
+          </Text>
+        </View>
+
+        <Text style={styles.footer}>
+          Built with React PDF Renderer
+        </Text>
+
+      </Page>
+    </Document>
+  );
+}
+
+export default function ResumePage() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <PDFDownloadLink
+        document={<ResumePDF />}
+        fileName="Zabed_Mahmud_Resume.pdf"
+        className="bg-black text-white px-6 py-3 rounded-full"
+      >
+        {({ loading }) =>
+          loading ? 'Generating PDF...' : 'Download Resume PDF'
+        }
+      </PDFDownloadLink>
+    </div>
   );
 }
