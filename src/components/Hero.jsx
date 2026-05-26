@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { FaFacebookF, FaGithub, FaLinkedinIn, FaTwitter, FaInstagram } from "react-icons/fa";
 import { FiChevronDown } from "react-icons/fi";
 import avtr from "@/assets/avtr.png"
+import Link from "next/link";
 
 const socialLinks = [
   { href: "https://github.com/Zabedfolio", icon: FaGithub, label: "GitHub" },
