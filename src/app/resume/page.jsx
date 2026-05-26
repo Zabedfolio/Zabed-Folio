@@ -108,6 +108,14 @@ export default function ResumePage() {
                     <div className="mb-8">
                         <h2 className="text-xl font-semibold mb-2">Education</h2>
                         <p className="text-gray-600">
+                            SSC in Science <br />
+                            Govt. Muslim High School (2020)
+                        </p>
+                        <p className="text-gray-600">
+                            HSC in Science <br />
+                            Govt. City College Chattogram (2022)
+                        </p>
+                        <p className="text-gray-600">
                             B.Sc. in Computer Science & Engineering <br />
                             International Islamic University Chittagong (2023 – Present)
                         </p>
