@@ -3,356 +3,459 @@
 import { useEffect, useRef, useState } from 'react';
 
 const COLORS = [
-    '#ff4d00',
-    '#ff8c00',
-    '#ffffff',
-    '#ffd166',
+  '#ff4d00',
+  '#ff8c00',
+  '#ffffff',
+  '#ffd166',
 ];
 
 export default function EidMubarakPage() {
-    const canvasRef = useRef(null);
-    const animationRef = useRef(null);
+  const canvasRef = useRef(null);
+  const animationRef = useRef(null);
 
-    const [name, setName] = useState('');
+  const [name, setName] = useState('');
 
-    const particlesRef = useRef([]);
-    const rocketsRef = useRef([]);
-    const textParticlesRef = useRef([]);
-    const starsRef = useRef([]);
+  const particlesRef = useRef([]);
+  const rocketsRef = useRef([]);
+  const textParticlesRef = useRef([]);
+  const starsRef = useRef([]);
 
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext('2d');
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
 
-        const resize = () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
 
-            starsRef.current = Array.from({ length: 120 }).map(() => ({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                r: Math.random() * 1.5,
-                a: Math.random(),
-            }));
-        };
+      starsRef.current = Array.from({ length: 140 }).map(() => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 1.5,
+        a: Math.random(),
+      }));
+    };
 
-        resize();
-        window.addEventListener('resize', resize);
+    resize();
 
-        const render = () => {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+    window.addEventListener('resize', resize);
 
-            // Background
-            const gradient = ctx.createLinearGradient(
-                0,
-                0,
-                0,
-                canvas.height
-            );
+    const render = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            gradient.addColorStop(0, '#050816');
-            gradient.addColorStop(1, '#0b1120');
+      // Background
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        0,
+        canvas.height
+      );
 
-            ctx.fillStyle = gradient;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0, '#040816');
+      gradient.addColorStop(1, '#0b1120');
 
-            // Stars
-            // Stars
-            starsRef.current.forEach((s) => {
-                ctx.beginPath();
-                ctx.fillStyle = `rgba(255,255,255,${s.a})`;
-                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                ctx.fill();
-            });
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-            // Moon glow
-            const moonX = canvas.width * 0.82;
-            const moonY = canvas.height * 0.18;
-            const moonRadius =
-                window.innerWidth < 640 ? 38 : 55;
+      // Stars
+      starsRef.current.forEach((s) => {
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${s.a})`;
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
 
-            const glow = ctx.createRadialGradient(
-                moonX,
-                moonY,
-                moonRadius * 0.2,
-                moonX,
-                moonY,
-                moonRadius * 2.2
-            );
+      // Moon
+      const moonX = canvas.width * 0.82;
+      const moonY = canvas.height * 0.16;
 
-            glow.addColorStop(0, 'rgba(255,255,220,0.25)');
-            glow.addColorStop(1, 'rgba(255,255,220,0)');
+      const moonRadius =
+        window.innerWidth < 640 ? 32 : 50;
 
-            ctx.fillStyle = glow;
+      const glow = ctx.createRadialGradient(
+        moonX,
+        moonY,
+        moonRadius * 0.2,
+        moonX,
+        moonY,
+        moonRadius * 2.2
+      );
 
-            ctx.beginPath();
-            ctx.arc(
-                moonX,
-                moonY,
-                moonRadius * 2.2,
-                0,
-                Math.PI * 2
-            );
-            ctx.fill();
+      glow.addColorStop(0, 'rgba(255,245,200,0.22)');
+      glow.addColorStop(1, 'rgba(255,245,200,0)');
 
-            // Crescent moon
-            ctx.save();
+      ctx.fillStyle = glow;
 
-            ctx.fillStyle = '#fff7d6';
-            ctx.shadowBlur = 25;
-            ctx.shadowColor = '#ffd166';
+      ctx.beginPath();
+      ctx.arc(
+        moonX,
+        moonY,
+        moonRadius * 2.2,
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
 
-            ctx.beginPath();
-            ctx.arc(
-                moonX,
-                moonY,
-                moonRadius,
-                0,
-                Math.PI * 2
-            );
-            ctx.fill();
+      ctx.save();
 
-            // Cut part to make crescent
-            ctx.globalCompositeOperation = 'destination-out';
+      ctx.fillStyle = '#fff7d6';
+      ctx.shadowBlur = 25;
+      ctx.shadowColor = '#ffd166';
 
-            ctx.beginPath();
-            ctx.arc(
-                moonX + moonRadius * 0.35,
-                moonY - moonRadius * 0.1,
-                moonRadius * 0.95,
-                0,
-                Math.PI * 2
-            );
+      ctx.beginPath();
+      ctx.arc(
+        moonX,
+        moonY,
+        moonRadius,
+        0,
+        Math.PI * 2
+      );
+      ctx.fill();
 
-            ctx.fill();
+      ctx.globalCompositeOperation =
+        'destination-out';
 
-            ctx.restore();
+      ctx.beginPath();
+      ctx.arc(
+        moonX + moonRadius * 0.35,
+        moonY - moonRadius * 0.1,
+        moonRadius * 0.95,
+        0,
+        Math.PI * 2
+      );
 
-            // Rockets
-            rocketsRef.current.forEach((r, i) => {
-                r.y -= r.speed;
+      ctx.fill();
 
-                ctx.beginPath();
-                ctx.fillStyle = '#ff4d00';
-                ctx.arc(r.x, r.y, 3, 0, Math.PI * 2);
-                ctx.fill();
+      ctx.restore();
 
-                // trail
-                ctx.beginPath();
-                ctx.strokeStyle = 'rgba(255,77,0,0.4)';
-                ctx.moveTo(r.x, r.y + 14);
-                ctx.lineTo(r.x, r.y);
-                ctx.stroke();
+      // Rockets
+      rocketsRef.current.forEach((r, i) => {
+        r.y -= r.speed;
 
-                if (r.y <= r.targetY) {
-                    createExplosion(r.x, r.y);
+        ctx.beginPath();
 
-                    rocketsRef.current.splice(i, 1);
-                }
-            });
+        ctx.fillStyle = '#ff4d00';
 
-            // Explosion particles
-            particlesRef.current.forEach((p, i) => {
-                p.x += p.vx;
-                p.y += p.vy;
+        ctx.arc(r.x, r.y, 3, 0, Math.PI * 2);
 
-                p.vy += 0.02;
+        ctx.fill();
 
-                p.life -= 1;
+        // Trail
+        ctx.beginPath();
 
-                ctx.beginPath();
+        ctx.strokeStyle =
+          'rgba(255,77,0,0.45)';
 
-                ctx.fillStyle = `rgba(${p.color},${p.life / 100})`;
+        ctx.lineWidth = 2;
 
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.moveTo(r.x, r.y + 18);
 
-                ctx.fill();
+        ctx.lineTo(r.x, r.y);
 
-                if (p.life <= 0) {
-                    particlesRef.current.splice(i, 1);
-                }
-            });
+        ctx.stroke();
 
-            // Text particles
-            textParticlesRef.current.forEach((p, i) => {
-                p.progress += 0.02;
+        if (r.y <= r.targetY) {
+          createExplosion(r.x, r.y);
 
-                p.x += (p.tx - p.x) * 0.05;
-                p.y += (p.ty - p.y) * 0.05;
-
-                if (p.fade) {
-                    p.alpha -= 0.008;
-                }
-
-                ctx.beginPath();
-
-                ctx.fillStyle = `rgba(255,140,0,${p.alpha})`;
-
-                ctx.shadowBlur = 10;
-                ctx.shadowColor = '#ff4d00';
-
-                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-
-                ctx.fill();
-
-                if (p.alpha <= 0) {
-                    textParticlesRef.current.splice(i, 1);
-                }
-            });
-
-            animationRef.current = requestAnimationFrame(render);
-        };
-
-        render();
-
-        return () => {
-            cancelAnimationFrame(animationRef.current);
-            window.removeEventListener('resize', resize);
-        };
-    }, []);
-
-    const createExplosion = (x, y) => {
-        for (let i = 0; i < 70; i++) {
-            const angle = (Math.PI * 2 * i) / 70;
-
-            const speed = Math.random() * 4 + 1;
-
-            const color =
-                COLORS[Math.floor(Math.random() * COLORS.length)];
-
-            const rgb = hexToRgb(color);
-
-            particlesRef.current.push({
-                x,
-                y,
-                vx: Math.cos(angle) * speed,
-                vy: Math.sin(angle) * speed,
-                size: Math.random() * 2 + 1,
-                life: 100,
-                color: `${rgb.r},${rgb.g},${rgb.b}`,
-            });
+          rocketsRef.current.splice(i, 1);
         }
-    };
+      });
 
-    const hexToRgb = (hex) => {
-        const bigint = parseInt(hex.replace('#', ''), 16);
+      // Explosion particles
+      particlesRef.current.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
 
-        return {
-            r: (bigint >> 16) & 255,
-            g: (bigint >> 8) & 255,
-            b: bigint & 255,
-        };
-    };
+        p.vy += 0.02;
 
-    const createText = () => {
-        if (!name.trim()) return;
+        p.life -= 1;
 
-        const canvas = canvasRef.current;
-        const offscreen = document.createElement('canvas');
+        ctx.beginPath();
 
-        offscreen.width = canvas.width;
-        offscreen.height = canvas.height;
+        ctx.fillStyle = `rgba(${p.color},${
+          p.life / 100
+        })`;
 
-        const ctx = offscreen.getContext('2d');
+        ctx.shadowBlur = 12;
 
-        const text = `Eid Mubarak ${name}`;
+        ctx.shadowColor = `rgba(${p.color},1)`;
 
-        const fontSize =
-            window.innerWidth < 640
-                ? 32
-                : window.innerWidth < 1024
-                    ? 54
-                    : 82;
-
-        ctx.fillStyle = 'white';
-
-        ctx.textAlign = 'center';
-
-        ctx.font = `900 ${fontSize}px Arial`;
-
-        ctx.fillText(
-            text,
-            offscreen.width / 2,
-            offscreen.height / 2
+        ctx.arc(
+          p.x,
+          p.y,
+          p.size,
+          0,
+          Math.PI * 2
         );
 
-        const data = ctx.getImageData(
-            0,
-            0,
-            offscreen.width,
-            offscreen.height
-        ).data;
+        ctx.fill();
 
-        textParticlesRef.current = [];
+        if (p.life <= 0) {
+          particlesRef.current.splice(i, 1);
+        }
+      });
 
-        for (let y = 0; y < offscreen.height; y += 6) {
-            for (let x = 0; x < offscreen.width; x += 6) {
-                const index = (y * offscreen.width + x) * 4;
+      // Text particles
+      textParticlesRef.current.forEach((p, i) => {
+        p.x += (p.tx - p.x) * 0.05;
+        p.y += (p.ty - p.y) * 0.05;
 
-                if (data[index + 3] > 128) {
-                    textParticlesRef.current.push({
-                        x: canvas.width / 2,
-                        y: canvas.height + 50,
-                        tx: x,
-                        ty: y,
-                        size: Math.random() * 2 + 1,
-                        alpha: 1,
-                        progress: 0,
-                        fade: false,
-                    });
-                }
-            }
+        if (p.fade) {
+          p.alpha -= 0.008;
         }
 
-        // launch rockets
-        for (let i = 0; i < 12; i++) {
-            rocketsRef.current.push({
-                x:
-                    canvas.width / 2 +
-                    (Math.random() - 0.5) * 300,
-                y: canvas.height + Math.random() * 100,
-                targetY:
-                    canvas.height / 2 -
-                    Math.random() * 120,
-                speed: Math.random() * 4 + 4,
-            });
-        }
+        ctx.beginPath();
 
-        // fade text after few seconds
-        setTimeout(() => {
-            textParticlesRef.current.forEach((p) => {
-                p.fade = true;
-            });
-        }, 4500);
+        ctx.fillStyle = `rgba(255,140,0,${p.alpha})`;
+
+        ctx.shadowBlur = 14;
+        ctx.shadowColor = '#ff4d00';
+
+        ctx.arc(
+          p.x,
+          p.y,
+          p.size,
+          0,
+          Math.PI * 2
+        );
+
+        ctx.fill();
+
+        if (p.alpha <= 0) {
+          textParticlesRef.current.splice(i, 1);
+        }
+      });
+
+      animationRef.current =
+        requestAnimationFrame(render);
     };
 
-    return (
-        <main className="relative h-screen w-full overflow-hidden bg-[#050816]">
-            {/* Canvas */}
-            <canvas
-                ref={canvasRef}
-                className="absolute inset-0 h-full w-full"
-            />
+    render();
 
-            {/* Bottom Input */}
-            <div className="absolute bottom-0 left-0 z-20 w-full p-4 sm:p-6">
-                <div className="mx-auto flex max-w-2xl flex-col gap-3 rounded-3xl border border-white/10 bg-white/[0.04] p-4 backdrop-blur-xl sm:flex-row">
-                    <input
-                        type="text"
-                        placeholder="Enter a name..."
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="h-14 flex-1 rounded-2xl border border-white/10 bg-black/20 px-5 text-white outline-none placeholder:text-white/30"
-                    />
+    return () => {
+      cancelAnimationFrame(animationRef.current);
 
-                    <button
-                        onClick={createText}
-                        className="h-14 rounded-2xl bg-gradient-to-r from-[#ff4d00] to-[#ff8c00] px-8 font-semibold text-white transition hover:scale-[1.02]"
-                    >
-                        Launch
-                    </button>
-                </div>
-            </div>
-        </main>
+      window.removeEventListener(
+        'resize',
+        resize
+      );
+    };
+  }, []);
+
+  const hexToRgb = (hex) => {
+    const bigint = parseInt(
+      hex.replace('#', ''),
+      16
     );
+
+    return {
+      r: (bigint >> 16) & 255,
+      g: (bigint >> 8) & 255,
+      b: bigint & 255,
+    };
+  };
+
+  const createExplosion = (x, y) => {
+    for (let i = 0; i < 70; i++) {
+      const angle = (Math.PI * 2 * i) / 70;
+
+      const speed =
+        Math.random() * 4 + 1;
+
+      const color =
+        COLORS[
+          Math.floor(
+            Math.random() * COLORS.length
+          )
+        ];
+
+      const rgb = hexToRgb(color);
+
+      particlesRef.current.push({
+        x,
+        y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        size: Math.random() * 2 + 1,
+        life: 100,
+        color: `${rgb.r},${rgb.g},${rgb.b}`,
+      });
+    }
+  };
+
+  const createText = () => {
+    if (!name.trim()) return;
+
+    const canvas = canvasRef.current;
+
+    const offscreen =
+      document.createElement('canvas');
+
+    offscreen.width = canvas.width;
+    offscreen.height = canvas.height;
+
+    const ctx =
+      offscreen.getContext('2d');
+
+    const isMobile =
+      window.innerWidth < 640;
+
+    const line1 = 'Eid Mubarak';
+    const line2 = name;
+
+    const fontSize = isMobile
+      ? 34
+      : window.innerWidth < 1024
+      ? 58
+      : 84;
+
+    ctx.clearRect(
+      0,
+      0,
+      offscreen.width,
+      offscreen.height
+    );
+
+    ctx.fillStyle = 'white';
+
+    ctx.textAlign = 'center';
+
+    ctx.textBaseline = 'middle';
+
+    ctx.font = `900 ${fontSize}px Arial`;
+
+    if (isMobile) {
+      ctx.fillText(
+        line1,
+        offscreen.width / 2,
+        offscreen.height / 2 - 38
+      );
+
+      ctx.fillText(
+        line2,
+        offscreen.width / 2,
+        offscreen.height / 2 + 38
+      );
+    } else {
+      ctx.fillText(
+        `${line1} ${line2}`,
+        offscreen.width / 2,
+        offscreen.height / 2
+      );
+    }
+
+    const data = ctx.getImageData(
+      0,
+      0,
+      offscreen.width,
+      offscreen.height
+    ).data;
+
+    textParticlesRef.current = [];
+
+    const gap = isMobile ? 5 : 6;
+
+    for (
+      let y = 0;
+      y < offscreen.height;
+      y += gap
+    ) {
+      for (
+        let x = 0;
+        x < offscreen.width;
+        x += gap
+      ) {
+        const index =
+          (y * offscreen.width + x) * 4;
+
+        if (data[index + 3] > 128) {
+          textParticlesRef.current.push({
+            x:
+              canvas.width / 2 +
+              (Math.random() - 0.5) * 120,
+
+            y:
+              canvas.height +
+              Math.random() * 120,
+
+            tx: x,
+            ty: y,
+
+            size:
+              Math.random() * 2.2 + 1,
+
+            alpha: 1,
+            fade: false,
+          });
+        }
+      }
+    }
+
+    // Rockets
+    const rocketCount = isMobile
+      ? 8
+      : 12;
+
+    for (let i = 0; i < rocketCount; i++) {
+      rocketsRef.current.push({
+        x:
+          canvas.width / 2 +
+          (Math.random() - 0.5) *
+            (isMobile ? 180 : 320),
+
+        y:
+          canvas.height +
+          Math.random() * 120,
+
+        targetY:
+          canvas.height / 2 -
+          Math.random() *
+            (isMobile ? 80 : 140),
+
+        speed:
+          Math.random() * 4 + 4,
+      });
+    }
+
+    // Fade away
+    setTimeout(() => {
+      textParticlesRef.current.forEach(
+        (p) => {
+          p.fade = true;
+        }
+      );
+    }, 4500);
+  };
+
+  return (
+    <main className="relative h-screen w-full overflow-hidden bg-[#050816]">
+      {/* Canvas */}
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0 h-full w-full"
+      />
+
+      {/* Bottom Input */}
+      <div className="absolute bottom-0 left-0 z-20 w-full px-4 pb-5 sm:px-6 sm:pb-8">
+        <div className="mx-auto flex w-full max-w-2xl flex-col gap-3 rounded-[2rem] border border-white/10 bg-black/20 p-3 backdrop-blur-2xl sm:flex-row sm:items-center sm:p-4">
+          <input
+            type="text"
+            placeholder="Enter a name..."
+            value={name}
+            onChange={(e) =>
+              setName(e.target.value)
+            }
+            className="h-14 w-full rounded-2xl border border-white/10 bg-white/[0.04] px-5 text-base text-white outline-none transition placeholder:text-white/30 focus:border-[#ff4d00]/40"
+          />
+
+          <button
+            onClick={createText}
+            className="h-14 w-full rounded-2xl bg-gradient-to-r from-[#ff4d00] to-[#ff8c00] px-8 font-semibold text-white transition hover:scale-[1.01] sm:w-auto"
+          >
+            Launch
+          </button>
+        </div>
+      </div>
+    </main>
+  );
 }
