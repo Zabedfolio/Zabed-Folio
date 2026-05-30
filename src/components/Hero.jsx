@@ -238,7 +238,7 @@ export default function Hero() {
                 whileHover={reducedMotion ? {} : { y: -4 }}
                 className="rounded-full border border-white/10 bg-white/[0.03] p-3 text-white transition hover:text-white"
               >
-                <Icon className="text-sm sm:text-base" />
+                <Icon className="text-sm sm:text-base text-white" />
               </motion.a>
             ))}
           </div>
