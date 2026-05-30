@@ -166,40 +166,7 @@ export default function Footer() {
         </div>
 
         {/* Info bar */}
-        <div className="relative border-t border-white/[0.06] px-8 pt-6 pb-6">
-          <div className="flex flex-wrap items-start justify-between gap-6">
-            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/20 pt-1">
-              © 2026 Zabed Mahmud. All rights reserved.
-            </p>
-            <div className="flex flex-wrap gap-12">
-              <LinkCol label="Navigation" links={navLinks} />
-              <LinkCol label="Work"       links={workLinks} />
-              <LinkCol label="Connect"    links={connectLinks} />
-            </div>
-          </div>
-
-          {/* Bottom strip */}
-          <div className="mt-5 flex flex-wrap items-center justify-between gap-4 border-t border-white/[0.04] pt-5">
-            <div className="flex items-center gap-5">
-              <a href="#" className="footer-a font-mono text-[11px] text-white/25">Terms</a>
-              <span className="text-[#ff4d00]/40 text-[10px]">•</span>
-              <a href="#" className="footer-a font-mono text-[11px] text-white/25">Privacy</a>
-            </div>
-
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/[0.18] bg-[#ff4d00]/[0.06] px-3 py-1.5">
-              <span className="relative flex h-[7px] w-[7px]">
-                <span
-                  className="absolute inset-[-3px] rounded-full bg-[#ff4d00]/35"
-                  style={{ animation: 'fp-ping 1.4s infinite' }}
-                />
-                <span className="relative inline-flex h-full w-full rounded-full bg-[#ff4d00]" />
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/40">
-                Still Learning · May 2026
-              </span>
-            </div>
-          </div>
-        </div>
+        
 
       </footer>
     </>
