@@ -496,7 +496,7 @@ export default function Footer() {
           {[
             { n: 20,  suffix: '+', label: 'Projects built',      delay: 300 },
             { n: 6,   suffix: '+', label: 'Months learning experience',    delay: 420 },
-            // { n: 100, suffix: '%', label: 'Client satisfaction', delay: 540 },
+           { n: 15, suffix: '+', label: 'Technologies explored', delay: 540 },
           ].map((s, i) => (
             <div key={i} style={{
               paddingLeft:  i === 0 ? 0 : 'clamp(16px,2.5vw,36px)',

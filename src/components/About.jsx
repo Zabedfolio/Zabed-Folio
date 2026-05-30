@@ -8,7 +8,7 @@ import pic from "@/assets/zabed.png";
 
 const stats = [
   { value: "6+", label: "Months" },
-  { value: "15+", label: "Projects" },
+  { value: "20+", label: "Projects" },
 ];
 
 export default function About() {
