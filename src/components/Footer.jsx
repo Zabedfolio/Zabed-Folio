@@ -166,7 +166,15 @@ export default function Footer() {
         </div>
 
         {/* Info bar */}
-        
+        <div className="relative border-t border-white/[0.06] px-8 pt-6 pb-6">
+          <div className="flex flex-wrap items-start justify-between gap-6">
+            <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-white/20 pt-1">
+              © 2026 Zabed Mahmud. All rights reserved.
+            </p>
+            
+          </div>
+
+        </div>
 
       </footer>
     </>
