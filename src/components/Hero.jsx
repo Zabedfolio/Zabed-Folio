@@ -236,7 +236,7 @@ export default function Hero() {
                 target="_blank"
                 rel="noreferrer"
                 whileHover={reducedMotion ? {} : { y: -4 }}
-                className="rounded-full border border-white/10 bg-white/[0.03] p-3 text-white/60 transition hover:text-white"
+                className="rounded-full border border-white/10 bg-white/[0.03] p-3 text-white transition hover:text-white"
               >
                 <Icon className="text-sm sm:text-base" />
               </motion.a>
