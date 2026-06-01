@@ -81,7 +81,7 @@ export default function Footer() {
                 </div>
               </div>
 
-              <p className="max-w-xl text-sm md:text-base leading-relaxed text-white/70">
+              <p className="max-w-xl text-sm md:text-base leading-relaxed text-white">
                 Frontend developer focused on crafting premium digital
                 experiences with React, Next.js and modern UI engineering.
                 Building products that feel as good as they look.
