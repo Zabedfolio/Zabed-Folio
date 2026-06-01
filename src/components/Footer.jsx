@@ -81,8 +81,11 @@ export default function Footer() {
                 </div>
               </div>
 
-              {/* ✅ FIXED TEXT COLOR HERE */}
-              <p className="max-w-xl text-sm md:text-base leading-relaxed text-white/90">
+              {/* FIX: inline style used to override any global/parent color inheritance */}
+              <p
+                className="max-w-xl text-sm md:text-base leading-relaxed"
+                style={{ color: 'rgba(255, 255, 255, 0.9)' }}
+              >
                 Frontend developer focused on crafting premium digital
                 experiences with React, Next.js and modern UI engineering.
                 Building products that feel as good as they look.
