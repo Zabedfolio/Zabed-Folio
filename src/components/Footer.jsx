@@ -29,7 +29,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-[#050505] pt-40">
-      {/* Top Divider Shape */}
+      {/* Top Shape */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
         <svg
           viewBox="0 0 1440 120"
@@ -51,9 +51,12 @@ export default function Footer() {
         {/* Main Card */}
         <div className="relative overflow-hidden rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-xl">
           {/* Glow */}
-          <div className="absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#ff4d00]/20 blur-[120px]" />
+          <div className="absolute inset-0 z-0">
+            <div className="absolute -top-32 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full bg-[#ff4d00]/20 blur-[120px]" />
+          </div>
 
-          <div className="grid gap-12 p-8 md:p-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          {/* Content */}
+          <div className="relative z-10 grid gap-12 p-8 md:p-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             {/* Left */}
             <div>
               <div className="mb-8 flex items-center gap-4">
@@ -67,26 +70,26 @@ export default function Footer() {
                 </div>
 
                 <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-[#ff4d00]">
+                  <p className="text-sm font-medium uppercase tracking-[0.3em] text-[#ff4d00]">
                     Available For Work
                   </p>
 
-                  <h3 className="text-2xl font-bold text-white md:text-3xl">
+                  <h3 className="mt-1 text-3xl font-bold text-white md:text-5xl">
                     Let&apos;s Build Something Remarkable
                   </h3>
                 </div>
               </div>
 
-              <p className="max-w-xl text-sm leading-relaxed text-white md:text-base">
+              <p className="max-w-xl text-base leading-relaxed text-white/70">
                 Frontend developer focused on crafting premium digital
                 experiences with React, Next.js and modern UI engineering.
                 Building products that feel as good as they look.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-wrap gap-4">
                 <a
                   href="mailto:zabedfolio@gmail.com"
-                  className="group rounded-full bg-[#ff4d00] px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:scale-105"
+                  className="rounded-full bg-[#ff4d00] px-8 py-4 text-sm font-semibold text-white transition-all duration-300 hover:scale-105"
                 >
                   Start a Project
                 </a>
@@ -94,7 +97,7 @@ export default function Footer() {
                 <a
                   href="/resume.pdf"
                   download
-                  className="rounded-full border border-white/10 px-6 py-3 text-sm text-white/70 transition-all duration-300 hover:border-[#ff4d00]/50 hover:text-white"
+                  className="rounded-full border border-white/10 px-8 py-4 text-sm font-medium text-white/80 transition-all duration-300 hover:border-[#ff4d00]/50 hover:text-white"
                 >
                   Download Resume
                 </a>
@@ -104,7 +107,7 @@ export default function Footer() {
             {/* Right */}
             <div className="flex flex-col items-start lg:items-end">
               <span className="mb-5 text-xs uppercase tracking-[0.35em] text-white/30">
-                Connect
+                CONNECT
               </span>
 
               <div className="flex flex-wrap gap-3">
@@ -116,8 +119,8 @@ export default function Footer() {
                       key={social.name}
                       href={social.href}
                       target="_blank"
-                      rel="noreferrer"
-                      className="group flex items-center gap-3 rounded-full border border-white/10 px-5 py-3 text-white/70 transition-all duration-300 hover:border-[#ff4d00]/50 hover:bg-[#ff4d00]/10 hover:text-white"
+                      rel="noopener noreferrer"
+                      className="group flex items-center gap-3 rounded-full border border-white/10 px-5 py-3 text-white/80 transition-all duration-300 hover:border-[#ff4d00]/50 hover:bg-[#ff4d00]/10 hover:text-white"
                     >
                       <Icon className="text-sm transition-transform duration-300 group-hover:rotate-12" />
                       <span className="text-sm">{social.name}</span>
@@ -126,9 +129,9 @@ export default function Footer() {
                 })}
               </div>
 
-              <div className="mt-10 rounded-3xl border border-white/10 bg-black/20 p-6 backdrop-blur-xl">
-                <p className="text-5xl font-bold text-white">20+</p>
-                <span className="text-sm text-white/50">
+              <div className="mt-10 rounded-3xl border border-white/10 bg-black/30 p-8 backdrop-blur-xl">
+                <p className="text-6xl font-bold text-white">20+</p>
+                <span className="mt-2 block text-sm text-white/50">
                   Projects Completed
                 </span>
               </div>
@@ -138,7 +141,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-8 flex flex-col gap-5 border-t border-white/10 pt-6 text-sm text-white/40 md:flex-row md:items-center md:justify-between">
-          <p>
+          <p className="text-white/40">
             © {new Date().getFullYear()} Zabed Mahmud. Crafted with precision.
           </p>
 
