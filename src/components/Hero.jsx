@@ -55,9 +55,16 @@ const marqueeItems = [
   'GRAVITY UI',
 ];
 
+const MONTHS = [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
 export default function Hero() {
   const heroRef = useRef(null);
   const reducedMotion = useReducedMotion();
+
+  const currentMonth = MONTHS[new Date().getMonth()];
 
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -106,7 +113,7 @@ export default function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#ff4d00]/70" />
               <span className="relative inline-flex h-full w-full rounded-full bg-[#ff4d00]" />
             </span>
-            Still Learning · May 2026
+            Still Learning · {currentMonth}
           </motion.div>
 
           {/* Avatar */}
