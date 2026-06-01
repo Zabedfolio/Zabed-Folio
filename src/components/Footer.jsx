@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Content */}
           <div className="relative z-10 grid gap-10 md:gap-12 p-6 md:p-14 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-            
+
             {/* Left */}
             <div>
               <div className="mb-6 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center gap-4">
@@ -81,7 +81,8 @@ export default function Footer() {
                 </div>
               </div>
 
-              <p className="max-w-xl text-sm md:text-base leading-relaxed text-white">
+              {/* ✅ FIXED TEXT COLOR HERE */}
+              <p className="max-w-xl text-sm md:text-base leading-relaxed text-white/90">
                 Frontend developer focused on crafting premium digital
                 experiences with React, Next.js and modern UI engineering.
                 Building products that feel as good as they look.
@@ -144,7 +145,7 @@ export default function Footer() {
 
         {/* Bottom */}
         <div className="mt-6 md:mt-8 flex flex-col gap-4 border-t border-white/10 pt-5 md:pt-6 text-xs md:text-sm text-white/40 md:flex-row md:items-center md:justify-between">
-          <p className="text-white/40 text-center md:text-left">
+          <p className="text-center md:text-left">
             © {new Date().getFullYear()} Zabed Mahmud. Crafted with precision.
           </p>
 
@@ -155,7 +156,7 @@ export default function Footer() {
                 behavior: 'smooth',
               })
             }
-            className="group flex items-center justify-center md:justify-start gap-2 text-white/40 transition-colors hover:text-[#ff4d00]"
+            className="group flex items-center justify-center md:justify-start gap-2 transition-colors hover:text-[#ff4d00]"
           >
             <FaArrowUp className="transition-transform duration-300 group-hover:-translate-y-1" />
             Back To Top
