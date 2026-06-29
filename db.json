@@ -1,6 +1,29 @@
 {
   "projects": [
     {
+      "id": "taskly",
+      "title": "Taskly",
+      "category": "Full Stack",
+      "year": "2026",
+      "description": "A premium freelance marketplace platform that connects clients with elite freelancer talent — featuring role-based dashboards, Stripe escrow payments, a full bidding system, admin moderation, and earnings analytics.",
+      "image": "https://i.ibb.co.com/twYQYgb0/Mockup-Views-2x-PNG-20260629-926.png",
+      "tags": [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "MongoDB",
+        "Express",
+        "Better Auth",
+        "Stripe",
+        "Google OAuth",
+        "Vercel"
+      ],
+      "challenge": "The core challenge was architecting a strict role-based system across three user personas (Client, Freelancer, Admin) with completely separate dashboards, protected routes, and a real Stripe escrow payment flow that triggers task status changes on confirmation. Integrating Google OAuth with Better Auth required server-side database hooks to auto-assign roles and mark onboarding complete — since Google sign-in bypassed the standard role selection form, causing routing loops that had to be resolved at the session creation layer.",
+      "improvements": "Future iterations could introduce real-time notifications via WebSockets, a dispute resolution system for client-freelancer conflicts, a subscription or commission-based revenue model, milestone-based payments instead of full upfront escrow, and a built-in messaging system between clients and freelancers before contract assignment.",
+      "liveUrl": "https://taskly-client-zabedfolio.vercel.app/",
+      "githubUrl": "https://github.com/Zabedfolio/Taskly-Client"
+    },
+    {
       "id": "sportnest",
       "title": "SportNest",
       "category": "Full Stack",
