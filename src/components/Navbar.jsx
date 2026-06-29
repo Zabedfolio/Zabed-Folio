@@ -20,6 +20,13 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#about");
   const { scrollY } = useScroll();
+  const [isAdminLocal, setIsAdminLocal] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsAdminLocal(localStorage.getItem("admin_logged_in") === "true");
+    }
+  }, [session]);
 
   const navBg = useTransform(scrollY, [0, 200], ["rgba(5,5,5,0)", "rgba(5,5,5,0.85)"]);
   const navBorder = useTransform(scrollY, [0, 200], ["rgba(255,255,255,0)", "rgba(255,255,255,0.07)"]);
@@ -106,7 +113,7 @@ export default function Navbar() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
-            {session?.user && (
+            {(session?.user || isAdminLocal) && (
               <Link
                 href="/admin"
                 title="Go to Admin Dashboard"
@@ -125,7 +132,7 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center gap-2 md:hidden">
-            {session?.user && (
+            {(session?.user || isAdminLocal) && (
               <Link
                 href="/admin"
                 title="Go to Admin Dashboard"

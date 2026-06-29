@@ -38,6 +38,7 @@ export default function AdminLayout({ children }) {
   }
 
   const handleSignOut = async () => {
+    localStorage.removeItem("admin_logged_in");
     await signOut({
       callbackURL: "/admin/login",
     });

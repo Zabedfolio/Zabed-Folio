@@ -27,6 +27,7 @@ export default function LoginPage() {
       if (response?.error) {
         setError(response.error.message || "Invalid email or password");
       } else {
+        localStorage.setItem("admin_logged_in", "true");
         router.push("/admin");
         router.refresh();
       }
