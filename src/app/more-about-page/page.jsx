@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import learnedSkills from "@/data/learnedSkills.json";
 
 // ─── Motion helpers ───────────────────────────────────────────────────────────
 const fade = (delay = 0) => ({
@@ -425,17 +426,7 @@ export default function MoreAboutPage() {
               What I've learned so far
             </motion.p>
             <div className="space-y-3">
-              {[
-                { label: "HTML & CSS", note: "where it all started" },
-                { label: "Tailwind CSS", note: "utility-first styling" },
-                { label: "JavaScript", note: "the real turning point" },
-                { label: "React", note: "components & hooks" },
-                { label: "Next.js", note: "full-stack React" },
-                { label: "Express.js + REST APIs", note: "backend basics" },
-                { label: "MongoDB", note: "databases" },
-                { label: "Better Auth", note: "authentication" },
-                { label: "JWT", note: "json web token" },
-              ].map((item, i) => (
+              {learnedSkills.map((item, i) => (
                 <motion.div
                   key={item.label}
                   variants={fade(i * 0.05)}

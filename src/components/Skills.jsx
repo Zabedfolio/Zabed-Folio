@@ -7,31 +7,33 @@ import { FaAws, FaFigma, FaGitAlt, FaNodeJs, FaReact } from "react-icons/fa";
 import { RiDatabase2Line, RiLayoutMasonryLine, RiTailwindCssFill } from "react-icons/ri";
 import { SiFramer, SiMongodb, SiNextdotjs,SiBetterauth,SiIconify,SiGooglecloud, SiTypescript, SiVercel,SiHeroui,SiDaisyui, SiExpress } from "react-icons/si";
 import { fadeUp, scaleIn, staggerContainer } from "@/utils/motionVariants";
+import skillsData from "@/data/skills.json";
+
+const iconMap = {
+  SiNextdotjs,
+  FaReact,
+  SiExpress,
+  RiTailwindCssFill,
+  SiFramer,
+  FaNodeJs,
+  SiMongodb,
+  SiBetterauth,
+  FaGitAlt,
+  SiVercel,
+  FaFigma,
+  RiLayoutMasonryLine,
+  SiHeroui,
+  SiDaisyui,
+  SiIconify,
+  SiGooglecloud,
+  FaAws,
+  RiDatabase2Line,
+  SiTypescript
+};
 
 const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library"];
 
-const skills = [
-  { name: "Next.js", category: "Frontend", icon: SiNextdotjs, color: "#ffffff" },
-  { name: "React", category: "Frontend", icon: FaReact, color: "#61dafb" },
-  { name: "Express.js", category: "Backend", icon: SiExpress, color: "#ffffff" },
-  { name: "Tailwind CSS", category: "Frontend", icon: RiTailwindCssFill, color: "#38bdf8" },
-  { name: "Framer Motion", category: "Frontend", icon: SiFramer, color: "#ff4d9c" },
-  { name: "Node.js", category: "Backend", icon: FaNodeJs, color: "#79c15b" },
-  { name: "MongoDB", category: "Backend", icon: SiMongodb, color: "#13aa52" },
-  { name: "Better Auth", category: "Tools", icon: SiBetterauth, color: "#ffffff" },
-  
-  // { name: "Database Design", category: "Backend", icon: RiDatabase2Line, color: "#ff8c00" },
-  // { name: "TypeScript", category: "Tools", icon: SiTypescript, color: "#3178c6" },
-  { name: "Git", category: "Tools", icon: FaGitAlt, color: "#f1502f" },
-  { name: "Vercel", category: "Tools", icon: SiVercel, color: "#ffffff" },
-  // { name: "AWS", category: "Tools", icon: FaAws, color: "#ff9900" },
-  { name: "Figma", category: "Design", icon: FaFigma, color: "#f24e1e" },
-  { name: "UI Systems", category: "Design", icon: RiLayoutMasonryLine, color: "#ff4d00" },
-  { name: "Hero UI", category: "UI Library", icon: SiHeroui, color: "#00d8ff" },
-  { name: "DaisyUI", category: "UI Library", icon: SiDaisyui, color: "#5a0ef8" },
-  { name: "React Iconify", category: "Tools", icon: SiIconify, color: "#61dafb" },
-  { name: "Google Cloud Console", category: "Tools", icon: SiGooglecloud, color: "#e94334" }
-];
+const skills = skillsData;
 
 export default function Skills() {
   const [active, setActive] = useState("All");
@@ -82,7 +84,7 @@ export default function Skills() {
           <Tabs.Content value={active} className="mt-8">
             <motion.div variants={staggerContainer} initial="hidden" animate="show" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {filteredSkills?.map((skill) => {
-                const Icon = skill.icon;
+                const Icon = iconMap[skill.icon] || (() => null);
                 return (
                   <motion.div
                     key={skill.name}

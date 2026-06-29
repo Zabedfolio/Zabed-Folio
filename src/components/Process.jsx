@@ -3,12 +3,7 @@
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/utils/motionVariants";
 
-const steps = [
-  { id: "01", title: "Discovery", description: "Clarify the product signal, audience, and premium positioning before any interface decisions are made." },
-  { id: "02", title: "Design Concept", description: "Shape the visual language, motion rhythm, and layout hierarchy into a system that feels distinct." },
-  { id: "03", title: "Development", description: "Translate the concept into responsive, maintainable, high-performance components and flows." },
-  { id: "04", title: "Launch", description: "Polish the final details, validate quality, and prepare a deployment that feels production-ready on day one." }
-];
+import steps from "@/data/processSteps.json";
 
 const rotations = [2, -1.5, 1, -2];
 

@@ -1,6 +1,6 @@
 'use client';
 
-import { resumeProject } from "@/data/resumeProject";
+import resumeProject from "@/data/resumeProjects.json";
 import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { HiArrowDownTray } from "react-icons/hi2";

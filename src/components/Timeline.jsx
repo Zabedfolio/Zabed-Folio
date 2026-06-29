@@ -5,16 +5,11 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { fadeUp, slideLeft, slideRight, staggerContainer } from "@/utils/motionVariants";
 
-const education = [
-  { date: "2023 — Present", institution: "BSc in Computer Science & Engineering", detail: "International Islamic University Chittagong" },
-  { date: "January,2026 — Present", institution: "Complete Web Development Batch 13", detail: "Programming Hero" }
-];
+import educationData from "@/data/education.json";
+import experienceData from "@/data/experience.json";
 
-const experience = [
-  { date: "Present", institution: "Learning", detail: "Programming hero web development batch 13" },
-  // { date: "2025 — Present", institution: "Freelance Creative Developer", detail: "Delivering premium portfolio, product, and brand websites for startups and independent founders." },
-  // { date: "2023 — 2025", institution: "Frontend Developer", detail: "Built scalable UI systems, responsive dashboards, and polished marketing surfaces for client work." }
-];
+const education = educationData.filter(item => item.active !== false);
+const experience = experienceData.filter(item => item.active !== false);
 
 export default function Timeline() {
   const [activeTab, setActiveTab] = useState("education");
