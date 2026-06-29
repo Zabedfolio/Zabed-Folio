@@ -3,6 +3,7 @@
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "@/lib/auth-client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import {
   HiOutlineBriefcase,
@@ -50,9 +51,20 @@ export default function AdminLayout({ children }) {
       {/* Sidebar for Desktop */}
       <aside className="hidden md:flex flex-col w-64 bg-[#0a0808]/80 border-r border-white/5 backdrop-blur-xl h-screen sticky top-0">
         <div className="h-20 flex items-center justify-between px-6 border-b border-white/5">
-          <Link href="/admin" className="leading-tight">
-            <div className="text-[10px] font-mono tracking-[0.35em] text-white">ZABED MAHMUD</div>
-            <div className="text-[11px] font-mono tracking-[0.24em] text-[#ff4d00] font-bold">ADMIN</div>
+          <Link href="/admin" className="flex items-center gap-2.5 group">
+            <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-white/10 bg-white/5 p-1 transition-all duration-300 group-hover:scale-105 group-hover:border-[#ff4d00]/30 shadow-sm">
+              <Image
+                src="/logo.png"
+                alt="Zabed Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="leading-tight">
+              <div className="text-[11px] font-mono tracking-[0.25em] text-white">ZABED</div>
+              <div className="text-[9px] font-mono tracking-[0.2em] text-[#ff4d00] font-bold">ADMIN</div>
+            </div>
           </Link>
         </div>
 
@@ -100,8 +112,19 @@ export default function AdminLayout({ children }) {
       {/* Mobile Top Navbar */}
       <div className="flex-1 flex flex-col min-w-0">
         <header className="md:hidden h-16 flex items-center justify-between px-6 bg-[#0a0808]/80 border-b border-white/5 backdrop-blur-xl sticky top-0 z-40">
-          <Link href="/admin" className="leading-tight">
-            <span className="text-xs font-mono tracking-[0.35em] text-[#ff4d00] font-bold">ZABED ADMIN</span>
+          <Link href="/admin" className="flex items-center gap-2 group">
+            <div className="relative h-7 w-7 overflow-hidden rounded-lg border border-white/10 bg-white/5 p-0.5 shadow-sm">
+              <Image
+                src="/logo.png"
+                alt="Zabed Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-xs font-mono tracking-[0.25em] text-white font-bold group-hover:text-[#ff4d00] transition">
+              ZABED <span className="text-[#ff4d00]">ADMIN</span>
+            </span>
           </Link>
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -113,7 +136,7 @@ export default function AdminLayout({ children }) {
 
         {/* Mobile Navigation Drawer */}
         {mobileOpen && (
-          <div className="md:hidden fixed inset-0 z-30 bg-[#050505]/95 backdrop-blur-2xl flex flex-col pt-20 px-6">
+          <div className="md:hidden fixed inset-0 z-30 bg-[#050505]/98 backdrop-blur-2xl flex flex-col pt-20 px-6 overflow-y-auto">
             <nav className="flex-1 space-y-2">
               {sidebarItems.map((item) => {
                 const Icon = item.icon;
