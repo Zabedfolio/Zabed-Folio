@@ -3,6 +3,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSession } from "@/lib/auth-client";
 import { HiOutlineMenuAlt4, HiOutlineX, HiOutlineShieldCheck } from "react-icons/hi";
@@ -88,9 +89,19 @@ export default function Navbar() {
     >
       <div className="section-shell">
         <div className="flex h-20 items-center justify-between gap-4">
-          <Link href="#" className="relative z-10 leading-tight">
-            <div className="text-sm font-bold uppercase tracking-[0.35em] text-white">ZABED</div>
-            <div className="text-sm font-bold uppercase tracking-[0.35em] text-[#ff4d00]">MAHMUD</div>
+          <Link href="#" className="relative z-10 flex items-center gap-2.5 group">
+            <div className="relative h-9 w-9 overflow-hidden rounded-xl border border-white/10 bg-white/5 p-1 transition-all duration-300 group-hover:scale-105 group-hover:border-[#ff4d00]/30 shadow-sm">
+              <Image
+                src="/logo.png"
+                alt="Zabed Logo"
+                fill
+                className="object-contain"
+                priority
+              />
+            </div>
+            <span className="text-sm font-bold uppercase tracking-[0.35em] text-white transition-colors duration-300 group-hover:text-[#ff4d00]">
+              ZABED
+            </span>
           </Link>
 
           <nav className="hidden rounded-full border border-white/10 bg-white/[0.03] p-1.5 backdrop-blur-xl md:flex">
