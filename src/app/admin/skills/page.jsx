@@ -206,16 +206,18 @@ export default function AdminSkills() {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-1.5 ml-2">
+                <div className="flex items-center gap-1 ml-2 flex-shrink-0">
                   <button
                     onClick={() => openEditModal(skill)}
-                    className="p-1.5 text-white/40 hover:text-white rounded hover:bg-white/[0.05] transition"
+                    title="Edit Skill"
+                    className="p-2 text-white/70 hover:text-blue-400 rounded-lg hover:bg-blue-500/10 transition duration-200"
                   >
                     <HiOutlinePencil className="text-base" />
                   </button>
                   <button
                     onClick={() => handleDelete(skill._id)}
-                    className="p-1.5 text-white/30 hover:text-red-400 rounded hover:bg-red-500/5 transition"
+                    title="Delete Skill"
+                    className="p-2 text-white/60 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition duration-200"
                   >
                     <HiOutlineTrash className="text-base" />
                   </button>
