@@ -26,10 +26,9 @@ export default function AdminOverview() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [proj, skl, lskl, edu, exp, prc] = await Promise.all([
+        const [proj, skl, edu, exp, prc] = await Promise.all([
           fetch("/api/admin/projects").then((r) => r.json()),
           fetch("/api/admin/skills").then((r) => r.json()),
-          fetch("/api/admin/learned-skills").then((r) => r.json()),
           fetch("/api/admin/education").then((r) => r.json()),
           fetch("/api/admin/experience").then((r) => r.json()),
           fetch("/api/admin/process").then((r) => r.json()),
@@ -38,7 +37,6 @@ export default function AdminOverview() {
         setStats({
           projects: Array.isArray(proj) ? proj.length : 0,
           skills: Array.isArray(skl) ? skl.length : 0,
-          learnedSkills: Array.isArray(lskl) ? lskl.length : 0,
           education: Array.isArray(edu) ? edu.length : 0,
           experience: Array.isArray(exp) ? exp.length : 0,
           processSteps: Array.isArray(prc) ? prc.length : 0,
@@ -72,15 +70,7 @@ export default function AdminOverview() {
       borderColor: "border-blue-500/20",
       href: "/admin/skills",
     },
-    {
-      title: "Learned Skills",
-      count: stats.learnedSkills,
-      desc: "Chronological labels on More About page",
-      icon: HiOutlineCollection,
-      color: "from-purple-500/20 to-purple-600/5",
-      borderColor: "border-purple-500/20",
-      href: "/admin/learned-skills",
-    },
+
     {
       title: "Timeline: Education",
       count: stats.education,

@@ -21,7 +21,6 @@ const sidebarItems = [
   { href: "/admin", label: "Overview", icon: HiOutlineChartBar },
   { href: "/admin/projects", label: "Projects", icon: HiOutlineBriefcase },
   { href: "/admin/skills", label: "Skills", icon: HiOutlineCog },
-  { href: "/admin/learned-skills", label: "Learned Skills", icon: HiOutlineCollection },
   { href: "/admin/education", label: "Education", icon: HiOutlineAcademicCap },
   { href: "/admin/experience", label: "Experience", icon: HiOutlineCube },
   { href: "/admin/process", label: "Process Steps", icon: HiOutlineCube },

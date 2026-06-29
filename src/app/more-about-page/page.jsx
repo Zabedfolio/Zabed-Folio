@@ -215,13 +215,13 @@ function GithubContributions() {
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function MoreAboutPage() {
   const seconds = useJourneySeconds();
-  const [learnedSkills, setLearnedSkills] = useState([]);
+  const [skills, setSkills] = useState([]);
 
   useEffect(() => {
-    fetch("/api/public/learned-skills")
+    fetch("/api/public/skills")
       .then((res) => res.json())
       .then((data) => {
-        if (Array.isArray(data)) setLearnedSkills(data);
+        if (Array.isArray(data)) setSkills(data);
       })
       .catch((err) => console.error(err));
   }, []);
@@ -435,17 +435,17 @@ export default function MoreAboutPage() {
               What I've learned so far
             </motion.p>
             <div className="space-y-3">
-              {learnedSkills.map((item, i) => (
+              {skills.map((item, i) => (
                 <motion.div
-                  key={item.label}
+                  key={item.name}
                   variants={fade(i * 0.05)}
                   className="group flex items-center justify-between rounded-xl border border-black/8 bg-white px-5 py-4 shadow-sm transition-all hover:border-[#ff5f1a]/30 hover:shadow-md hover:shadow-[#ff5f1a]/8"
                 >
                   <span className="font-medium text-black/70 transition-colors group-hover:text-[#1a1a1a]">
-                    {item.label}
+                    {item.name}
                   </span>
-                  <span className="font-mono text-xs text-black/30 transition-colors group-hover:text-black/50">
-                    {item.note}
+                  <span className="font-mono text-xs text-black/35 transition-colors group-hover:text-black/50">
+                    {item.category}
                   </span>
                 </motion.div>
               ))}

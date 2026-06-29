@@ -110,14 +110,6 @@ async function seed() {
   await skillsCol.insertMany(skills.map((s, i) => ({ ...s, order: i })));
   console.log(`✅  Inserted ${skills.length} skills.`);
 
-  // ── 4. Migrate Learned Skills ─────────────────────────────────────────
-  console.log("\n📚  Migrating learned skills…");
-  const learnedSkills = readJson("src/data/learnedSkills.json");
-  const learnedCol = db.collection("learnedSkills");
-  await learnedCol.deleteMany({});
-  await learnedCol.insertMany(learnedSkills.map((s, i) => ({ ...s, order: i })));
-  console.log(`✅  Inserted ${learnedSkills.length} learned skills.`);
-
   // ── 5. Migrate Education ─────────────────────────────────────────────
   console.log("\n🎓  Migrating education…");
   const education = readJson("src/data/education.json");
