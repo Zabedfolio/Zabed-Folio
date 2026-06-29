@@ -273,15 +273,16 @@ export default function AdminProjects() {
 
       {/* Editor Modal */}
       {modalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md overflow-y-auto">
-          <div className="relative w-full max-w-2xl glass-panel border border-white/10 bg-[#0a0808] rounded-3xl p-6 sm:p-8 my-8 shadow-card-soft">
-            <h2 className="text-xl font-bold text-white mb-6">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black/85 backdrop-blur-md p-4 sm:p-6 flex justify-center items-start">
+          <div className="relative w-full max-w-4xl glass-panel border border-white/10 bg-[#0a0808]/95 rounded-3xl p-6 sm:p-8 my-8 shadow-card-soft">
+            <h2 className="text-2xl font-bold text-white mb-6">
               {editingProject ? "Edit Project Details" : "Create New Project"}
             </h2>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                <div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Row 1: Title, Category, Year */}
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
+                <div className="sm:col-span-2">
                   <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
                     Project Title
                   </label>
@@ -304,7 +305,7 @@ export default function AdminProjects() {
                     name="category"
                     value={formData.category}
                     onChange={handleInputChange}
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5"
+                    className="w-full rounded-xl border border-white/10 bg-[#0c0a0a] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5"
                   >
                     <option value="Full Stack">Full Stack</option>
                     <option value="Frontend">Frontend</option>
@@ -314,9 +315,7 @@ export default function AdminProjects() {
                     <option value="UI Library">UI Library</option>
                   </select>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
                     Release Year
@@ -331,8 +330,11 @@ export default function AdminProjects() {
                     className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5"
                   />
                 </div>
+              </div>
 
-                <div>
+              {/* Row 2: Image URL, Tech tags */}
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
+                <div className="sm:col-span-2">
                   <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
                     Mockup Image URL
                   </label>
@@ -345,22 +347,23 @@ export default function AdminProjects() {
                     className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
                   />
                 </div>
+
+                <div className="sm:col-span-2">
+                  <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                    Tags / Tech Stack (comma separated)
+                  </label>
+                  <input
+                    type="text"
+                    name="tags"
+                    value={formData.tags}
+                    onChange={handleInputChange}
+                    placeholder="Next.js, React, Tailwind CSS, MongoDB"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
-                  Tags / Tech Stack (comma separated)
-                </label>
-                <input
-                  type="text"
-                  name="tags"
-                  value={formData.tags}
-                  onChange={handleInputChange}
-                  placeholder="Next.js, React, Tailwind CSS, MongoDB"
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
-                />
-              </div>
-
+              {/* Row 3: Short Description */}
               <div>
                 <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
                   Short Description
@@ -376,34 +379,38 @@ export default function AdminProjects() {
                 />
               </div>
 
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
-                  Development Challenges
-                </label>
-                <textarea
-                  name="challenge"
-                  rows={3}
-                  value={formData.challenge}
-                  onChange={handleInputChange}
-                  placeholder="What was the main engineering challenge you solved?"
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
-                />
+              {/* Row 4: Challenges & Improvements */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                <div>
+                  <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                    Development Challenges
+                  </label>
+                  <textarea
+                    name="challenge"
+                    rows={3}
+                    value={formData.challenge}
+                    onChange={handleInputChange}
+                    placeholder="What was the main engineering challenge you solved?"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                    Future Improvements
+                  </label>
+                  <textarea
+                    name="improvements"
+                    rows={3}
+                    value={formData.improvements}
+                    onChange={handleInputChange}
+                    placeholder="What would you add or refactor in future versions?"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
+                  />
+                </div>
               </div>
 
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
-                  Future Improvements
-                </label>
-                <textarea
-                  name="improvements"
-                  rows={2}
-                  value={formData.improvements}
-                  onChange={handleInputChange}
-                  placeholder="What would you add or refactor in future versions?"
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
-                />
-              </div>
-
+              {/* Row 5: Live URL, Github URL */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
                   <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
@@ -434,7 +441,7 @@ export default function AdminProjects() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/5">
+              <div className="flex items-center justify-end gap-3 pt-5 border-t border-white/5">
                 <button
                   type="button"
                   onClick={() => setModalOpen(false)}
