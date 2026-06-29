@@ -2,12 +2,11 @@
 
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaAws, FaFigma, FaGitAlt, FaNodeJs, FaReact } from "react-icons/fa";
 import { RiDatabase2Line, RiLayoutMasonryLine, RiTailwindCssFill } from "react-icons/ri";
-import { SiFramer, SiMongodb, SiNextdotjs,SiBetterauth,SiIconify,SiGooglecloud, SiTypescript, SiVercel,SiHeroui,SiDaisyui, SiExpress } from "react-icons/si";
+import { SiFramer, SiMongodb, SiNextdotjs, SiBetterauth, SiIconify, SiGooglecloud, SiTypescript, SiVercel, SiHeroui, SiDaisyui, SiExpress } from "react-icons/si";
 import { fadeUp, scaleIn, staggerContainer } from "@/utils/motionVariants";
-import skillsData from "@/data/skills.json";
 
 const iconMap = {
   SiNextdotjs,
@@ -33,10 +32,18 @@ const iconMap = {
 
 const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library"];
 
-const skills = skillsData;
-
 export default function Skills() {
+  const [skills, setSkills] = useState([]);
   const [active, setActive] = useState("All");
+
+  useEffect(() => {
+    fetch("/api/public/skills")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setSkills(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const filteredSkills = active === "All" ? skills : skills.filter((skill) => skill.category === active);
 

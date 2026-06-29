@@ -4,13 +4,8 @@ import { getDb } from "@/lib/mongodb";
 export async function GET() {
   try {
     const db = await getDb();
-    const projects = await db
-      .collection("projects")
-      .find({})
-      .sort({ order: 1 })
-      .toArray();
-
-    return NextResponse.json(projects);
+    const items = await db.collection("skills").find({}).sort({ order: 1 }).toArray();
+    return NextResponse.json(items);
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }

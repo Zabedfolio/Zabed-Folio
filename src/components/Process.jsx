@@ -1,13 +1,22 @@
 'use client';
 
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import { fadeUp, staggerContainer } from "@/utils/motionVariants";
-
-import steps from "@/data/processSteps.json";
 
 const rotations = [2, -1.5, 1, -2];
 
 export default function Process() {
+  const [steps, setSteps] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/public/process")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setSteps(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <div className="section-shell py-24 sm:py-32">
       <motion.div

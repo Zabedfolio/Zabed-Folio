@@ -4,7 +4,8 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { HiOutlineMenuAlt4, HiOutlineX } from "react-icons/hi";
+import { useSession } from "@/lib/auth-client";
+import { HiOutlineMenuAlt4, HiOutlineX, HiOutlineShieldCheck } from "react-icons/hi";
 
 const navItems = [
   { href: "#about", label: "About" },
@@ -15,6 +16,7 @@ const navItems = [
 ];
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("#about");
   const { scrollY } = useScroll();
@@ -103,7 +105,16 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-3">
+            {session?.user && (
+              <Link
+                href="/admin"
+                title="Go to Admin Dashboard"
+                className="rounded-full border border-white/10 bg-white/[0.04] p-3 text-[#ff4d00] hover:bg-[#ff4d00]/10 transition"
+              >
+                <HiOutlineShieldCheck className="text-xl" />
+              </Link>
+            )}
             <motion.a
               href="#contact"
               whileTap={{ scale: 0.97 }}
@@ -113,12 +124,22 @@ export default function Navbar() {
             </motion.a>
           </div>
 
-          <Dialog.Root open={open} onOpenChange={setOpen}>
-            <Dialog.Trigger asChild>
-              <button className="rounded-full border border-white/10 bg-white/[0.04] p-3 text-white md:hidden">
-                <HiOutlineMenuAlt4 className="text-xl" />
-              </button>
-            </Dialog.Trigger>
+          <div className="flex items-center gap-2 md:hidden">
+            {session?.user && (
+              <Link
+                href="/admin"
+                title="Go to Admin Dashboard"
+                className="rounded-full border border-white/10 bg-white/[0.04] p-3 text-[#ff4d00] transition"
+              >
+                <HiOutlineShieldCheck className="text-xl" />
+              </Link>
+            )}
+            <Dialog.Root open={open} onOpenChange={setOpen}>
+              <Dialog.Trigger asChild>
+                <button className="rounded-full border border-white/10 bg-white/[0.04] p-3 text-white">
+                  <HiOutlineMenuAlt4 className="text-xl" />
+                </button>
+              </Dialog.Trigger>
 
             <AnimatePresence>
               {open && (
@@ -184,6 +205,7 @@ export default function Navbar() {
           </Dialog.Root>
         </div>
       </div>
-    </motion.header>
-  );
+    </div>
+  </motion.header>
+);
 }

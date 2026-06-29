@@ -2,17 +2,34 @@
 
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { fadeUp, slideLeft, slideRight, staggerContainer } from "@/utils/motionVariants";
-
-import educationData from "@/data/education.json";
-import experienceData from "@/data/experience.json";
-
-const education = educationData.filter(item => item.active !== false);
-const experience = experienceData.filter(item => item.active !== false);
 
 export default function Timeline() {
   const [activeTab, setActiveTab] = useState("education");
+  const [education, setEducation] = useState([]);
+  const [experience, setExperience] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/public/education")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setEducation(data.filter((item) => item.active !== false));
+        }
+      })
+      .catch((err) => console.error(err));
+
+    fetch("/api/public/experience")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) {
+          setExperience(data.filter((item) => item.active !== false));
+        }
+      })
+      .catch((err) => console.error(err));
+  }, []);
+
   const items = activeTab === "education" ? education : experience;
 
   return (

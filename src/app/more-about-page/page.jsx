@@ -3,7 +3,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import learnedSkills from "@/data/learnedSkills.json";
 
 // ─── Motion helpers ───────────────────────────────────────────────────────────
 const fade = (delay = 0) => ({
@@ -216,6 +215,16 @@ function GithubContributions() {
 // ─── Component ────────────────────────────────────────────────────────────────
 export default function MoreAboutPage() {
   const seconds = useJourneySeconds();
+  const [learnedSkills, setLearnedSkills] = useState([]);
+
+  useEffect(() => {
+    fetch("/api/public/learned-skills")
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setLearnedSkills(data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     // bg: #EEEEEE mixed toward white — use #F4F4F4 as base, white as surface
