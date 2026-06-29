@@ -64,16 +64,19 @@ const socials = [
 
 // ─── Live seconds timer ───────────────────────────────────────────────────────
 function useJourneySeconds() {
-  const [seconds, setSeconds] = useState(() =>
-    Math.floor((Date.now() - JOURNEY_START) / 1000)
-  );
+  const [mounted, setMounted] = useState(false);
+  const [seconds, setSeconds] = useState(0);
+
   useEffect(() => {
+    setMounted(true);
+    setSeconds(Math.floor((Date.now() - JOURNEY_START) / 1000));
     const id = setInterval(() => {
       setSeconds(Math.floor((Date.now() - JOURNEY_START) / 1000));
     }, 1000);
     return () => clearInterval(id);
   }, []);
-  return seconds;
+
+  return mounted ? seconds : null;
 }
 
 function formatSeconds(s) {
@@ -341,10 +344,14 @@ export default function MoreAboutPage() {
                   Journey running for
                 </span>
 
-                <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] flex items-end">
-                  {formatSeconds(seconds).split("").map((char, i) => (
-                    <AnimatedDigit key={i} char={char} />
-                  ))}
+                <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] flex items-end min-h-[3rem]">
+                  {seconds !== null ? (
+                    formatSeconds(seconds).split("").map((char, i) => (
+                      <AnimatedDigit key={i} char={char} />
+                    ))
+                  ) : (
+                    <span>&nbsp;</span>
+                  )}
                 </span>
 
                 <span className="font-mono text-[10px] text-black/30">
