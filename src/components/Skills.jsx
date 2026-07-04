@@ -3,9 +3,14 @@
 import * as Tabs from "@radix-ui/react-tabs";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { FaAws, FaFigma, FaGitAlt, FaNodeJs, FaReact } from "react-icons/fa";
-import { RiDatabase2Line, RiLayoutMasonryLine, RiTailwindCssFill } from "react-icons/ri";
-import { SiFramer, SiMongodb, SiNextdotjs, SiBetterauth, SiIconify, SiGooglecloud, SiTypescript, SiVercel, SiHeroui, SiDaisyui, SiExpress } from "react-icons/si";
+import { FaAws, FaFigma, FaGitAlt, FaNodeJs, FaReact, FaJava } from "react-icons/fa";
+import { RiDatabase2Line, RiLayoutMasonryLine, RiTailwindCssFill, RiJavascriptFill, RiJavascriptLine, RiJavaFill } from "react-icons/ri";
+import { SiFramer, SiMongodb, SiNextdotjs, SiBetterauth, SiIconify, SiGooglecloud, SiTypescript, SiVercel, SiHeroui, SiDaisyui, SiExpress, SiJavascript } from "react-icons/si";
+import { TbBrandJavascript } from "react-icons/tb";
+import { DiJavascript, DiJavascript1, DiJava } from "react-icons/di";
+import { BiLogoJavascript, BiLogoJava } from "react-icons/bi";
+import { BsJavascript } from "react-icons/bs";
+import { IoLogoJavascript } from "react-icons/io5";
 import { fadeUp, scaleIn, staggerContainer } from "@/utils/motionVariants";
 
 const iconMap = {
@@ -27,7 +32,20 @@ const iconMap = {
   SiGooglecloud,
   FaAws,
   RiDatabase2Line,
-  SiTypescript
+  SiTypescript,
+  SiJavascript,
+  FaJava,
+  TbBrandJavascript,
+  DiJavascript,
+  DiJavascript1,
+  DiJava,
+  BiLogoJavascript,
+  BiLogoJava,
+  RiJavascriptFill,
+  RiJavascriptLine,
+  RiJavaFill,
+  BsJavascript,
+  IoLogoJavascript
 };
 
 const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library"];

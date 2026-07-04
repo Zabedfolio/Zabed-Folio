@@ -210,16 +210,16 @@ export default function AdminSkills() {
                   <button
                     onClick={() => openEditModal(skill)}
                     title="Edit Skill"
-                    className="p-2 text-white/70 hover:text-blue-400 rounded-lg hover:bg-blue-500/10 transition duration-200"
+                    className="p-2 text-white/50 hover:text-blue-400 rounded-lg hover:bg-blue-500/10 transition duration-200"
                   >
-                    <HiOutlinePencil className="text-base" />
+                    <HiOutlinePencil className="text-lg" />
                   </button>
                   <button
                     onClick={() => handleDelete(skill._id)}
                     title="Delete Skill"
-                    className="p-2 text-white/60 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition duration-200"
+                    className="p-2 text-white/40 hover:text-red-400 rounded-lg hover:bg-red-500/10 transition duration-200"
                   >
-                    <HiOutlineTrash className="text-base" />
+                    <HiOutlineTrash className="text-lg" />
                   </button>
                 </div>
               </div>
