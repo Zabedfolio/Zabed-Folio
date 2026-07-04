@@ -25,6 +25,7 @@ const sidebarItems = [
   { href: "/admin/education", label: "Education", icon: HiOutlineAcademicCap },
   { href: "/admin/experience", label: "Experience", icon: HiOutlineCube },
   { href: "/admin/process", label: "Process Steps", icon: HiOutlineCube },
+  { href: "/admin/notes", label: "Notes", icon: HiOutlineCollection },
 ];
 
 export default function AdminLayout({ children }) {

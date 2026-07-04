@@ -50,6 +50,107 @@ const iconMap = {
 
 const filters = ["All", "Frontend", "Backend", "Tools", "Design", "UI Library"];
 
+const populateRow = (items, minItems = 10) => {
+  if (!items || items.length === 0) return [];
+  let repeated = [...items];
+  while (repeated.length < minItems) {
+    repeated = [...repeated, ...items];
+  }
+  return [...repeated, ...repeated];
+};
+
+function SkillCard({ skill }) {
+  const [isHovered, setIsHovered] = useState(false);
+  const Icon = iconMap[skill.icon] || (() => null);
+
+  return (
+    <div
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative overflow-hidden flex items-center gap-4 p-4 w-56 h-20 rounded-2xl glass-panel transition-all duration-300 cursor-default group"
+      style={{
+        borderColor: isHovered ? `${skill.color || '#ffffff'}33` : 'rgba(255, 255, 255, 0.05)',
+        boxShadow: isHovered ? `0 0 25px ${skill.color || '#ffffff'}15` : 'none',
+      }}
+    >
+      {/* Left: Icon */}
+      <div className="relative z-10 flex-shrink-0">
+        <Icon 
+          className="text-3xl transition-all duration-300" 
+          style={{ 
+            color: skill.color || '#ffffff',
+            transform: isHovered ? 'scale(1.1) rotate(5deg)' : 'scale(1) rotate(0deg)'
+          }} 
+        />
+      </div>
+
+      {/* Right: Info */}
+      <div className="relative z-10 flex-grow min-w-0 h-10 flex flex-col justify-center">
+        <h4 className="text-sm font-semibold text-white truncate transition-transform duration-300">
+          {skill.name}
+        </h4>
+        
+        {/* Inner container to hold Category and Percentage */}
+        <div className="relative h-4 mt-0.5 overflow-hidden">
+          {/* Category text (shows by default, slides up/fades out on hover) */}
+          <span 
+            className="absolute inset-0 block text-[9px] font-mono text-white/40 uppercase tracking-wider transition-all duration-300"
+            style={{
+              transform: isHovered ? 'translateY(-100%)' : 'translateY(0)',
+              opacity: isHovered ? 0 : 1
+            }}
+          >
+            {skill.category}
+          </span>
+          
+          {/* Percentage & Progress track (slides up from bottom/fades in on hover) */}
+          <div 
+            className="absolute inset-0 flex items-center gap-2 transition-all duration-300"
+            style={{
+              transform: isHovered ? 'translateY(0)' : 'translateY(100%)',
+              opacity: isHovered ? 1 : 0
+            }}
+          >
+            <span className="text-[10px] font-mono font-bold" style={{ color: skill.color || '#ffffff' }}>
+              {skill.percentage !== undefined ? skill.percentage : 80}%
+            </span>
+            <div className="flex-1 h-1 bg-white/10 rounded-full overflow-hidden">
+              <div 
+                className="h-full rounded-full transition-all duration-500 ease-out"
+                style={{ 
+                  width: isHovered ? `${skill.percentage !== undefined ? skill.percentage : 80}%` : '0%', 
+                  backgroundColor: skill.color || '#ffffff' 
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function SkillMarquee({ items, direction = "left" }) {
+  const repeatedItems = populateRow(items, 10);
+  const animationClass = direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
+
+  return (
+    <div className="relative w-full overflow-hidden py-3">
+      {/* Edge Fades for beautiful visual bleed */}
+      <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
+      <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
+
+      <div className="flex w-max">
+        <div className={`flex gap-4 px-2 ${animationClass}`}>
+          {repeatedItems.map((skill, idx) => (
+            <SkillCard key={`${skill._id || skill.name}-${idx}`} skill={skill} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function Skills() {
   const [skills, setSkills] = useState([]);
   const [active, setActive] = useState("All");
@@ -64,6 +165,9 @@ export default function Skills() {
   }, []);
 
   const filteredSkills = active === "All" ? skills : skills.filter((skill) => skill.category === active);
+
+  const row1 = filteredSkills.filter((_, idx) => idx % 2 === 0);
+  const row2 = filteredSkills.filter((_, idx) => idx % 2 !== 0);
 
   return (
     <div id="skills" className="section-shell py-24 sm:py-32">
@@ -106,29 +210,19 @@ export default function Skills() {
             ))}
           </Tabs.List>
 
-          <Tabs.Content value={active} className="mt-8">
-            <motion.div variants={staggerContainer} initial="hidden" animate="show" className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {filteredSkills?.map((skill) => {
-                const Icon = iconMap[skill.icon] || (() => null);
-                return (
-                  <motion.div
-                    key={skill.name}
-                    variants={scaleIn}
-                    whileHover={{ scale: 1.04, y: -3 }}
-                    className="glass-panel hover-glow rounded-2xl p-5"
-                  >
-                    <div className="flex items-start justify-between">
-                      <Icon className="text-[28px]" style={{ color: skill.color }} />
-                      <span className="whitespace-nowrap rounded-full border border-white/10 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-white/35 sm:text-[10px] sm:tracking-[0.22em]">
-                        {skill.category}
-                      </span>
-                    </div>
-                    <h3 className="mt-8 text-lg font-semibold text-white">{skill.name}</h3>
-                    <p className="mt-2 text-sm text-white/45">Production-focused implementation with polish, speed, and clarity.</p>
-                  </motion.div>
-                );
-              })}
-            </motion.div>
+          <Tabs.Content value={active} className="mt-8 overflow-hidden select-none">
+            {filteredSkills.length === 0 ? (
+              <div className="p-12 text-center text-white/40 text-sm">
+                No skills loaded yet.
+              </div>
+            ) : (
+              <div className="space-y-2">
+                <SkillMarquee items={row1} direction="left" />
+                {row2.length > 0 && (
+                  <SkillMarquee items={row2} direction="right" />
+                )}
+              </div>
+            )}
           </Tabs.Content>
         </Tabs.Root>
       </motion.div>

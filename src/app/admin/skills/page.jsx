@@ -21,6 +21,7 @@ export default function AdminSkills() {
     category: "Frontend",
     icon: "",
     color: "#ffffff",
+    percentage: 80,
   });
 
   // Drag State
@@ -51,6 +52,7 @@ export default function AdminSkills() {
       category: "Frontend",
       icon: "",
       color: "#ffffff",
+      percentage: 80,
     });
     setModalOpen(true);
   };
@@ -62,13 +64,17 @@ export default function AdminSkills() {
       category: skill.category || "Frontend",
       icon: skill.icon || "",
       color: skill.color || "#ffffff",
+      percentage: skill.percentage !== undefined ? skill.percentage : 80,
     });
     setModalOpen(true);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "percentage" ? (parseInt(value, 10) || 0) : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -202,7 +208,9 @@ export default function AdminSkills() {
                   />
                   <div className="min-w-0">
                     <h3 className="font-semibold text-white truncate text-sm">{skill.name}</h3>
-                    <p className="text-[10px] font-mono text-white/40 mt-0.5">{skill.category}</p>
+                    <p className="text-[10px] font-mono text-white/40 mt-0.5">
+                      {skill.category} &bull; {skill.percentage !== undefined ? skill.percentage : 80}%
+                    </p>
                   </div>
                 </div>
 
@@ -305,6 +313,34 @@ export default function AdminSkills() {
                     placeholder="#ffffff"
                     className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
                   />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                  Skill Level Percentage (0 - 100)
+                </label>
+                <div className="flex items-center gap-3">
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    name="percentage"
+                    value={formData.percentage}
+                    onChange={handleInputChange}
+                    className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-[#ff4d00]"
+                  />
+                  <input
+                    type="number"
+                    min="0"
+                    max="100"
+                    name="percentage"
+                    value={formData.percentage}
+                    onChange={handleInputChange}
+                    placeholder="80"
+                    className="w-20 rounded-xl border border-white/10 bg-white/[0.02] px-3 py-2 text-center text-sm text-white transition focus:border-[#ff4d00]/50"
+                  />
+                  <span className="text-white/60 font-mono text-sm">%</span>
                 </div>
               </div>
 

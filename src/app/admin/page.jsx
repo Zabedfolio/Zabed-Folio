@@ -20,18 +20,20 @@ export default function AdminOverview() {
     education: 0,
     experience: 0,
     processSteps: 0,
+    notes: 0,
   });
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [proj, skl, edu, exp, prc] = await Promise.all([
+        const [proj, skl, edu, exp, prc, nts] = await Promise.all([
           fetch("/api/admin/projects").then((r) => r.json()),
           fetch("/api/admin/skills").then((r) => r.json()),
           fetch("/api/admin/education").then((r) => r.json()),
           fetch("/api/admin/experience").then((r) => r.json()),
           fetch("/api/admin/process").then((r) => r.json()),
+          fetch("/api/admin/notes").then((r) => r.json()),
         ]);
 
         setStats({
@@ -40,6 +42,7 @@ export default function AdminOverview() {
           education: Array.isArray(edu) ? edu.length : 0,
           experience: Array.isArray(exp) ? exp.length : 0,
           processSteps: Array.isArray(prc) ? prc.length : 0,
+          notes: Array.isArray(nts) ? nts.length : 0,
         });
       } catch (err) {
         console.error("Failed to load dashboard statistics:", err);
@@ -97,6 +100,15 @@ export default function AdminOverview() {
       color: "from-amber-500/20 to-amber-600/5",
       borderColor: "border-amber-500/20",
       href: "/admin/process",
+    },
+    {
+      title: "Notes & Ideas",
+      count: stats.notes,
+      desc: "Thought stream, translations & pictures",
+      icon: HiOutlineCollection,
+      color: "from-purple-500/20 to-purple-600/5",
+      borderColor: "border-purple-500/20",
+      href: "/admin/notes",
     },
   ];
 
