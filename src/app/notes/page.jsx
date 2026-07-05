@@ -287,9 +287,15 @@ export default function NotesPage() {
                     <div className="w-full h-px bg-gradient-to-r from-[#ff4d00]/30 to-transparent" />
 
                     {/* Pre-wrap preserves paragraphs and formatting */}
-                    <p className="text-sm sm:text-base text-white/75 leading-relaxed font-sans whitespace-pre-wrap selection:bg-[#ff4d00]/25 selection:text-white">
+                    <p className="text-sm sm:text-base text-white/75 leading-relaxed whitespace-pre-wrap">
                       {desc}
                     </p>
+
+                    {!desc && (
+                      <div className="text-xs text-red-500 font-mono p-3 border border-red-500/20 bg-red-500/5 rounded-xl">
+                        DEBUG: Description is empty! Keys of selectedNote: {Object.keys(selectedNote).join(", ")}
+                      </div>
+                    )}
                   </div>
                 </div>
 
