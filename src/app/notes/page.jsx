@@ -206,21 +206,21 @@ export default function NotesPage() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: "100%", opacity: 0.9 }}
                 transition={{ type: "spring", damping: 30, stiffness: 220 }}
-                className="relative z-10 w-full max-w-xl h-full bg-[#0a0808]/95 border-l border-white/10 shadow-2xl p-6 sm:p-8 backdrop-blur-2xl flex flex-col justify-between"
+                className="relative z-10 w-full max-w-xl h-full bg-[#0a0808] border-l border-white/10 shadow-2xl flex flex-col overflow-hidden"
               >
-                {/* Header (Fixed) */}
-                <div className="flex items-center justify-between pb-4 border-b border-white/5 flex-shrink-0">
-                  <span className="text-[10px] font-mono text-[#ff4d00]/70 tracking-[0.2em] uppercase font-bold skew-x-[-12deg] border border-[#ff4d00]/20 bg-[#ff4d00]/5 px-2.5 py-1 rounded">
+                {/* Header — fixed, never scrolls */}
+                <div className="flex-shrink-0 flex items-center justify-between px-6 py-4 border-b border-white/5">
+                  <span className="text-[10px] font-mono text-[#ff4d00]/70 tracking-[0.2em] uppercase font-bold border border-[#ff4d00]/20 bg-[#ff4d00]/5 px-2.5 py-1 rounded">
                     {language === "En" ? "HUD // READER" : "এইচইউডি // রিডার"}
                   </span>
-                  
+
                   {/* Language Toggle Inside Drawer */}
-                  <div className="flex bg-white/5 border border-white/10 rounded-xl p-0.5 font-mono text-[9px] relative z-20">
+                  <div className="flex bg-white/5 border border-white/10 rounded-xl p-0.5 font-mono text-[9px]">
                     <button
                       onClick={() => setLanguage("En")}
                       className={`px-3 py-1.5 font-bold rounded-lg transition-all duration-300 ${
                         language === "En"
-                          ? "bg-[#ff4d00] text-white shadow-md shadow-[#ff4d00]/10"
+                          ? "bg-[#ff4d00] text-white"
                           : "text-white/50 hover:text-white"
                       }`}
                     >
@@ -230,7 +230,7 @@ export default function NotesPage() {
                       onClick={() => setLanguage("Bn")}
                       className={`px-3 py-1.5 font-bold rounded-lg transition-all duration-300 ${
                         language === "Bn"
-                          ? "bg-[#ff4d00] text-white shadow-md shadow-[#ff4d00]/10"
+                          ? "bg-[#ff4d00] text-white"
                           : "text-white/50 hover:text-white"
                       }`}
                     >
@@ -240,67 +240,63 @@ export default function NotesPage() {
 
                   <button
                     onClick={() => setSelectedNote(null)}
-                    className="p-2 text-white/50 hover:text-white rounded-xl hover:bg-white/5 transition flex-shrink-0"
+                    className="p-2 text-white/50 hover:text-white rounded-xl hover:bg-white/5 transition"
                   >
                     <HiX className="text-lg" />
                   </button>
                 </div>
 
-                {/* Main Content (Scrollable) */}
-                <div className="flex-grow overflow-y-auto py-6 space-y-6 pr-2 custom-scrollbar">
-                  {/* Feature Image */}
-                  {selectedNote.image && (
-                    <div className="w-full h-48 rounded-2xl border border-white/5 overflow-hidden flex-shrink-0">
-                      <img 
-                        src={selectedNote.image} 
-                        alt={title} 
-                        className="w-full h-full object-cover" 
-                      />
-                    </div>
-                  )}
+                {/* Scrollable content — takes all remaining height */}
+                <div className="flex-1 overflow-y-auto px-6 py-6" style={{ WebkitOverflowScrolling: "touch" }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
 
-                  {/* Text Details */}
-                  <div className="space-y-5">
-                    {/* High-Tech Metadata Box */}
-                    <div className="flex flex-wrap items-center gap-3 text-[10px] text-white/50 font-mono bg-white/[0.02] border border-white/5 rounded-xl p-3">
-                      <div className="flex items-center gap-1.5">
-                        <HiCalendar className="text-xs text-[#ff4d00]" />
-                        <span>{formatDate(selectedNote.createdAt, language)}</span>
+                    {/* Feature Image */}
+                    {selectedNote.image && (
+                      <div className="w-full rounded-2xl border border-white/5 overflow-hidden" style={{ height: "192px" }}>
+                        <img
+                          src={selectedNote.image}
+                          alt={title}
+                          className="w-full h-full object-cover"
+                        />
                       </div>
-                      <div className="w-px h-3 bg-white/10" />
-                      <div className="flex items-center gap-1.5">
-                        <HiClock className="text-xs text-[#ff4d00]" />
-                        <span>{formatTime(selectedNote.createdAt, language)}</span>
-                      </div>
-                      <div className="w-px h-3 bg-white/10" />
-                      <div className="flex items-center gap-1.5">
-                        <HiGlobe className="text-xs text-[#ff4d00]" />
-                        <span className="uppercase">{language === "En" ? "Language: English" : "ভাষা: বাংলা"}</span>
-                      </div>
+                    )}
+
+                    {/* Metadata Row */}
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "12px", alignItems: "center", fontSize: "10px", fontFamily: "monospace", color: "rgba(255,255,255,0.5)", backgroundColor: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.05)", borderRadius: "12px", padding: "10px 12px" }}>
+                      <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                        <HiCalendar style={{ color: "#ff4d00", fontSize: "11px" }} />
+                        {formatDate(selectedNote.createdAt, language)}
+                      </span>
+                      <span style={{ width: "1px", height: "12px", backgroundColor: "rgba(255,255,255,0.1)" }} />
+                      <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                        <HiClock style={{ color: "#ff4d00", fontSize: "11px" }} />
+                        {formatTime(selectedNote.createdAt, language)}
+                      </span>
+                      <span style={{ width: "1px", height: "12px", backgroundColor: "rgba(255,255,255,0.1)" }} />
+                      <span style={{ display: "flex", alignItems: "center", gap: "5px" }}>
+                        <HiGlobe style={{ color: "#ff4d00", fontSize: "11px" }} />
+                        {language === "En" ? "English" : "বাংলা"}
+                      </span>
                     </div>
 
-                    <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white font-sans bg-clip-text bg-gradient-to-r from-white via-white to-white/70 leading-tight">
+                    {/* Title */}
+                    <h2 style={{ fontSize: "22px", fontWeight: 800, color: "#ffffff", lineHeight: 1.3, margin: 0 }}>
                       {title}
                     </h2>
 
                     {/* Accent Divider */}
-                    <div className="w-full h-px bg-gradient-to-r from-[#ff4d00]/30 to-transparent" />
+                    <div style={{ height: "1px", background: "linear-gradient(to right, rgba(255,77,0,0.3), transparent)" }} />
 
-                    {/* Pre-wrap preserves paragraphs and formatting */}
-                    <p className="text-sm sm:text-base text-white/75 leading-relaxed whitespace-pre-wrap">
+                    {/* Description */}
+                    <p style={{ fontSize: "14px", lineHeight: 1.75, color: "rgba(255,255,255,0.75)", whiteSpace: "pre-wrap", margin: 0 }}>
                       {desc}
                     </p>
 
-                    {!desc && (
-                      <div className="text-xs text-red-500 font-mono p-3 border border-red-500/20 bg-red-500/5 rounded-xl">
-                        DEBUG: Description is empty! Keys of selectedNote: {Object.keys(selectedNote).join(", ")}
-                      </div>
-                    )}
                   </div>
                 </div>
 
-                {/* Footer panel info (Fixed) */}
-                <div className="pt-4 border-t border-white/5 text-[9px] text-white/20 font-mono flex items-center justify-between flex-shrink-0">
+                {/* Footer — fixed at bottom */}
+                <div className="flex-shrink-0 px-6 py-3 border-t border-white/5" style={{ fontSize: "9px", fontFamily: "monospace", color: "rgba(255,255,255,0.2)", display: "flex", justifyContent: "space-between" }}>
                   <span>© {new Date().getFullYear()} ZABED MAHMUD</span>
                   <span>{language === "En" ? "BILINGUAL HUD PORTAL" : "দ্বিভাষিক পোর্টাল"}</span>
                 </div>
