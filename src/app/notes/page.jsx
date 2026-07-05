@@ -98,30 +98,6 @@ export default function NotesPage() {
               </p>
             </div>
           </div>
-
-          {/* Futuristic Language Toggle Button */}
-          <div className="flex bg-[#0a0808] border border-white/10 rounded-2xl p-1 relative z-20 self-start sm:self-auto font-mono">
-            <button
-              onClick={() => setLanguage("En")}
-              className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 ${
-                language === "En"
-                  ? "bg-[#ff4d00] text-white shadow-lg shadow-[#ff4d00]/20"
-                  : "text-white/50 hover:text-white"
-              }`}
-            >
-              ENGLISH
-            </button>
-            <button
-              onClick={() => setLanguage("Bn")}
-              className={`px-4 py-2 text-xs font-bold rounded-xl transition-all duration-300 ${
-                language === "Bn"
-                  ? "bg-[#ff4d00] text-white shadow-lg shadow-[#ff4d00]/20"
-                  : "text-white/50 hover:text-white"
-              }`}
-            >
-              বাংলা
-            </button>
-          </div>
         </header>
 
         {/* Bento Grid */}
@@ -209,8 +185,8 @@ export default function NotesPage() {
       {/* Cinematic Slide-Over Overlay Panel */}
       <AnimatePresence>
         {selectedNote && (() => {
-          const title = language === "En" ? selectedNote.titleEn : selectedNote.titleBn || selectedNote.titleEn;
-          const desc = language === "En" ? selectedNote.descEn : selectedNote.descBn || selectedNote.descEn;
+          const title = language === "En" ? selectedNote.titleEn : (selectedNote.titleBn || selectedNote.titleEn);
+          const desc = (language === "En" ? selectedNote.descEn : selectedNote.descBn) || selectedNote.descEn || selectedNote.descBn || "";
 
           return (
             <div className="fixed inset-0 z-50 flex items-center justify-end">
@@ -229,25 +205,51 @@ export default function NotesPage() {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: "100%", opacity: 0.9 }}
                 transition={{ type: "spring", damping: 30, stiffness: 220 }}
-                className="relative z-10 w-full max-w-xl h-full bg-[#0a0808] border-l border-white/10 shadow-2xl p-6 sm:p-10 flex flex-col justify-between overflow-y-auto"
+                className="relative z-10 w-full max-w-xl h-full bg-[#0a0808]/95 border-l border-white/10 shadow-2xl p-6 sm:p-8 backdrop-blur-2xl flex flex-col justify-between"
               >
-                <div>
-                  {/* Close header */}
-                  <div className="flex items-center justify-between pb-6 border-b border-white/5 mb-8">
-                    <span className="text-xs font-mono text-[#ff4d00] tracking-[0.25em] uppercase font-bold">
-                      {language === "En" ? "READING NOTE" : "নোটের বিবরণ"}
-                    </span>
+                {/* Header (Fixed) */}
+                <div className="flex items-center justify-between pb-4 border-b border-white/5 flex-shrink-0">
+                  <span className="text-[10px] font-mono text-[#ff4d00]/70 tracking-[0.2em] uppercase font-bold skew-x-[-12deg] border border-[#ff4d00]/20 bg-[#ff4d00]/5 px-2.5 py-1 rounded">
+                    {language === "En" ? "HUD // READER" : "এইচইউডি // রিডার"}
+                  </span>
+                  
+                  {/* Language Toggle Inside Drawer */}
+                  <div className="flex bg-white/5 border border-white/10 rounded-xl p-0.5 font-mono text-[9px] relative z-20">
                     <button
-                      onClick={() => setSelectedNote(null)}
-                      className="p-2 text-white/50 hover:text-white rounded-xl hover:bg-white/5 transition"
+                      onClick={() => setLanguage("En")}
+                      className={`px-3 py-1.5 font-bold rounded-lg transition-all duration-300 ${
+                        language === "En"
+                          ? "bg-[#ff4d00] text-white shadow-md shadow-[#ff4d00]/10"
+                          : "text-white/50 hover:text-white"
+                      }`}
                     >
-                      <HiX className="text-lg" />
+                      EN
+                    </button>
+                    <button
+                      onClick={() => setLanguage("Bn")}
+                      className={`px-3 py-1.5 font-bold rounded-lg transition-all duration-300 ${
+                        language === "Bn"
+                          ? "bg-[#ff4d00] text-white shadow-md shadow-[#ff4d00]/10"
+                          : "text-white/50 hover:text-white"
+                      }`}
+                    >
+                      বাংলা
                     </button>
                   </div>
 
+                  <button
+                    onClick={() => setSelectedNote(null)}
+                    className="p-2 text-white/50 hover:text-white rounded-xl hover:bg-white/5 transition flex-shrink-0"
+                  >
+                    <HiX className="text-lg" />
+                  </button>
+                </div>
+
+                {/* Main Content (Scrollable) */}
+                <div className="flex-grow overflow-y-auto py-6 space-y-6 pr-2 custom-scrollbar">
                   {/* Feature Image */}
                   {selectedNote.image && (
-                    <div className="w-full h-56 rounded-2xl border border-white/5 overflow-hidden mb-8">
+                    <div className="w-full h-48 rounded-2xl border border-white/5 overflow-hidden flex-shrink-0">
                       <img 
                         src={selectedNote.image} 
                         alt={title} 
@@ -257,9 +259,9 @@ export default function NotesPage() {
                   )}
 
                   {/* Text Details */}
-                  <div className="space-y-5">
+                  <div className="space-y-4">
                     {/* Timestamp */}
-                    <div className="flex items-center gap-5 text-[11px] text-white/40 font-mono">
+                    <div className="flex items-center gap-5 text-[10px] text-white/40 font-mono">
                       <span className="flex items-center gap-1">
                         <HiCalendar className="text-xs text-[#ff4d00]" />
                         {formatDate(selectedNote.createdAt, language)}
@@ -270,21 +272,24 @@ export default function NotesPage() {
                       </span>
                     </div>
 
-                    <h2 className="text-2xl sm:text-3xl font-bold text-white leading-tight">
+                    <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight">
                       {title}
                     </h2>
 
+                    {/* Accent Divider */}
+                    <div className="w-full h-px bg-gradient-to-r from-[#ff4d00]/30 to-transparent" />
+
                     {/* Pre-wrap preserves paragraphs and formatting */}
-                    <p className="text-sm sm:text-base text-white/70 leading-relaxed font-sans whitespace-pre-wrap">
+                    <p className="text-sm text-white/70 leading-relaxed font-sans whitespace-pre-wrap">
                       {desc}
                     </p>
                   </div>
                 </div>
 
-                {/* Footer panel info */}
-                <div className="pt-8 border-t border-white/5 mt-12 text-[10px] text-white/20 font-mono flex items-center justify-between">
+                {/* Footer panel info (Fixed) */}
+                <div className="pt-4 border-t border-white/5 text-[9px] text-white/20 font-mono flex items-center justify-between flex-shrink-0">
                   <span>© {new Date().getFullYear()} ZABED MAHMUD</span>
-                  <span>{language === "En" ? "BILINGUAL THOUGHTS" : "দ্বিভাষিক চিন্তাধারা"}</span>
+                  <span>{language === "En" ? "BILINGUAL HUD PORTAL" : "দ্বিভাষিক পোর্টাল"}</span>
                 </div>
               </motion.div>
             </div>

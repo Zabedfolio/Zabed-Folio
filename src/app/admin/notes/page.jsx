@@ -96,18 +96,25 @@ export default function AdminNotes() {
     setSaving(true);
 
     try {
+      // Parse the local datetime string into a proper Date object on client (respecting client timezone)
+      // and format it to ISO string so the server stores it as UTC correctly.
+      const payload = {
+        ...formData,
+        createdAt: formData.createdAt ? new Date(formData.createdAt).toISOString() : new Date().toISOString()
+      };
+
       let res;
       if (editingNote) {
         res = await fetch(`/api/admin/notes/${editingNote._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         });
       } else {
         res = await fetch("/api/admin/notes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(payload),
         });
       }
 
