@@ -8,6 +8,7 @@ import {
   HiCalendar,
   HiClock,
   HiX,
+  HiGlobe,
 } from "react-icons/hi";
 import ParallaxCanvas from "@/components/background/ParallaxCanvas";
 
@@ -259,20 +260,26 @@ export default function NotesPage() {
                   )}
 
                   {/* Text Details */}
-                  <div className="space-y-4">
-                    {/* Timestamp */}
-                    <div className="flex items-center gap-5 text-[10px] text-white/40 font-mono">
-                      <span className="flex items-center gap-1">
+                  <div className="space-y-5">
+                    {/* High-Tech Metadata Box */}
+                    <div className="flex flex-wrap items-center gap-3 text-[10px] text-white/50 font-mono bg-white/[0.02] border border-white/5 rounded-xl p-3">
+                      <div className="flex items-center gap-1.5">
                         <HiCalendar className="text-xs text-[#ff4d00]" />
-                        {formatDate(selectedNote.createdAt, language)}
-                      </span>
-                      <span className="flex items-center gap-1">
+                        <span>{formatDate(selectedNote.createdAt, language)}</span>
+                      </div>
+                      <div className="w-px h-3 bg-white/10" />
+                      <div className="flex items-center gap-1.5">
                         <HiClock className="text-xs text-[#ff4d00]" />
-                        {formatTime(selectedNote.createdAt, language)}
-                      </span>
+                        <span>{formatTime(selectedNote.createdAt, language)}</span>
+                      </div>
+                      <div className="w-px h-3 bg-white/10" />
+                      <div className="flex items-center gap-1.5">
+                        <HiGlobe className="text-xs text-[#ff4d00]" />
+                        <span className="uppercase">{language === "En" ? "Language: English" : "ভাষা: বাংলা"}</span>
+                      </div>
                     </div>
 
-                    <h2 className="text-xl sm:text-2xl font-bold text-white leading-tight">
+                    <h2 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white font-sans bg-clip-text bg-gradient-to-r from-white via-white to-white/70 leading-tight">
                       {title}
                     </h2>
 
@@ -280,7 +287,7 @@ export default function NotesPage() {
                     <div className="w-full h-px bg-gradient-to-r from-[#ff4d00]/30 to-transparent" />
 
                     {/* Pre-wrap preserves paragraphs and formatting */}
-                    <p className="text-sm text-white/70 leading-relaxed font-sans whitespace-pre-wrap">
+                    <p className="text-sm sm:text-base text-white/75 leading-relaxed font-sans whitespace-pre-wrap selection:bg-[#ff4d00]/25 selection:text-white">
                       {desc}
                     </p>
                   </div>

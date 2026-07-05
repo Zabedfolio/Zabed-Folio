@@ -17,6 +17,15 @@ const toDatetimeLocal = (date) => {
   return new Date(d.getTime() - tzOffset).toISOString().slice(0, 16);
 };
 
+const parseLocalDatetime = (datetimeStr) => {
+  if (!datetimeStr) return new Date();
+  const [datePart, timePart] = datetimeStr.split("T");
+  if (!datePart || !timePart) return new Date(datetimeStr);
+  const [year, month, day] = datePart.split("-").map(Number);
+  const [hour, minute] = timePart.split(":").map(Number);
+  return new Date(year, month - 1, day, hour, minute);
+};
+
 export default function AdminNotes() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -100,7 +109,7 @@ export default function AdminNotes() {
       // and format it to ISO string so the server stores it as UTC correctly.
       const payload = {
         ...formData,
-        createdAt: formData.createdAt ? new Date(formData.createdAt).toISOString() : new Date().toISOString()
+        createdAt: formData.createdAt ? parseLocalDatetime(formData.createdAt).toISOString() : new Date().toISOString()
       };
 
       let res;
