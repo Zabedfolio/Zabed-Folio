@@ -11,6 +11,12 @@ import {
   HiOutlineGlobeAlt,
 } from "react-icons/hi";
 
+const toDatetimeLocal = (date) => {
+  const d = date ? new Date(date) : new Date();
+  const tzOffset = d.getTimezoneOffset() * 60000;
+  return new Date(d.getTime() - tzOffset).toISOString().slice(0, 16);
+};
+
 export default function AdminNotes() {
   const [notes, setNotes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +34,7 @@ export default function AdminNotes() {
     descEn: "",
     descBn: "",
     image: "",
+    createdAt: "",
   });
 
   // Drag State
@@ -60,6 +67,7 @@ export default function AdminNotes() {
       descEn: "",
       descBn: "",
       image: "",
+      createdAt: toDatetimeLocal(new Date()),
     });
     setModalOpen(true);
   };
@@ -73,6 +81,7 @@ export default function AdminNotes() {
       descEn: note.descEn || "",
       descBn: note.descBn || "",
       image: note.image || "",
+      createdAt: toDatetimeLocal(note.createdAt),
     });
     setModalOpen(true);
   };
@@ -313,6 +322,32 @@ export default function AdminNotes() {
                     className="w-full rounded-xl border border-white/10 bg-white/[0.02] pl-10 pr-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5"
                   />
                   <HiOutlinePhotograph className="absolute left-3.5 top-3.5 text-white/40 text-lg" />
+                </div>
+              </div>
+
+              {/* Date and Time (Manual with Auto Button) */}
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                  Date & Time
+                </label>
+                <div className="flex gap-2">
+                  <div className="relative flex-grow">
+                    <input
+                      type="datetime-local"
+                      name="createdAt"
+                      value={formData.createdAt}
+                      onChange={handleInputChange}
+                      className="w-full rounded-xl border border-white/10 bg-white/[0.02] pl-10 pr-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5"
+                    />
+                    <HiOutlineCalendar className="absolute left-3.5 top-3.5 text-white/40 text-lg" />
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, createdAt: toDatetimeLocal(new Date()) }))}
+                    className="px-4 py-3 rounded-xl border border-white/10 hover:border-[#ff4d00]/30 bg-white/[0.02] hover:bg-[#ff4d00]/5 text-xs font-mono uppercase tracking-wider text-white/60 hover:text-white transition whitespace-nowrap"
+                  >
+                    Auto / Now
+                  </button>
                 </div>
               </div>
 

@@ -39,7 +39,11 @@ export function createAdminRoutes(collectionName) {
       .findOne({}, { sort: { order: -1 } });
     const order = last ? (last.order ?? 0) + 1 : 0;
 
-    const doc = { ...body, order, createdAt: new Date() };
+    const doc = {
+      ...body,
+      order,
+      createdAt: body.createdAt ? new Date(body.createdAt) : new Date(),
+    };
     const result = await db.collection(collectionName).insertOne(doc);
 
     return NextResponse.json(
@@ -56,6 +60,10 @@ export function createAdminRoutes(collectionName) {
     const db = await getDb();
     const body = await request.json();
     const { _id, ...update } = body; // strip _id from update
+
+    if (update.createdAt) {
+      update.createdAt = new Date(update.createdAt);
+    }
 
     const result = await db.collection(collectionName).findOneAndUpdate(
       { _id: new ObjectId(id) },
