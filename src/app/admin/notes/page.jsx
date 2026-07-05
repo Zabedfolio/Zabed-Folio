@@ -129,7 +129,7 @@ export default function AdminNotes() {
 
       if (res.ok) {
         fetchNotes();
-        setModalOpen(false);
+        setModalOpen(false)
       }
     } catch (err) {
       console.error(err);
