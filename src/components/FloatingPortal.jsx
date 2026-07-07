@@ -17,7 +17,7 @@ export default function FloatingPortal() {
 
   return (
     <div 
-      className="fixed bottom-6 right-6 z-50 select-none font-mono"
+      className="fixed bottom-6 right-6 z-50 select-none font-mono print:hidden"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
