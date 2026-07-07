@@ -14,6 +14,7 @@ import {
   FaLinkedinIn,
   FaInstagram,
 } from 'react-icons/fa';
+import { SiLeetcode } from 'react-icons/si';
 import { FiChevronDown } from 'react-icons/fi';
 import avtr from '@/assets/avtr.png';
 import Link from 'next/link';
@@ -38,6 +39,11 @@ const socialLinks = [
     href: 'https://www.instagram.com/zaabed_maahmud/',
     icon: FaInstagram,
     label: 'Instagram',
+  },
+  {
+    href: 'https://leetcode.com/u/zabedfolio/',
+    icon: SiLeetcode,
+    label: 'LeetCode',
   },
 ];
 

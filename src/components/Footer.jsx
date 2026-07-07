@@ -7,6 +7,7 @@ import {
   FaInstagram,
   FaArrowUp,
 } from 'react-icons/fa';
+import { SiLeetcode } from 'react-icons/si';
 
 export default function Footer() {
   const socials = [
@@ -24,6 +25,11 @@ export default function Footer() {
       name: 'Instagram',
       href: 'https://www.instagram.com/zaabed_maahmud/',
       icon: FaInstagram,
+    },
+    {
+      name: 'LeetCode',
+      href: 'https://leetcode.com/u/zabedfolio/',
+      icon: SiLeetcode,
     },
   ];
 
