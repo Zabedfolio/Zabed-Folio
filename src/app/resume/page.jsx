@@ -66,7 +66,7 @@ function ResumeContent() {
         @media print {
           @page {
             size: letter portrait;
-            margin: 6mm 10mm !important; /* Overrides browser headers/footers cleanly */
+            margin: 12mm 14mm !important; /* Overrides browser headers/footers cleanly */
           }
           
           /* Enforce 1-page constraints & fonts */
@@ -74,8 +74,8 @@ function ResumeContent() {
             background: #ffffff !important;
             color: #000000 !important;
             font-family: 'Inter', -apple-system, sans-serif !important;
-            font-size: 10px !important;
-            line-height: 1.35 !important;
+            font-size: 11px !important;
+            line-height: 1.45 !important;
             margin: 0 !important;
             padding: 0 !important;
             -webkit-print-color-adjust: exact !important;
@@ -101,52 +101,61 @@ function ResumeContent() {
           /* Precise layout elements */
           h1 {
             font-family: 'Inter', -apple-system, sans-serif !important;
-            font-size: 26px !important;
+            font-size: 28px !important;
             font-weight: 800 !important;
-            margin: 0 0 2px 0 !important;
-            line-height: 1.1 !important;
+            margin: 0 0 4px 0 !important;
+            line-height: 1.15 !important;
             color: #000000 !important;
           }
           h2 {
             font-family: 'Inter', -apple-system, sans-serif !important;
-            font-size: 12px !important;
+            font-size: 13px !important;
             font-weight: 700 !important;
-            margin-top: 8px !important;
-            margin-bottom: 4px !important;
-            padding-bottom: 2px !important;
+            margin-top: 14px !important;
+            margin-bottom: 6px !important;
+            padding-bottom: 2.5px !important;
             border-bottom: 1.5px solid #000000 !important;
             color: #000000 !important;
           }
           h3 {
-            font-size: 10px !important;
+            font-size: 11.5px !important;
             margin: 0 !important;
           }
           p, li, span, a {
-            font-size: 10px !important;
+            font-size: 11px !important;
             color: #000000 !important;
           }
 
           /* Spacer adjustments */
           .mb-8, .mb-6, .mb-4 {
-            margin-bottom: 4px !important;
+            margin-bottom: 8px !important;
           }
           .mt-4, .mt-3.5, .mt-2.5, .mt-2, .mt-1.5 {
-            margin-top: 2px !important;
+            margin-top: 3px !important;
           }
           .pb-6, .pb-4 {
-            padding-bottom: 3px !important;
+            padding-bottom: 4px !important;
           }
           .space-y-6, .space-y-4 {
-            margin-top: 1px !important;
+            margin-top: 2px !important;
           }
           .space-y-6 > * + *, .space-y-4 > * + * {
-            margin-top: 5px !important;
+            margin-top: 12px !important;
           }
           
           /* Links formatting */
           a {
             text-decoration: underline !important;
             color: #000000 !important;
+          }
+
+          /* Spacing of bullets */
+          ul {
+            margin-top: 3px !important;
+            padding-left: 0 !important;
+          }
+          li {
+            margin-top: 1.5px !important;
           }
         }
       `}</style>
