@@ -66,7 +66,7 @@ function ResumeContent() {
         @media print {
           @page {
             size: letter portrait;
-            margin: 14mm 16mm !important; /* Overrides browser headers/footers cleanly */
+            margin: 18mm 16mm !important; /* Overrides browser headers/footers cleanly */
           }
           
           /* Enforce 1-page constraints & fonts */
@@ -74,8 +74,8 @@ function ResumeContent() {
             background: #ffffff !important;
             color: #000000 !important;
             font-family: 'Inter', -apple-system, sans-serif !important;
-            font-size: 11.5px !important;
-            line-height: 1.55 !important;
+            font-size: 12px !important;
+            line-height: 1.6 !important;
             margin: 0 !important;
             padding: 0 !important;
             -webkit-print-color-adjust: exact !important;
@@ -101,46 +101,46 @@ function ResumeContent() {
           /* Precise layout elements */
           h1 {
             font-family: 'Inter', -apple-system, sans-serif !important;
-            font-size: 32px !important;
+            font-size: 36px !important;
             font-weight: 800 !important;
-            margin: 0 0 6px 0 !important;
+            margin: 0 0 8px 0 !important;
             line-height: 1.15 !important;
             color: #000000 !important;
           }
           h2 {
             font-family: 'Inter', -apple-system, sans-serif !important;
-            font-size: 14px !important;
+            font-size: 15px !important;
             font-weight: 700 !important;
-            margin-top: 24px !important;
-            margin-bottom: 10px !important;
-            padding-bottom: 3.5px !important;
+            margin-top: 28px !important;
+            margin-bottom: 12px !important;
+            padding-bottom: 4px !important;
             border-bottom: 1.5px solid #000000 !important;
             color: #000000 !important;
           }
           h3 {
-            font-size: 12px !important;
+            font-size: 13px !important;
             margin: 0 !important;
           }
           p, li, span, a {
-            font-size: 11.5px !important;
+            font-size: 12px !important;
             color: #000000 !important;
           }
 
           /* Spacer adjustments */
           .mb-8, .mb-6, .mb-4 {
-            margin-bottom: 18px !important;
+            margin-bottom: 22px !important;
           }
           .mt-4, .mt-3.5, .mt-2.5, .mt-2, .mt-1.5 {
             margin-top: 4px !important;
           }
           .pb-6, .pb-4 {
-            padding-bottom: 6px !important;
+            padding-bottom: 8px !important;
           }
           .space-y-6, .space-y-4 {
             margin-top: 4px !important;
           }
           .space-y-6 > * + *, .space-y-4 > * + * {
-            margin-top: 18px !important;
+            margin-top: 22px !important;
           }
           
           /* Links formatting */
@@ -151,11 +151,11 @@ function ResumeContent() {
 
           /* Spacing of bullets */
           ul {
-            margin-top: 6px !important;
+            margin-top: 8px !important;
             padding-left: 0 !important;
           }
           li {
-            margin-top: 3px !important;
+            margin-top: 4px !important;
           }
         }
       `}</style>
