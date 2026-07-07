@@ -5,11 +5,11 @@
     "serverLink": "https://github.com/Zabedfolio/SportNest-Server",
     "liveLink": "https://sport-nest-zabedfolio.vercel.app/",
     "description": "A full-stack sports facility booking platform where users can discover venues, reserve time slots, and manage bookings with secure authentication.",
+    "technologies": "Next.js, React.js, Node.js, Express.js, Tailwind CSS, MongoDB, Better Auth, Hero UI",
     "features": [
-      "Users can browse, filter, and view sports facilities with pricing, capacity, and available time slot details.",
-      "Session-based authentication (Better Auth + MongoDB) allows secure login and protected routes.",
-      "Real-time slot booking system with My Bookings dashboard.",
-      "Role-based access for facility owners to manage venues."
+      "Browse & Book — Explore facilities, check pricing and slots, and reserve instantly.",
+      "Secure Auth — Register/login to access bookings and manage your reservations.",
+      "Owner Tools — List, update, and delete venues via protected management routes."
     ]
   },
   {
@@ -18,11 +18,11 @@
     "serverLink": "https://github.com/Zabedfolio/WanderLust-Server",
     "liveLink": "https://wanderlust-zabedfolio.vercel.app/",
     "description": "A full-stack travel booking platform where users can browse destinations, book trips, and manage reservations with Google OAuth and email authentication.",
+    "technologies": "Next.js, React.js, Node.js, Express.js, Tailwind CSS, MongoDB, Better Auth, Hero UI",
     "features": [
-      "Browse and filter travel packages by category and price, view destination details, and book trips with selected dates.",
-      "Secure login with email/password and Google OAuth via Better Auth, with session persistence and protected routes.",
-      "View and cancel bookings from a personal dashboard with data stored securely in MongoDB Atlas.",
-      "Manage travel destinations (add, edit, delete) through a secured admin flow using JWKS JWT verification."
+      "Browse & Book — Filter packages, view destinations, and book trips instantly.",
+      "Secure Auth — Email/password & Google OAuth with protected routes.",
+      "Manage — Cancel bookings from dashboard; admins manage destinations via JWT-secured API."
     ]
   }
 ]
