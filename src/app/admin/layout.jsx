@@ -40,6 +40,21 @@ export default function AdminLayout({ children }) {
     return <>{children}</>;
   }
 
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("admin_sidebar_collapsed");
+    if (saved === "true") {
+      setIsCollapsed(true);
+    }
+  }, []);
+
+  const toggleSidebar = () => {
+    const nextState = !isCollapsed;
+    setIsCollapsed(nextState);
+    localStorage.setItem("admin_sidebar_collapsed", String(nextState));
+  };
+
   const handleSignOut = async () => {
     localStorage.removeItem("admin_logged_in");
     await signOut({
@@ -52,10 +67,14 @@ export default function AdminLayout({ children }) {
   return (
     <div className="min-h-screen bg-[#050505] text-[#f5f5f5] flex">
       {/* Sidebar for Desktop */}
-      <aside className="hidden md:flex flex-col w-64 bg-[#0a0808]/80 border-r border-white/5 backdrop-blur-xl h-screen sticky top-0">
-        <div className="h-20 flex items-center justify-between px-6 border-b border-white/5">
-          <Link href="/admin" className="flex items-center gap-2.5 group">
-            <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-white/10 bg-white/5 p-1 transition-all duration-300 group-hover:scale-105 group-hover:border-[#ff4d00]/30 shadow-sm">
+      <aside 
+        className={`hidden md:flex flex-col bg-[#070606] border-r border-white/5 h-screen sticky top-0 flex-shrink-0 transition-all duration-300 z-30 ${
+          isCollapsed ? "w-20" : "w-64"
+        }`}
+      >
+        <div className="h-20 flex items-center justify-between px-5 border-b border-white/5">
+          <Link href="/admin" className="flex items-center gap-2.5 group overflow-hidden">
+            <div className="relative h-8 w-8 overflow-hidden rounded-lg border border-white/10 bg-white/5 p-1 transition-all duration-300 group-hover:scale-105 group-hover:border-[#ff4d00]/30 shadow-sm flex-shrink-0">
               <Image
                 src="/logo.png"
                 alt="Zabed Logo"
@@ -64,14 +83,27 @@ export default function AdminLayout({ children }) {
                 priority
               />
             </div>
-            <div className="leading-tight">
-              <div className="text-[11px] font-mono tracking-[0.25em] text-white">ZABED</div>
-              <div className="text-[9px] font-mono tracking-[0.2em] text-[#ff4d00] font-bold">ADMIN</div>
-            </div>
+            {!isCollapsed && (
+              <div className="leading-tight animate-fadeIn">
+                <div className="text-[11px] font-mono tracking-[0.25em] text-white">ZABED</div>
+                <div className="text-[9px] font-mono tracking-[0.2em] text-[#ff4d00] font-bold">ADMIN</div>
+              </div>
+            )}
           </Link>
+          <button
+            onClick={toggleSidebar}
+            className="p-1.5 rounded-lg border border-white/10 bg-white/5 text-white/70 hover:text-white hover:border-[#ff4d00]/30 transition"
+            title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
+          >
+            {isCollapsed ? (
+              <span className="text-xs font-bold font-mono text-[#ff4d00] px-0.5">»</span>
+            ) : (
+              <span className="text-xs font-bold font-mono text-white/50 px-0.5">«</span>
+            )}
+          </button>
         </div>
 
-        <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
+        <nav className="flex-1 px-3 py-6 space-y-1.5 overflow-y-auto">
           {sidebarItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
@@ -79,35 +111,45 @@ export default function AdminLayout({ children }) {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition duration-200 ${
+                className={`flex items-center rounded-xl text-sm font-medium transition duration-200 ${
+                  isCollapsed ? "justify-center p-3" : "gap-3 px-4 py-3"
+                } ${
                   isActive
                     ? "bg-[#ff4d00]/10 border border-[#ff4d00]/20 text-[#ff4d00]"
                     : "text-white/55 hover:text-white hover:bg-white/[0.02] border border-transparent"
                 }`}
+                title={isCollapsed ? item.label : ""}
               >
                 <Icon className="text-lg flex-shrink-0" />
-                <span>{item.label}</span>
+                {!isCollapsed && <span className="animate-fadeIn">{item.label}</span>}
               </Link>
             );
           })}
         </nav>
 
-        <div className="p-4 border-t border-white/5 space-y-2">
+        <div className="p-3 border-t border-white/5 space-y-2">
           <Link
             href="/"
             target="_blank"
-            className="flex items-center justify-between w-full px-4 py-3 text-xs text-white/55 hover:text-white rounded-xl hover:bg-white/[0.02] transition"
+            className={`flex items-center w-full text-white/55 hover:text-white rounded-xl hover:bg-white/[0.02] transition ${
+              isCollapsed ? "justify-center p-3" : "justify-between px-4 py-3 text-xs"
+            }`}
+            title={isCollapsed ? "View Portfolio" : ""}
           >
             <span className="flex items-center gap-2">
-              <HiOutlineExternalLink className="text-sm" /> View Portfolio
+              <HiOutlineExternalLink className="text-sm" /> 
+              {!isCollapsed && <span className="animate-fadeIn">View Portfolio</span>}
             </span>
           </Link>
           <button
             onClick={handleSignOut}
-            className="flex items-center gap-3 w-full px-4 py-3 text-sm font-medium text-white/55 hover:text-red-400 hover:bg-red-500/5 rounded-xl border border-transparent hover:border-red-500/10 transition duration-200"
+            className={`flex items-center w-full text-white/55 hover:text-red-400 hover:bg-red-500/5 rounded-xl border border-transparent hover:border-red-500/10 transition duration-200 ${
+              isCollapsed ? "justify-center p-3" : "gap-3 px-4 py-3 text-sm font-medium"
+            }`}
+            title={isCollapsed ? "Sign Out" : ""}
           >
             <HiOutlineLogout className="text-lg flex-shrink-0" />
-            <span>Sign Out</span>
+            {!isCollapsed && <span className="animate-fadeIn">Sign Out</span>}
           </button>
         </div>
       </aside>

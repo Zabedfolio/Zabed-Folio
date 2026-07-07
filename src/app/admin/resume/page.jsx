@@ -9,6 +9,10 @@ import {
   HiOutlineArrowUp,
   HiOutlineArrowDown,
   HiOutlineEye,
+  HiOutlineUser,
+  HiOutlineCog,
+  HiOutlineFolder,
+  HiOutlineAcademicCap,
 } from "react-icons/hi";
 
 export default function AdminResume() {
@@ -16,6 +20,7 @@ export default function AdminResume() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [activeTab, setActiveTab] = useState("header"); // "header" | "skills" | "projects" | "education"
 
   useEffect(() => {
     fetchResume();
@@ -224,6 +229,13 @@ export default function AdminResume() {
     );
   }
 
+  const tabs = [
+    { id: "header", label: "Contact & Bio", icon: HiOutlineUser },
+    { id: "skills", label: "Skills", icon: HiOutlineCog },
+    { id: "projects", label: "Projects Showcase", icon: HiOutlineFolder },
+    { id: "education", label: "Education & Langs", icon: HiOutlineAcademicCap },
+  ];
+
   return (
     <div className="space-y-8">
       {/* Top Banner */}
@@ -259,451 +271,493 @@ export default function AdminResume() {
         </div>
       )}
 
-      {/* Two Column Workspace: Form & Live Preview */}
+      {/* Tabs Navigation Header */}
+      <div className="flex border-b border-white/5 overflow-x-auto gap-2 pb-px scrollbar-none">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+          return (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-5 py-3.5 border-b-2 text-sm font-semibold transition flex-shrink-0 ${
+                isActive
+                  ? "border-[#ff4d00] text-[#ff4d00] bg-[#ff4d00]/5"
+                  : "border-transparent text-white/50 hover:text-white hover:bg-white/[0.02]"
+              }`}
+            >
+              <Icon className="text-lg" />
+              <span>{tab.label}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Two Column Workspace: Tab Content Form & Live Preview */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
         
-        {/* LEFT COLUMN: Editing Forms */}
-        <div className="xl:col-span-7 space-y-8">
+        {/* LEFT COLUMN: Active Tab Fields */}
+        <div className="xl:col-span-7 space-y-6">
           
-          {/* Header Details */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
-            <h2 className="text-lg font-bold text-white border-b border-white/5 pb-2">Header Information</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={resume?.name || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="e.g. Zabed Mahmud"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Professional Role</label>
-                <input
-                  type="text"
-                  name="role"
-                  value={resume?.role || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="e.g. MERN Stack Developer"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Phone</label>
-                <input
-                  type="text"
-                  name="phone"
-                  value={resume?.phone || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="e.g. +8801979333880"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={resume?.email || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="e.g. zabedfolio@gmail.com"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Location</label>
-                <input
-                  type="text"
-                  name="location"
-                  value={resume?.location || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="e.g. Chittagong, Bangladesh"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">LinkedIn Link</label>
-                <input
-                  type="text"
-                  name="linkedin"
-                  value={resume?.linkedin || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="LinkedIn URL"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">GitHub Link</label>
-                <input
-                  type="text"
-                  name="github"
-                  value={resume?.github || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="GitHub URL"
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Portfolio Link</label>
-                <input
-                  type="text"
-                  name="portfolio"
-                  value={resume?.portfolio || ""}
-                  onChange={handleHeaderChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                  placeholder="Portfolio URL"
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Objective */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-4">
-            <h2 className="text-lg font-bold text-white border-b border-white/5 pb-2">Career Objective</h2>
-            <div className="flex flex-col gap-2">
-              <textarea
-                name="objective"
-                rows={3}
-                value={resume?.objective || ""}
-                onChange={handleHeaderChange}
-                className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition resize-none leading-relaxed"
-                placeholder="Introduce your focus, drive and qualifications..."
-              />
-            </div>
-          </div>
-
-          {/* Technical Skills */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
-            <h2 className="text-lg font-bold text-white border-b border-white/5 pb-2">Technical Skills</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Frontend Skills</label>
-                <textarea
-                  name="frontend"
-                  rows={2}
-                  value={resume?.skills?.frontend || ""}
-                  onChange={handleSkillsChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition resize-none leading-relaxed"
-                  placeholder="e.g. HTML5, CSS3, JavaScript (ES6+)..."
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Backend & APIs Skills</label>
-                <textarea
-                  name="backend"
-                  rows={2}
-                  value={resume?.skills?.backend || ""}
-                  onChange={handleSkillsChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition resize-none leading-relaxed"
-                  placeholder="e.g. Node.js, Express.js..."
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Tools & Version Control</label>
-                <textarea
-                  name="tools"
-                  rows={2}
-                  value={resume?.skills?.tools || ""}
-                  onChange={handleSkillsChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition resize-none leading-relaxed"
-                  placeholder="e.g. Git & GitHub, VS Code..."
-                />
-              </div>
-
-              <div className="flex flex-col gap-2">
-                <label className="text-xs text-white/60 font-medium">Soft Skills</label>
-                <textarea
-                  name="softSkills"
-                  rows={2}
-                  value={resume?.skills?.softSkills || ""}
-                  onChange={handleSkillsChange}
-                  className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition resize-none leading-relaxed"
-                  placeholder="e.g. Problem Solving, Team Collaboration..."
-                />
-              </div>
-            </div>
-          </div>
-
-          {/* Projects */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
-            <div className="flex items-center justify-between border-b border-white/5 pb-2">
-              <h2 className="text-lg font-bold text-white">Projects Showcase</h2>
-              <button
-                onClick={addProject}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-semibold text-white/80 transition"
-              >
-                <HiOutlinePlus /> Add Project
-              </button>
-            </div>
-
-            {resume?.projects?.map((project, idx) => (
-              <div
-                key={idx}
-                className="p-5 rounded-xl border border-white/5 bg-white/[0.01] space-y-4 relative"
-              >
-                <div className="absolute top-4 right-4 flex items-center gap-1.5">
-                  <button
-                    onClick={() => moveProject(idx, -1)}
-                    disabled={idx === 0}
-                    className="p-1 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
-                  >
-                    <HiOutlineArrowUp className="text-sm" />
-                  </button>
-                  <button
-                    onClick={() => moveProject(idx, 1)}
-                    disabled={idx === (resume.projects.length - 1)}
-                    className="p-1 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
-                  >
-                    <HiOutlineArrowDown className="text-sm" />
-                  </button>
-                  <button
-                    onClick={() => removeProject(idx)}
-                    className="p-1.5 rounded bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition"
-                  >
-                    <HiOutlineTrash className="text-sm" />
-                  </button>
-                </div>
-
+          {/* TAB 1: Contact & Header */}
+          {activeTab === "header" && (
+            <div className="space-y-6">
+              <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
+                <h2 className="text-lg font-bold text-white border-b border-white/5 pb-2">Header Information</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs text-white/60 font-medium">Project Title</label>
+                    <label className="text-xs text-white/60 font-medium">Full Name</label>
                     <input
                       type="text"
-                      value={project.title}
-                      onChange={(e) => handleProjectChange(idx, "title", e.target.value)}
+                      name="name"
+                      value={resume?.name || ""}
+                      onChange={handleHeaderChange}
                       className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                      placeholder="e.g. SportNest - Sports Facility Booking Platform"
+                      placeholder="e.g. Zabed Mahmud"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs text-white/60 font-medium">Live Demo Link</label>
+                    <label className="text-xs text-white/60 font-medium">Professional Role</label>
                     <input
                       type="text"
-                      value={project.liveLink}
-                      onChange={(e) => handleProjectChange(idx, "liveLink", e.target.value)}
+                      name="role"
+                      value={resume?.role || ""}
+                      onChange={handleHeaderChange}
                       className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                      placeholder="https://..."
+                      placeholder="e.g. MERN Stack Developer"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs text-white/60 font-medium">Client Code Repository</label>
+                    <label className="text-xs text-white/60 font-medium">Phone Number</label>
                     <input
                       type="text"
-                      value={project.clientLink}
-                      onChange={(e) => handleProjectChange(idx, "clientLink", e.target.value)}
+                      name="phone"
+                      value={resume?.phone || ""}
+                      onChange={handleHeaderChange}
                       className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                      placeholder="https://github.com/..."
+                      placeholder="e.g. +8801979333880"
                     />
                   </div>
 
                   <div className="flex flex-col gap-2">
-                    <label className="text-xs text-white/60 font-medium">Server Code Repository</label>
+                    <label className="text-xs text-white/60 font-medium">Email Address</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={resume?.email || ""}
+                      onChange={handleHeaderChange}
+                      className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                      placeholder="e.g. zabedfolio@gmail.com"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/60 font-medium">Location</label>
                     <input
                       type="text"
-                      value={project.serverLink}
-                      onChange={(e) => handleProjectChange(idx, "serverLink", e.target.value)}
+                      name="location"
+                      value={resume?.location || ""}
+                      onChange={handleHeaderChange}
                       className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                      placeholder="https://github.com/..."
+                      placeholder="e.g. Chittagong, Bangladesh"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/60 font-medium">LinkedIn URL</label>
+                    <input
+                      type="text"
+                      name="linkedin"
+                      value={resume?.linkedin || ""}
+                      onChange={handleHeaderChange}
+                      className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                      placeholder="LinkedIn Profile URL"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/60 font-medium">GitHub URL</label>
+                    <input
+                      type="text"
+                      name="github"
+                      value={resume?.github || ""}
+                      onChange={handleHeaderChange}
+                      className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                      placeholder="GitHub Account URL"
+                    />
+                  </div>
+
+                  <div className="flex flex-col gap-2">
+                    <label className="text-xs text-white/60 font-medium">Portfolio URL</label>
+                    <input
+                      type="text"
+                      name="portfolio"
+                      value={resume?.portfolio || ""}
+                      onChange={handleHeaderChange}
+                      className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                      placeholder="Portfolio Webpage URL"
                     />
                   </div>
                 </div>
+              </div>
 
+              <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-4">
+                <h2 className="text-lg font-bold text-white border-b border-white/5 pb-2">Career Objective</h2>
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs text-white/60 font-medium">Description</label>
                   <textarea
-                    rows={2}
-                    value={project.description}
-                    onChange={(e) => handleProjectChange(idx, "description", e.target.value)}
-                    className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition resize-none leading-relaxed"
-                    placeholder="A full-stack sports facility booking platform..."
+                    name="objective"
+                    rows={4}
+                    value={resume?.objective || ""}
+                    onChange={handleHeaderChange}
+                    className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition leading-relaxed min-h-[100px] h-32"
+                    placeholder="Introduce your focus, drive and qualifications..."
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 2: Skills */}
+          {activeTab === "skills" && (
+            <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6 animate-fadeIn">
+              <h2 className="text-lg font-bold text-white border-b border-white/5 pb-2">Technical Skills</h2>
+              <div className="grid grid-cols-1 gap-5">
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs text-white/60 font-medium">Frontend Skills</label>
+                  <textarea
+                    name="frontend"
+                    rows={3}
+                    value={resume?.skills?.frontend || ""}
+                    onChange={handleSkillsChange}
+                    className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition leading-relaxed h-28"
+                    placeholder="e.g. HTML5, CSS3, JavaScript (ES6+)..."
                   />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="text-xs text-white/60 font-medium">Technologies Used</label>
-                  <input
-                    type="text"
-                    value={project.technologies}
-                    onChange={(e) => handleProjectChange(idx, "technologies", e.target.value)}
-                    className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                    placeholder="e.g. Next.js, React.js, Node.js..."
+                  <label className="text-xs text-white/60 font-medium">Backend & APIs Skills</label>
+                  <textarea
+                    name="backend"
+                    rows={3}
+                    value={resume?.skills?.backend || ""}
+                    onChange={handleSkillsChange}
+                    className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition leading-relaxed h-28"
+                    placeholder="e.g. Node.js, Express.js..."
                   />
                 </div>
 
-                {/* Key Features */}
-                <div className="space-y-3 pt-2">
-                  <div className="flex items-center justify-between">
-                    <label className="text-xs text-white/60 font-medium">Key Features (Bullet Points)</label>
-                    <button
-                      onClick={() => addProjectFeature(idx)}
-                      className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-white/10 hover:bg-white/5 text-[10px] font-semibold text-white/80 transition"
-                    >
-                      <HiOutlinePlus /> Add Bullet
-                    </button>
-                  </div>
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs text-white/60 font-medium">Tools & Version Control</label>
+                  <textarea
+                    name="tools"
+                    rows={3}
+                    value={resume?.skills?.tools || ""}
+                    onChange={handleSkillsChange}
+                    className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition leading-relaxed h-28"
+                    placeholder="e.g. Git & GitHub, VS Code..."
+                  />
+                </div>
 
-                  <div className="space-y-2.5">
-                    {project.features?.map((feature, featIdx) => (
-                      <div key={featIdx} className="flex items-center gap-3">
-                        <span className="text-white/40 text-sm">•</span>
+                <div className="flex flex-col gap-2">
+                  <label className="text-xs text-white/60 font-medium">Soft Skills</label>
+                  <textarea
+                    name="softSkills"
+                    rows={3}
+                    value={resume?.skills?.softSkills || ""}
+                    onChange={handleSkillsChange}
+                    className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition leading-relaxed h-28"
+                    placeholder="e.g. Problem Solving, Team Collaboration..."
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 3: Projects */}
+          {activeTab === "projects" && (
+            <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6 animate-fadeIn">
+              <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                <h2 className="text-lg font-bold text-white">Projects Showcase</h2>
+                <button
+                  onClick={addProject}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-semibold text-white/80 transition"
+                >
+                  <HiOutlinePlus /> Add Project
+                </button>
+              </div>
+
+              {resume?.projects?.length === 0 ? (
+                <p className="text-sm text-white/45 py-4 text-center">No projects added yet. Click "Add Project" to start.</p>
+              ) : (
+                <div className="space-y-6">
+                  {resume?.projects?.map((project, idx) => (
+                    <div
+                      key={idx}
+                      className="p-5 rounded-xl border border-white/5 bg-white/[0.01] space-y-4 relative"
+                    >
+                      <div className="absolute top-4 right-4 flex items-center gap-1.5">
+                        <button
+                          onClick={() => moveProject(idx, -1)}
+                          disabled={idx === 0}
+                          className="p-1 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
+                        >
+                          <HiOutlineArrowUp className="text-sm" />
+                        </button>
+                        <button
+                          onClick={() => moveProject(idx, 1)}
+                          disabled={idx === (resume.projects.length - 1)}
+                          className="p-1 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
+                        >
+                          <HiOutlineArrowDown className="text-sm" />
+                        </button>
+                        <button
+                          onClick={() => removeProject(idx)}
+                          className="p-1.5 rounded bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 transition"
+                        >
+                          <HiOutlineTrash className="text-sm" />
+                        </button>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-4">
+                        <div className="flex flex-col gap-2">
+                          <label className="text-xs text-white/60 font-medium">Project Title</label>
+                          <input
+                            type="text"
+                            value={project.title}
+                            onChange={(e) => handleProjectChange(idx, "title", e.target.value)}
+                            className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                            placeholder="e.g. SportNest – Sports Facility Booking Platform"
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                          <label className="text-xs text-white/60 font-medium">Live Demo Link</label>
+                          <input
+                            type="text"
+                            value={project.liveLink}
+                            onChange={(e) => handleProjectChange(idx, "liveLink", e.target.value)}
+                            className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                            placeholder="https://..."
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                          <label className="text-xs text-white/60 font-medium">Client Code Repository</label>
+                          <input
+                            type="text"
+                            value={project.clientLink}
+                            onChange={(e) => handleProjectChange(idx, "clientLink", e.target.value)}
+                            className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                            placeholder="https://github.com/..."
+                          />
+                        </div>
+
+                        <div className="flex flex-col gap-2">
+                          <label className="text-xs text-white/60 font-medium">Server Code Repository</label>
+                          <input
+                            type="text"
+                            value={project.serverLink}
+                            onChange={(e) => handleProjectChange(idx, "serverLink", e.target.value)}
+                            className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                            placeholder="https://github.com/..."
+                          />
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <label className="text-xs text-white/60 font-medium">Description</label>
+                        <textarea
+                          rows={3}
+                          value={project.description}
+                          onChange={(e) => handleProjectChange(idx, "description", e.target.value)}
+                          className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition leading-relaxed h-20"
+                          placeholder="A full-stack sports facility booking platform..."
+                        />
+                      </div>
+
+                      <div className="flex flex-col gap-2">
+                        <label className="text-xs text-white/60 font-medium">Technologies Used</label>
                         <input
                           type="text"
-                          value={feature}
-                          onChange={(e) => handleProjectFeatureChange(idx, featIdx, e.target.value)}
-                          className="flex-1 bg-white/[0.03] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                          placeholder="e.g. Browse & Book — Explore facilities..."
+                          value={project.technologies}
+                          onChange={(e) => handleProjectChange(idx, "technologies", e.target.value)}
+                          className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                          placeholder="e.g. Next.js, React.js, Node.js..."
                         />
+                      </div>
+
+                      {/* Key Features */}
+                      <div className="space-y-3 pt-2">
+                        <div className="flex items-center justify-between">
+                          <label className="text-xs text-white/60 font-medium">Key Features (Bullet Points)</label>
+                          <button
+                            onClick={() => addProjectFeature(idx)}
+                            className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-white/10 hover:bg-white/5 text-[10px] font-semibold text-white/80 transition"
+                          >
+                            <HiOutlinePlus /> Add Bullet
+                          </button>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {project.features?.map((feature, featIdx) => (
+                            <div key={featIdx} className="flex items-center gap-3">
+                              <span className="text-white/40 text-sm">•</span>
+                              <input
+                                type="text"
+                                value={feature}
+                                onChange={(e) => handleProjectFeatureChange(idx, featIdx, e.target.value)}
+                                className="flex-1 bg-white/[0.03] border border-white/10 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                                placeholder="e.g. Browse & Book — Explore facilities..."
+                              />
+                              <button
+                                onClick={() => removeProjectFeature(idx, featIdx)}
+                                className="p-1 rounded hover:bg-red-500/10 text-white/40 hover:text-red-400 transition"
+                              >
+                                <HiOutlineTrash className="text-xs" />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* TAB 4: Education & Languages */}
+          {activeTab === "education" && (
+            <div className="space-y-6 animate-fadeIn">
+              
+              {/* Education History */}
+              <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
+                <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                  <h2 className="text-lg font-bold text-white">Education History</h2>
+                  <button
+                    onClick={addEducation}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-semibold text-white/80 transition"
+                  >
+                    <HiOutlinePlus /> Add Education
+                  </button>
+                </div>
+
+                <div className="space-y-4">
+                  {resume?.education?.map((edu, idx) => (
+                    <div
+                      key={idx}
+                      className="p-4 rounded-xl border border-white/5 bg-white/[0.01] space-y-3 relative"
+                    >
+                      <div className="absolute top-3 right-3 flex items-center gap-1.5">
                         <button
-                          onClick={() => removeProjectFeature(idx, featIdx)}
-                          className="p-1 rounded hover:bg-red-500/10 text-white/40 hover:text-red-400 transition"
+                          onClick={() => moveEducation(idx, -1)}
+                          disabled={idx === 0}
+                          className="p-0.5 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
+                        >
+                          <HiOutlineArrowUp className="text-xs" />
+                        </button>
+                        <button
+                          onClick={() => moveEducation(idx, 1)}
+                          disabled={idx === (resume.education.length - 1)}
+                          className="p-0.5 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
+                        >
+                          <HiOutlineArrowDown className="text-xs" />
+                        </button>
+                        <button
+                          onClick={() => removeEducation(idx)}
+                          className="p-1 rounded hover:bg-red-500/15 text-white/40 hover:text-red-400 transition"
                         >
                           <HiOutlineTrash className="text-xs" />
                         </button>
                       </div>
-                    ))}
-                  </div>
+
+                      <div className="flex flex-col gap-2 pt-2">
+                        <label className="text-[10px] text-white/60 uppercase font-bold tracking-wider">Institution</label>
+                        <input
+                          type="text"
+                          value={edu.school}
+                          onChange={(e) => handleEducationChange(idx, "school", e.target.value)}
+                          className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                          placeholder="e.g. International Islamic University Chattogram"
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-3">
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-[10px] text-white/60 uppercase font-bold tracking-wider">Degree / Field</label>
+                          <input
+                            type="text"
+                            value={edu.degree}
+                            onChange={(e) => handleEducationChange(idx, "degree", e.target.value)}
+                            className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                            placeholder="B.Sc. in Computer Science"
+                          />
+                        </div>
+                        <div className="flex flex-col gap-1.5">
+                          <label className="text-[10px] text-white/60 uppercase font-bold tracking-wider">Time Duration</label>
+                          <input
+                            type="text"
+                            value={edu.year}
+                            onChange={(e) => handleEducationChange(idx, "year", e.target.value)}
+                            className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                            placeholder="e.g. 2023 - 2027"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
 
-          {/* Education History */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
-            <div className="flex items-center justify-between border-b border-white/5 pb-2">
-              <h2 className="text-lg font-bold text-white">Education History</h2>
-              <button
-                onClick={addEducation}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-semibold text-white/80 transition"
-              >
-                <HiOutlinePlus /> Add Education
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              {resume?.education?.map((edu, idx) => (
-                <div
-                  key={idx}
-                  className="p-4 rounded-xl border border-white/5 bg-white/[0.01] space-y-3 relative"
-                >
-                  <div className="absolute top-3 right-3 flex items-center gap-1.5">
-                    <button
-                      onClick={() => moveEducation(idx, -1)}
-                      disabled={idx === 0}
-                      className="p-0.5 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
-                    >
-                      <HiOutlineArrowUp className="text-xs" />
-                    </button>
-                    <button
-                      onClick={() => moveEducation(idx, 1)}
-                      disabled={idx === (resume.education.length - 1)}
-                      className="p-0.5 rounded bg-white/5 border border-white/10 text-white/60 hover:text-white transition disabled:opacity-30"
-                    >
-                      <HiOutlineArrowDown className="text-xs" />
-                    </button>
-                    <button
-                      onClick={() => removeEducation(idx)}
-                      className="p-1 rounded hover:bg-red-500/15 text-white/40 hover:text-red-400 transition"
-                    >
-                      <HiOutlineTrash className="text-xs" />
-                    </button>
-                  </div>
-
-                  <div className="flex flex-col gap-2">
-                    <label className="text-[10px] text-white/60 uppercase font-bold tracking-wider">Institution</label>
-                    <input
-                      type="text"
-                      value={edu.school}
-                      onChange={(e) => handleEducationChange(idx, "school", e.target.value)}
-                      className="bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                      placeholder="e.g. International Islamic University Chattogram"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3">
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] text-white/60 uppercase font-bold tracking-wider">Degree / Field</label>
-                      <input
-                        type="text"
-                        value={edu.degree}
-                        onChange={(e) => handleEducationChange(idx, "degree", e.target.value)}
-                        className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                        placeholder="B.Sc. in Computer Science"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label className="text-[10px] text-white/60 uppercase font-bold tracking-wider">Time Duration</label>
-                      <input
-                        type="text"
-                        value={edu.year}
-                        onChange={(e) => handleEducationChange(idx, "year", e.target.value)}
-                        className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                        placeholder="e.g. 2023 - 2027"
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Languages */}
-          <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
-            <div className="flex items-center justify-between border-b border-white/5 pb-2">
-              <h2 className="text-lg font-bold text-white">Languages</h2>
-              <button
-                onClick={addLanguage}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-semibold text-white/80 transition"
-              >
-                <HiOutlinePlus /> Add Language
-              </button>
-            </div>
-
-            <div className="space-y-4">
-              {resume?.languages?.map((lang, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-white/5 bg-white/[0.01] relative group"
-                >
-                  <div className="grid grid-cols-2 gap-3 flex-1">
-                    <input
-                      type="text"
-                      value={lang.language}
-                      onChange={(e) => handleLanguageChange(idx, "language", e.target.value)}
-                      className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                      placeholder="e.g. Bengali"
-                    />
-                    <input
-                      type="text"
-                      value={lang.proficiency}
-                      onChange={(e) => handleLanguageChange(idx, "proficiency", e.target.value)}
-                      className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
-                      placeholder="e.g. Native"
-                    />
-                  </div>
+              {/* Languages */}
+              <div className="glass-panel p-6 rounded-2xl border border-white/5 space-y-6">
+                <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                  <h2 className="text-lg font-bold text-white">Languages</h2>
                   <button
-                    onClick={() => removeLanguage(idx)}
-                    className="p-1.5 rounded hover:bg-red-500/15 text-white/40 hover:text-red-400 transition"
+                    onClick={addLanguage}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 hover:bg-white/5 text-xs font-semibold text-white/80 transition"
                   >
-                    <HiOutlineTrash className="text-sm" />
+                    <HiOutlinePlus /> Add Language
                   </button>
                 </div>
-              ))}
+
+                <div className="space-y-4">
+                  {resume?.languages?.map((lang, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center gap-3 p-3 rounded-xl border border-white/5 bg-white/[0.01] relative group"
+                    >
+                      <div className="grid grid-cols-2 gap-3 flex-1">
+                        <input
+                          type="text"
+                          value={lang.language}
+                          onChange={(e) => handleLanguageChange(idx, "language", e.target.value)}
+                          className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                          placeholder="e.g. Bengali"
+                        />
+                        <input
+                          type="text"
+                          value={lang.proficiency}
+                          onChange={(e) => handleLanguageChange(idx, "proficiency", e.target.value)}
+                          className="bg-white/[0.03] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-[#ff4d00]/50 transition"
+                          placeholder="e.g. Native"
+                        />
+                      </div>
+                      <button
+                        onClick={() => removeLanguage(idx)}
+                        className="p-1.5 rounded hover:bg-red-500/15 text-white/40 hover:text-red-400 transition"
+                      >
+                        <HiOutlineTrash className="text-sm" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
             </div>
-          </div>
+          )}
 
         </div>
         
@@ -799,9 +853,12 @@ export default function AdminResume() {
                         </p>
                       )}
                       {project.features && (
-                        <ul className="list-disc list-inside text-gray-500 text-[9.5px] mt-1 pl-1 space-y-0.5">
+                        <ul className="list-none text-gray-500 text-[9.5px] mt-1 pl-0 space-y-0.5">
                           {project.features.filter(f => f.trim() !== "").map((feat, i) => (
-                            <li key={i}>{feat}</li>
+                            <li key={i} className="flex items-start gap-1.5">
+                              <span className="font-extrabold text-gray-900 select-none">•</span>
+                              <span>{feat}</span>
+                            </li>
                           ))}
                         </ul>
                       )}
