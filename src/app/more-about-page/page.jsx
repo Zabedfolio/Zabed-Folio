@@ -193,7 +193,7 @@ function GithubContributions() {
   }, []);
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10">
+    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between">
 
       {/* ambient glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -219,6 +219,152 @@ function GithubContributions() {
         <span className="font-mono text-[10px] text-black/30">
           total GitHub contributions in 2026
         </span>
+      </div>
+    </div>
+  );
+}
+
+function LeetcodeStats() {
+  const [stats, setStats] = useState(null);
+  const [showBreakdown, setShowBreakdown] = useState(false);
+
+  useEffect(() => {
+    fetch('https://leetcode-stats-api.onrender.com/zabedfolio')
+      .then((res) => {
+        if (!res.ok) throw new Error('Failed to fetch');
+        return res.json();
+      })
+      .then((data) => {
+        if (data.status === 'success') {
+          setStats(data);
+        }
+      })
+      .catch((err) => console.error('LeetCode API error:', err));
+  }, []);
+
+  const totalSolved = stats?.totalSolved || 0;
+  const totalQuestions = stats?.totalQuestions || 3300;
+  
+  // Dynamic milestone target for progress bar
+  const getMilestone = (solved) => {
+    if (solved < 100) return 100;
+    if (solved < 250) return 250;
+    if (solved < 500) return 500;
+    return 1000;
+  };
+  const target = getMilestone(totalSolved);
+  const progressPercent = Math.min((totalSolved / target) * 100, 100);
+
+  return (
+    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[140px]">
+      {/* ambient glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+      <div className="relative z-10 flex flex-col gap-1 w-full">
+        {/* Header and Acceptance Rate Badge */}
+        <div className="flex justify-between items-start w-full">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
+            LeetCode Solve
+          </span>
+          {stats && (
+            <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 transition">
+              {stats.acceptanceRate}% Accept
+            </span>
+          )}
+        </div>
+
+        {/* Main Solved Count */}
+        <div className="mt-1 flex items-baseline justify-between w-full">
+          <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tracking-tight text-[#1a1a1a]">
+            {stats ? (
+              <>
+                {totalSolved}
+                <span className="text-[#ff5f1a] font-normal text-lg ml-0.5">/ {target}</span>
+              </>
+            ) : (
+              '--'
+            )}
+          </span>
+          
+          {/* Toggle Switch */}
+          {stats && (
+            <div className="flex items-center gap-1.5 cursor-pointer select-none" onClick={() => setShowBreakdown(!showBreakdown)}>
+              <span className="text-[9px] font-mono tracking-wider text-black/40">Details</span>
+              <div className={`relative w-8 h-4 rounded-full transition-colors duration-300 ${showBreakdown ? 'bg-[#ff5f1a]' : 'bg-black/10'}`}>
+                <div className={`absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white transition-transform duration-300 ${showBreakdown ? 'translate-x-4' : 'translate-x-0'}`} />
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Progress Bar */}
+        {stats && (
+          <div className="mt-3 w-full space-y-1">
+            <div className="relative h-2 w-full rounded-full bg-black/5 overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-[#ff8a00] to-[#ff4d00] rounded-full shadow-lg shadow-[#ff4d00]/30 transition-all duration-1000 ease-out"
+                style={{ width: `${progressPercent}%` }}
+              />
+            </div>
+            <div className="flex justify-between text-[8px] font-mono text-black/35 px-0.5">
+              <span>Next Milestone</span>
+              <span>{Math.round(progressPercent)}%</span>
+            </div>
+          </div>
+        )}
+
+        {/* Collapsible Details Panel */}
+        {stats && showBreakdown && (
+          <div className="mt-3 pt-3 border-t border-black/5 space-y-2.5 animate-fadeIn">
+            {/* Easy */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-[9px] font-mono">
+                <span className="text-emerald-600 font-bold">Easy</span>
+                <span className="text-black/50">{stats.easySolved} / {stats.totalEasy}</span>
+              </div>
+              <div className="h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
+                <div 
+                  className="h-full bg-emerald-500 rounded-full" 
+                  style={{ width: `${(stats.easySolved / stats.totalEasy) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Medium */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-[9px] font-mono">
+                <span className="text-amber-500 font-bold">Medium</span>
+                <span className="text-black/50">{stats.mediumSolved} / {stats.totalMedium}</span>
+              </div>
+              <div className="h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
+                <div 
+                  className="h-full bg-amber-500 rounded-full" 
+                  style={{ width: `${(stats.mediumSolved / stats.totalMedium) * 100}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Hard */}
+            <div className="space-y-1">
+              <div className="flex justify-between text-[9px] font-mono">
+                <span className="text-red-500 font-bold">Hard</span>
+                <span className="text-black/50">{stats.hardSolved} / {stats.totalHard}</span>
+              </div>
+              <div className="h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
+                <div 
+                  className="h-full bg-red-500 rounded-full" 
+                  style={{ width: `${(stats.hardSolved / stats.totalHard) * 100}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        )}
+
+        {!stats && (
+          <span className="font-mono text-[10px] text-black/30 mt-2">
+            connecting to LeetCode Stats API...
+          </span>
+        )}
       </div>
     </div>
   );
@@ -339,11 +485,11 @@ export default function MoreAboutPage() {
           {/* ── Live Stats ── */}
           <motion.div
             variants={fade(0.1)}
-            className="flex flex-col gap-4 sm:flex-row"
+            className="flex flex-col gap-4 md:flex-row md:items-stretch w-full"
           >
 
             {/* Journey Timer */}
-            <div className="group relative overflow-hidden rounded-2xl border border-[#ff5f1a]/25 bg-white px-6 py-5 shadow-sm shadow-[#ff5f1a]/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#ff5f1a]/15">
+            <div className="flex-1 group relative overflow-hidden rounded-2xl border border-[#ff5f1a]/25 bg-white px-6 py-5 shadow-sm shadow-[#ff5f1a]/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#ff5f1a]/15 flex flex-col justify-between">
 
               {/* subtle glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
@@ -371,6 +517,9 @@ export default function MoreAboutPage() {
 
             {/* GitHub Contributions */}
             <GithubContributions />
+
+            {/* LeetCode Stats */}
+            <LeetcodeStats />
           </motion.div>
         </motion.div>
       </section>
