@@ -496,53 +496,56 @@ export default function MoreAboutPage() {
 
       {/* ── Hero ── */}
       <section className="section-shell pb-16 pt-12">
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={stagger}
-          className="max-w-3xl space-y-6"
-        >
-          <motion.p
-            variants={fade(0)}
-            className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff5f1a]"
+        <div className="space-y-12">
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={stagger}
+            className="max-w-3xl space-y-6"
           >
-            A little more about me
-          </motion.p>
+            <motion.p
+              variants={fade(0)}
+              className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff5f1a]"
+            >
+              A little more about me
+            </motion.p>
 
-          <motion.h1
-            variants={fade(0.05)}
-            className="text-[clamp(2.4rem,6vw,5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a]"
-          >
-            Hey, I'm{" "}
-            <span className="inline-flex items-center gap-4 flex-wrap">
-              <span className="text-[#ff5f1a]">Zabed.</span>
-              <span
-                className="relative inline-block"
-                style={{
-                  transform: "rotate(-4deg)",
-                  transformOrigin: "bottom center",
-                }}
-              >
-                <img
-                  src="/og-image.png"
-                  alt="Zabed"
-                  className="rounded-2xl object-cover shadow-lg shadow-black/15 border border-black/8"
+            <motion.h1
+              variants={fade(0.05)}
+              className="text-[clamp(2.4rem,6vw,5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a]"
+            >
+              Hey, I'm{" "}
+              <span className="inline-flex items-center gap-4 flex-wrap">
+                <span className="text-[#ff5f1a]">Zabed.</span>
+                <span
+                  className="relative inline-block"
                   style={{
-                    width: "clamp(3.5rem, 7vw, 5.5rem)",
-                    height: "clamp(3.5rem, 7vw, 5.5rem)",
+                    transform: "rotate(-4deg)",
+                    transformOrigin: "bottom center",
                   }}
-                  draggable={false}
-                />
+                >
+                  <img
+                    src="/og-image.png"
+                    alt="Zabed"
+                    className="rounded-2xl object-cover shadow-lg shadow-black/15 border border-black/8"
+                    style={{
+                      width: "clamp(3.5rem, 7vw, 5.5rem)",
+                      height: "clamp(3.5rem, 7vw, 5.5rem)",
+                    }}
+                    draggable={false}
+                  />
+                </span>
               </span>
-            </span>
-            <br />
-            <span className="text-black/30">Still learning. Always building.</span>
-          </motion.h1>
+              <br />
+              <span className="text-black/30">Still learning. Always building.</span>
+            </motion.h1>
+          </motion.div>
 
-          {/* ── Live timer ── */}
           {/* ── Live Stats ── */}
           <motion.div
-            variants={fade(0.1)}
+            initial="hidden"
+            animate="show"
+            variants={stagger}
             className="flex flex-col gap-4 md:flex-row md:items-stretch w-full"
           >
 
@@ -613,7 +616,7 @@ export default function MoreAboutPage() {
             {/* LeetCode Stats */}
             <LeetcodeStats />
           </motion.div>
-        </motion.div>
+        </div>
       </section>
 
       {/* ── Divider ── */}
