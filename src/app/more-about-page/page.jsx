@@ -185,39 +185,94 @@ function HoverImage({ src, alt, label }) {
 
 function GithubContributions() {
   const [contributions, setContributions] = useState(null);
+  const [selectedYear, setSelectedYear] = useState(2026);
 
   useEffect(() => {
     fetch('/api/github-stats')
       .then((res) => res.json())
-      .then((data) => setContributions(data.contributions));
+      .then((data) => setContributions(data.contributions))
+      .catch((err) => console.error('GitHub stats error:', err));
   }, []);
 
+  const displayContributions = selectedYear === 2025 ? 42 : (contributions || 764);
+
   return (
-    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between">
+    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[140px]">
+      
+      {/* Dynamic ambient glow based on year */}
+      <div className={`absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-transparent opacity-0 transition-all duration-500 group-hover:opacity-100 ${
+        selectedYear === 2026 ? 'group-hover:from-emerald-500/5' : 'group-hover:from-[#ff5f1a]/5'
+      }`} />
 
-      {/* ambient glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+      {/* SVG Background Wave (Success as a Service / Growth style) */}
+      <svg className="absolute bottom-0 left-0 right-0 h-14 w-full select-none pointer-events-none z-0" viewBox="0 0 400 60" preserveAspectRatio="none">
+        <defs>
+          <linearGradient id="glow-2025" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#ff5f1a" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#ff5f1a" stopOpacity="0.0" />
+          </linearGradient>
+          <linearGradient id="glow-2026" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+          </linearGradient>
+        </defs>
+        <path
+          d={selectedYear === 2025 
+            ? "M 0 50 Q 50 46 100 48 T 200 44 T 300 46 T 400 42 L 400 60 L 0 60 Z"
+            : "M 0 50 Q 50 38 100 28 T 200 18 T 300 8 T 400 2 L 400 60 L 0 60 Z"
+          }
+          fill={selectedYear === 2025 ? "url(#glow-2025)" : "url(#glow-2026)"}
+          stroke={selectedYear === 2025 ? "#ff5f1a" : "#10b981"}
+          strokeWidth="1.5"
+          className="transition-all duration-700 ease-in-out"
+        />
+      </svg>
 
-      <div className="relative z-10 flex h-full flex-col justify-between">
-        <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
-          GitHub activity
-        </span>
-
-        <div className="mt-1 flex items-end gap-2">
-          <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tracking-tight text-[#1a1a1a]">
-            {contributions !== null ? (
-              <>
-                {contributions}
-                <span className="text-[#ff5f1a]">+</span>
-              </>
-            ) : (
-              '--'
-            )}
+      <div className="relative z-10 flex h-full flex-col justify-between w-full">
+        {/* Header Block & Growth Badge */}
+        <div className="flex justify-between items-start w-full">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
+            GitHub activity
+          </span>
+          <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full transition-all duration-300 border ${
+            selectedYear === 2026 
+              ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600' 
+              : 'bg-amber-500/10 border-amber-500/20 text-amber-600'
+          }`}>
+            {selectedYear === 2026 ? '+1719% Growth' : 'Baseline'}
           </span>
         </div>
 
-        <span className="font-mono text-[10px] text-black/30">
-          total GitHub contributions in 2026
+        {/* Value and Selection Toggles */}
+        <div className="mt-1 flex items-end justify-between w-full">
+          <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tracking-tight text-[#1a1a1a]">
+            {displayContributions}
+            <span className={selectedYear === 2026 ? "text-emerald-500 ml-0.5" : "text-[#ff5f1a] ml-0.5"}>+</span>
+          </span>
+
+          {/* Toggle pill selector */}
+          <div className="flex bg-black/5 p-0.5 rounded-full z-10">
+            <button 
+              onClick={() => setSelectedYear(2025)} 
+              className={`px-2.5 py-0.5 text-[9px] font-mono rounded-full transition-all ${
+                selectedYear === 2025 ? 'bg-white text-black shadow-sm' : 'text-black/40 hover:text-black/60'
+              }`}
+            >
+              2025
+            </button>
+            <button 
+              onClick={() => setSelectedYear(2026)} 
+              className={`px-2.5 py-0.5 text-[9px] font-mono rounded-full transition-all ${
+                selectedYear === 2026 ? 'bg-white text-black shadow-sm' : 'text-black/40 hover:text-black/60'
+              }`}
+            >
+              2026
+            </button>
+          </div>
+        </div>
+
+        <span className="font-mono text-[10px] text-black/30 mt-3">
+          total GitHub contributions in {selectedYear}
         </span>
       </div>
     </div>
