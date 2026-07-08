@@ -197,7 +197,7 @@ function GithubContributions() {
   const displayContributions = selectedYear === 2025 ? 42 : (contributions || 764);
 
   return (
-    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[140px]">
+    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[165px]">
       
       {/* Dynamic ambient glow based on year */}
       <div className={`absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-transparent opacity-0 transition-all duration-500 group-hover:opacity-100 ${
@@ -205,7 +205,7 @@ function GithubContributions() {
       }`} />
 
       {/* SVG Background Wave (Success as a Service / Growth style) */}
-      <svg className="absolute bottom-0 left-0 right-0 h-14 w-full select-none pointer-events-none z-0" viewBox="0 0 400 60" preserveAspectRatio="none">
+      <svg className="absolute bottom-0 left-0 right-0 h-12 w-full select-none pointer-events-none z-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300" viewBox="0 0 400 60" preserveAspectRatio="none">
         <defs>
           <linearGradient id="glow-2025" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor="#ff5f1a" stopOpacity="0.25" />
@@ -223,18 +223,18 @@ function GithubContributions() {
           }
           fill={selectedYear === 2025 ? "url(#glow-2025)" : "url(#glow-2026)"}
           stroke={selectedYear === 2025 ? "#ff5f1a" : "#10b981"}
-          strokeWidth="1.5"
+          strokeWidth="1.2"
           className="transition-all duration-700 ease-in-out"
         />
       </svg>
 
-      <div className="relative z-10 flex h-full flex-col justify-between w-full">
+      <div className="relative z-10 flex flex-col justify-between h-full w-full gap-4">
         {/* Header Block & Growth Badge */}
-        <div className="flex justify-between items-start w-full">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
-            GitHub activity
+        <div className="flex justify-between items-center w-full">
+          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35 whitespace-nowrap">
+            GitHub Activity
           </span>
-          <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full transition-all duration-300 border ${
+          <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full transition-all duration-300 border whitespace-nowrap ${
             selectedYear === 2026 
               ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600' 
               : 'bg-amber-500/10 border-amber-500/20 text-amber-600'
@@ -244,35 +244,33 @@ function GithubContributions() {
         </div>
 
         {/* Value and Selection Toggles */}
-        <div className="mt-1 flex items-end justify-between w-full">
-          <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tracking-tight text-[#1a1a1a]">
+        <div className="flex items-center justify-between w-full">
+          <span className="font-mono text-[clamp(1.8rem,4vw,2.5rem)] font-bold tracking-tight text-[#1a1a1a] leading-none">
             {displayContributions}
-            <span className={selectedYear === 2026 ? "text-emerald-500 ml-0.5" : "text-[#ff5f1a] ml-0.5"}>+</span>
+            <span className={selectedYear === 2026 ? "text-[#10b981] ml-0.5" : "text-[#ff5f1a] ml-0.5"}>+</span>
           </span>
 
-          {/* Toggle pill selector */}
-          <div className="flex bg-black/5 p-0.5 rounded-full z-10">
-            <button 
-              onClick={() => setSelectedYear(2025)} 
-              className={`px-2.5 py-0.5 text-[9px] font-mono rounded-full transition-all ${
-                selectedYear === 2025 ? 'bg-white text-black shadow-sm' : 'text-black/40 hover:text-black/60'
-              }`}
-            >
+          {/* Toggle slider switch */}
+          <div 
+            onClick={() => setSelectedYear(selectedYear === 2025 ? 2026 : 2025)}
+            className="relative flex items-center bg-black/5 p-0.5 rounded-full w-24 h-6 cursor-pointer select-none transition-colors border border-black/5 hover:bg-black/8 z-10"
+          >
+            <div 
+              className="absolute top-0.5 bottom-0.5 w-[44px] bg-white rounded-full shadow-sm transition-all duration-300 ease-out" 
+              style={{ left: selectedYear === 2026 ? 'calc(100% - 46.5px)' : '2px' }} 
+            />
+            <span className={`w-1/2 text-center text-[9px] font-mono z-10 transition-colors ${selectedYear === 2025 ? 'text-black font-semibold' : 'text-black/30'}`}>
               2025
-            </button>
-            <button 
-              onClick={() => setSelectedYear(2026)} 
-              className={`px-2.5 py-0.5 text-[9px] font-mono rounded-full transition-all ${
-                selectedYear === 2026 ? 'bg-white text-black shadow-sm' : 'text-black/40 hover:text-black/60'
-              }`}
-            >
+            </span>
+            <span className={`w-1/2 text-center text-[9px] font-mono z-10 transition-colors ${selectedYear === 2026 ? 'text-black font-semibold' : 'text-black/30'}`}>
               2026
-            </button>
+            </span>
           </div>
         </div>
 
-        <span className="font-mono text-[10px] text-black/30 mt-3">
-          total GitHub contributions in {selectedYear}
+        {/* Footer label */}
+        <span className="font-mono text-[10px] text-black/35 whitespace-nowrap">
+          total contributions in {selectedYear}
         </span>
       </div>
     </div>
@@ -311,7 +309,7 @@ function LeetcodeStats() {
   const progressPercent = Math.min((totalSolved / target) * 100, 100);
 
   return (
-    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white px-6 py-5 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[140px]">
+    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[165px]">
       {/* ambient glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
@@ -544,27 +542,31 @@ export default function MoreAboutPage() {
           >
 
             {/* Journey Timer */}
-            <div className="flex-1 group relative overflow-hidden rounded-2xl border border-[#ff5f1a]/25 bg-white px-6 py-5 shadow-sm shadow-[#ff5f1a]/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#ff5f1a]/15 flex flex-col justify-between">
+            <div className="flex-1 group relative overflow-hidden rounded-2xl border border-[#ff5f1a]/25 bg-white p-6 shadow-sm shadow-[#ff5f1a]/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#ff5f1a]/15 flex flex-col justify-between min-h-[165px]">
 
               {/* subtle glow */}
               <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-              <div className="relative z-10 flex flex-col gap-1">
-                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
-                  Journey running for
-                </span>
+              <div className="relative z-10 flex flex-col justify-between h-full w-full gap-4">
+                <div className="flex justify-between items-center w-full">
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35 whitespace-nowrap">
+                    Journey running for
+                  </span>
+                </div>
 
-                <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] flex items-end min-h-[3rem]">
-                  {seconds !== null ? (
-                    formatSeconds(seconds).split("").map((char, i) => (
-                      <AnimatedDigit key={i} char={char} />
-                    ))
-                  ) : (
-                    <span>&nbsp;</span>
-                  )}
-                </span>
+                <div className="flex items-center justify-between w-full">
+                  <span className="font-mono text-[clamp(1.8rem,4vw,2.5rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] leading-none flex items-end min-h-[2.5rem]">
+                    {seconds !== null ? (
+                      formatSeconds(seconds).split("").map((char, i) => (
+                        <AnimatedDigit key={i} char={char} />
+                      ))
+                    ) : (
+                      <span>&nbsp;</span>
+                    )}
+                  </span>
+                </div>
 
-                <span className="font-mono text-[10px] text-black/30">
+                <span className="font-mono text-[10px] text-black/35 whitespace-nowrap">
                   live seconds since Jan 1, 2026
                 </span>
               </div>
