@@ -229,7 +229,7 @@ function LeetcodeStats() {
   const [showBreakdown, setShowBreakdown] = useState(false);
 
   useEffect(() => {
-    fetch('https://leetcode-stats-api.onrender.com/zabedfolio')
+    fetch('/api/leetcode-stats')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch');
         return res.json();
