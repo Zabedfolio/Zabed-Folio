@@ -197,80 +197,91 @@ function GithubContributions() {
   const displayContributions = selectedYear === 2025 ? 42 : (contributions || 764);
 
   return (
-    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[165px]">
+    <div className="flex-1 min-h-[380px] group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5">
       
-      {/* Dynamic ambient glow based on year */}
-      <div className={`absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-transparent opacity-0 transition-all duration-500 group-hover:opacity-100 ${
-        selectedYear === 2026 ? 'group-hover:from-emerald-500/5' : 'group-hover:from-[#ff5f1a]/5'
-      }`} />
+      {/* Top Visual Half */}
+      <div className="relative h-[220px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+        {/* Grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+        
+        {/* Dynamic Background wave path */}
+        <svg className="absolute bottom-0 left-0 right-0 h-16 w-full select-none pointer-events-none z-0 opacity-40 group-hover:opacity-50 transition-opacity duration-300" viewBox="0 0 400 60" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="glow-2025" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#ff5f1a" stopOpacity="0.25" />
+              <stop offset="100%" stopColor="#ff5f1a" stopOpacity="0.0" />
+            </linearGradient>
+            <linearGradient id="glow-2026" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
+              <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
+            </linearGradient>
+          </defs>
+          <path
+            d={selectedYear === 2025 
+              ? "M 0 50 Q 50 46 100 48 T 200 44 T 300 46 T 400 42 L 400 60 L 0 60 Z"
+              : "M 0 50 Q 50 38 100 28 T 200 18 T 300 8 T 400 2 L 400 60 L 0 60 Z"
+            }
+            fill={selectedYear === 2025 ? "url(#glow-2025)" : "url(#glow-2026)"}
+            stroke={selectedYear === 2025 ? "#ff5f1a" : "#10b981"}
+            strokeWidth="1.5"
+            className="transition-all duration-700 ease-in-out"
+          />
+        </svg>
 
-      {/* SVG Background Wave (Success as a Service / Growth style) */}
-      <svg className="absolute bottom-0 left-0 right-0 h-12 w-full select-none pointer-events-none z-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300" viewBox="0 0 400 60" preserveAspectRatio="none">
-        <defs>
-          <linearGradient id="glow-2025" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#ff5f1a" stopOpacity="0.25" />
-            <stop offset="100%" stopColor="#ff5f1a" stopOpacity="0.0" />
-          </linearGradient>
-          <linearGradient id="glow-2026" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#10b981" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#10b981" stopOpacity="0.0" />
-          </linearGradient>
-        </defs>
-        <path
-          d={selectedYear === 2025 
-            ? "M 0 50 Q 50 46 100 48 T 200 44 T 300 46 T 400 42 L 400 60 L 0 60 Z"
-            : "M 0 50 Q 50 38 100 28 T 200 18 T 300 8 T 400 2 L 400 60 L 0 60 Z"
-          }
-          fill={selectedYear === 2025 ? "url(#glow-2025)" : "url(#glow-2026)"}
-          stroke={selectedYear === 2025 ? "#ff5f1a" : "#10b981"}
-          strokeWidth="1.2"
-          className="transition-all duration-700 ease-in-out"
-        />
-      </svg>
+        {/* Floating Glassmorphic Panel */}
+        <div className="relative z-10 w-full max-w-[210px] rounded-2xl border border-white/60 bg-white/75 p-4 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-3.5 transition-all duration-300">
+          
+          {/* Top row: Badge and small text */}
+          <div className="flex justify-between items-center w-full">
+            <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Metrics</span>
+            <span className={`text-[8.5px] font-mono font-bold px-2 py-0.5 rounded-full border transition-all duration-300 ${
+              selectedYear === 2026 
+                ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600' 
+                : 'bg-amber-500/10 border-amber-500/20 text-amber-600'
+            }`}>
+              {selectedYear === 2026 ? '+1719% Growth' : 'Baseline'}
+            </span>
+          </div>
 
-      <div className="relative z-10 flex flex-col justify-between h-full w-full gap-4">
-        {/* Header Block & Growth Badge */}
-        <div className="flex justify-between items-center w-full">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35 whitespace-nowrap">
-            GitHub Activity
-          </span>
-          <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full transition-all duration-300 border whitespace-nowrap ${
-            selectedYear === 2026 
-              ? 'bg-emerald-500/10 border-emerald-500/20 text-emerald-600' 
-              : 'bg-amber-500/10 border-amber-500/20 text-amber-600'
-          }`}>
-            {selectedYear === 2026 ? '+1719% Growth' : 'Baseline'}
-          </span>
-        </div>
+          {/* Middle row: Hero Number */}
+          <div className="text-center">
+            <span className="font-mono text-3xl font-extrabold tracking-tight text-[#1a1a1a]">
+              {displayContributions}
+              <span className={selectedYear === 2026 ? "text-[#10b981] ml-0.5" : "text-[#ff5f1a] ml-0.5"}>+</span>
+            </span>
+          </div>
 
-        {/* Value and Selection Toggles */}
-        <div className="flex items-center justify-between w-full">
-          <span className="font-mono text-[clamp(1.8rem,4vw,2.5rem)] font-bold tracking-tight text-[#1a1a1a] leading-none">
-            {displayContributions}
-            <span className={selectedYear === 2026 ? "text-[#10b981] ml-0.5" : "text-[#ff5f1a] ml-0.5"}>+</span>
-          </span>
-
-          {/* Toggle slider switch */}
+          {/* Bottom row: Sliding Glass Switch */}
           <div 
             onClick={() => setSelectedYear(selectedYear === 2025 ? 2026 : 2025)}
-            className="relative flex items-center bg-black/5 p-0.5 rounded-full w-24 h-6 cursor-pointer select-none transition-colors border border-black/5 hover:bg-black/8 z-10"
+            className="relative flex items-center bg-black/5 p-0.5 rounded-full w-full h-6 cursor-pointer select-none transition-colors border border-black/5 hover:bg-black/8"
           >
             <div 
-              className="absolute top-0.5 bottom-0.5 w-[44px] bg-white rounded-full shadow-sm transition-all duration-300 ease-out" 
-              style={{ left: selectedYear === 2026 ? 'calc(100% - 46.5px)' : '2px' }} 
+              className="absolute top-0.5 bottom-0.5 w-[calc(50%-2px)] bg-white rounded-full shadow-sm transition-all duration-300 ease-out" 
+              style={{ transform: selectedYear === 2026 ? 'translateX(100%)' : 'translateX(0%)' }} 
             />
-            <span className={`w-1/2 text-center text-[9px] font-mono z-10 transition-colors ${selectedYear === 2025 ? 'text-black font-semibold' : 'text-black/30'}`}>
+            <span className={`w-1/2 text-center text-[9px] font-mono z-10 transition-colors ${selectedYear === 2025 ? 'text-black font-semibold' : 'text-black/35'}`}>
               2025
             </span>
-            <span className={`w-1/2 text-center text-[9px] font-mono z-10 transition-colors ${selectedYear === 2026 ? 'text-black font-semibold' : 'text-black/30'}`}>
+            <span className={`w-1/2 text-center text-[9px] font-mono z-10 transition-colors ${selectedYear === 2026 ? 'text-black font-semibold' : 'text-black/35'}`}>
               2026
             </span>
           </div>
         </div>
+      </div>
 
-        {/* Footer label */}
-        <span className="font-mono text-[10px] text-black/35 whitespace-nowrap">
-          total contributions in {selectedYear}
+      {/* Bottom Content Half */}
+      <div className="p-6 flex flex-col justify-between flex-grow text-left gap-4">
+        <div>
+          <h3 className="text-base font-bold text-[#1a1a1a] mb-1.5 uppercase tracking-wider text-[12px] font-mono">
+            GitHub Contributions
+          </h3>
+          <p className="text-[11.5px] text-black/50 leading-relaxed font-normal">
+            Monitoring repository contribution frequencies, codebase versions, open-source commits, and active workflow cycles across my portfolio.
+          </p>
+        </div>
+        <span className="font-mono text-[9px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
+          Year {selectedYear} active
         </span>
       </div>
     </div>
@@ -309,115 +320,109 @@ function LeetcodeStats() {
   const progressPercent = Math.min((totalSolved / target) * 100, 100);
 
   return (
-    <div className="flex-1 group relative overflow-hidden rounded-2xl border border-black/8 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ff5f1a]/25 hover:shadow-md hover:shadow-[#ff5f1a]/10 flex flex-col justify-between min-h-[165px]">
-      {/* ambient glow */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+    <div className="flex-1 min-h-[380px] group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5">
+      
+      {/* Top Visual Half */}
+      <div className="relative h-[220px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+        {/* Grid overlay */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+        
+        {/* Ambient Glow */}
+        <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
 
-      <div className="relative z-10 flex flex-col gap-1 w-full">
-        {/* Header and Acceptance Rate Badge */}
-        <div className="flex justify-between items-start w-full">
-          <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35">
-            LeetCode Solve
-          </span>
-          {stats && (
-            <span className="text-[9px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 transition">
-              {stats.acceptanceRate}% Accept
-            </span>
-          )}
-        </div>
-
-        {/* Main Solved Count */}
-        <div className="mt-1 flex items-baseline justify-between w-full">
-          <span className="font-mono text-[clamp(1.5rem,4vw,2.6rem)] font-bold tracking-tight text-[#1a1a1a]">
-            {stats ? (
-              <>
-                {totalSolved}
-                <span className="text-[#ff5f1a] font-normal text-lg ml-0.5">/ {target}</span>
-              </>
-            ) : (
-              '--'
-            )}
-          </span>
+        {/* Floating Glassmorphic Panel */}
+        <div className="relative z-10 w-full max-w-[210px] rounded-2xl border border-white/60 bg-white/75 p-4 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-3 transition-all duration-300">
           
-          {/* Toggle Switch */}
+          {/* Top row */}
+          <div className="flex justify-between items-center w-full">
+            <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Solved</span>
+            {stats && (
+              <span className="text-[8.5px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600">
+                {stats.acceptanceRate}% Accept
+              </span>
+            )}
+          </div>
+
+          {/* Middle row */}
+          <div className="text-center">
+            <span className="font-mono text-3xl font-extrabold tracking-tight text-[#1a1a1a]">
+              {stats ? (
+                <>
+                  {totalSolved}
+                  <span className="text-[#ff5f1a] font-normal text-[15px] ml-0.5">/ {target}</span>
+                </>
+              ) : (
+                '--'
+              )}
+            </span>
+          </div>
+
+          {/* Progress Track */}
           {stats && (
-            <div className="flex items-center gap-1.5 cursor-pointer select-none" onClick={() => setShowBreakdown(!showBreakdown)}>
-              <span className="text-[9px] font-mono tracking-wider text-black/40">Details</span>
-              <div className={`relative w-8 h-4 rounded-full transition-colors duration-300 ${showBreakdown ? 'bg-[#ff5f1a]' : 'bg-black/10'}`}>
-                <div className={`absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white transition-transform duration-300 ${showBreakdown ? 'translate-x-4' : 'translate-x-0'}`} />
+            <div className="space-y-1">
+              <div className="relative h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
+                <div 
+                  className="h-full bg-gradient-to-r from-[#ff8a00] to-[#ff4d00] rounded-full shadow-md transition-all duration-1000 ease-out"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex justify-between text-[7.5px] font-mono text-black/35 px-0.5">
+                <span>Milestone Target</span>
+                <span>{Math.round(progressPercent)}%</span>
               </div>
             </div>
           )}
-        </div>
 
-        {/* Progress Bar */}
-        {stats && (
-          <div className="mt-3 w-full space-y-1">
-            <div className="relative h-2 w-full rounded-full bg-black/5 overflow-hidden">
+          {/* Toggle Details & Breakdown */}
+          {stats && (
+            <div className="space-y-2">
               <div 
-                className="h-full bg-gradient-to-r from-[#ff8a00] to-[#ff4d00] rounded-full shadow-lg shadow-[#ff4d00]/30 transition-all duration-1000 ease-out"
-                style={{ width: `${progressPercent}%` }}
-              />
-            </div>
-            <div className="flex justify-between text-[8px] font-mono text-black/35 px-0.5">
-              <span>Next Milestone</span>
-              <span>{Math.round(progressPercent)}%</span>
-            </div>
-          </div>
-        )}
+                onClick={() => setShowBreakdown(!showBreakdown)}
+                className="flex items-center justify-between text-[8px] font-mono text-black/45 hover:text-black cursor-pointer border-t border-black/5 pt-2 select-none"
+              >
+                <span>Breakdown stats</span>
+                <div className={`relative w-6 h-3.5 rounded-full transition-colors duration-300 ${showBreakdown ? 'bg-[#ff5f1a]' : 'bg-black/10'}`}>
+                  <div className={`absolute top-0.5 left-0.5 w-2.5 h-2.5 rounded-full bg-white transition-transform duration-300 ${showBreakdown ? 'translate-x-2.5' : 'translate-x-0'}`} />
+                </div>
+              </div>
 
-        {/* Collapsible Details Panel */}
-        {stats && showBreakdown && (
-          <div className="mt-3 pt-3 border-t border-black/5 space-y-2.5 animate-fadeIn">
-            {/* Easy */}
-            <div className="space-y-1">
-              <div className="flex justify-between text-[9px] font-mono">
-                <span className="text-emerald-600 font-bold">Easy</span>
-                <span className="text-black/50">{stats.easySolved} / {stats.totalEasy}</span>
-              </div>
-              <div className="h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-                <div 
-                  className="h-full bg-emerald-500 rounded-full" 
-                  style={{ width: `${(stats.easySolved / stats.totalEasy) * 100}%` }}
-                />
-              </div>
+              {showBreakdown && (
+                <div className="space-y-1.5 pt-1">
+                  {/* Easy */}
+                  <div className="flex items-center justify-between text-[8px] font-mono">
+                    <span className="text-emerald-600 font-bold">Easy</span>
+                    <span className="text-black/50">{stats.easySolved}/{stats.totalEasy}</span>
+                  </div>
+                  {/* Medium */}
+                  <div className="flex items-center justify-between text-[8px] font-mono">
+                    <span className="text-amber-500 font-bold">Med</span>
+                    <span className="text-black/50">{stats.mediumSolved}/{stats.totalMedium}</span>
+                  </div>
+                  {/* Hard */}
+                  <div className="flex items-center justify-between text-[8px] font-mono">
+                    <span className="text-red-500 font-bold">Hard</span>
+                    <span className="text-black/50">{stats.hardSolved}/{stats.totalHard}</span>
+                  </div>
+                </div>
+              )}
             </div>
+          )}
+        </div>
+      </div>
 
-            {/* Medium */}
-            <div className="space-y-1">
-              <div className="flex justify-between text-[9px] font-mono">
-                <span className="text-amber-500 font-bold">Medium</span>
-                <span className="text-black/50">{stats.mediumSolved} / {stats.totalMedium}</span>
-              </div>
-              <div className="h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-                <div 
-                  className="h-full bg-amber-500 rounded-full" 
-                  style={{ width: `${(stats.mediumSolved / stats.totalMedium) * 100}%` }}
-                />
-              </div>
-            </div>
-
-            {/* Hard */}
-            <div className="space-y-1">
-              <div className="flex justify-between text-[9px] font-mono">
-                <span className="text-red-500 font-bold">Hard</span>
-                <span className="text-black/50">{stats.hardSolved} / {stats.totalHard}</span>
-              </div>
-              <div className="h-1.5 w-full rounded-full bg-black/5 overflow-hidden">
-                <div 
-                  className="h-full bg-red-500 rounded-full" 
-                  style={{ width: `${(stats.hardSolved / stats.totalHard) * 100}%` }}
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {!stats && (
-          <span className="font-mono text-[10px] text-black/30 mt-2">
-            connecting to LeetCode Stats API...
-          </span>
-        )}
+      {/* Bottom Content Half */}
+      <div className="p-6 flex flex-col justify-between flex-grow text-left gap-4">
+        <div>
+          <h3 className="text-base font-bold text-[#1a1a1a] mb-1.5 uppercase tracking-wider text-[12px] font-mono">
+            LeetCode Solutions
+          </h3>
+          <p className="text-[11.5px] text-black/50 leading-relaxed font-normal">
+            Solving algorithm puzzles, learning memory structure rules, and analyzing Big O time complexity execution to refine coding capabilities.
+          </p>
+        </div>
+        <span className="font-mono text-[9px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
+          Milestone progress
+        </span>
       </div>
     </div>
   );
@@ -542,32 +547,62 @@ export default function MoreAboutPage() {
           >
 
             {/* Journey Timer */}
-            <div className="flex-1 group relative overflow-hidden rounded-2xl border border-[#ff5f1a]/25 bg-white p-6 shadow-sm shadow-[#ff5f1a]/10 transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-[#ff5f1a]/15 flex flex-col justify-between min-h-[165px]">
+            <div className="flex-1 min-h-[380px] group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5">
+              
+              {/* Top Visual Half */}
+              <div className="relative h-[220px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+                {/* Grid overlay */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+                
+                {/* Accent glow */}
+                <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
 
-              {/* subtle glow */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[#ff5f1a]/5 via-transparent to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                {/* Floating Glassmorphic Panel */}
+                <div className="relative z-10 w-full max-w-[210px] rounded-2xl border border-white/60 bg-white/75 p-4 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-3.5 transition-all duration-300">
+                  
+                  {/* Top row */}
+                  <div className="flex justify-between items-center w-full">
+                    <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Timeline</span>
+                    <span className="flex h-2 w-2 relative">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                  </div>
 
-              <div className="relative z-10 flex flex-col justify-between h-full w-full gap-4">
-                <div className="flex justify-between items-center w-full">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-black/35 whitespace-nowrap">
-                    Journey running for
-                  </span>
+                  {/* Middle row: Live Timer */}
+                  <div className="text-center py-1">
+                    <span className="font-mono text-[1.45rem] font-bold tracking-tight text-[#ff5f1a] tabular-nums flex items-center justify-center">
+                      {seconds !== null ? (
+                        formatSeconds(seconds).split("").map((char, i) => (
+                          <AnimatedDigit key={i} char={char} />
+                        ))
+                      ) : (
+                        <span>&nbsp;</span>
+                      )}
+                    </span>
+                  </div>
+
+                  {/* Bottom row */}
+                  <div className="border-t border-black/5 pt-2 text-center">
+                    <span className="text-[8px] font-mono text-black/35">
+                      ticking since Jan 1, 2026
+                    </span>
+                  </div>
                 </div>
+              </div>
 
-                <div className="flex items-center justify-between w-full">
-                  <span className="font-mono text-[clamp(1.8rem,4vw,2.5rem)] font-bold tabular-nums tracking-tight text-[#ff5f1a] leading-none flex items-end min-h-[2.5rem]">
-                    {seconds !== null ? (
-                      formatSeconds(seconds).split("").map((char, i) => (
-                        <AnimatedDigit key={i} char={char} />
-                      ))
-                    ) : (
-                      <span>&nbsp;</span>
-                    )}
-                  </span>
+              {/* Bottom Content Half */}
+              <div className="p-6 flex flex-col justify-between flex-grow text-left gap-4">
+                <div>
+                  <h3 className="text-base font-bold text-[#1a1a1a] mb-1.5 uppercase tracking-wider text-[12px] font-mono">
+                    Coding Journey
+                  </h3>
+                  <p className="text-[11.5px] text-black/50 leading-relaxed font-normal">
+                    Continually counting every second of development practice, backend implementation, and design execution since committing to web engineering.
+                  </p>
                 </div>
-
-                <span className="font-mono text-[10px] text-black/35 whitespace-nowrap">
-                  live seconds since Jan 1, 2026
+                <span className="font-mono text-[9px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
+                  Live Counter active
                 </span>
               </div>
             </div>
