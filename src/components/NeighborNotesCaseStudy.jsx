@@ -137,12 +137,12 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
               </div>
             </div>
           </div>
-          <div className="grid gap-4 lg:grid-cols-4">
+          <div className="flex flex-wrap gap-6">
             {stats.map((stat) => (
-              <div key={stat.label} className="glass-panel rounded-[1.5rem] p-6">
+              <div key={stat.label} className="min-w-[12rem]">
                 <p className="text-sm text-white/40">{stat.label}</p>
-                <p className="mt-3 text-3xl font-semibold text-white">{stat.value}</p>
-                <p className="mt-2 text-sm text-white/50">{stat.detail}</p>
+                <p className="mt-1 text-2xl font-semibold text-white">{stat.value}</p>
+                <p className="mt-1 text-sm text-white/50">{stat.detail}</p>
               </div>
             ))}
           </div>
@@ -160,13 +160,15 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
                   </a>
                 ) : null}
               </div>
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
+              <div className="mt-8">
+                <p className="text-sm text-white/60">Key evidence from field research:</p>
+                <ul className="mt-4 space-y-3 text-sm text-white/60">
                   {evidenceCards.map((card) => (
-                  <div key={card.title} className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4">
-                    <p className="text-sm font-semibold text-white">{card.title}</p>
-                    <p className="mt-3 text-sm leading-7 text-white/55">{card.description}</p>
-                  </div>
-                ))}
+                    <li key={card.title}>
+                      <span className="font-semibold text-white">{card.title}:</span> {card.description}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
             <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
@@ -178,20 +180,31 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
 
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
             {cities.map((city) => (
-              <article key={city.city} className="glass-panel rounded-[1.75rem] p-6">
+              <div key={city.id} className="p-4">
                 <p className="section-label">{city.name}</p>
-                <p className="mt-3 text-xl font-semibold text-white">{city.holdingsLabel || city.holdings?.toLocaleString()}</p>
+                <p className="mt-2 text-lg font-semibold text-white">{city.holdingsLabel || city.holdings?.toLocaleString()}</p>
                 {city.ownerNote ? (
                   <p className="mt-2 text-sm text-[#ff8c00]">{city.ownerNote}</p>
                 ) : city.tenantPct != null ? (
                   <p className="mt-2 text-sm text-[#ff8c00]">{city.tenantPct}% renter / {city.ownerPct}% owner</p>
                 ) : null}
-                <p className="mt-4 text-sm leading-7 text-white/60">{city.leadingProblem}</p>
-                <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/55">
-                  <span className="font-semibold text-white">Mapped feature:</span> {city.feature}
-                </div>
-              </article>
+                <p className="mt-3 text-sm leading-7 text-white/60">{city.leadingProblem}</p>
+                <p className="mt-3 text-sm text-white/55"><span className="font-semibold text-white">Feature:</span> {city.feature}</p>
+              </div>
             ))}
+          </div>
+
+          <div className="mt-8">
+            <div className="rounded-[1rem] border border-white/8 bg-white/[0.02] p-6">
+              <p className="section-label">Problem solved</p>
+              <h3 className="mt-3 text-2xl font-semibold text-white">What NeighborNotes directly addresses</h3>
+              <ul className="mt-4 space-y-3 text-sm text-white/60">
+                <li><span className="font-semibold text-white">Transparent finances:</span> Documented service-charge receipts and audit-ready uploads remove opacity and disputes.</li>
+                <li><span className="font-semibold text-white">Verified resident access:</span> Area/building code registration prevents unauthorized subletting and outsider intrusion.</li>
+                <li><span className="font-semibold text-white">Maintenance & emergency visibility:</span> Photo-backed notices, pinned emergencies, and threaded comments create an auditable escalation trail.</li>
+                <li><span className="font-semibold text-white">Remote ownership visibility:</span> NRB owners get a live dashboard to oversee maintenance and finances from abroad.</li>
+              </ul>
+            </div>
           </div>
 
           <div className="grid gap-6 xl:grid-cols-[1.1fr_0.9fr]">
