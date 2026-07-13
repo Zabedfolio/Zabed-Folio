@@ -1,6 +1,24 @@
 'use client';
 
 import Link from "next/link";
+import { motion } from "framer-motion";
+import {
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip as ReTooltip,
+  ResponsiveContainer,
+  PolarGrid,
+  PolarAngleAxis,
+  PolarRadiusAxis,
+  Radar,
+  RadarChart as ReRadarChart,
+  ScatterChart,
+  Scatter,
+  ZAxis,
+  Legend,
+} from "recharts";
+import { fadeUp, staggerContainer } from "@/utils/motionVariants";
 import { neighborNotesCaseStudyContent } from "@/data/neighborNotesCaseStudy";
 
 function DonutChart({ data, label }) {
@@ -66,6 +84,216 @@ function BarChart({ data }) {
   );
 }
 
+function CityRadarChart({ cities }) {
+  const categories = [
+    "financial",
+    "maintenance",
+    "security",
+    "sanitation",
+    "affordability",
+    "absentee",
+  ];
+
+  const aggregated = categories.map((category) => {
+    const total = cities.reduce((sum, city) => sum + (city.problemSeverity?.[category] || 0), 0);
+    const value = cities.length ? Math.round((total / cities.length) * 10) / 10 : 0;
+    return {
+      category: category.charAt(0).toUpperCase() + category.slice(1),
+      value,
+    };
+  });
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <ReRadarChart cx="50%" cy="50%" outerRadius="70%" data={aggregated}>
+        <PolarGrid stroke="rgba(148,163,184,0.16)" />
+        <PolarAngleAxis dataKey="category" tick={{ fill: "#cbd5e1", fontSize: 12 }} />
+        <PolarRadiusAxis angle={30} domain={[0, 5]} tick={{ fill: "#94a3b8", fontSize: 11 }} />
+        <Radar name="Severity" dataKey="value" stroke="#ff4d00" fill="#ff4d00" fillOpacity={0.3} />
+        <Legend wrapperStyle={{ color: "#cbd5e1", fontSize: 12 }} />
+      </ReRadarChart>
+    </ResponsiveContainer>
+  );
+}
+
+function CityBubbleChart({ cities }) {
+  const data = cities.map((city) => ({
+    city: city.name,
+    holdings: city.holdings || 0,
+    severity: city.problemSeverity?.[city.problemCategory] || 0,
+    z: Math.max(60, Math.min(260, (city.holdings || 0) / 2500)),
+    fill:
+      city.problemCategory === "financial"
+        ? "#4338CA"
+        : city.problemCategory === "infrastructure"
+        ? "#F59E0B"
+        : city.problemCategory === "absentee"
+        ? "#10B981"
+        : "#8b5cf6",
+  }));
+
+  const renderBubble = (props) => {
+    const { cx, cy, payload } = props;
+    return <circle cx={cx} cy={cy} r={Math.max(8, Math.min(22, payload.z / 12))} fill={payload.fill} opacity={0.85} />;
+  };
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <ScatterChart>
+        <CartesianGrid stroke="rgba(148,163,184,0.16)" strokeDasharray="4 4" />
+        <XAxis
+          dataKey="holdings"
+          tickFormatter={(value) => `${Math.round(value / 1000)}k`}
+          tick={{ fill: "#cbd5e1", fontSize: 11 }}
+          axisLine={false}
+          tickLine={false}
+          name="Holdings"
+        />
+        <YAxis
+          dataKey="severity"
+          domain={[0, 6]}
+          tick={{ fill: "#cbd5e1", fontSize: 11 }}
+          axisLine={false}
+          tickLine={false}
+          name="Severity"
+        />
+        <ZAxis dataKey="z" range={[90, 260]} name="Size" />
+        <ReTooltip cursor={{ strokeDasharray: "3 3" }} formatter={(value, name) => [value, name]} />
+        <Scatter name="City severity" data={data} shape={renderBubble} />
+      </ScatterChart>
+    </ResponsiveContainer>
+  );
+}
+
+function CityTenantScatter({ cities }) {
+  const data = cities
+    .filter((city) => typeof city.tenantPct === "number")
+    .map((city) => ({
+      city: city.name,
+      tenantPct: city.tenantPct,
+      holdings: city.holdings || 0,
+      z: Math.max(60, Math.min(220, (city.tenantPct || 0) * 2.5)),
+    }));
+
+  return (
+    <ResponsiveContainer width="100%" height="100%">
+      <ScatterChart>
+        <CartesianGrid stroke="rgba(148,163,184,0.16)" strokeDasharray="4 4" />
+        <XAxis
+          dataKey="tenantPct"
+          tickFormatter={(value) => `${value}%`}
+          tick={{ fill: "#cbd5e1", fontSize: 11 }}
+          axisLine={false}
+          tickLine={false}
+          name="Tenant %"
+        />
+        <YAxis
+          dataKey="holdings"
+          tickFormatter={(value) => `${Math.round(value / 1000)}k`}
+          tick={{ fill: "#cbd5e1", fontSize: 11 }}
+          axisLine={false}
+          tickLine={false}
+          name="Holdings"
+        />
+        <ZAxis dataKey="z" range={[80, 220]} name="Marker" />
+        <ReTooltip cursor={{ strokeDasharray: "3 3" }} formatter={(value, name) => [name === "holdings" ? `${Math.round(value / 1000)}k` : `${value}%`, name]} />
+        <Scatter name="Tenant mix" data={data} fill="#10B981" />
+      </ScatterChart>
+    </ResponsiveContainer>
+  );
+}
+
+function CityMap({ cities }) {
+  const problems = {
+    financial: "#4338CA",
+    infrastructure: "#F59E0B",
+    absentee: "#10B981",
+    security: "#10B981",
+    affordability: "#F59E0B",
+  };
+
+  const cityMarkers = cities.map((city) => ({
+    ...city,
+    size: Math.max(18, Math.min(42, (city.holdings || parseInt((city.householdsLabel || "").replace(/[^0-9]/g, "")) / 10000) * 3))),
+    color: problems[city.problemCategory] || "#4338CA",
+  }));
+
+  const handleCityClick = (id) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={staggerContainer}
+      className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-6"
+    >
+      <div className="mb-4 flex items-center justify-between">
+        <div>
+          <p className="section-label mb-1">City research map</p>
+          <h3 className="text-2xl font-semibold text-white">Bangladesh city study map</h3>
+        </div>
+        <p className="text-sm text-white/50">Hover markers for local issue detail</p>
+      </div>
+      <div className="relative mx-auto h-[420px] max-w-4xl overflow-hidden rounded-[1.75rem] bg-slate-950/90 p-4">
+        <motion.svg
+          viewBox="0 0 360 420"
+          className="h-full w-full"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+        >
+          <path
+            d="M96 26c-24 12-42 44-38 72 4 28 32 50 54 70 12 10 20 22 24 38 8 30 6 72 26 94 8 8 20 16 30 22 22 12 48 12 70 2 28-14 46-42 58-72 14-36 14-76 12-114-2-18-6-36-18-50-14-18-36-24-58-24-28 0-58 10-78 32-18 20-32 48-50 70-8 10-18 18-28 24-12 8-24 4-34-6-10-12-8-28 0-42z"
+            fill="none"
+            stroke="#64748b"
+            strokeWidth="2"
+          />
+        </motion.svg>
+        {cityMarkers.map((marker) => (
+          <motion.button
+            key={marker.id}
+            type="button"
+            onClick={() => handleCityClick(marker.id)}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="absolute rounded-full border border-white/10 p-0"
+            style={{
+              left: `${((marker.coordinates.lng - 88) / 4.5) * 100}%`,
+              top: `${((25.5 - marker.coordinates.lat) / 4.5) * 100}%`,
+              width: marker.size,
+              height: marker.size,
+              backgroundColor: marker.color,
+              boxShadow: `0 0 0 6px ${marker.color}20`,
+              transform: "translate(-50%, -50%)",
+            }}
+            title={`${marker.name}: ${marker.holdingsLabel || marker.householdsLabel}
+${marker.leadingProblem}`}
+          />
+        ))}
+      </div>
+      <div className="mt-4 grid gap-3 sm:grid-cols-3">
+        {cityMarkers.map((marker) => (
+          <motion.button
+            key={`legend-${marker.id}`}
+            type="button"
+            onClick={() => handleCityClick(marker.id)}
+            whileHover={{ scale: 1.02 }}
+            className="rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-left transition hover:border-white/20"
+          >
+            <p className="text-sm font-semibold text-white">{marker.name}</p>
+            <p className="mt-1 text-xs leading-5 text-white/60">{marker.holdingsLabel || marker.householdsLabel}</p>
+          </motion.button>
+        ))}
+      </div>
+    </motion.div>
+  );
+}
+
 export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
   const study = neighborNotesCaseStudyContent || {};
   const isFull = variant === "full";
@@ -92,21 +320,15 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
           {study.heroSubtitle ? <p className="mt-3 text-lg leading-8 text-white/60">{study.heroSubtitle}</p> : null}
           <p className="mt-5 max-w-2xl text-lg leading-8 text-white/60">{study.summary}</p>
         </div>
-          <div className="flex items-center gap-3">
-            {isFull ? (
-              study.liveUrl ? (
-                <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white transition hover:border-[#ff4d00]/40">NeighborNotes Live Link <span aria-hidden>→</span></a>
-              ) : (
-                <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the city-by-city research <span aria-hidden>→</span></Link>
-              )
-            ) : (
-              <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the case study <span aria-hidden>→</span></Link>
-            )}
+        <div className="flex flex-wrap items-center gap-3">
+          {study.liveUrl ? (
+            <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white transition hover:border-[#ff4d00]/40">View Live Project <span aria-hidden>→</span></a>
+          ) : (
+            <button disabled className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/40">Coming soon</button>
+          )}
 
-            {study.liveUrl ? (
-              <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">NeighborNotes Live Link</a>
-            ) : null}
-          </div>
+          <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the city-by-city research <span aria-hidden>→</span></Link>
+        </div>
       </div>
 
       {isFull ? (
@@ -128,6 +350,8 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
             <p className="mt-3 text-sm text-white/65">NeighborNotes addresses the lack of a coordinated, auditable communication channel between owners and residents. The product seeks to reduce maintenance delays, financial opacity, unauthorized subletting, and safety risks by centralizing notices, verification, and escalation workflows.</p>
 
             <h4 className="mt-8 text-2xl font-semibold text-white">Nationwide research & data (summary table)</h4>
+            <CityMap cities={cities} />
+
             <div className="mt-4 overflow-x-auto">
               <table className="w-full table-auto text-left text-sm">
                 <thead className="text-white/60 border-b border-white/6">
@@ -184,6 +408,30 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
                 <DonutChart data={chartData.barisalSanitation} label="Barisal" />
                 <p className="text-sm text-white/65">Only <span className="font-semibold text-white">{chartData.barisalSanitation?.[0]?.value ?? "49.6"}%</span> of buildings have functioning septic tanks — a clear infrastructure gap where NeighborNotes can surface maintenance needs and escalate them to authorities.</p>
               </div>
+            </div>
+
+            <div className="mt-6 grid gap-6 lg:grid-cols-3">
+              <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
+                <h5 className="text-white font-semibold">Qualitative severity radar</h5>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">Illustrative severity index only — derived from case-study descriptions.</p>
+                <div className="mt-4 h-72">
+                  <CityRadarChart cities={cities} />
+                </div>
+              </motion.div>
+              <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
+                <h5 className="text-white font-semibold">Holdings vs. qualitative severity</h5>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">Illustrative bubble chart only.</p>
+                <div className="mt-4 h-72">
+                  <CityBubbleChart cities={cities} />
+                </div>
+              </motion.div>
+              <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
+                <h5 className="text-white font-semibold">Holdings vs. tenant mix</h5>
+                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">Real data only for Dhaka and Chattogram.</p>
+                <div className="mt-4 h-72">
+                  <CityTenantScatter cities={cities} />
+                </div>
+              </motion.div>
             </div>
 
             <h4 className="mt-8 text-2xl font-semibold text-white">What NeighborNotes solves</h4>

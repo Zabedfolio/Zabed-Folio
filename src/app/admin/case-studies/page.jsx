@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { HiOutlinePlus, HiOutlinePencil, HiOutlineTrash, HiOutlineSelector } from "react-icons/hi";
 
 const emptyForm = {
@@ -75,9 +77,25 @@ export default function AdminCaseStudies() {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const isValidUrl = (value) => {
+    if (!value) return true;
+    try {
+      const url = new URL(value);
+      return url.protocol === "http:" || url.protocol === "https:";
+    } catch {
+      return false;
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSaving(true);
+
+    if (!isValidUrl(formData.liveUrl)) {
+      toast.error("Please enter a valid live URL");
+      setSaving(false);
+      return;
+    }
 
     // parse JSON inputs and normalize arrays
     let marketStats = [];
@@ -86,21 +104,21 @@ export default function AdminCaseStudies() {
     try {
       marketStats = formData.marketStats ? JSON.parse(formData.marketStats) : [];
     } catch (err) {
-      alert("Invalid JSON in Market stats");
+      toast.error("Invalid JSON in Market stats");
       setSaving(false);
       return;
     }
     try {
       chartData = formData.chartData ? JSON.parse(formData.chartData) : {};
     } catch (err) {
-      alert("Invalid JSON in Chart data");
+      toast.error("Invalid JSON in Chart data");
       setSaving(false);
       return;
     }
     try {
       evidenceCards = formData.evidenceCards ? JSON.parse(formData.evidenceCards) : [];
     } catch (err) {
-      alert("Invalid JSON in Evidence cards");
+      toast.error("Invalid JSON in Evidence cards");
       setSaving(false);
       return;
     }
@@ -137,9 +155,13 @@ export default function AdminCaseStudies() {
       if (res.ok) {
         fetchItems();
         setModalOpen(false);
+        toast.success(`Case study ${editingItem ? "updated" : "created"} successfully.`);
+      } else {
+        toast.error("Unable to save case study.");
       }
     } catch (err) {
       console.error(err);
+      toast.error("Failed to save case study.");
     } finally {
       setSaving(false);
     }
@@ -320,6 +342,7 @@ export default function AdminCaseStudies() {
           </div>
         </div>
       )}
+      <ToastContainer position="bottom-right" theme="dark" toastClassName="toast-theme" />
     </div>
   );
 }
