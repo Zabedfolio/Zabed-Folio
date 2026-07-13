@@ -68,6 +68,13 @@ function BarChart({ data }) {
 export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
   const study = neighborNotesCaseStudyContent;
   const isFull = variant === "full";
+  const stats = study.marketStats || study.stats || [];
+  const cities = study.cities || [];
+  const evidenceCards = study.evidenceCards || [];
+  const coverageRows = study.coverageRows || [];
+  const backlog = study.backlog || [];
+  const sources = study.sources || [];
+  const chartData = study.chartData || { holdings: [], dhakaTenure: [], chattogramTenure: [], barisalSanitation: [] };
 
   const mapCities = [
     { name: "Dhaka", x: 188, y: 170, labelOffsetX: -16, labelOffsetY: -12 },
@@ -89,6 +96,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
             <p className="section-label mb-0">{isFull ? "Case Study" : "03 — Case Study"}</p>
           </div>
           <h2 className="section-title mt-4">{study.title}</h2>
+            {study.heroSubtitle ? <p className="mt-3 text-lg leading-8 text-white/60">{study.heroSubtitle}</p> : null}
           <p className="mt-5 max-w-2xl text-lg leading-8 text-white/60">{study.summary}</p>
         </div>
         {isFull ? (
@@ -105,7 +113,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
       {isFull ? (
         <div className="space-y-8">
           <div className="grid gap-4 lg:grid-cols-4">
-            {study.stats.map((stat) => (
+            {stats.map((stat) => (
               <div key={stat.label} className="glass-panel rounded-[1.5rem] p-6">
                 <p className="text-sm text-white/40">{stat.label}</p>
                 <p className="mt-3 text-3xl font-semibold text-white">{stat.value}</p>
@@ -128,7 +136,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
                 ) : null}
               </div>
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                {study.evidenceCards.map((card) => (
+                  {evidenceCards.map((card) => (
                   <div key={card.title} className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4">
                     <p className="text-sm font-semibold text-white">{card.title}</p>
                     <p className="mt-3 text-sm leading-7 text-white/55">{card.description}</p>
@@ -144,12 +152,16 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
           </div>
 
           <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-            {study.cities.map((city) => (
+            {cities.map((city) => (
               <article key={city.city} className="glass-panel rounded-[1.75rem] p-6">
-                <p className="section-label">{city.city}</p>
-                <p className="mt-3 text-xl font-semibold text-white">{city.holdings}</p>
-                <p className="mt-2 text-sm text-[#ff8c00]">{city.ratio}</p>
-                <p className="mt-4 text-sm leading-7 text-white/60">{city.problem}</p>
+                <p className="section-label">{city.name}</p>
+                <p className="mt-3 text-xl font-semibold text-white">{city.holdingsLabel || city.holdings?.toLocaleString()}</p>
+                {city.ownerNote ? (
+                  <p className="mt-2 text-sm text-[#ff8c00]">{city.ownerNote}</p>
+                ) : city.tenantPct != null ? (
+                  <p className="mt-2 text-sm text-[#ff8c00]">{city.tenantPct}% renter / {city.ownerPct}% owner</p>
+                ) : null}
+                <p className="mt-4 text-sm leading-7 text-white/60">{city.leadingProblem}</p>
                 <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/55">
                   <span className="font-semibold text-white">Mapped feature:</span> {city.feature}
                 </div>
@@ -161,14 +173,14 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
             <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
               <p className="section-label">Chart 1</p>
               <h3 className="mt-3 text-2xl font-semibold text-white">Registered holdings across six cities</h3>
-              <BarChart data={study.chartData.holdings} />
+              <BarChart data={chartData.holdings} />
             </div>
             <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
               <p className="section-label">Chart 2</p>
               <h3 className="mt-3 text-2xl font-semibold text-white">Tenant-heavy tenure pattern</h3>
               <div className="mt-8 grid gap-6 md:grid-cols-2">
-                <DonutChart data={study.chartData.dhakaTenure} label="Dhaka" />
-                <DonutChart data={study.chartData.chattogramTenure} label="Chattogram" />
+                <DonutChart data={chartData.dhakaTenure} label="Dhaka" />
+                <DonutChart data={chartData.chattogramTenure} label="Chattogram" />
               </div>
             </div>
           </div>
@@ -178,7 +190,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
               <p className="section-label">Chart 3</p>
               <h3 className="mt-3 text-2xl font-semibold text-white">Barisal sanitation functionality</h3>
               <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-center">
-                <DonutChart data={study.chartData.barisalSanitation} label="Barisal" />
+                <DonutChart data={chartData.barisalSanitation} label="Barisal" />
                 <div className="space-y-3 text-sm leading-7 text-white/60">
                   <p>Only 49.6% of buildings have a functioning septic tank, making sanitation a visible and urgent civic issue.</p>
                   <p>NeighborNotes can provide a trackable maintenance trail, but not replace infrastructure investment.</p>
@@ -227,7 +239,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/10 text-white/65">
-                    {study.coverageRows.map((row) => (
+                    {coverageRows.map((row) => (
                       <tr key={row.problem}>
                         <td className="px-4 py-3">{row.problem}</td>
                         <td className="px-4 py-3">{row.city}</td>
@@ -248,7 +260,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
               <p className="section-label">Future Scope</p>
               <h3 className="mt-3 text-2xl font-semibold text-white">Backlog surfaced by the city research</h3>
               <ul className="mt-6 space-y-3 text-sm leading-7 text-white/60">
-                {study.backlog.map((item) => (
+                {backlog.map((item) => (
                   <li key={item} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">{item}</li>
                 ))}
               </ul>
@@ -257,7 +269,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
               <p className="section-label">Sources</p>
               <h3 className="mt-3 text-2xl font-semibold text-white">Research references</h3>
               <div className="mt-6 flex flex-wrap gap-3">
-                {study.sources.map((source) => (
+                {sources.map((source) => (
                   <span key={source} className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/55">
                     {source}
                   </span>
@@ -272,7 +284,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
             <p className="section-label">Problem overview</p>
             <h3 className="mt-4 text-2xl font-semibold text-white">The same broken channel shows up in six cities</h3>
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {study.stats.slice(0, 4).map((stat) => (
+                {stats.slice(0, 4).map((stat) => (
                 <div key={stat.label} className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4">
                   <p className="text-sm text-white/40">{stat.label}</p>
                   <p className="mt-3 text-2xl font-semibold text-white">{stat.value}</p>
