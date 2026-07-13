@@ -243,58 +243,14 @@ function CityMap({ cities }) {
           <p className="section-label mb-1">City research map</p>
           <h3 className="text-2xl font-semibold text-white">Bangladesh city study map</h3>
         </div>
-        <p className="text-sm text-white/50">Hover markers for local issue detail</p>
+        <p className="text-sm text-white/50">Static map preview for portfolio layout</p>
       </div>
-      <div className="relative mx-auto h-[420px] max-w-4xl overflow-hidden rounded-[1.75rem] bg-slate-950/90 p-4">
-        <motion.svg
-          viewBox="0 0 360 420"
-          className="h-full w-full"
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-        >
-          <path
-            d="M96 26c-24 12-42 44-38 72 4 28 32 50 54 70 12 10 20 22 24 38 8 30 6 72 26 94 8 8 20 16 30 22 22 12 48 12 70 2 28-14 46-42 58-72 14-36 14-76 12-114-2-18-6-36-18-50-14-18-36-24-58-24-28 0-58 10-78 32-18 20-32 48-50 70-8 10-18 18-28 24-12 8-24 4-34-6-10-12-8-28 0-42z"
-            fill="none"
-            stroke="#64748b"
-            strokeWidth="2"
-          />
-        </motion.svg>
-        {cityMarkers.map((marker) => (
-          <motion.button
-            key={marker.id}
-            type="button"
-            onClick={() => handleCityClick(marker.id)}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="absolute rounded-full border border-white/10 p-0"
-            style={{
-              left: `${((marker.coordinates.lng - 88) / 4.5) * 100}%`,
-              top: `${((25.5 - marker.coordinates.lat) / 4.5) * 100}%`,
-              width: marker.size,
-              height: marker.size,
-              backgroundColor: marker.color,
-              boxShadow: `0 0 0 6px ${marker.color}20`,
-              transform: "translate(-50%, -50%)",
-            }}
-            title={`${marker.name}: ${marker.holdingsLabel || marker.householdsLabel}
-${marker.leadingProblem}`}
-          />
-        ))}
-      </div>
-      <div className="mt-4 grid gap-3 sm:grid-cols-3">
-        {cityMarkers.map((marker) => (
-          <motion.button
-            key={`legend-${marker.id}`}
-            type="button"
-            onClick={() => handleCityClick(marker.id)}
-            whileHover={{ scale: 1.02 }}
-            className="rounded-2xl border border-white/10 bg-white/[0.04] p-3 text-left transition hover:border-white/20"
-          >
-            <p className="text-sm font-semibold text-white">{marker.name}</p>
-            <p className="mt-1 text-xs leading-5 text-white/60">{marker.holdingsLabel || marker.householdsLabel}</p>
-          </motion.button>
-        ))}
+      <div className="mx-auto overflow-hidden rounded-[1.75rem] bg-slate-950/90 p-4">
+        <img
+          src="https://i.ibb.co/GSn7pcB/Chat-GPT-Image-Jul-13-2026-05-44-12-PM.png"
+          alt="Bangladesh city study map"
+          className="h-[420px] w-full object-cover"
+        />
       </div>
     </motion.div>
   );
