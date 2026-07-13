@@ -65,44 +65,6 @@ function BarChart({ data }) {
   );
 }
 
-function BangladeshMap({ cities }) {
-  return (
-    <div className="rounded-[1.75rem] border border-white/10 bg-[#060606]/70 p-4">
-      <svg viewBox="0 0 360 520" className="w-full">
-        <path
-          d="M42 40 C68 18 114 14 150 30 C186 46 214 88 236 148 C260 226 274 286 278 332 C284 388 294 444 308 482 C292 484 262 478 238 462 C218 448 196 426 178 406 C162 386 150 360 140 336 C130 312 122 280 114 244 C106 210 92 180 74 154 C54 132 38 114 26 104 C18 98 12 80 18 64 C24 48 36 38 42 40 Z"
-          fill="rgba(67,56,202,0.18)"
-          stroke="rgba(255,255,255,0.2)"
-          strokeWidth="2"
-        />
-        <path
-          d="M210 75 C212 82 218 92 230 96"
-          fill="none"
-          stroke="rgba(255,255,255,0.25)"
-          strokeWidth="1"
-          strokeDasharray="4 4"
-        />
-        {cities.map((city) => (
-          <g key={city.name}>
-            <circle cx={city.x} cy={city.y} r="7" fill="#ff4d00" />
-            <circle cx={city.x} cy={city.y} r="12" fill="rgba(255,77,0,0.14)" />
-            <text x={city.x + city.labelOffsetX} y={city.y + city.labelOffsetY} className="text-xs font-semibold" fill="#ffffff">
-              {city.name}
-            </text>
-          </g>
-        ))}
-      </svg>
-      <div className="mt-4 grid gap-2 sm:grid-cols-3">
-        {cities.map((city) => (
-          <div key={city.name} className="rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
-            {city.name}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
   const study = neighborNotesCaseStudyContent;
   const isFull = variant === "full";
@@ -175,11 +137,9 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
               </div>
             </div>
             <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
-              <p className="section-label">Bangladesh Map</p>
-              <h3 className="mt-3 text-2xl font-semibold text-white">Major-city spread across the country</h3>
-              <div className="mt-6">
-                <BangladeshMap cities={mapCities} />
-              </div>
+              <p className="section-label">Regional context</p>
+              <h3 className="mt-3 text-2xl font-semibold text-white">Six cities across Bangladesh</h3>
+              <p className="mt-6 text-sm leading-7 text-white/60">This case study is built from research across Dhaka, Chattogram, Sylhet, Khulna, Rajshahi, and Barisal to show the national reach of the problem.</p>
             </div>
           </div>
 
