@@ -7,7 +7,7 @@ import Process from "@/components/Process";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
 import Timeline from "@/components/Timeline";
-import NeighborNotesCaseStudy from "@/components/NeighborNotesCaseStudy";
+import CaseStudiesSection from "@/components/CaseStudiesSection";
 import ParallaxCanvas from "@/components/background/ParallaxCanvas";
 import ScrollBlurProvider from "@/components/scroll/ScrollBlurProvider";
 import ScrollBlurSection from "@/components/scroll/ScrollBlurSection";
@@ -33,7 +33,7 @@ export default function HomePage() {
             <Projects />
           </ScrollBlurSection>
           <ScrollBlurSection>
-            <NeighborNotesCaseStudy variant="teaser" />
+            <CaseStudiesSection />
           </ScrollBlurSection>
           <ScrollBlurSection>
             <Timeline />

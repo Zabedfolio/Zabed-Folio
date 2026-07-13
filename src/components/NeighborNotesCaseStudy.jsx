@@ -68,25 +68,35 @@ function BarChart({ data }) {
 function BangladeshMap({ cities }) {
   return (
     <div className="rounded-[1.75rem] border border-white/10 bg-[#060606]/70 p-4">
-      <svg viewBox="0 0 360 300" className="w-full">
+      <svg viewBox="0 0 360 520" className="w-full">
         <path
-          d="M93 87c16-19 35-28 56-29 15-1 25 4 38 12 18 11 39 14 50 14 13 0 31 9 37 24 4 14 15 20 28 25 7 3 10 12 14 19 6 10 11 17 18 25 7 8 8 20 3 30-5 10-15 17-25 24-11 7-25 9-39 7-14-2-25-8-37-16-16-10-33-12-50-10-17 2-31 10-47 17-14 6-28 13-43 11-12-2-26-9-29-22-3-11 4-22 11-33 8-11 12-24 11-37-1-12-6-24-12-35-5-10-2-23 6-31 11-10 22-10 35-10 8 0 13-5 18-12 5-7 11-13 20-16z"
-          fill="rgba(67,56,202,0.16)"
+          d="M42 40 C68 18 114 14 150 30 C186 46 214 88 236 148 C260 226 274 286 278 332 C284 388 294 444 308 482 C292 484 262 478 238 462 C218 448 196 426 178 406 C162 386 150 360 140 336 C130 312 122 280 114 244 C106 210 92 180 74 154 C54 132 38 114 26 104 C18 98 12 80 18 64 C24 48 36 38 42 40 Z"
+          fill="rgba(67,56,202,0.18)"
           stroke="rgba(255,255,255,0.2)"
           strokeWidth="2"
+        />
+        <path
+          d="M210 75 C212 82 218 92 230 96"
+          fill="none"
+          stroke="rgba(255,255,255,0.25)"
+          strokeWidth="1"
+          strokeDasharray="4 4"
         />
         {cities.map((city) => (
           <g key={city.name}>
             <circle cx={city.x} cy={city.y} r="7" fill="#ff4d00" />
-            <circle cx={city.x} cy={city.y} r="13" fill="rgba(255,77,0,0.16)" />
+            <circle cx={city.x} cy={city.y} r="12" fill="rgba(255,77,0,0.14)" />
+            <text x={city.x + city.labelOffsetX} y={city.y + city.labelOffsetY} className="text-xs font-semibold" fill="#ffffff">
+              {city.name}
+            </text>
           </g>
         ))}
       </svg>
-      <div className="mt-4 flex flex-wrap gap-2">
+      <div className="mt-4 grid gap-2 sm:grid-cols-3">
         {cities.map((city) => (
-          <span key={city.name} className="rounded-full border border-white/10 px-3 py-1 text-[10px] uppercase tracking-[0.2em] text-white/45">
+          <div key={city.name} className="rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
             {city.name}
-          </span>
+          </div>
         ))}
       </div>
     </div>
@@ -98,26 +108,31 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
   const isFull = variant === "full";
 
   const mapCities = [
-    { name: "Dhaka", x: 140, y: 110 },
-    { name: "Chattogram", x: 190, y: 150 },
-    { name: "Sylhet", x: 210, y: 95 },
-    { name: "Khulna", x: 120, y: 180 },
-    { name: "Rajshahi", x: 88, y: 128 },
-    { name: "Barisal", x: 115, y: 210 },
+    { name: "Dhaka", x: 188, y: 170, labelOffsetX: -16, labelOffsetY: -12 },
+    { name: "Chattogram", x: 264, y: 330, labelOffsetX: 10, labelOffsetY: 4 },
+    { name: "Sylhet", x: 285, y: 110, labelOffsetX: 10, labelOffsetY: -10 },
+    { name: "Khulna", x: 135, y: 360, labelOffsetX: -34, labelOffsetY: 4 },
+    { name: "Rajshahi", x: 90, y: 220, labelOffsetX: -30, labelOffsetY: -10 },
+    { name: "Barisal", x: 170, y: 400, labelOffsetX: 10, labelOffsetY: 12 },
   ];
 
   return (
     <section className="section-shell py-24 sm:py-32">
       <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-3xl">
-          <p className="section-label">{isFull ? "Case Study" : "03 — Case Study"}</p>
+        <div className="max-w-3xl space-y-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">
+              ← Back home
+            </Link>
+            <p className="section-label mb-0">{isFull ? "Case Study" : "03 — Case Study"}</p>
+          </div>
           <h2 className="section-title mt-4">{study.title}</h2>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-white/60">{study.summary}</p>
         </div>
         {isFull ? (
-          <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white transition hover:border-[#ff4d00]/40">
-            Open detailed view <span aria-hidden>→</span>
-          </Link>
+          <a href={study.liveUrl || "#"} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white transition hover:border-[#ff4d00]/40">
+            NeighborNotes Live Link <span aria-hidden>→</span>
+          </a>
         ) : (
           <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">
             Read the city-by-city research <span aria-hidden>→</span>
