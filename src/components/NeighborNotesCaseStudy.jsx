@@ -545,27 +545,21 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
             variants={fade(0.1)}
             className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl hover:shadow-black/5 min-h-[360px]"
           >
-            {/* SVG radial arc background — 12.5% */}
-            <div className="relative h-[200px] w-full bg-[#fafafa] border-b border-black/5 flex items-center justify-center overflow-hidden select-none">
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
-              {/* Track */}
-              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full opacity-[0.06]">
-                <circle cx="80" cy="80" r="65" fill="none" stroke="#6b7280" strokeWidth="18" />
-              </svg>
-              {/* Animated arc — 12.5% of 408.41 = 357.36 offset */}
-              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full -rotate-90">
-                <circle cx="80" cy="80" r="65" fill="none" stroke="#9ca3af" strokeWidth="8"
-                  strokeLinecap="round"
-                  strokeDasharray="408.41"
-                  strokeDashoffset="357.36"
-                  className="transition-all duration-1000"
-                  style={{ filter: "drop-shadow(0 0 4px rgba(107,114,128,0.3))" }}
-                />
-              </svg>
-              {/* Center stat */}
-              <div className="relative z-10 flex flex-col items-center justify-center">
-                <span className="font-mono text-4xl font-black tracking-tight text-black/40">12.5%</span>
-                <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mt-1">of 8 Problems</span>
+            {/* Full image — Out of Scope visual */}
+            <div className="relative h-[200px] w-full overflow-hidden rounded-t-3xl">
+              {/* Image fills the full card top area */}
+              <img
+                src="https://i.ibb.co/qFrZzrhP/Chat-GPT-Image-Jul-13-2026-10-33-22-PM.png"
+                alt="Out of scope — developer mortgage fraud visual"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+              {/* Subtle gradient overlay at bottom so text below reads cleanly */}
+              <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white/80 to-transparent pointer-events-none" />
+              {/* 12.5% badge pinned top-right */}
+              <div className="absolute top-3 right-3 z-10 flex flex-col items-end">
+                <span className="font-mono text-xs font-black tracking-tight text-white bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
+                  12.5%
+                </span>
               </div>
             </div>
             <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
