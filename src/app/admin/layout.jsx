@@ -17,12 +17,14 @@ import {
   HiOutlineExternalLink,
   HiOutlineCog,
   HiOutlineDocumentText,
+  HiOutlineLibrary,
 } from "react-icons/hi";
 
 const sidebarItems = [
   { href: "/admin", label: "Overview", icon: HiOutlineChartBar },
   { href: "/admin/projects", label: "Projects", icon: HiOutlineBriefcase },
   { href: "/admin/skills", label: "Skills", icon: HiOutlineCog },
+  { href: "/admin/case-studies", label: "Case Studies", icon: HiOutlineLibrary },
   { href: "/admin/education", label: "Education", icon: HiOutlineAcademicCap },
   { href: "/admin/experience", label: "Experience", icon: HiOutlineCube },
   { href: "/admin/process", label: "Process Steps", icon: HiOutlineCube },
