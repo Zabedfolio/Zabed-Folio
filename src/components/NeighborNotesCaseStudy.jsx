@@ -214,7 +214,13 @@ function CityMap({ cities }) {
 
   const cityMarkers = cities.map((city) => ({
     ...city,
-    size: Math.max(18, Math.min(42, (city.holdings || parseInt((city.householdsLabel || "").replace(/[^0-9]/g, "")) / 10000) * 3))),
+    size: Math.max(
+      18,
+      Math.min(
+        42,
+        ((city.holdings || parseInt((city.householdsLabel || "").replace(/[^0-9]/g, ""), 10)) / 10000) * 3
+      )
+    ),
     color: problems[city.problemCategory] || "#4338CA",
   }));
 
