@@ -19,7 +19,228 @@ const stagger = {
 };
 
 export default function NeighborNotesCaseStudy({ study, variant = "full", slug }) {
-  // Always render the full case study
+  const isNeighborNotes = slug === "neighbornotes" || !slug || (study && (study.slug === "neighbornotes" || study.id === "neighbornotes"));
+
+  if (!isNeighborNotes) {
+    // Render clean, light-themed generic layout for other custom case studies in MongoDB
+    const title = study?.title || "Case Study";
+    const subtitle = study?.subtitle || study?.summary || "";
+    const heroSubtitle = study?.heroSubtitle || "Project Detail";
+    const year = study?.year || "2026";
+    const tags = Array.isArray(study?.tags)
+      ? study.tags
+      : study?.tags
+      ? study.tags.split(",").map((t) => t.trim())
+      : [];
+    const image = study?.image || "";
+    const liveUrl = study?.liveUrl || "";
+
+    const parseJSON = (val) => {
+      if (!val) return [];
+      if (typeof val === "object") return val;
+      try {
+        return JSON.parse(val);
+      } catch {
+        return [];
+      }
+    };
+
+    const marketStats = parseJSON(study?.marketStats);
+    const evidenceCards = parseJSON(study?.evidenceCards);
+    const sources = Array.isArray(study?.sources)
+      ? study.sources
+      : study?.sources
+      ? study.sources.split(",").map((s) => s.trim())
+      : [];
+
+    return (
+      <main className="min-h-screen bg-white text-[#1a1a1a] select-text">
+        {/* ── Top Navigation (Back Home) ── */}
+        <div className="mx-auto max-w-[720px] px-6 pt-12 flex items-center justify-between">
+          <Link
+            href="/"
+            className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-black/35 transition-colors hover:text-black/70"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="h-3 w-3 rotate-180 transition-transform duration-300 group-hover:-translate-x-0.5"
+            >
+              <path
+                fillRule="evenodd"
+                d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z"
+                clipRule="evenodd"
+              />
+            </svg>
+            Back home
+          </Link>
+        </div>
+
+        {/* ── Hero Section ── */}
+        <section className="mx-auto max-w-[720px] px-6 pt-16 pb-12">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={stagger}
+            className="space-y-6"
+          >
+            <motion.p
+              variants={fade(0)}
+              className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold"
+            >
+              {study?.category || "Case Study"}
+            </motion.p>
+
+            <motion.h1
+              variants={fade(0.05)}
+              className="text-[clamp(2.4rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a]"
+            >
+              {title}.
+              {heroSubtitle && (
+                <>
+                  <br />
+                  <span className="text-black/30">{heroSubtitle}</span>
+                </>
+              )}
+            </motion.h1>
+
+            <motion.p
+              variants={fade(0.1)}
+              className="text-lg leading-8 text-black/55 font-normal"
+            >
+              {subtitle}
+            </motion.p>
+          </motion.div>
+        </section>
+
+        {/* ── Project Meta Cards ── */}
+        <section className="mx-auto max-w-[720px] px-6 pb-16">
+          <motion.div
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={stagger}
+            className="grid gap-4 sm:grid-cols-3 w-full"
+          >
+            <motion.div
+              variants={fade(0)}
+              className="group rounded-3xl border border-black/8 bg-white p-5 flex flex-col justify-between min-h-[140px] hover:border-[#ff5f1a]/30 transition-all duration-300 shadow-sm"
+            >
+              <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Timeline / Year</span>
+              <p className="text-2xl font-extrabold text-[#1a1a1a] mt-3">{year}</p>
+              <span className="text-[8px] font-mono text-[#ff5f1a]/70 uppercase tracking-widest font-bold mt-2">Active</span>
+            </motion.div>
+
+            <motion.div
+              variants={fade(0.05)}
+              className="group rounded-3xl border border-black/8 bg-white p-5 flex flex-col justify-between min-h-[140px] hover:border-[#ff5f1a]/30 transition-all duration-300 shadow-sm"
+            >
+              <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Tags</span>
+              <p className="text-sm font-semibold text-[#1a1a1a] truncate mt-3">
+                {tags.slice(0, 3).join(", ") || "Development"}
+              </p>
+              <span className="text-[8px] font-mono text-[#ff5f1a]/70 uppercase tracking-widest font-bold mt-2">Core skills</span>
+            </motion.div>
+
+            <motion.div
+              variants={fade(0.1)}
+              className="group rounded-3xl border border-black/8 bg-white p-5 flex flex-col justify-between min-h-[140px] hover:border-[#ff5f1a]/30 transition-all duration-300 shadow-sm"
+            >
+              <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Status</span>
+              <p className="text-2xl font-extrabold text-[#1a1a1a] mt-3">{liveUrl ? "Live" : "Internal"}</p>
+              <span className="text-[8px] font-mono text-[#ff5f1a]/70 uppercase tracking-widest font-bold mt-2">Environment</span>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        {/* ── Divider ── */}
+        <div className="mx-auto max-w-[720px] px-6">
+          <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+        </div>
+
+        {/* ── Detail Image if present ── */}
+        {image && (
+          <section className="mx-auto max-w-[720px] px-6 py-12">
+            <div className="overflow-hidden rounded-3xl border border-black/8 shadow-sm">
+              <img src={image} alt={title} className="w-full h-80 object-cover animate-fade-in" />
+            </div>
+          </section>
+        )}
+
+        {/* ── Content Sections ── */}
+        <section className="mx-auto max-w-[720px] px-6 py-12 space-y-12">
+          {/* Market Stats if any */}
+          {marketStats.length > 0 && (
+            <div className="space-y-4">
+              <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">Supporting Stats</p>
+              <div className="grid gap-4 sm:grid-cols-3">
+                {marketStats.map((stat, i) => (
+                  <div key={i} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm">
+                    <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">{stat.label}</span>
+                    <p className="text-2xl font-extrabold text-[#1a1a1a] mt-2">{stat.value}</p>
+                    {stat.detail && <p className="text-[10px] text-black/40 mt-1">{stat.detail}</p>}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Evidence Cards / Key Points if any */}
+          {evidenceCards.length > 0 && (
+            <div className="space-y-4">
+              <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">Key Insights</p>
+              <div className="grid gap-6 sm:grid-cols-2">
+                {evidenceCards.map((card, i) => (
+                  <div key={i} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#ff5f1a]/30 transition-colors">
+                    <h3 className="text-base font-bold text-[#1a1a1a]">{card.title}</h3>
+                    <p className="text-xs leading-relaxed text-black/60 mt-2">{card.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Sources if any */}
+          {sources.length > 0 && (
+            <div className="border-t border-black/5 pt-8">
+              <p className="font-mono text-[9px] uppercase tracking-[0.2em] text-black/35 font-bold">Research references & Data sources</p>
+              <ul className="grid gap-2 text-[10px] text-black/40 font-mono select-text list-none p-0 mt-4">
+                {sources.map((s, i) => (
+                  <li key={i}>• {s}</li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </section>
+
+        {/* ── Closing CTA ── */}
+        <section className="mx-auto max-w-[720px] px-6 pb-24 pt-4">
+          <div className="rounded-3xl border border-black/8 bg-white p-10 text-center shadow-sm">
+            <p className="mb-2 font-mono text-xs uppercase tracking-[0.24em] text-black/35">Explore project</p>
+            <h2 className="mb-6 text-2xl font-bold text-[#1a1a1a]">Explore the case study live demo or repository</h2>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <Link href="/">
+                <button className="rounded-full bg-[#ff5f1a] px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-[#ff5f1a]/25 transition-opacity hover:opacity-90">
+                  Back home
+                </button>
+              </Link>
+              {liveUrl && (
+                <a href={liveUrl} target="_blank" rel="noopener noreferrer">
+                  <button className="rounded-full border border-black/8 bg-white px-8 py-3 text-sm font-semibold text-black/70 hover:bg-black/5 transition-all">
+                    View Live Site ↗
+                  </button>
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      </main>
+    );
+  }
+
+  // ── Render Bespoke NeighborNotes Case Study Page ──
   return (
     <main className="min-h-screen bg-white text-[#1a1a1a] select-text">
       

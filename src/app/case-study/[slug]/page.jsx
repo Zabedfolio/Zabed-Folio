@@ -1,13 +1,26 @@
 import NeighborNotesCaseStudy from "@/components/NeighborNotesCaseStudy";
+import { getDb } from "@/lib/mongodb";
+import { neighborNotesCaseStudyFallback } from "@/data/neighborNotesCaseStudy";
 
 export default async function CaseStudyDetailPage({ params }) {
-  const { slug } = params;
+  // Await params since Next.js 15/16 makes dynamic route parameters asynchronous
+  const { slug } = await params;
 
-  const response = await fetch("/api/case-studies", { cache: "no-store" });
-  const caseStudies = await response.json();
-  const study = Array.isArray(caseStudies)
-    ? caseStudies.find((item) => item.slug === slug || item.id === slug)
-    : null;
+  let study = null;
+  try {
+    const db = await getDb();
+    const item = await db.collection("caseStudies").findOne({ slug: slug });
+    if (item) {
+      study = { ...item, _id: item._id.toString() };
+    }
+  } catch (error) {
+    console.error("Database connection error in Server Component:", error);
+  }
+
+  // Fallback to static mockup data if not found or DB query fails
+  if (!study && (slug === "neighbornotes" || slug === "fallback-case-study")) {
+    study = neighborNotesCaseStudyFallback;
+  }
 
   return (
     <main className="min-h-screen bg-white">
