@@ -2,10 +2,9 @@ export const neighborNotesCaseStudyContent = {
   id: "neighbornotes",
   slug: "neighbornotes",
   title: "NeighborNotes — The Problem",
-  heroSubtitle:
-    "From Dhaka's service-charge opacity to Barisal's sanitation crisis, the same owner–resident disconnect shows up in six major Bangladeshi cities.",
+  heroSubtitle: "A verified digital notice board connecting building owners and residents.",
   summary:
-    "NeighborNotes isn't a Dhaka-only idea — the same owner–resident disconnect, with different local symptoms, shows up in every major Bangladeshi city we studied.",
+    "NeighborNotes is a role-based digital notice board that connects building owners and residents directly, replacing the scattered mix of handwritten paper notices, verbal messages passed through guards, and chaotic WhatsApp groups that dominate communication in Bangladesh's multi-story residential buildings today.",
   liveUrl: "",
   category: "Case Study",
   year: "2026",

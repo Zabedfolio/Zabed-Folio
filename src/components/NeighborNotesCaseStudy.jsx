@@ -294,130 +294,194 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
       {isFull ? (
         <div className="space-y-8">
           <article className="max-w-4xl">
-            <p className="section-label">Project at a glance</p>
-            <h3 className="mt-2 text-3xl font-semibold text-white">NeighborNotes — Role, Timeline, Tech</h3>
-            <p className="mt-4 text-sm leading-7 text-white/65">{study.heroSubtitle || study.summary}</p>
-
-            <div className="mt-4 space-y-2 text-sm text-white/60">
-              <div><span className="font-semibold text-white">Role:</span> Zabed Mahmud (Team Lead & Full Stack Developer), Monjur Uddin (Frontend), Nosad Sattar Sohag (Backend)</div>
-              <div><span className="font-semibold text-white">Project Type:</span> Community PropTech Web Application</div>
-              <div><span className="font-semibold text-white">Timeline:</span> 1 to 1.5 months</div>
-              <div><span className="font-semibold text-white">Tech Stack:</span> Next.js 14, Node.js, Express.js, MongoDB, Better Auth, Cloudinary, date-fns</div>
-            </div>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">Project Background & Problem</h4>
-            <p className="mt-3 text-sm text-white/65">{study.summary}</p>
-            <p className="mt-3 text-sm text-white/65">NeighborNotes addresses the lack of a coordinated, auditable communication channel between owners and residents. The product seeks to reduce maintenance delays, financial opacity, unauthorized subletting, and safety risks by centralizing notices, verification, and escalation workflows.</p>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">Nationwide research & data (summary table)</h4>
-            <CityMap cities={cities} />
-
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full table-auto text-left text-sm">
-                <thead className="text-white/60 border-b border-white/6">
-                  <tr>
-                    <th className="py-3 px-3">City</th>
-                    <th className="py-3 px-3">Holdings</th>
-                    <th className="py-3 px-3">Owner / Tenant</th>
-                    <th className="py-3 px-3">Major problem</th>
-                    <th className="py-3 px-3">Source</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cities.map((c) => (
-                    <tr key={c.id} className="border-b border-white/6 align-top">
-                      <td className="py-3 px-3 text-white">{c.name}</td>
-                      <td className="py-3 px-3 text-white/65">{c.holdingsLabel || (c.holdings ? c.holdings.toLocaleString() : c.householdsLabel || "—")}</td>
-                      <td className="py-3 px-3 text-white/65">{c.tenantPct != null ? `${c.tenantPct}% / ${c.ownerPct}%` : (c.ownerNote || "—")}</td>
-                      <td className="py-3 px-3 text-white/65">{c.leadingProblem}</td>
-                      <td className="py-3 px-3 text-white/60">{c.source}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">Selected insights</h4>
-            <ul className="mt-3 text-sm text-white/65 list-disc pl-5">
-              {evidenceCards.map((card) => (
-                <li key={card.title}><span className="font-semibold text-white">{card.title}:</span> {card.description}</li>
-              ))}
-            </ul>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">Data visualizations</h4>
-            <p className="mt-2 text-sm text-white/65">Focused charts illustrate the holdings distribution and tenure patterns that informed our product decisions.</p>
-
-            <div className="mt-4 grid gap-6 lg:grid-cols-2">
-              <div className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
-                <h5 className="text-white font-semibold">Registered holdings across cities</h5>
-                <BarChart data={chartData.holdings} />
+            <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8 shadow-[0_20px_120px_rgba(0,0,0,0.25)]">
+              <p className="section-label">Case study</p>
+              <h3 className="mt-3 text-4xl font-semibold text-white">NeighborNotes — Digital transformation of owner–resident communication</h3>
+              <p className="mt-5 max-w-2xl text-xl leading-9 text-white/70">A verified digital notice board connecting building owners and residents.</p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                {study.tags.map((tag) => (
+                  <span key={tag} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium uppercase tracking-[0.24em] text-white/60">{tag}</span>
+                ))}
               </div>
-
-              <div className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
-                <h5 className="text-white font-semibold">Tenure composition (sample cities)</h5>
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                  <DonutChart data={chartData.dhakaTenure} label="Dhaka" />
-                  <DonutChart data={chartData.chattogramTenure} label="Chattogram" />
-                </div>
+              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-white/50">
+                <span>University capstone project</span>
+                <span className="hidden sm:inline">•</span>
+                <span>Timeline: 1 to 1.5 months</span>
               </div>
             </div>
 
-            <div className="mt-6 rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
-              <h5 className="text-white font-semibold">Barisal sanitation</h5>
-              <div className="mt-3 flex items-start gap-4">
-                <DonutChart data={chartData.barisalSanitation} label="Barisal" />
-                <p className="text-sm text-white/65">Only <span className="font-semibold text-white">{chartData.barisalSanitation?.[0]?.value ?? "49.6"}%</span> of buildings have functioning septic tanks — a clear infrastructure gap where NeighborNotes can surface maintenance needs and escalate them to authorities.</p>
+            <div className="mt-12 grid gap-10 lg:grid-cols-[1.35fr_0.75fr]">
+              <div className="space-y-10">
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">Overview</h4>
+                  <p className="mt-5 text-base leading-8 text-white/65">NeighborNotes is a role-based digital notice board that connects building owners and residents directly, replacing the scattered mix of handwritten paper notices, verbal messages passed through guards, and chaotic WhatsApp groups that dominate communication in Bangladesh's multi-story residential buildings today.</p>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">1. What was this project, and how did it come about?</h4>
+                  <p className="mt-5 text-sm leading-8 text-white/65">This was an open-topic capstone project for my university — we were free to choose any real-world problem to solve. Rather than picking something generic, I wanted to build something rooted in a problem I could actually observe. My father owns a residential building, which gave me a natural starting point to look closely at how communication actually works between owners and residents.</p>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">2. How did you identify the problem?</h4>
+                  <p className="mt-5 text-sm leading-8 text-white/65">I started by talking through the situation with AI tools and cross-checking with general research, using my father's building as a real-world reference point. The pattern that emerged was clear: residents across major Bangladeshi cities have no direct line to their building owner.</p>
+                  <p className="mt-4 text-sm leading-8 text-white/65">If a pump breaks, a lift stops working, or a service charge deadline is approaching, that information has to pass through a building guard or caretaker — someone who is often busy, forgetful, or simply not equipped to manage communication for an entire building.</p>
+                  <p className="mt-4 text-sm leading-8 text-white/65">This gets worse when the owner doesn't live on-site, which is common. Many owners are occupied with personal, office, or business commitments elsewhere in the city, or are expatriates living abroad entirely. In those cases, residents are frequently left to resolve building issues on their own, with no clear channel to escalate problems or receive updates.</p>
+                  <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-white/[0.02] p-6 text-sm leading-7 text-white/65">
+                    <p className="font-semibold text-white">Communication gap</p>
+                    <p className="mt-3">Resident → Guard → Owner, with critical messages often delayed or lost entirely.</p>
+                  </div>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">3. How did you validate this was a real, widespread problem?</h4>
+                  <p className="mt-5 text-sm leading-8 text-white/65">I didn't want to build a solution around a single anecdote, so I used AI-assisted research alongside public data sources (BBS census data, city corporation revenue records, and development authority reports) to check whether this pattern held at a national scale. It did — and the numbers were more severe than I expected.</p>
+                  <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
+                      <p className="text-sm uppercase tracking-[0.24em] text-white/40">Dhaka</p>
+                      <p className="mt-4 text-3xl font-semibold text-white">68%</p>
+                      <p className="mt-3 text-sm text-white/60">renters in Dhaka facing a broken line to owners.</p>
+                    </div>
+                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
+                      <p className="text-sm uppercase tracking-[0.24em] text-white/40">Chattogram</p>
+                      <p className="mt-4 text-3xl font-semibold text-white">80%</p>
+                      <p className="mt-3 text-sm text-white/60">tenant share, with monsoon damage and shared infrastructure risk.</p>
+                    </div>
+                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
+                      <p className="text-sm uppercase tracking-[0.24em] text-white/40">Barisal</p>
+                      <p className="mt-4 text-3xl font-semibold text-white">49.6%</p>
+                      <p className="mt-3 text-sm text-white/60">buildings with functioning septic tanks, exposing sanitation notice gaps.</p>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">4. What was the core idea behind NeighborNotes?</h4>
+                  <div className="mt-5 grid gap-6 lg:grid-cols-2">
+                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
+                      <p className="font-semibold text-white">Owner side</p>
+                      <ul className="mt-4 space-y-3 text-sm text-white/65">
+                        <li>Publish building notices, service charge updates, and official rules.</li>
+                        <li>Pin critical alerts and keep an auditable record of notices.</li>
+                        <li>Store documents and receipts tied to the building board.</li>
+                      </ul>
+                    </div>
+                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
+                      <p className="font-semibold text-white">Resident side</p>
+                      <ul className="mt-4 space-y-3 text-sm text-white/65">
+                        <li>Report issues with photos directly to owners.</li>
+                        <li>Filter notices by category for emergencies, maintenance, and rules.</li>
+                        <li>Join only the board tied to their verified building.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">5. Biggest design problem</h4>
+                  <p className="mt-5 text-sm leading-8 text-white/65">Problem: if anyone could join any building's notice board, the system would be chaotic and insecure — there would be no way to guarantee that people posting and reading notices actually lived in that building.</p>
+                  <div className="mt-6 grid gap-4 sm:grid-cols-3">
+                    {[
+                      { step: "1", label: "Owner collects resident email" },
+                      { step: "2", label: "Owner invites email with unique building code" },
+                      { step: "3", label: "Resident registers with email + building code" },
+                    ].map((item) => (
+                      <div key={item.step} className="rounded-[1.5rem] bg-white/[0.03] p-5">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ff4d00]/10 text-sm font-semibold text-[#ff4d00]">{item.step}</div>
+                        <p className="mt-4 text-sm text-white/65">{item.label}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">6. Why no private messaging?</h4>
+                  <div className="mt-5 rounded-[1.5rem] border border-amber-500/15 bg-amber-500/5 p-6">
+                    <p className="text-white font-semibold">Keeping communication public preserves accountability and reduces conflict.</p>
+                    <p className="mt-4 text-sm leading-7 text-white/65">Direct chat can escalate disputes, create unread late-night messages, and remove the shared, auditable record that a notice board provides.</p>
+                    <div className="mt-4 grid gap-3 sm:grid-cols-3 text-sm text-white/65">
+                      <div className="rounded-2xl bg-white/[0.05] p-3">Transparency</div>
+                      <div className="rounded-2xl bg-white/[0.05] p-3">Boundaries</div>
+                      <div className="rounded-2xl bg-white/[0.05] p-3">Accountability</div>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">7. How the platform organizes information</h4>
+                  <div className="mt-5 flex flex-wrap gap-3">
+                    {[
+                      "Maintenance",
+                      "Emergency",
+                      "Lost & Found",
+                      "Events",
+                      "Rules",
+                      "General",
+                    ].map((category) => (
+                      <span key={category} className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/65">{category}</span>
+                    ))}
+                  </div>
+                  <p className="mt-6 text-sm leading-8 text-white/65">Notices are sorted into fixed categories so residents can scan only what matters most. Critical items can be pinned, and older notices auto-archive to keep the board current instead of cluttered.</p>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">8. What I would build next</h4>
+                  <ul className="mt-5 space-y-4 text-sm text-white/65">
+                    <li>Real-time updates via WebSockets so notices and comments appear instantly.</li>
+                    <li>Mobile apps (React Native) for residents and caretakers who primarily use smartphones.</li>
+                    <li>Maintenance ticketing with status tracking from reported issue to resolution.</li>
+                    <li>Automated rent reminders and digital receipt generation.</li>
+                  </ul>
+                </section>
+
+                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-2xl font-semibold text-white">9. What I learned</h4>
+                  <p className="mt-5 text-sm leading-8 text-white/65">This project taught me how to turn a vague, personally observed problem into something backed by real data and scoped into a buildable product. The building-code invite system was a key lesson in access control: the instinct to let anyone self-register is almost never right for a system tied to physical buildings.</p>
+                </section>
+              </div>
+
+              <aside className="space-y-8">
+                <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-xl font-semibold text-white">Hero visual</h4>
+                  <div className="mt-6 overflow-hidden rounded-[1.75rem] bg-slate-950/90">
+                    <img src="https://i.ibb.co/GSn7pcB/Chat-GPT-Image-Jul-13-2026-05-44-12-PM.png" alt="NeighborNotes hero visual" className="h-80 w-full object-cover" />
+                  </div>
+                </div>
+                <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-xl font-semibold text-white">Technologies</h4>
+                  <div className="mt-6 grid gap-3">
+                    {[
+                      "Next.js 14",
+                      "Node.js",
+                      "Express.js",
+                      "MongoDB",
+                      "Better Auth",
+                      "Cloudinary",
+                      "date-fns",
+                    ].map((tech) => (
+                      <span key={tech} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white/65">{tech}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+                  <h4 className="text-xl font-semibold text-white">Supporting data</h4>
+                  <div className="mt-6 space-y-4 text-sm text-white/65">
+                    <div><span className="font-semibold text-white">Market value:</span> $12B+</div>
+                    <div><span className="font-semibold text-white">Urban households:</span> 1.32 crore</div>
+                    <div><span className="font-semibold text-white">Urban structures:</span> 25–30 lakh</div>
+                  </div>
+                </div>
+              </aside>
+            </div>
+
+            <div className="mt-14 rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
+              <h4 className="text-2xl font-semibold text-white">Sources</h4>
+              <div className="mt-5 space-y-3 text-sm text-white/65">
+                {sources.map((s) => (
+                  <div key={s}>• {s}</div>
+                ))}
               </div>
             </div>
-
-            <div className="mt-6 grid gap-6 lg:grid-cols-3">
-              <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
-                <h5 className="text-white font-semibold">Qualitative severity radar</h5>
-                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">Illustrative severity index only — derived from case-study descriptions.</p>
-                <div className="mt-4 h-72">
-                  <CityRadarChart cities={cities} />
-                </div>
-              </motion.div>
-              <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
-                <h5 className="text-white font-semibold">Holdings vs. qualitative severity</h5>
-                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">Illustrative bubble chart only.</p>
-                <div className="mt-4 h-72">
-                  <CityBubbleChart cities={cities} />
-                </div>
-              </motion.div>
-              <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.3 }} variants={fadeUp} className="rounded-[1rem] border border-white/6 p-4 bg-white/[0.01]">
-                <h5 className="text-white font-semibold">Holdings vs. tenant mix</h5>
-                <p className="mt-2 text-xs uppercase tracking-[0.3em] text-white/40">Real data only for Dhaka and Chattogram.</p>
-                <div className="mt-4 h-72">
-                  <CityTenantScatter cities={cities} />
-                </div>
-              </motion.div>
-            </div>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">What NeighborNotes solves</h4>
-            <ul className="mt-3 list-disc pl-5 text-sm text-white/65">
-              <li><span className="font-semibold text-white">Financial transparency:</span> uploadable receipts, pinned notices, and auditable threads.</li>
-              <li><span className="font-semibold text-white">Verified access:</span> registration via building/area code to prevent unauthorized subletting.</li>
-              <li><span className="font-semibold text-white">Maintenance & emergency workflows:</span> photo-backed notices, pinned emergencies, and visible escalation trails.</li>
-              <li><span className="font-semibold text-white">Remote owner dashboards:</span> NRB owners can supervise and approve actions from anywhere.</li>
-            </ul>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">Technical architecture</h4>
-            <p className="mt-3 text-sm text-white/65">Frontend: Next.js 14 (App Router) + Tailwind CSS. Backend: Node.js + Express.js. DB: MongoDB. Auth: Better Auth. Image uploads: Cloudinary. Date handling: date-fns. Deploy: Vercel (frontend) + Render (backend).</p>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">UX decisions</h4>
-            <p className="mt-3 text-sm text-white/65">We intentionally omitted private messaging to preserve public transparency and avoid harassment; instead the product emphasizes visible notices, comments, and pinned owner responses.</p>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">Future roadmap</h4>
-            <p className="mt-3 text-sm text-white/65">Planned features: real-time updates (WebSockets), mobile apps (React Native), maintenance request tracking, automated rent reminders and receipts.</p>
-
-            <h4 className="mt-8 text-2xl font-semibold text-white">Sources</h4>
-            <div className="mt-3 text-sm text-white/65">
-              {sources.map((s) => (
-                <div key={s}>• {s}</div>
-              ))}
-            </div>
-
           </article>
         </div>
       ) : (
