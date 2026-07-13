@@ -64,7 +64,15 @@ export default function CaseStudiesSection() {
                 className="glass-panel group overflow-hidden rounded-[2rem]"
               >
                 <div className="relative h-44 overflow-hidden bg-gradient-to-br from-[#4338CA]/35 via-[#ff4d00]/20 to-transparent">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,77,0,0.25),transparent_45%)]" />
+                  {study.image ? (
+                    <img
+                      src={study.image}
+                      alt={study.title}
+                      className="absolute inset-0 h-full w-full object-cover"
+                    />
+                  ) : null}
+                  <div className="absolute inset-0 bg-black/30" />
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,77,0,0.15),transparent_45%)]" />
                   <div className="absolute left-5 top-5 rounded-full border border-white/10 bg-black/20 px-3 py-1 text-[10px] uppercase tracking-[0.24em] text-white/70 backdrop-blur">
                     {study.category || "Case Study"}
                   </div>
