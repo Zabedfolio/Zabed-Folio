@@ -271,7 +271,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
   return (
     <section className="section-shell py-24 sm:py-32">
       <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-        <div className="max-w-3xl space-y-4">
+        <div className="space-y-4 w-full">
           <div className="flex flex-wrap items-center gap-3">
             <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">
               ← Back home
@@ -280,7 +280,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
           </div>
           <h2 className="section-title mt-4">{study.title}</h2>
           {study.heroSubtitle ? <p className="mt-3 text-lg leading-8 text-white/60">{study.heroSubtitle}</p> : null}
-          <p className="mt-5 max-w-2xl text-lg leading-8 text-white/60">{study.summary}</p>
+          <p className="mt-5 text-lg leading-8 text-white/60">{study.summary}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
           {study.liveUrl ? (
@@ -293,7 +293,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
 
       {isFull ? (
         <div className="space-y-8">
-          <article className="max-w-4xl">
+          <article className="mx-auto w-full max-w-7xl px-0 sm:px-2">
             <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8 shadow-[0_20px_120px_rgba(0,0,0,0.25)]">
               <p className="section-label">Case study</p>
               <h3 className="mt-3 text-4xl font-semibold text-white">NeighborNotes — Digital transformation of owner–resident communication</h3>
@@ -310,7 +310,7 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
               </div>
             </div>
 
-            <div className="mt-12 grid gap-10 lg:grid-cols-[1.35fr_0.75fr]">
+            <div className="mt-12 grid gap-10 lg:grid-cols-[1.6fr_1.1fr]">
               <div className="space-y-10">
                 <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
                   <h4 className="text-2xl font-semibold text-white">Overview</h4>
