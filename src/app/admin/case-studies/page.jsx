@@ -19,6 +19,12 @@ const emptyForm = {
   chartData: "",
   evidenceCards: "",
   sources: "",
+  problemCoverageAnalysis: "",
+  coverageRows: "",
+  backlog: "",
+  techStack: "",
+  whatILearned: "",
+  legalBackdrop: "",
 };
 
 export default function AdminCaseStudies() {
@@ -68,6 +74,12 @@ export default function AdminCaseStudies() {
       image: item.image || "",
       tags: Array.isArray(item.tags) ? item.tags.join(", ") : item.tags || "",
       sources: Array.isArray(item.sources) ? item.sources.join(", ") : item.sources || "",
+      problemCoverageAnalysis: item.problemCoverageAnalysis ? JSON.stringify(item.problemCoverageAnalysis, null, 2) : "",
+      coverageRows: item.coverageRows ? JSON.stringify(item.coverageRows, null, 2) : "",
+      backlog: Array.isArray(item.backlog) ? item.backlog.join(", ") : item.backlog || "",
+      techStack: item.techStack ? JSON.stringify(item.techStack, null, 2) : "",
+      whatILearned: item.whatILearned || "",
+      legalBackdrop: Array.isArray(item.legalBackdrop) ? item.legalBackdrop.join(", ") : item.legalBackdrop || "",
     });
     setModalOpen(true);
   };
@@ -101,6 +113,10 @@ export default function AdminCaseStudies() {
     let marketStats = [];
     let chartData = {};
     let evidenceCards = [];
+    let problemCoverageAnalysis = {};
+    let coverageRows = [];
+    let techStack = [];
+
     try {
       marketStats = formData.marketStats ? JSON.parse(formData.marketStats) : [];
     } catch (err) {
@@ -122,6 +138,27 @@ export default function AdminCaseStudies() {
       setSaving(false);
       return;
     }
+    try {
+      problemCoverageAnalysis = formData.problemCoverageAnalysis ? JSON.parse(formData.problemCoverageAnalysis) : {};
+    } catch (err) {
+      toast.error("Invalid JSON in Problem coverage analysis");
+      setSaving(false);
+      return;
+    }
+    try {
+      coverageRows = formData.coverageRows ? JSON.parse(formData.coverageRows) : [];
+    } catch (err) {
+      toast.error("Invalid JSON in Coverage rows");
+      setSaving(false);
+      return;
+    }
+    try {
+      techStack = formData.techStack ? JSON.parse(formData.techStack) : [];
+    } catch (err) {
+      toast.error("Invalid JSON in Tech stack");
+      setSaving(false);
+      return;
+    }
 
     const payload = {
       ...formData,
@@ -136,6 +173,17 @@ export default function AdminCaseStudies() {
       sources: formData.sources
         .split(",")
         .map((s) => s.trim())
+        .filter(Boolean),
+      problemCoverageAnalysis,
+      coverageRows,
+      techStack,
+      backlog: formData.backlog
+        .split(",")
+        .map((b) => b.trim())
+        .filter(Boolean),
+      legalBackdrop: formData.legalBackdrop
+        .split(",")
+        .map((l) => l.trim())
         .filter(Boolean),
     };
 
@@ -282,7 +330,7 @@ export default function AdminCaseStudies() {
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Summary</label>
-                <textarea name="summary" rows={4} value={formData.summary} onChange={handleInputChange} required className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+                <textarea name="summary" rows={3} value={formData.summary} onChange={handleInputChange} required className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
@@ -302,34 +350,65 @@ export default function AdminCaseStudies() {
                   <input name="image" value={formData.image} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
                 </div>
                 <div>
-                  <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Tags</label>
+                  <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Tags (comma separated)</label>
                   <input name="tags" value={formData.tags} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
                 </div>
               </div>
 
-              <div>
-                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Hero subtitle</label>
-                <input name="heroSubtitle" value={formData.heroSubtitle} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              <div className="grid gap-5 sm:grid-cols-2">
+                <div>
+                  <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Hero subtitle</label>
+                  <input name="heroSubtitle" value={formData.heroSubtitle} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+                </div>
+                <div>
+                  <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Sources (comma separated)</label>
+                  <input name="sources" value={formData.sources} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+                </div>
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Market stats (JSON array)</label>
-                <textarea name="marketStats" rows={3} value={formData.marketStats} onChange={handleInputChange} placeholder='[{ "label": "Market value", "value": "$12B+", "detail": "~7.9%" }]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+                <textarea name="marketStats" rows={2} value={formData.marketStats} onChange={handleInputChange} placeholder='[{ "label": "Market value", "value": "$12B+", "detail": "~7.9%" }]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Evidence cards (JSON array)</label>
-                <textarea name="evidenceCards" rows={3} value={formData.evidenceCards} onChange={handleInputChange} placeholder='[{ "title": "68–80% renters", "description": "..." }]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+                <textarea name="evidenceCards" rows={2} value={formData.evidenceCards} onChange={handleInputChange} placeholder='[{ "title": "68–80% renters", "description": "..." }]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Chart data (JSON object)</label>
-                <textarea name="chartData" rows={5} value={formData.chartData} onChange={handleInputChange} placeholder='{"holdings":[{ "city":"Dhaka","holdings":592000 }]}' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+                <textarea name="chartData" rows={2} value={formData.chartData} onChange={handleInputChange} placeholder='{"holdings":[{ "city":"Dhaka","holdings":592000 }]}' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
               </div>
 
               <div>
-                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Sources (comma separated)</label>
-                <input name="sources" value={formData.sources} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Problem Coverage Analysis (JSON object)</label>
+                <textarea name="problemCoverageAnalysis" rows={2} value={formData.problemCoverageAnalysis} onChange={handleInputChange} placeholder='{"heading": "Problem Coverage Analysis", "intro": "..."}' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Coverage rows (JSON array)</label>
+                <textarea name="coverageRows" rows={2} value={formData.coverageRows} onChange={handleInputChange} placeholder='[{"problem":"Unauthorized subletting","city":"Khulna","feature":"Verified registration","status":"Solved","tone":"positive"}]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Backlog (comma separated)</label>
+                <input name="backlog" value={formData.backlog} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Tech stack (JSON array)</label>
+                <textarea name="techStack" rows={2} value={formData.techStack} onChange={handleInputChange} placeholder='[{"name": "Next.js 14", "reason": "Fast, responsive"}]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Legal Backdrop (comma separated)</label>
+                <input name="legalBackdrop" value={formData.legalBackdrop} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">What I learned</label>
+                <textarea name="whatILearned" rows={2} value={formData.whatILearned} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
               </div>
 
               <div className="flex justify-end gap-3 border-t border-white/5 pt-5">
