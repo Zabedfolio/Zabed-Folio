@@ -92,15 +92,21 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
           {study.heroSubtitle ? <p className="mt-3 text-lg leading-8 text-white/60">{study.heroSubtitle}</p> : null}
           <p className="mt-5 max-w-2xl text-lg leading-8 text-white/60">{study.summary}</p>
         </div>
-        {isFull ? (
-          study.liveUrl ? (
-            <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white transition hover:border-[#ff4d00]/40">NeighborNotes Live Link <span aria-hidden>→</span></a>
-          ) : (
-            <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the city-by-city research <span aria-hidden>→</span></Link>
-          )
-        ) : (
-          <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the case study <span aria-hidden>→</span></Link>
-        )}
+          <div className="flex items-center gap-3">
+            {isFull ? (
+              study.liveUrl ? (
+                <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white transition hover:border-[#ff4d00]/40">NeighborNotes Live Link <span aria-hidden>→</span></a>
+              ) : (
+                <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the city-by-city research <span aria-hidden>→</span></Link>
+              )
+            ) : (
+              <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the case study <span aria-hidden>→</span></Link>
+            )}
+
+            {study.liveUrl ? (
+              <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">NeighborNotes Live Link</a>
+            ) : null}
+          </div>
       </div>
 
       {isFull ? (
