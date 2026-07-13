@@ -8,10 +8,15 @@ const emptyForm = {
   subtitle: "",
   summary: "",
   liveUrl: "",
+  heroSubtitle: "",
   category: "Case Study",
   year: new Date().getFullYear().toString(),
   image: "",
   tags: "",
+  marketStats: "",
+  chartData: "",
+  evidenceCards: "",
+  sources: "",
 };
 
 export default function AdminCaseStudies() {
@@ -52,10 +57,15 @@ export default function AdminCaseStudies() {
       subtitle: item.subtitle || "",
       summary: item.summary || "",
       liveUrl: item.liveUrl || "",
+      heroSubtitle: item.heroSubtitle || "",
+      marketStats: item.marketStats ? JSON.stringify(item.marketStats, null, 2) : "",
+      chartData: item.chartData ? JSON.stringify(item.chartData, null, 2) : "",
+      evidenceCards: item.evidenceCards ? JSON.stringify(item.evidenceCards, null, 2) : "",
       category: item.category || "Case Study",
       year: item.year || "",
       image: item.image || "",
       tags: Array.isArray(item.tags) ? item.tags.join(", ") : item.tags || "",
+      sources: Array.isArray(item.sources) ? item.sources.join(", ") : item.sources || "",
     });
     setModalOpen(true);
   };
@@ -69,12 +79,45 @@ export default function AdminCaseStudies() {
     e.preventDefault();
     setSaving(true);
 
+    // parse JSON inputs and normalize arrays
+    let marketStats = [];
+    let chartData = {};
+    let evidenceCards = [];
+    try {
+      marketStats = formData.marketStats ? JSON.parse(formData.marketStats) : [];
+    } catch (err) {
+      alert("Invalid JSON in Market stats");
+      setSaving(false);
+      return;
+    }
+    try {
+      chartData = formData.chartData ? JSON.parse(formData.chartData) : {};
+    } catch (err) {
+      alert("Invalid JSON in Chart data");
+      setSaving(false);
+      return;
+    }
+    try {
+      evidenceCards = formData.evidenceCards ? JSON.parse(formData.evidenceCards) : [];
+    } catch (err) {
+      alert("Invalid JSON in Evidence cards");
+      setSaving(false);
+      return;
+    }
+
     const payload = {
       ...formData,
       id: formData.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""),
       tags: formData.tags
         .split(",")
         .map((tag) => tag.trim())
+        .filter(Boolean),
+      marketStats,
+      chartData,
+      evidenceCards,
+      sources: formData.sources
+        .split(",")
+        .map((s) => s.trim())
         .filter(Boolean),
     };
 
@@ -240,6 +283,31 @@ export default function AdminCaseStudies() {
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Tags</label>
                   <input name="tags" value={formData.tags} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
                 </div>
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Hero subtitle</label>
+                <input name="heroSubtitle" value={formData.heroSubtitle} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Market stats (JSON array)</label>
+                <textarea name="marketStats" rows={3} value={formData.marketStats} onChange={handleInputChange} placeholder='[{ "label": "Market value", "value": "$12B+", "detail": "~7.9%" }]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Evidence cards (JSON array)</label>
+                <textarea name="evidenceCards" rows={3} value={formData.evidenceCards} onChange={handleInputChange} placeholder='[{ "title": "68–80% renters", "description": "..." }]' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Chart data (JSON object)</label>
+                <textarea name="chartData" rows={5} value={formData.chartData} onChange={handleInputChange} placeholder='{"holdings":[{ "city":"Dhaka","holdings":592000 }]}' className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
+              </div>
+
+              <div>
+                <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-white/60">Sources (comma separated)</label>
+                <input name="sources" value={formData.sources} onChange={handleInputChange} className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white" />
               </div>
 
               <div className="flex justify-end gap-3 border-t border-white/5 pt-5">
