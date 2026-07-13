@@ -332,8 +332,6 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
           ) : (
             <button disabled className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/40">Coming soon</button>
           )}
-
-          <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">Read the city-by-city research <span aria-hidden>→</span></Link>
         </div>
       </div>
 
