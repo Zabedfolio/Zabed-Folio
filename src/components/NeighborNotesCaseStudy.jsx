@@ -112,6 +112,31 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
 
       {isFull ? (
         <div className="space-y-8">
+          <div className="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+            <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
+              <p className="section-label">Project at a glance</p>
+              <h3 className="mt-3 text-2xl font-semibold text-white">NeighborNotes — Role, Timeline, Tech</h3>
+              <p className="mt-4 text-sm leading-7 text-white/60">NeighborNotes aims to transform chaotic owner–resident communication into a secure, role-based digital notice board that creates <span className="text-amber-300 font-semibold">financial transparency</span>, <span className="text-emerald-300 font-semibold">accountability</span>, and <span className="text-rose-300 font-semibold">actionable escalation</span> across six major Bangladeshi cities. The product focuses on visible, auditable notices (no private chat), verified resident registration, and a lightweight maintenance & emergency workflow that scales from Dhaka to Barisal.</p>
+
+              <div className="mt-4 space-y-2 text-sm text-white/60">
+                <div><span className="font-semibold text-white">Role:</span> Zabed Mahmud (Team Lead & Full Stack Developer), Monjur Uddin (Frontend), Nosad Sattar Sohag (Backend)</div>
+                <div><span className="font-semibold text-white">Project Type:</span> Community PropTech Web Application</div>
+                <div><span className="font-semibold text-white">Timeline:</span> 1 to 1.5 months</div>
+                <div><span className="font-semibold text-white">Tech Stack:</span> Next.js 14, Node.js, Express.js, MongoDB, Better Auth, Cloudinary, date-fns</div>
+              </div>
+            </div>
+            <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
+              <p className="section-label">Snapshot Graphs</p>
+              <h3 className="mt-3 text-2xl font-semibold text-white">Holdings & Tenure</h3>
+              <div className="mt-6 grid gap-6">
+                <BarChart data={chartData.holdings} />
+                <div className="grid grid-cols-2 gap-4">
+                  <DonutChart data={chartData.dhakaTenure} label="Dhaka" />
+                  <DonutChart data={chartData.chattogramTenure} label="Chattogram" />
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="grid gap-4 lg:grid-cols-4">
             {stats.map((stat) => (
               <div key={stat.label} className="glass-panel rounded-[1.5rem] p-6">
