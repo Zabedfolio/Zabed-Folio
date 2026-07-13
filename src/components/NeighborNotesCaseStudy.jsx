@@ -452,130 +452,134 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
           variants={stagger}
           className="grid gap-6 md:grid-cols-3 w-full"
         >
-          {/* Build Time Card */}
+          {/* Coverage Card — 37.5% Fully Solved */}
           <motion.div
             variants={fade(0)}
-            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5 min-h-[360px]"
+            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/5 min-h-[360px]"
           >
-            <div className="relative h-[180px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+            {/* SVG radial arc background — 37.5% */}
+            <div className="relative h-[200px] w-full bg-[#f8fdfb] border-b border-black/5 flex items-center justify-center overflow-hidden select-none">
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
-              <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
-              <div className="relative z-10 w-full max-w-[170px] rounded-2xl border border-white/60 bg-white/75 p-3.5 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-2.5">
-                <div className="flex justify-between items-center w-full">
-                  <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Build Time</span>
-                  <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                </div>
-                <div className="text-center py-1">
-                  <span className="font-mono text-2xl font-extrabold tracking-tight text-[#ff5f1a]">
-                    1–1.5
-                  </span>
-                </div>
-                <div className="border-t border-black/5 pt-2 text-center">
-                  <span className="text-[8px] font-mono text-black/35 uppercase tracking-wider font-bold">
-                    Months Active
-                  </span>
-                </div>
+              {/* Large faint full circle as track */}
+              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full opacity-[0.07]">
+                <circle cx="80" cy="80" r="65" fill="none" stroke="#10b981" strokeWidth="18" />
+              </svg>
+              {/* Animated arc — 37.5% of 408.41 circumference = 153.15 */}
+              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full -rotate-90">
+                <circle cx="80" cy="80" r="65" fill="none" stroke="#10b981" strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeDasharray="408.41"
+                  strokeDashoffset="255.26"
+                  className="transition-all duration-1000"
+                  style={{ filter: "drop-shadow(0 0 6px rgba(16,185,129,0.4))" }}
+                />
+              </svg>
+              {/* Center stat */}
+              <div className="relative z-10 flex flex-col items-center justify-center">
+                <span className="font-mono text-4xl font-black tracking-tight text-emerald-600">37.5%</span>
+                <span className="font-mono text-[9px] text-emerald-600/60 uppercase tracking-widest font-bold mt-1">of 8 Problems</span>
               </div>
             </div>
             <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
               <div>
-                <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">
-                  Timeline
-                </h3>
-                <p className="text-[11px] text-black/55 leading-relaxed mt-1">
-                  System design validation, remote owner control dashboards, and deployment setups completed over a six-week project run.
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+                  <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">Fully Solved</h3>
+                </div>
+                <p className="text-[11px] text-black/55 leading-relaxed mt-2">
+                  3 out of 8 distinct city problems are completely resolved — unauthorized subletting, absentee owner disconnect, and real-time hazard communication.
                 </p>
               </div>
-              <span className="font-mono text-[8px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
-                Build metrics active
+              <span className="font-mono text-[8px] text-emerald-600/70 uppercase tracking-widest font-bold">
+                Direct feature coverage
               </span>
             </div>
           </motion.div>
 
-          {/* Tech Stack Card */}
+          {/* Coverage Card — 50% Partially Solved */}
           <motion.div
             variants={fade(0.05)}
-            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5 min-h-[360px]"
+            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-amber-500/30 hover:shadow-xl hover:shadow-amber-500/5 min-h-[360px]"
           >
-            <div className="relative h-[180px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+            {/* SVG radial arc background — 50% */}
+            <div className="relative h-[200px] w-full bg-[#fffdf8] border-b border-black/5 flex items-center justify-center overflow-hidden select-none">
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
-              <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
-              <div className="relative z-10 w-full max-w-[170px] rounded-2xl border border-white/60 bg-white/75 p-3.5 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-2.5">
-                <div className="flex justify-between items-center w-full">
-                  <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Stack</span>
-                  <span className="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-600">
-                    Verified
-                  </span>
-                </div>
-                <div className="text-center py-1">
-                  <span className="font-mono text-2xl font-extrabold tracking-tight text-[#ff5f1a]">
-                    7
-                  </span>
-                </div>
-                <div className="border-t border-black/5 pt-2 text-center">
-                  <span className="text-[8px] font-mono text-black/35 uppercase tracking-wider font-bold">
-                    Core Tools
-                  </span>
-                </div>
+              {/* Track */}
+              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full opacity-[0.07]">
+                <circle cx="80" cy="80" r="65" fill="none" stroke="#f59e0b" strokeWidth="18" />
+              </svg>
+              {/* Animated arc — 50% of 408.41 = 204.20 offset */}
+              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full -rotate-90">
+                <circle cx="80" cy="80" r="65" fill="none" stroke="#f59e0b" strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeDasharray="408.41"
+                  strokeDashoffset="204.21"
+                  className="transition-all duration-1000"
+                  style={{ filter: "drop-shadow(0 0 6px rgba(245,158,11,0.4))" }}
+                />
+              </svg>
+              {/* Center stat */}
+              <div className="relative z-10 flex flex-col items-center justify-center">
+                <span className="font-mono text-4xl font-black tracking-tight text-amber-500">50%</span>
+                <span className="font-mono text-[9px] text-amber-500/60 uppercase tracking-widest font-bold mt-1">of 8 Problems</span>
               </div>
             </div>
             <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
               <div>
-                <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">
-                  Tech Stack
-                </h3>
-                <p className="text-[11px] text-black/55 leading-relaxed mt-1">
-                  Next.js 14, Node.js, Express, MongoDB, Better Auth, Cloudinary, and date-fns for production-ready notices.
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-amber-400" />
+                  <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">Partially Solved</h3>
+                </div>
+                <p className="text-[11px] text-black/55 leading-relaxed mt-2">
+                  4 out of 8 problems are significantly improved — maintenance visibility, service-charge opacity, housing affordability, and sanitation escalation.
                 </p>
               </div>
-              <span className="font-mono text-[8px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
-                Tools integration verified
+              <span className="font-mono text-[8px] text-amber-500/70 uppercase tracking-widest font-bold">
+                Communication layer added
               </span>
             </div>
           </motion.div>
 
-          {/* Status Card */}
+          {/* Coverage Card — 12.5% Out of Scope */}
           <motion.div
             variants={fade(0.1)}
-            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5 min-h-[360px]"
+            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl hover:shadow-black/5 min-h-[360px]"
           >
-            <div className="relative h-[180px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+            {/* SVG radial arc background — 12.5% */}
+            <div className="relative h-[200px] w-full bg-[#fafafa] border-b border-black/5 flex items-center justify-center overflow-hidden select-none">
               <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
-              <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
-              <div className="relative z-10 w-full max-w-[170px] rounded-2xl border border-white/60 bg-white/75 p-3.5 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-2.5">
-                <div className="flex justify-between items-center w-full">
-                  <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Deploy</span>
-                  <span className="flex h-2 w-2 relative">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                  </span>
-                </div>
-                <div className="text-center py-1">
-                  <span className="font-mono text-2xl font-extrabold tracking-tight text-[#ff5f1a]">
-                    Live
-                  </span>
-                </div>
-                <div className="border-t border-black/5 pt-2 text-center">
-                  <span className="text-[8px] font-mono text-black/35 uppercase tracking-wider font-bold">
-                    Vercel + Render
-                  </span>
-                </div>
+              {/* Track */}
+              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full opacity-[0.06]">
+                <circle cx="80" cy="80" r="65" fill="none" stroke="#6b7280" strokeWidth="18" />
+              </svg>
+              {/* Animated arc — 12.5% of 408.41 = 357.36 offset */}
+              <svg viewBox="0 0 160 160" className="absolute inset-0 w-full h-full -rotate-90">
+                <circle cx="80" cy="80" r="65" fill="none" stroke="#9ca3af" strokeWidth="8"
+                  strokeLinecap="round"
+                  strokeDasharray="408.41"
+                  strokeDashoffset="357.36"
+                  className="transition-all duration-1000"
+                  style={{ filter: "drop-shadow(0 0 4px rgba(107,114,128,0.3))" }}
+                />
+              </svg>
+              {/* Center stat */}
+              <div className="relative z-10 flex flex-col items-center justify-center">
+                <span className="font-mono text-4xl font-black tracking-tight text-black/40">12.5%</span>
+                <span className="font-mono text-[9px] text-black/30 uppercase tracking-widest font-bold mt-1">of 8 Problems</span>
               </div>
             </div>
             <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
               <div>
-                <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">
-                  Status
-                </h3>
-                <p className="text-[11px] text-black/55 leading-relaxed mt-1">
-                  The client portal is hosted on Vercel Edge Server, coupled with an Express backend API deployed securely on Render Web Service.
+                <div className="flex items-center gap-2">
+                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-black/20" />
+                  <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">Out of Scope</h3>
+                </div>
+                <p className="text-[11px] text-black/55 leading-relaxed mt-2">
+                  1 out of 8 problems — developer mortgage fraud in Dhaka — is a legal/registry-verification issue no digital notice board can realistically solve.
                 </p>
               </div>
-              <span className="font-mono text-[8px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
-                Prod environment active
+              <span className="font-mono text-[8px] text-black/30 uppercase tracking-widest font-bold">
+                Registry-level legal problem
               </span>
             </div>
           </motion.div>
