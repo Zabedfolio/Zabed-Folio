@@ -1,11 +1,17 @@
 import NeighborNotesCaseStudy from "@/components/NeighborNotesCaseStudy";
 
 export default async function CaseStudyDetailPage({ params }) {
-  const { slug } = await params;
+  const { slug } = params;
+
+  const response = await fetch("/api/case-studies", { cache: "no-store" });
+  const caseStudies = await response.json();
+  const study = Array.isArray(caseStudies)
+    ? caseStudies.find((item) => item.slug === slug || item.id === slug)
+    : null;
 
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(255,77,0,0.08),transparent_30%),linear-gradient(180deg,#0a0808_0%,#050505_100%)] text-white">
-      <NeighborNotesCaseStudy variant="full" slug={slug} />
+    <main className="min-h-screen bg-white">
+      <NeighborNotesCaseStudy variant="full" study={study} slug={slug} />
     </main>
   );
 }

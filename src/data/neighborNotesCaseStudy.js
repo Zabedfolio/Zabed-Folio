@@ -1,20 +1,114 @@
 export const neighborNotesCaseStudyContent = {
   id: "neighbornotes",
   slug: "neighbornotes",
-  title: "NeighborNotes — The Problem",
-  heroSubtitle: "A verified digital notice board connecting building owners and residents.",
+  title: "Bangladesh Urban Housing Disconnect",
+  heroSubtitle: "A Personal Case Study",
   summary:
-    "NeighborNotes is a role-based digital notice board that connects building owners and residents directly, replacing the scattered mix of handwritten paper notices, verbal messages passed through guards, and chaotic WhatsApp groups that dominate communication in Bangladesh's multi-story residential buildings today.",
+    "A solo capstone project analyzing the owner–resident communication gap across six major Bangladeshi cities, and the digital notice board I built to close it.",
   liveUrl: "",
-  category: "Case Study",
+  category: "Personal Project · Case Study",
   year: "2026",
   image: "",
   tags: ["Research", "Urban Housing", "Bangladesh", "Product Strategy"],
+  metadata: {
+    timeline: "1–1.5 months",
+    stack: "Next.js 14, Node.js, Express, MongoDB, Better Auth, Cloudinary, date-fns",
+    deployment: "Vercel + Render",
+  },
+  introduction: {
+    heading: "Introduction & Context",
+    content: `This started as an open-topic university capstone — I could choose any real-world problem to solve. My father owns a residential building, which gave me a first-hand reference point to actually watch how communication breaks down between an owner and residents in practice.
+
+What I found wasn't a small, local quirk. Bangladesh's urban housing market has grown to support over 5.2 crore urban residents, and the same core problem — no direct channel between owner and resident — shows up everywhere, just with different local symptoms: service-charge opacity in Dhaka, sanitation failures in Barisal, absentee landlords in Sylhet. Residents are left with unresolved maintenance calls; owners struggle to coordinate basic building-wide communication. NeighborNotes is the digital notice board I designed and built to close that gap.`,
+  },
+  problemIdentification: {
+    heading: "How I Identified and Validated the Problem",
+    content: `I used AI tools to help me research and structure the problem, then cross-checked what I found against public data — BBS census figures, city corporation revenue records, and development authority reports — so the product wouldn't be built around a single anecdote. The pattern held at a national scale, and in most cases was worse than I expected. That regional breakdown is what shaped the product: instead of one generic feature set, each city's specific failure mode maps to a specific NeighborNotes feature.`,
+  },
+  accessSystemDesign: {
+    heading: "Designing the Access System",
+    problem: "If registration were open, anyone could join any building's board — no way to guarantee that the people posting and reading notices actually lived there.",
+    solution: `A two-step verified-entry flow:
+1. The owner collects the resident's email directly, the same way a landlord already knows who's renting from them.
+2. The owner invites that email and issues a unique building code.
+3. The resident registers with their email and that code together — only then do they get access to that specific building's board.`,
+  },
+  directMessaging: {
+    heading: "Why No Direct Messaging",
+    content: `Deliberately, NeighborNotes has no private chat. Direct messaging tends to escalate landlord–tenant conflict — late-night pings, unresolved back-and-forth, no record of what was actually agreed. Keeping everything as public notices and open comments means nothing gets said that can later be denied, nobody gets pinged outside reasonable hours, and every interaction stays visible and timestamped.`,
+  },
+  legalBackdrop: {
+    heading: "The Legal Backdrop (DNCC, January 2026)",
+    intro: "Under the Rent Control Act 1991, the Dhaka North City Corporation released a 16-point tenant–owner guideline that NeighborNotes was designed to help owners comply with:",
+    guidelines: [
+      "Renegotiation capped at maximum 15% rent hike annually",
+      "Tenants must receive primary access keys (gate/roof) for fire safety",
+      "New community guidelines require resident consent first",
+      "Every payment demands a signed written receipt",
+      "Security deposits capped at a maximum of 1–3 months' rent",
+      "No arbitrary lockouts or motion restrictions without notice",
+      "Written bilateral rental agreements are mandatory",
+      "Owners must keep gas/water/electricity and sanitation utilities active",
+    ],
+  },
+  techStack: [
+    { name: "Next.js 14 (App Router)", reason: "Fast, mobile-responsive, well-suited to a role-based dashboard" },
+    { name: "Node.js + Express.js", reason: "Straightforward, scalable REST API layer" },
+    { name: "MongoDB", reason: "Flexible schema fits varying notice types, attachments, and expiry rules" },
+    { name: "Better Auth", reason: "Handles the verified, code-based registration flow securely" },
+    { name: "Cloudinary", reason: "Image uploads for maintenance/emergency notice photos" },
+    { name: "date-fns", reason: "Manages auto-archive/expiry logic for notices" },
+  ],
+  futureScope: [
+    {
+      title: "Maintenance Ticket Status Fields",
+      description: "Implementing transitions (Pending, In Progress, Resolved) for maintenance alerts, mapped directly from repair-logging gaps in Chattogram and Barisal.",
+    },
+    {
+      title: "Audited Service-Charge Ledger",
+      description: "A digital accounting module allowing building associations to log collections, utilities, and expenses, mapped directly from Dhaka's service-charge opacity problem.",
+    },
+    {
+      title: "Document Attachment (PDF Support)",
+      description: "Allowing authors to attach receipts, utility billing scans, or lease templates directly inside Rules or Maintenance notices.",
+    },
+    {
+      title: "Multi-Building / NRB Remote Access",
+      description: "Streamlining landlord controls for owners managing properties from abroad, mapped directly from Sylhet's expat landlord-tenant disconnect.",
+    },
+  ],
+  whatILearned: {
+    heading: "What I Learned",
+    content: `Beyond the technical build, this project taught me how to turn a vague, personally-observed problem into something backed by real data and scoped into an actual buildable product. The building-code invite system in particular was a good lesson in access control — the instinct to "just let people sign up" is almost never right for a system tied to real physical spaces, and thinking through who should be allowed in, and how do they prove it early on shaped a lot of the rest of the architecture.`,
+  },
+  research: [
+    "Bangladesh Bureau of Statistics (BBS) — Population & Housing Census Report 2022",
+    "Real Estate & Housing Association of Bangladesh (REHAB) Annual Housing Index (2024–2025)",
+    "Dhaka North City Corporation (DNCC) Zonal Revenue Department & Tenant Guidelines (Jan 2026)",
+    "Sylhet City Corporation (SCC) Revenue Branch & BBS 2022 Ward Data",
+    "Chattogram City Corporation (CCC) Annual Budget & CDA Master Plan",
+    "Khulna City Corporation (KCC) Assessment Cell & KDA Master Plan",
+    "Rajshahi City Corporation (RCC) Door-to-Door Assessment Records & Revenue Branch",
+    "Barisal City Corporation (BCC) Assessment Cell & BBS Sanitation Survey",
+  ],
   marketStats: [
     { label: "Market value", value: "$12B+", detail: "~7.9% of GDP" },
     { label: "Urban households", value: "1.32 crore", detail: "Nationwide" },
-    { label: "Urban structures", value: "25–30 lakh", detail: "Concentrated in six major cities" },
+    { label: "Registered holdings", value: "25–30 lakh", detail: "Across six major cities" },
   ],
+  scaleOfProblem: {
+    heading: "The Scale of the Problem",
+    intro: `Bangladesh's real estate sector now exceeds $12 billion in value, contributing roughly 7.9% of national GDP. Of the country's urban households, over 1.32 crore reside in city centers — and in Dhaka alone, more than 56 lakh households live in dense, multi-story apartment stock with no institutional communication layer between owners and residents.`,
+    chartLabel: "Registered Holdings by City",
+    chartData: [
+      { city: "Dhaka", holdings: 592000, label: "5.92 lakh" },
+      { city: "Chattogram", holdings: 185000, label: "1.85 lakh" },
+      { city: "Barisal", holdings: 105200, label: "1.05 lakh households" },
+      { city: "Rajshahi", holdings: 82000, label: "82,000" },
+      { city: "Sylhet", holdings: 75430, label: "75,430" },
+      { city: "Khulna", holdings: 51675, label: "51,675" },
+    ],
+  },
   cities: [
     {
       id: "dhaka",
@@ -26,6 +120,8 @@ export const neighborNotesCaseStudyContent = {
       ownerPct: 32,
       ownerNote: null,
       problemCategory: "financial",
+      problem: "Developers have secretly mortgaged buildings without informing buyers; when loans default, courts auction homes out from under residents. Meanwhile, most renters never receive an audited service-charge statement.",
+      resolution: "Rules/General categories with document attachments force public visibility on service-charge statements and property registry status.",
       leadingProblem:
         "Service-charge financial opacity, caretaker dependency, developers secretly mortgaging buildings.",
       source: "DNCC/DSCC Revenue Dept & BBS",
@@ -51,11 +147,13 @@ export const neighborNotesCaseStudyContent = {
       name: "Chattogram",
       holdings: 185000,
       holdingsLabel: "1.85 lakh holdings",
-      householdsLabel: "10 lakh business establishments (separate figure)",
+      householdsLabel: "10 lakh business establishments",
       tenantPct: 80,
       ownerPct: 20,
       ownerNote: null,
       problemCategory: "infrastructure",
+      problem: "Severe monsoon waterlogging cripples ground floors and water pumps. Caretakers rely on paper logs, causing long delays in fixing generators, lifts, and shared infrastructure.",
+      resolution: "Emergency notifications flag real-time hazards; the Maintenance category tracks physical repairs with a visible history.",
       leadingProblem:
         "Severe monsoon waterlogging, no maintenance tracking, holding-tax reassessment disputes.",
       source: "CCC Budget & CDA Master Plan",
@@ -84,6 +182,8 @@ export const neighborNotesCaseStudyContent = {
       tenantPct: null,
       ownerNote: "Mostly NRB (expat) owners, local tenants",
       problemCategory: "absentee",
+      problem: "Absentee NRB (expat) owners leave properties with local caretakers. When services fail or taxes spike, residents have no direct line to the actual owner.",
+      resolution: "A remote owner dashboard gives diaspora landlords real-time oversight and a direct feedback channel from anywhere in the world.",
       leadingProblem:
         "Absentee landlord–tenant disconnect, holding tax hiked up to 500× sparking protests.",
       source: "SCC Revenue Branch & BBS 2022",
@@ -112,6 +212,8 @@ export const neighborNotesCaseStudyContent = {
       tenantPct: null,
       ownerNote: "Middle-class ownership crisis",
       problemCategory: "security",
+      problem: "Tenants sublet informally without consent. Without visitor logs or a tenant register, unidentified occupants can pose safety risks inside buildings.",
+      resolution: "Strict invite-only onboarding via verified building/owner codes prevents unregistered occupants from ever accessing the board.",
       leadingProblem:
         "Multi-ownership disputes, unauthorized subletting, outsider security risk.",
       source: "KCC Assessment Cell & KDA",
@@ -140,6 +242,8 @@ export const neighborNotesCaseStudyContent = {
       tenantPct: null,
       ownerNote: "Tenant-dependent middle class",
       problemCategory: "affordability",
+      problem: "Flat rates have spiked to ৳3,400–4,000/sq ft, pushing inflation-hit middle-class residents into cheaper housing with fewer basic services.",
+      resolution: "Shared Events and General channels let tenants coordinate community-level cost-sharing for utilities and amenities.",
       leadingProblem:
         "Post-COVID inflation, flat prices reaching ৳3,400–4,000/sq ft, affordability crisis.",
       source: "RCC door-to-door project & Revenue Branch",
@@ -168,6 +272,8 @@ export const neighborNotesCaseStudyContent = {
       tenantPct: null,
       ownerNote: "Climate-migrant driven growth",
       problemCategory: "infrastructure",
+      problem: "Rapid, unplanned migration has outpaced infrastructure. Sanitation is severe — only 49.6% of structures have a functioning septic tank.",
+      resolution: "Maintenance logs give tenants a public escalation trail for building-wide sanitation updates.",
       leadingProblem:
         "Weak sanitation — only 49.6% of buildings have a functioning septic tank.",
       source: "BCC Assessment Cell & BBS 2022",
@@ -190,9 +296,15 @@ export const neighborNotesCaseStudyContent = {
   ],
   legalBackdrop:
     "DNCC's 16-point guideline remains the regulatory backdrop: notice boards can add transparency, but they do not replace legal registration or infrastructure investment.",
+  problemCoverageAnalysis: {
+    heading: "Problem Coverage Analysis",
+    intro: `Across the eight distinct local problems identified in this six-city research, NeighborNotes' current feature set **fully solves 3 (37.5%)**, **partially solves 4 (50%)** by adding communication and accountability where none existed before, and is **honestly out of scope for 1 (12.5%)** — developer mortgage fraud, which is a legal/registry-verification issue no notice board can realistically fix.
+
+By replacing unverified verbal caretaker chains with timestamped digital notices and comment history, NeighborNotes directly targets the core communication loop affecting well over **85.8 lakh urban residents** across Dhaka and the other major city corporations studied here.`,
+  },
   coverageRows: [
     {
-      problem: "Unauthorized subletting & outsider security risk",
+      problem: "Unauthorized subletting & security risk",
       city: "Khulna",
       feature: "Verified registration via unique building/area code",
       status: "Solved",
@@ -201,55 +313,55 @@ export const neighborNotesCaseStudyContent = {
     {
       problem: "Absentee owner disconnect",
       city: "Sylhet",
-      feature: "Owner Dashboard, accessible remotely",
+      feature: "Owner Dashboard, accessible remotely from anywhere",
       status: "Solved",
       tone: "positive",
     },
     {
       problem: "Real-time hazard communication",
-      city: "Chattogram / Sylhet",
-      feature: "Emergency category + pin",
+      city: "Chattogram, Sylhet",
+      feature: "Emergency category + pinned notice headers",
       status: "Solved",
       tone: "positive",
     },
     {
       problem: "Maintenance visibility & escalation",
-      city: "Chattogram / Barisal",
-      feature: "Maintenance category + comment thread",
+      city: "Chattogram, Barisal",
+      feature: "Maintenance category + notice comment thread",
       status: "Partially solved",
       tone: "warning",
     },
     {
       problem: "Service-charge financial opacity",
       city: "Dhaka",
-      feature: "Rules/General category + notice attachments",
+      feature: "Rules/General category + document attachment options",
       status: "Partially solved",
       tone: "warning",
     },
     {
       problem: "Developer mortgage fraud",
       city: "Dhaka",
-      feature: "—",
+      feature: "N/A — out of scope, legal/registry-verification problem",
       status: "Out of scope",
       tone: "neutral",
     },
     {
       problem: "Housing affordability / inflation",
       city: "Rajshahi",
-      feature: "Events/General category for cost-sharing coordination",
-      status: "Partial, indirect mitigation",
+      feature: "Events/General channels for cost-sharing coordination",
+      status: "Partially solved",
       tone: "warning",
     },
     {
-      problem: "Sanitation infrastructure",
+      problem: "Sanitation infrastructure failures",
       city: "Barisal",
-      feature: "Maintenance category",
+      feature: "Maintenance category escalations & comment history",
       status: "Partially solved",
       tone: "warning",
     },
   ],
   backlog: [
-    "Maintenance ticket status field (Pending / In Progress / Resolved)",
+    "Maintenance ticket status field (Pending / In Progress / Resolved) for maintenance alerts",
     "Service Charge Ledger for audited monthly finance visibility",
     "PDF / document attachments on notices for receipts and contracts",
     "Multi-building and NRB remote owner support",

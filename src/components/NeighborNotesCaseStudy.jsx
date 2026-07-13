@@ -2,528 +2,917 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  CartesianGrid,
-  XAxis,
-  YAxis,
-  Tooltip as ReTooltip,
-  ResponsiveContainer,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  Radar,
-  RadarChart as ReRadarChart,
-  ScatterChart,
-  Scatter,
-  ZAxis,
-  Legend,
-} from "recharts";
-import { fadeUp, staggerContainer } from "@/utils/motionVariants";
-import { neighborNotesCaseStudyContent } from "@/data/neighborNotesCaseStudy";
 
-function DonutChart({ data, label }) {
-  const total = (data || []).reduce((sum, item) => sum + (item.value || 0), 0);
-  let offset = 0;
+// Motion helpers matching the reference page motion language
+const fade = (delay = 0) => ({
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1], delay },
+  },
+});
 
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.09 } },
+};
+
+export default function NeighborNotesCaseStudy({ study, variant = "full", slug }) {
+  // Always render the full case study
   return (
-    <div className="space-y-4">
-      <div className="mx-auto flex h-36 w-36 items-center justify-center rounded-full bg-white/[0.03] p-3">
-        <svg viewBox="0 0 120 120" className="h-32 w-32 -rotate-90">
-          <circle cx="60" cy="60" r="48" stroke="rgba(255,255,255,0.08)" strokeWidth="12" fill="none" />
-          {(data || []).map((item) => {
-            const length = total > 0 ? (item.value / total) * 302 : 0;
-            const dash = `${length} 302`;
-            const circle = (
-              <circle
-                key={item.name}
-                cx="60"
-                cy="60"
-                r="48"
-                stroke={item.color}
-                strokeWidth="12"
-                strokeLinecap="round"
-                fill="none"
-                strokeDasharray={dash}
-                strokeDashoffset={-offset}
-              />
-            );
-            offset += length;
-            return circle;
-          })}
-        </svg>
-      </div>
-      <div className="text-center">
-        <p className="text-sm font-semibold text-white">{label}</p>
-        <p className="mt-1 text-xs uppercase tracking-[0.2em] text-white/45">{data?.[0]?.value ?? ""}% renters</p>
-      </div>
-    </div>
-  );
-}
-
-function BarChart({ data }) {
-  const safe = data || [];
-  const max = safe.length ? Math.max(...safe.map((item) => item.holdings || 0)) : 1;
-
-  return (
-    <div className="mt-4 space-y-4">
-      {safe.map((item) => (
-        <div key={item.city}>
-          <div className="mb-2 flex items-center justify-between text-sm">
-            <span className="text-white/70">{item.city}</span>
-            <span className="text-white/45">{(item.holdings || 0).toLocaleString()}</span>
-          </div>
-          <div className="h-2.5 overflow-hidden rounded-full bg-white/[0.06]">
-            <div
-              className="h-full rounded-full bg-gradient-to-r from-[#4338CA] to-[#ff4d00]"
-              style={{ width: `${((item.holdings || 0) / max) * 100}%` }}
+    <main className="min-h-screen bg-white text-[#1a1a1a] select-text">
+      
+      {/* ── Top Navigation (Back Home) ── */}
+      <div className="mx-auto max-w-[720px] px-6 pt-12 flex items-center justify-between">
+        <Link
+          href="/"
+          className="group inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.2em] text-black/35 transition-colors hover:text-black/70"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 16 16"
+            fill="currentColor"
+            className="h-3 w-3 rotate-180 transition-transform duration-300 group-hover:-translate-x-0.5"
+          >
+            <path
+              fillRule="evenodd"
+              d="M2 8a.75.75 0 0 1 .75-.75h8.69L8.22 4.03a.75.75 0 0 1 1.06-1.06l4.5 4.5a.75.75 0 0 1 0 1.06l-4.5 4.5a.75.75 0 1 1-1.06-1.06l3.22-3.22H2.75A.75.75 0 0 1 2 8Z"
+              clipRule="evenodd"
             />
+          </svg>
+          Back home
+        </Link>
+      </div>
+
+      {/* ── Hero Section ── */}
+      <section className="mx-auto max-w-[720px] px-6 pt-16 pb-12">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-6"
+        >
+          <motion.p
+            variants={fade(0)}
+            className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold"
+          >
+            A solo capstone project
+          </motion.p>
+
+          <motion.h1
+            variants={fade(0.05)}
+            className="text-[clamp(2.4rem,6vw,4.5rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a]"
+          >
+            NeighborNotes.
+            <br />
+            <span className="text-black/30">Notice board.</span>
+          </motion.h1>
+
+          <motion.p
+            variants={fade(0.1)}
+            className="text-lg leading-8 text-black/55 font-normal"
+          >
+            A solo capstone project analyzing the owner–resident communication gap across six major Bangladeshi cities, and the digital notice board I built to close it.
+          </motion.p>
+        </motion.div>
+      </section>
+
+      {/* ── Metadata Cards Section ── */}
+      <section className="mx-auto max-w-[720px] px-6 pb-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="grid gap-4 sm:grid-cols-3 w-full"
+        >
+          {/* Build Time Card */}
+          <motion.div
+            variants={fade(0)}
+            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5 min-h-[360px]"
+          >
+            <div className="relative h-[180px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+              <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
+              <div className="relative z-10 w-full max-w-[170px] rounded-2xl border border-white/60 bg-white/75 p-3.5 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-2.5">
+                <div className="flex justify-between items-center w-full">
+                  <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Build Time</span>
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                </div>
+                <div className="text-center py-1">
+                  <span className="font-mono text-2xl font-extrabold tracking-tight text-[#ff5f1a]">
+                    1–1.5
+                  </span>
+                </div>
+                <div className="border-t border-black/5 pt-2 text-center">
+                  <span className="text-[8px] font-mono text-black/35 uppercase tracking-wider font-bold">
+                    Months Active
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
+              <div>
+                <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">
+                  Timeline
+                </h3>
+                <p className="text-[11px] text-black/55 leading-relaxed mt-1">
+                  System design validation, remote owner control dashboards, and deployment setups completed over a six-week project run.
+                </p>
+              </div>
+              <span className="font-mono text-[8px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
+                Build metrics active
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Tech Stack Card */}
+          <motion.div
+            variants={fade(0.05)}
+            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5 min-h-[360px]"
+          >
+            <div className="relative h-[180px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+              <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
+              <div className="relative z-10 w-full max-w-[170px] rounded-2xl border border-white/60 bg-white/75 p-3.5 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-2.5">
+                <div className="flex justify-between items-center w-full">
+                  <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Stack</span>
+                  <span className="text-[8px] font-mono font-bold px-1.5 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-emerald-600">
+                    Verified
+                  </span>
+                </div>
+                <div className="text-center py-1">
+                  <span className="font-mono text-2xl font-extrabold tracking-tight text-[#ff5f1a]">
+                    7
+                  </span>
+                </div>
+                <div className="border-t border-black/5 pt-2 text-center">
+                  <span className="text-[8px] font-mono text-black/35 uppercase tracking-wider font-bold">
+                    Core Tools
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
+              <div>
+                <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">
+                  Tech Stack
+                </h3>
+                <p className="text-[11px] text-black/55 leading-relaxed mt-1">
+                  Next.js 14, Node.js, Express, MongoDB, Better Auth, Cloudinary, and date-fns for production-ready notices.
+                </p>
+              </div>
+              <span className="font-mono text-[8px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
+                Tools integration verified
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Status Card */}
+          <motion.div
+            variants={fade(0.1)}
+            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5 min-h-[360px]"
+          >
+            <div className="relative h-[180px] w-full bg-[#fcfcfc] border-b border-black/5 flex items-center justify-center p-4 overflow-hidden select-none">
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:14px_24px] pointer-events-none" />
+              <div className="absolute w-24 h-24 rounded-full bg-[#ff5f1a]/5 blur-2xl pointer-events-none" />
+              <div className="relative z-10 w-full max-w-[170px] rounded-2xl border border-white/60 bg-white/75 p-3.5 shadow-lg shadow-black/5 backdrop-blur-md flex flex-col gap-2.5">
+                <div className="flex justify-between items-center w-full">
+                  <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Deploy</span>
+                  <span className="flex h-2 w-2 relative">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                </div>
+                <div className="text-center py-1">
+                  <span className="font-mono text-2xl font-extrabold tracking-tight text-[#ff5f1a]">
+                    Live
+                  </span>
+                </div>
+                <div className="border-t border-black/5 pt-2 text-center">
+                  <span className="text-[8px] font-mono text-black/35 uppercase tracking-wider font-bold">
+                    Vercel + Render
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
+              <div>
+                <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">
+                  Status
+                </h3>
+                <p className="text-[11px] text-black/55 leading-relaxed mt-1">
+                  The client portal is hosted on Vercel Edge Server, coupled with an Express backend API deployed securely on Render Web Service.
+                </p>
+              </div>
+              <span className="font-mono text-[8px] text-[#ff5f1a]/70 uppercase tracking-widest font-bold">
+                Prod environment active
+              </span>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── Introduction & Context ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            Introduction & Context
+          </motion.p>
+          <div className="mt-6 text-[1.05rem] leading-[1.9] text-black/55 space-y-6">
+            <motion.p variants={fade(0.05)}>
+              This started as an open-topic university capstone — I could choose any real-world problem to solve. My father owns a residential building, which gave me a first-hand reference point to actually watch how communication breaks down between an owner and residents in practice.
+            </motion.p>
+            <motion.p variants={fade(0.1)}>
+              What I found wasn't a small, local quirk. Bangladesh's urban housing market has grown to support over <span className="font-semibold text-[#1a1a1a]">5.2 crore urban residents</span>, and the same core problem — no direct channel between owner and resident — shows up everywhere, just with different local symptoms: service-charge opacity in Dhaka, sanitation failures in Barisal, absentee landlords in Sylhet. Residents are left with unresolved maintenance calls; owners struggle to coordinate basic building-wide communication. NeighborNotes is the digital notice board I designed and built to close that gap.
+            </motion.p>
           </div>
-        </div>
-      ))}
-    </div>
-  );
-}
+        </motion.div>
+      </section>
 
-function CityRadarChart({ cities }) {
-  const categories = [
-    "financial",
-    "maintenance",
-    "security",
-    "sanitation",
-    "affordability",
-    "absentee",
-  ];
-
-  const aggregated = categories.map((category) => {
-    const total = cities.reduce((sum, city) => sum + (city.problemSeverity?.[category] || 0), 0);
-    const value = cities.length ? Math.round((total / cities.length) * 10) / 10 : 0;
-    return {
-      category: category.charAt(0).toUpperCase() + category.slice(1),
-      value,
-    };
-  });
-
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <ReRadarChart cx="50%" cy="50%" outerRadius="70%" data={aggregated}>
-        <PolarGrid stroke="rgba(148,163,184,0.16)" />
-        <PolarAngleAxis dataKey="category" tick={{ fill: "#cbd5e1", fontSize: 12 }} />
-        <PolarRadiusAxis angle={30} domain={[0, 5]} tick={{ fill: "#94a3b8", fontSize: 11 }} />
-        <Radar name="Severity" dataKey="value" stroke="#ff4d00" fill="#ff4d00" fillOpacity={0.3} />
-        <Legend wrapperStyle={{ color: "#cbd5e1", fontSize: 12 }} />
-      </ReRadarChart>
-    </ResponsiveContainer>
-  );
-}
-
-function CityBubbleChart({ cities }) {
-  const data = cities.map((city) => ({
-    city: city.name,
-    holdings: city.holdings || 0,
-    severity: city.problemSeverity?.[city.problemCategory] || 0,
-    z: Math.max(60, Math.min(260, (city.holdings || 0) / 2500)),
-    fill:
-      city.problemCategory === "financial"
-        ? "#4338CA"
-        : city.problemCategory === "infrastructure"
-        ? "#F59E0B"
-        : city.problemCategory === "absentee"
-        ? "#10B981"
-        : "#8b5cf6",
-  }));
-
-  const renderBubble = (props) => {
-    const { cx, cy, payload } = props;
-    return <circle cx={cx} cy={cy} r={Math.max(8, Math.min(22, payload.z / 12))} fill={payload.fill} opacity={0.85} />;
-  };
-
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <ScatterChart>
-        <CartesianGrid stroke="rgba(148,163,184,0.16)" strokeDasharray="4 4" />
-        <XAxis
-          dataKey="holdings"
-          tickFormatter={(value) => `${Math.round(value / 1000)}k`}
-          tick={{ fill: "#cbd5e1", fontSize: 11 }}
-          axisLine={false}
-          tickLine={false}
-          name="Holdings"
-        />
-        <YAxis
-          dataKey="severity"
-          domain={[0, 6]}
-          tick={{ fill: "#cbd5e1", fontSize: 11 }}
-          axisLine={false}
-          tickLine={false}
-          name="Severity"
-        />
-        <ZAxis dataKey="z" range={[90, 260]} name="Size" />
-        <ReTooltip cursor={{ strokeDasharray: "3 3" }} formatter={(value, name) => [value, name]} />
-        <Scatter name="City severity" data={data} shape={renderBubble} />
-      </ScatterChart>
-    </ResponsiveContainer>
-  );
-}
-
-function CityTenantScatter({ cities }) {
-  const data = cities
-    .filter((city) => typeof city.tenantPct === "number")
-    .map((city) => ({
-      city: city.name,
-      tenantPct: city.tenantPct,
-      holdings: city.holdings || 0,
-      z: Math.max(60, Math.min(220, (city.tenantPct || 0) * 2.5)),
-    }));
-
-  return (
-    <ResponsiveContainer width="100%" height="100%">
-      <ScatterChart>
-        <CartesianGrid stroke="rgba(148,163,184,0.16)" strokeDasharray="4 4" />
-        <XAxis
-          dataKey="tenantPct"
-          tickFormatter={(value) => `${value}%`}
-          tick={{ fill: "#cbd5e1", fontSize: 11 }}
-          axisLine={false}
-          tickLine={false}
-          name="Tenant %"
-        />
-        <YAxis
-          dataKey="holdings"
-          tickFormatter={(value) => `${Math.round(value / 1000)}k`}
-          tick={{ fill: "#cbd5e1", fontSize: 11 }}
-          axisLine={false}
-          tickLine={false}
-          name="Holdings"
-        />
-        <ZAxis dataKey="z" range={[80, 220]} name="Marker" />
-        <ReTooltip cursor={{ strokeDasharray: "3 3" }} formatter={(value, name) => [name === "holdings" ? `${Math.round(value / 1000)}k` : `${value}%`, name]} />
-        <Scatter name="Tenant mix" data={data} fill="#10B981" />
-      </ScatterChart>
-    </ResponsiveContainer>
-  );
-}
-
-function CityMap({ cities }) {
-  const problems = {
-    financial: "#4338CA",
-    infrastructure: "#F59E0B",
-    absentee: "#10B981",
-    security: "#10B981",
-    affordability: "#F59E0B",
-  };
-
-  const cityMarkers = cities.map((city) => ({
-    ...city,
-    size: Math.max(
-      18,
-      Math.min(
-        42,
-        ((city.holdings || parseInt((city.householdsLabel || "").replace(/[^0-9]/g, ""), 10)) / 10000) * 3
-      )
-    ),
-    color: problems[city.problemCategory] || "#4338CA",
-  }));
-
-  const handleCityClick = (id) => {
-    const target = document.getElementById(id);
-    if (!target) return;
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  return (
-    <motion.div
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={staggerContainer}
-      className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-6"
-    >
-      <div className="mb-4 flex items-center justify-between">
-        <div>
-          <p className="section-label mb-1">City research map</p>
-          <h3 className="text-2xl font-semibold text-white">Bangladesh city study map</h3>
-        </div>
-        <p className="text-sm text-white/50">Static map preview for portfolio layout</p>
-      </div>
-      <div className="mx-auto overflow-hidden rounded-[1.75rem] bg-slate-950/90 p-4">
-        <img
-          src="https://i.ibb.co/GSn7pcB/Chat-GPT-Image-Jul-13-2026-05-44-12-PM.png"
-          alt="Bangladesh city study map"
-          className="h-[420px] w-full object-cover"
-        />
-      </div>
-    </motion.div>
-  );
-}
-
-export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
-  const study = neighborNotesCaseStudyContent || {};
-  const isFull = variant === "full";
-
-  const stats = study.marketStats || study.stats || [];
-  const cities = study.cities || [];
-  const evidenceCards = study.evidenceCards || [];
-  const coverageRows = study.coverageRows || [];
-  const backlog = study.backlog || [];
-  const sources = study.sources || [];
-  const chartData = study.chartData || { holdings: [], dhakaTenure: [], chattogramTenure: [], barisalSanitation: [] };
-
-  return (
-    <section className="section-shell py-24 sm:py-32">
-      <div className="mb-10 space-y-6">
-        <div className="flex flex-wrap items-center gap-3">
-          <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">
-            ← Back home
-          </Link>
-          <p className="section-label mb-0">{isFull ? "Case Study" : "03 — Case Study"}</p>
-        </div>
-        <div className="space-y-4 w-full">
-          <h2 className="section-title mt-4">{study.title}</h2>
-          {study.heroSubtitle ? <p className="mt-3 text-lg leading-8 text-white/60">{study.heroSubtitle}</p> : null}
-          <p className="mt-5 text-lg leading-8 text-white/60">{study.summary}</p>
-        </div>
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
       </div>
 
-      {isFull ? (
-        <div className="space-y-8">
-          <article className="mx-auto w-full max-w-7xl px-0 sm:px-2">
-            <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8 shadow-[0_20px_120px_rgba(0,0,0,0.25)]">
-              <p className="section-label">Case study</p>
-              <div className="flex flex-col gap-7 lg:flex-row lg:items-start lg:justify-between">
-                <div className="max-w-4xl">
-                  <h3 className="mt-3 text-4xl font-semibold text-white">NeighborNotes — Digital transformation of owner–resident communication</h3>
-                  <p className="mt-5 text-xl leading-9 text-white/70">A verified digital notice board connecting building owners and residents.</p>
-                </div>
-                <div className="mt-6 lg:mt-0">
-                  {study.liveUrl ? (
-                    <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-gradient-to-r from-[#ff4d00] via-[#ff7a29] to-[#ff4d00]/90 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(255,77,0,0.18)] transition hover:brightness-110">View Live Project <span aria-hidden>→</span></a>
-                  ) : (
-                    <button disabled className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm text-white/40">Coming soon</button>
-                  )}
-                </div>
+      {/* ── Scale of the Problem ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-8"
+        >
+          <motion.div variants={fade(0)}>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+              The Scale of the Problem
+            </p>
+            <p className="mt-6 text-[1.05rem] leading-[1.9] text-black/55">
+              Bangladesh's real estate sector now exceeds <strong className="text-black font-semibold">$12 billion</strong> in value, contributing roughly <strong className="text-black font-semibold">7.9% of national GDP</strong>. Of the country's urban households, over <strong className="text-black font-semibold">1.32 crore</strong> reside in city centers — and in Dhaka alone, more than <strong className="text-black font-semibold">56 lakh</strong> households live in dense, multi-story apartment stock with no institutional communication layer between owners and residents.
+            </p>
+          </motion.div>
+
+          {/* 3-up Simple Metric Cards */}
+          <motion.div
+            variants={fade(0.05)}
+            className="grid gap-4 sm:grid-cols-3 w-full"
+          >
+            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#ff5f1a]/30 transition-all duration-300">
+              <div className="flex justify-between items-center">
+                <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Market Value</span>
+                <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded-full">
+                  Verified
+                </span>
               </div>
-              <div className="mt-8 flex flex-wrap gap-3">
-                {study.tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium uppercase tracking-[0.24em] text-white/60">{tag}</span>
-                ))}
-              </div>
-              <div className="mt-6 flex flex-wrap items-center gap-4 text-sm text-white/50">
-                <span>University capstone project</span>
-                <span className="hidden sm:inline">•</span>
-                <span>Timeline: 1 to 1.5 months</span>
+              <div>
+                <p className="text-3xl font-extrabold tracking-tight text-[#1a1a1a]">$12B+</p>
+                <p className="text-[10px] text-black/40 font-mono mt-1">Real Estate Sector</p>
               </div>
             </div>
 
-            <div className="mt-12 grid gap-10 lg:grid-cols-[1.6fr_1.1fr]">
-              <div className="space-y-10">
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">Overview</h4>
-                  <p className="mt-5 text-base leading-8 text-white/65">NeighborNotes is a role-based digital notice board that connects building owners and residents directly, replacing the scattered mix of handwritten paper notices, verbal messages passed through guards, and chaotic WhatsApp groups that dominate communication in Bangladesh's multi-story residential buildings today.</p>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">1. What was this project, and how did it come about?</h4>
-                  <p className="mt-5 text-sm leading-8 text-white/65">This was an open-topic capstone project for my university — we were free to choose any real-world problem to solve. Rather than picking something generic, I wanted to build something rooted in a problem I could actually observe. My father owns a residential building, which gave me a natural starting point to look closely at how communication actually works between owners and residents.</p>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">2. How did you identify the problem?</h4>
-                  <p className="mt-5 text-sm leading-8 text-white/65">I started by talking through the situation with AI tools and cross-checking with general research, using my father's building as a real-world reference point. The pattern that emerged was clear: residents across major Bangladeshi cities have no direct line to their building owner.</p>
-                  <p className="mt-4 text-sm leading-8 text-white/65">If a pump breaks, a lift stops working, or a service charge deadline is approaching, that information has to pass through a building guard or caretaker — someone who is often busy, forgetful, or simply not equipped to manage communication for an entire building.</p>
-                  <p className="mt-4 text-sm leading-8 text-white/65">This gets worse when the owner doesn't live on-site, which is common. Many owners are occupied with personal, office, or business commitments elsewhere in the city, or are expatriates living abroad entirely. In those cases, residents are frequently left to resolve building issues on their own, with no clear channel to escalate problems or receive updates.</p>
-                  <div className="mt-6 rounded-[1.5rem] border border-white/10 bg-white/[0.02] p-6 text-sm leading-7 text-white/65">
-                    <p className="font-semibold text-white">Communication gap</p>
-                    <p className="mt-3">Resident → Guard → Owner, with critical messages often delayed or lost entirely.</p>
-                  </div>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">3. How did you validate this was a real, widespread problem?</h4>
-                  <p className="mt-5 text-sm leading-8 text-white/65">I didn't want to build a solution around a single anecdote, so I used AI-assisted research alongside public data sources (BBS census data, city corporation revenue records, and development authority reports) to check whether this pattern held at a national scale. It did — and the numbers were more severe than I expected.</p>
-                  <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
-                      <p className="text-sm uppercase tracking-[0.24em] text-white/40">Dhaka</p>
-                      <p className="mt-4 text-3xl font-semibold text-white">68%</p>
-                      <p className="mt-3 text-sm text-white/60">renters in Dhaka facing a broken line to owners.</p>
-                    </div>
-                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
-                      <p className="text-sm uppercase tracking-[0.24em] text-white/40">Chattogram</p>
-                      <p className="mt-4 text-3xl font-semibold text-white">80%</p>
-                      <p className="mt-3 text-sm text-white/60">tenant share, with monsoon damage and shared infrastructure risk.</p>
-                    </div>
-                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
-                      <p className="text-sm uppercase tracking-[0.24em] text-white/40">Barisal</p>
-                      <p className="mt-4 text-3xl font-semibold text-white">49.6%</p>
-                      <p className="mt-3 text-sm text-white/60">buildings with functioning septic tanks, exposing sanitation notice gaps.</p>
-                    </div>
-                  </div>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">4. What was the core idea behind NeighborNotes?</h4>
-                  <div className="mt-5 grid gap-6 lg:grid-cols-2">
-                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
-                      <p className="font-semibold text-white">Owner side</p>
-                      <ul className="mt-4 space-y-3 text-sm text-white/65">
-                        <li>Publish building notices, service charge updates, and official rules.</li>
-                        <li>Pin critical alerts and keep an auditable record of notices.</li>
-                        <li>Store documents and receipts tied to the building board.</li>
-                      </ul>
-                    </div>
-                    <div className="rounded-[1.5rem] bg-white/[0.03] p-6">
-                      <p className="font-semibold text-white">Resident side</p>
-                      <ul className="mt-4 space-y-3 text-sm text-white/65">
-                        <li>Report issues with photos directly to owners.</li>
-                        <li>Filter notices by category for emergencies, maintenance, and rules.</li>
-                        <li>Join only the board tied to their verified building.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">5. Biggest design problem</h4>
-                  <p className="mt-5 text-sm leading-8 text-white/65">Problem: if anyone could join any building's notice board, the system would be chaotic and insecure — there would be no way to guarantee that people posting and reading notices actually lived in that building.</p>
-                  <div className="mt-6 grid gap-4 sm:grid-cols-3">
-                    {[
-                      { step: "1", label: "Owner collects resident email" },
-                      { step: "2", label: "Owner invites email with unique building code" },
-                      { step: "3", label: "Resident registers with email + building code" },
-                    ].map((item) => (
-                      <div key={item.step} className="rounded-[1.5rem] bg-white/[0.03] p-5">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#ff4d00]/10 text-sm font-semibold text-[#ff4d00]">{item.step}</div>
-                        <p className="mt-4 text-sm text-white/65">{item.label}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">6. Why no private messaging?</h4>
-                  <div className="mt-5 rounded-[1.5rem] border border-amber-500/15 bg-amber-500/5 p-6">
-                    <p className="text-white font-semibold">Keeping communication public preserves accountability and reduces conflict.</p>
-                    <p className="mt-4 text-sm leading-7 text-white/65">Direct chat can escalate disputes, create unread late-night messages, and remove the shared, auditable record that a notice board provides.</p>
-                    <div className="mt-4 grid gap-3 sm:grid-cols-3 text-sm text-white/65">
-                      <div className="rounded-2xl bg-white/[0.05] p-3">Transparency</div>
-                      <div className="rounded-2xl bg-white/[0.05] p-3">Boundaries</div>
-                      <div className="rounded-2xl bg-white/[0.05] p-3">Accountability</div>
-                    </div>
-                  </div>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">7. How the platform organizes information</h4>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    {[
-                      "Maintenance",
-                      "Emergency",
-                      "Lost & Found",
-                      "Events",
-                      "Rules",
-                      "General",
-                    ].map((category) => (
-                      <span key={category} className="rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/65">{category}</span>
-                    ))}
-                  </div>
-                  <p className="mt-6 text-sm leading-8 text-white/65">Notices are sorted into fixed categories so residents can scan only what matters most. Critical items can be pinned, and older notices auto-archive to keep the board current instead of cluttered.</p>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">8. What I would build next</h4>
-                  <ul className="mt-5 space-y-4 text-sm text-white/65">
-                    <li>Real-time updates via WebSockets so notices and comments appear instantly.</li>
-                    <li>Mobile apps (React Native) for residents and caretakers who primarily use smartphones.</li>
-                    <li>Maintenance ticketing with status tracking from reported issue to resolution.</li>
-                    <li>Automated rent reminders and digital receipt generation.</li>
-                  </ul>
-                </section>
-
-                <section className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-2xl font-semibold text-white">9. What I learned</h4>
-                  <p className="mt-5 text-sm leading-8 text-white/65">This project taught me how to turn a vague, personally observed problem into something backed by real data and scoped into a buildable product. The building-code invite system was a key lesson in access control: the instinct to let anyone self-register is almost never right for a system tied to physical buildings.</p>
-                </section>
+            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#ff5f1a]/30 transition-all duration-300">
+              <div className="flex justify-between items-center">
+                <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">GDP Share</span>
+                <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded-full">
+                  Verified
+                </span>
               </div>
-
-              <aside className="space-y-8">
-                <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-xl font-semibold text-white">Hero visual</h4>
-                  <div className="mt-6 overflow-hidden rounded-[1.75rem] bg-slate-950/90">
-                    <img src="https://i.ibb.co/GSn7pcB/Chat-GPT-Image-Jul-13-2026-05-44-12-PM.png" alt="NeighborNotes hero visual" className="h-80 w-full object-cover" />
-                  </div>
-                </div>
-                <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-xl font-semibold text-white">Technologies</h4>
-                  <div className="mt-6 grid gap-3">
-                    {[
-                      "Next.js 14",
-                      "Node.js",
-                      "Express.js",
-                      "MongoDB",
-                      "Better Auth",
-                      "Cloudinary",
-                      "date-fns",
-                    ].map((tech) => (
-                      <span key={tech} className="rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white/65">{tech}</span>
-                    ))}
-                  </div>
-                </div>
-                <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-                  <h4 className="text-xl font-semibold text-white">Supporting data</h4>
-                  <div className="mt-6 space-y-4 text-sm text-white/65">
-                    <div><span className="font-semibold text-white">Market value:</span> $12B+</div>
-                    <div><span className="font-semibold text-white">Urban households:</span> 1.32 crore</div>
-                    <div><span className="font-semibold text-white">Urban structures:</span> 25–30 lakh</div>
-                  </div>
-                </div>
-              </aside>
-            </div>
-
-            <div className="mt-14 rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8">
-              <h4 className="text-2xl font-semibold text-white">Sources</h4>
-              <div className="mt-5 space-y-3 text-sm text-white/65">
-                {sources.map((s) => (
-                  <div key={s}>• {s}</div>
-                ))}
+              <div>
+                <p className="text-3xl font-extrabold tracking-tight text-[#1a1a1a]">7.9%</p>
+                <p className="text-[10px] text-black/40 font-mono mt-1">National GDP</p>
               </div>
             </div>
-          </article>
-        </div>
-      ) : (
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
-            <p className="section-label">Problem overview</p>
-            <h3 className="mt-4 text-2xl font-semibold text-white">The same broken channel shows up in six cities</h3>
-            <div className="mt-6 grid gap-4 sm:grid-cols-2">
-              {stats.slice(0, 4).map((stat) => (
-                <div key={stat.label} className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4">
-                  <p className="text-sm text-white/40">{stat.label}</p>
-                  <p className="mt-3 text-2xl font-semibold text-white">{stat.value}</p>
-                  <p className="mt-2 text-sm text-white/50">{stat.detail}</p>
+
+            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#ff5f1a]/30 transition-all duration-300">
+              <div className="flex justify-between items-center">
+                <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Urban Families</span>
+                <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[8px] font-mono font-bold px-1.5 py-0.5 rounded-full">
+                  Verified
+                </span>
+              </div>
+              <div>
+                <p className="text-3xl font-extrabold tracking-tight text-[#1a1a1a]">1.32C</p>
+                <p className="text-[10px] text-black/40 font-mono mt-1">Metropolitan Center</p>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Holdings Bar Chart Card */}
+          <motion.div
+            variants={fade(0.1)}
+            className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#ff5f1a]/30 transition-all duration-300"
+          >
+            <div className="mb-6">
+              <p className="font-mono text-[9px] text-[#ff5f1a] uppercase tracking-wider font-bold">Registered Holdings by City</p>
+              <h4 className="text-base font-bold text-[#1a1a1a] mt-1">Holdings distribution across major urban centers</h4>
+            </div>
+            <div className="space-y-4">
+              {[
+                { city: "Dhaka", value: 592000, label: "5.92 lakh" },
+                { city: "Chattogram", value: 185000, label: "1.85 lakh" },
+                { city: "Barisal", value: 105200, label: "1.05 lakh households" },
+                { city: "Rajshahi", value: 82000, label: "82,000" },
+                { city: "Sylhet", value: 75430, label: "75,430" },
+                { city: "Khulna", value: 51675, label: "51,675" },
+              ].map((item, idx) => {
+                const max = 592000;
+                const percent = (item.value / max) * 100;
+                return (
+                  <div key={item.city} className="flex flex-col gap-1.5">
+                    <div className="flex justify-between text-xs font-mono text-black/60">
+                      <span className="font-semibold text-black">{item.city}</span>
+                      <span>{item.label}</span>
+                    </div>
+                    <div className="h-2.5 rounded-full bg-black/5 overflow-hidden w-full relative">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${percent}%` }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: idx * 0.05, ease: "easeOut" }}
+                        className="h-full rounded-full bg-gradient-to-r from-[#ff5f1a] to-amber-500"
+                      />
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── How I Identified the Problem ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            How I Identified and Validated the Problem
+          </motion.p>
+          <div className="mt-6 text-[1.05rem] leading-[1.9] text-black/55 space-y-6">
+            <motion.p variants={fade(0.05)}>
+              I used AI tools to help me research and structure the problem, then cross-checked what I found against public data — BBS census figures, city corporation revenue records, and development authority reports — so the product wouldn't be built around a single anecdote. The pattern held at a national scale, and in most cases was worse than I expected. That regional breakdown is what shaped the product: instead of one generic feature set, each city's specific failure mode maps to a specific NeighborNotes feature.
+            </motion.p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── Six Cities, Six Local Crises ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-8"
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            Six Cities, Six Local Crises
+          </motion.p>
+
+          <div className="grid gap-6 md:grid-cols-2 w-full">
+            {[
+              {
+                city: "Dhaka",
+                badge: "DNCC/DSCC",
+                meta: "5.92 lakh holdings · 68% renters",
+                problem: "Developers have secretly mortgaged buildings without informing buyers; when loans default, courts auction homes out from under residents. Meanwhile, most renters never receive an audited service-charge statement.",
+                resolution: "Rules/General categories with document attachments force public visibility on service-charge statements and property registry status."
+              },
+              {
+                city: "Chattogram",
+                badge: "CCC",
+                meta: "1.85 lakh holdings · ~80% renters",
+                problem: "Severe monsoon waterlogging cripples ground floors and water pumps. Caretakers rely on paper logs, causing long delays in fixing generators, lifts, and shared infrastructure.",
+                resolution: "Emergency notifications flag real-time hazards; the Maintenance category tracks physical repairs with a visible history."
+              },
+              {
+                city: "Sylhet",
+                badge: "SCC",
+                meta: "75,430 holdings · expatriate-owned",
+                problem: "Absentee NRB (expat) owners leave properties with local caretakers. When services fail or taxes spike, residents have no direct line to the actual owner.",
+                resolution: "A remote owner dashboard gives diaspora landlords real-time oversight and a direct feedback channel from anywhere in the world."
+              },
+              {
+                city: "Khulna",
+                badge: "KCC",
+                meta: "51,675 holdings · informal sublets",
+                problem: "Tenants sublet informally without consent. Without visitor logs or a tenant register, unidentified occupants can pose safety risks inside buildings.",
+                resolution: "Strict invite-only onboarding via verified building/owner codes prevents unregistered occupants from ever accessing the board."
+              },
+              {
+                city: "Rajshahi",
+                badge: "RCC",
+                meta: "82,000 holdings · middle-class squeeze",
+                problem: "Flat rates have spiked to ৳3,400–4,000/sq ft, pushing inflation-hit middle-class residents into cheaper housing with fewer basic services.",
+                resolution: "Shared Events and General channels let tenants coordinate community-level cost-sharing for utilities and amenities."
+              },
+              {
+                city: "Barisal",
+                badge: "BCC",
+                meta: "1.05 lakh households · climate-driven growth",
+                problem: "Rapid, unplanned migration has outpaced infrastructure. Sanitation is severe — only 49.6% of structures have a functioning septic tank.",
+                resolution: "Maintenance logs give tenants a public escalation trail for building-wide sanitation updates."
+              }
+            ].map((item, idx) => (
+              <motion.div
+                key={item.city}
+                variants={fade(idx * 0.05)}
+                className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between min-h-[320px] hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-lg transition-all duration-500"
+              >
+                <div>
+                  <div className="flex justify-between items-start">
+                    <h3 className="text-lg font-bold text-[#1a1a1a]">{item.city}</h3>
+                    <span className="font-mono text-[9px] text-black/40 font-bold uppercase tracking-wider bg-black/5 border border-black/5 px-2 py-0.5 rounded-full">
+                      {item.badge}
+                    </span>
+                  </div>
+                  <p className="text-[9px] font-mono text-black/35 mt-1 font-semibold">
+                    {item.meta}
+                  </p>
+                  
+                  <div className="mt-4">
+                    <h4 className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Local Problem</h4>
+                    <p className="text-xs leading-relaxed text-black/60 mt-1">{item.problem}</p>
+                  </div>
+                </div>
+
+                <div className="mt-4 p-4 rounded-2xl bg-emerald-500/[0.03] border border-emerald-500/10">
+                  <h4 className="text-[9px] font-mono text-emerald-600/70 font-bold uppercase tracking-wider">NeighborNotes Resolution</h4>
+                  <p className="text-xs leading-relaxed text-emerald-800/90 mt-1">{item.resolution}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── The Legal Backdrop ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-8"
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            The Legal Backdrop (DNCC, January 2026)
+          </motion.p>
+
+          <motion.div
+            variants={fade(0.05)}
+            className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#ff5f1a]/30 transition-all duration-300"
+          >
+            <p className="text-sm text-black/60 leading-relaxed mb-6 font-normal">
+              Under the Rent Control Act 1991, the Dhaka North City Corporation released a 16-point tenant–owner guideline that NeighborNotes was designed to help owners comply with:
+            </p>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+              {[
+                { title: "15% Rent Cap", desc: "Renegotiation capped at maximum 15% rent hike annually" },
+                { title: "Key Access", desc: "Tenants must receive primary access keys (gate/roof) for fire safety" },
+                { title: "Consent Required", desc: "New community guidelines require resident consent first" },
+                { title: "Payment Receipts", desc: "Every payment demands a signed written receipt" },
+                { title: "Deposit Limit", desc: "Security deposits capped at a maximum of 1–3 months' rent" },
+                { title: "Notice Period", desc: "No arbitrary lockouts or motion restrictions without notice" },
+                { title: "Bilateral Agreements", desc: "Written bilateral rental agreements are mandatory" },
+                { title: "Utility Guarantee", desc: "Owners must keep gas/water/electricity and sanitation utilities active" }
+              ].map((item, idx) => (
+                <div key={idx} className="flex gap-3 text-sm text-black/60 items-start">
+                  <span className="flex-shrink-0 inline-flex items-center justify-center h-5 w-5 rounded-full bg-emerald-500/10 text-emerald-600 text-[10px] font-bold">
+                    ✓
+                  </span>
+                  <span className="leading-relaxed">
+                    <strong className="text-black font-semibold">{item.title}</strong> — {item.desc}
+                  </span>
                 </div>
               ))}
             </div>
-            <div className="mt-8 rounded-[1.5rem] border border-white/10 bg-white/[0.02] p-5">
-              <p className="text-sm uppercase tracking-[0.24em] text-[#ff4d00]">What the research says</p>
-              <p className="mt-3 text-sm leading-7 text-white/60">The strongest insight is not that every city has a different issue; it is that all of them share a communication vacuum. NeighborNotes is positioned as the shared layer that brings visibility, accountability, and direct escalation into a system that otherwise depends on paper notes, caretakers, or silence.</p>
-            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── Designing the Access System ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-8"
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            Designing the Access System
+          </motion.p>
+
+          <motion.blockquote
+            variants={fade(0.05)}
+            className="border-l-2 border-[#ff5f1a]/40 pl-6 text-base italic leading-8 text-black/45"
+          >
+            If registration were open, anyone could join any building's board — no way to guarantee the people posting and reading notices actually lived there.
+          </motion.blockquote>
+
+          <motion.div
+            variants={fade(0.1)}
+            className="space-y-4"
+          >
+            <p className="font-mono text-xs uppercase tracking-wider text-[#ff5f1a] font-bold">A two-step verified-entry flow:</p>
+            <ol className="space-y-4 text-[1.05rem] leading-[1.8] text-black/55">
+              <li className="flex gap-4">
+                <span className="font-mono text-sm text-black/30 font-bold">1.</span>
+                <span>The owner collects the resident's email directly, the same way a landlord already knows who's renting from them.</span>
+              </li>
+              <li className="flex gap-4">
+                <span className="font-mono text-sm text-black/30 font-bold">2.</span>
+                <span>The owner invites that email and issues a unique building code.</span>
+              </li>
+              <li className="flex gap-4">
+                <span className="font-mono text-sm text-black/30 font-bold">3.</span>
+                <span>The resident registers with their email <strong className="text-black font-semibold">and</strong> that code together — only then do they get access to that specific building's board.</span>
+              </li>
+            </ol>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── Why No Direct Messaging ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-8"
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            Why No Direct Messaging
+          </motion.p>
+
+          <motion.blockquote
+            variants={fade(0.05)}
+            className="border-l-2 border-[#ff5f1a]/40 pl-6 text-base italic leading-8 text-black/45"
+          >
+            Nothing gets said in private that either side can later deny — and nobody gets pinged outside reasonable hours.
+          </motion.blockquote>
+
+          <motion.p
+            variants={fade(0.1)}
+            className="text-[1.05rem] leading-[1.9] text-black/55"
+          >
+            Deliberately, NeighborNotes has no private chat. Direct messaging tends to escalate landlord–tenant conflict — late-night pings, unresolved back-and-forth, no record of what was actually agreed. Keeping everything as public notices and open comments keeps every interaction visible and timestamped.
+          </motion.p>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── How NeighborNotes Solves It ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-8"
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            How NeighborNotes Solves It
+          </motion.p>
+
+          <motion.div
+            variants={fade(0.05)}
+            className="overflow-x-auto w-full border border-black/8 rounded-2xl bg-white"
+          >
+            <table className="w-full border-collapse text-left text-xs">
+              <thead>
+                <tr className="border-b border-black/10 bg-[#fcfcfc]">
+                  <th className="py-4 px-4 font-mono text-[9px] text-black/45 font-bold uppercase tracking-wider">Problem</th>
+                  <th className="py-4 px-4 font-mono text-[9px] text-black/45 font-bold uppercase tracking-wider">City Example</th>
+                  <th className="py-4 px-4 font-mono text-[9px] text-black/45 font-bold uppercase tracking-wider">NeighborNotes Feature</th>
+                  <th className="py-4 px-4 font-mono text-[9px] text-black/45 font-bold uppercase tracking-wider">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-black/5 text-black/70">
+                {[
+                  { prob: "Unauthorized subletting & security risk", city: "Khulna", feat: "Verified registration via unique building/area code", status: "Solved", style: "text-emerald-600" },
+                  { prob: "Absentee owner disconnect", city: "Sylhet", feat: "Owner Dashboard, accessible remotely from anywhere", status: "Solved", style: "text-emerald-600" },
+                  { prob: "Real-time hazard communication", city: "Chattogram, Sylhet", feat: "Emergency category + pinned notice headers", status: "Solved", style: "text-emerald-600" },
+                  { prob: "Maintenance visibility & escalation", city: "Chattogram, Barisal", feat: "Maintenance category + notice comment thread", status: "Partially Solved", style: "text-amber-600" },
+                  { prob: "Service-charge financial opacity", city: "Dhaka", feat: "Rules/General category + document attachment options", status: "Partially Solved", style: "text-amber-600" },
+                  { prob: "Developer mortgage fraud", city: "Dhaka", feat: "N/A — out of scope, legal/registry-verification problem", status: "Out of Scope", style: "text-black/35" },
+                  { prob: "Housing affordability / inflation", city: "Rajshahi", feat: "Events/General channels for cost-sharing coordination", status: "Partially Solved", style: "text-amber-600" },
+                  { prob: "Sanitation infrastructure failures", city: "Barisal", feat: "Maintenance category escalations & comment history", status: "Partially Solved", style: "text-amber-600" },
+                ].map((row, idx) => (
+                  <tr key={idx} className="hover:bg-[#fcfcfc] transition-colors">
+                    <td className="py-4 px-4 font-medium text-[#1a1a1a]">{row.prob}</td>
+                    <td className="py-4 px-4 font-mono text-black/55">{row.city}</td>
+                    <td className="py-4 px-4 text-black/55">{row.feat}</td>
+                    <td className="py-4 px-4 font-mono font-bold">
+                      <span className={row.style}>{row.status}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── Problem Coverage Analysis ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            Problem Coverage Analysis
+          </motion.p>
+          <div className="mt-6 text-[1.05rem] leading-[1.9] text-black/55">
+            <motion.p variants={fade(0.05)}>
+              Across the eight distinct local problems identified in this six-city research, NeighborNotes' current feature set{" "}
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full border border-emerald-500/20 bg-emerald-500/5 text-emerald-600 font-mono text-[10px] font-bold mx-0.5">
+                37.5% fully solved
+              </span>
+              ,{" "}
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full border border-amber-500/20 bg-amber-500/5 text-amber-600 font-mono text-[10px] font-bold mx-0.5">
+                50% partially solved
+              </span>{" "}
+              by adding communication and accountability where none existed before, and is honestly{" "}
+              <span className="inline-flex items-center px-2 py-0.5 rounded-full border border-black/10 bg-black/5 text-black/45 font-mono text-[10px] font-bold mx-0.5">
+                12.5% out of scope
+              </span>{" "}
+              — developer mortgage fraud, which is a legal/registry-verification issue no notice board can realistically fix.
+            </motion.p>
+            <motion.p variants={fade(0.1)} className="mt-4">
+              By replacing unverified verbal caretaker chains with timestamped digital notices and comment history, NeighborNotes directly targets the core communication loop affecting well over <strong className="text-black font-semibold">85.8 lakh urban residents</strong> across Dhaka and the other major city corporations studied here.
+            </motion.p>
           </div>
-          <div className="glass-panel rounded-[2rem] p-6 sm:p-8">
-            <p className="section-label">Preview</p>
-            <h3 className="mt-4 text-2xl font-semibold text-white">Why this belongs in a portfolio</h3>
-            <div className="mt-6 space-y-4">
-              <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4 text-sm leading-7 text-white/60">
-                This case study demonstrates research, product framing, and a real multi-city strategy, not just polished UI.
-              </div>
-              <div className="rounded-[1.25rem] border border-white/10 bg-white/[0.03] p-4 text-sm leading-7 text-white/60">
-                The visual language combines data storytelling, clear problem definition, and a credible product boundary so the work feels thoughtful rather than overhyped.
-              </div>
-              <Link href={slug ? `/case-study/${slug}` : "/case-study/neighbornotes"} className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white">
-                View full case study <span aria-hidden>→</span>
-              </Link>
-            </div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── Tech Stack ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:items-start"
+        >
+          <motion.div variants={fade(0)}>
+            <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+              Tech Stack
+            </p>
+            <h2 className="text-2xl font-bold tracking-tight text-[#1a1a1a] mt-4">
+              A modern stack designed for high availability and security.
+            </h2>
+          </motion.div>
+
+          <div className="space-y-3">
+            {[
+              { name: "Next.js 14 (App Router)", reason: "Fast, mobile-responsive, well-suited to a role-based dashboard" },
+              { name: "Node.js", reason: "Scalable network application environment supporting REST API patterns" },
+              { name: "Express.js", reason: "Lightweight routing framework for the centralized controller logic" },
+              { name: "MongoDB", reason: "Flexible document schema fitting varying notices, categories, and documents" },
+              { name: "Better Auth", reason: "Handles the verified, building code invitation registration flow" },
+              { name: "Cloudinary", reason: "Secure image storage for maintenance tickets and hazard notices" },
+              { name: "date-fns", reason: "Utility methods managing auto-archived logs and notice expiry durations" }
+            ].map((tech, idx) => (
+              <motion.div
+                key={tech.name}
+                variants={fade(0.05 + idx * 0.03)}
+                className="group flex flex-col justify-center rounded-2xl border border-black/8 bg-white px-5 py-4 shadow-sm transition-all hover:border-[#ff5f1a]/30 hover:shadow-md hover:shadow-[#ff5f1a]/5"
+              >
+                <div className="flex justify-between items-center">
+                  <span className="font-semibold text-black/85 transition-colors group-hover:text-[#1a1a1a]">
+                    {tech.name}
+                  </span>
+                  <span className="font-mono text-[9px] uppercase tracking-wider text-black/35">
+                    Tool {idx + 1}
+                  </span>
+                </div>
+                <p className="mt-1.5 text-xs text-black/50 leading-relaxed font-normal">
+                  {tech.reason}
+                </p>
+              </motion.div>
+            ))}
           </div>
-        </div>
-      )}
-    </section>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── Future Scope & Backlog ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+          className="space-y-8"
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            Future Scope & Backlog
+          </motion.p>
+
+          <motion.div
+            variants={fade(0.05)}
+            className="space-y-6 text-[1.05rem] leading-[1.8] text-black/55"
+          >
+            <div className="flex gap-4 items-start">
+              <span className="font-mono text-sm text-black/30 font-bold mt-0.5">1.</span>
+              <span>
+                <strong className="text-black font-semibold">Maintenance Ticket Status Fields</strong> — Implementing transitions (
+                <span className="font-mono text-[9.5px] font-bold px-1.5 py-0.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-600 rounded">Pending</span>,{" "}
+                <span className="font-mono text-[9.5px] font-bold px-1.5 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 rounded">In Progress</span>,{" "}
+                <span className="font-mono text-[9.5px] font-bold px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded">Resolved</span>
+                ) for maintenance alerts, mapped directly from repair-logging gaps in Chattogram and Barisal.
+              </span>
+            </div>
+
+            <div className="flex gap-4 items-start">
+              <span className="font-mono text-sm text-black/30 font-bold mt-0.5">2.</span>
+              <span>
+                <strong className="text-black font-semibold">Audited Service-Charge Ledger</strong> — A digital accounting module allowing building associations to log collections, utilities, and expenses, mapped directly from Dhaka's service-charge opacity problem. (
+                <span className="font-mono text-[9.5px] font-bold px-1.5 py-0.5 bg-yellow-500/10 border border-yellow-500/20 text-yellow-600 rounded">Pending</span>
+                )
+              </span>
+            </div>
+
+            <div className="flex gap-4 items-start">
+              <span className="font-mono text-sm text-black/30 font-bold mt-0.5">3.</span>
+              <span>
+                <strong className="text-black font-semibold">Document Attachment (PDF Support)</strong> — Allowing authors to attach receipts, utility billing scans, or lease templates directly inside Rules or Maintenance notices. (
+                <span className="font-mono text-[9.5px] font-bold px-1.5 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-600 rounded">In Progress</span>
+                )
+              </span>
+            </div>
+
+            <div className="flex gap-4 items-start">
+              <span className="font-mono text-sm text-black/30 font-bold mt-0.5">4.</span>
+              <span>
+                <strong className="text-black font-semibold">Multi-Building / NRB Remote Access</strong> — Streamlining landlord controls for owners managing properties from abroad, mapped directly from Sylhet's expat landlord-tenant disconnect. (
+                <span className="font-mono text-[9.5px] font-bold px-1.5 py-0.5 bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 rounded">Resolved</span>
+                )
+              </span>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* ── Divider ── */}
+      <div className="mx-auto max-w-[720px] px-6">
+        <div className="h-px w-full bg-gradient-to-r from-transparent via-black/10 to-transparent" />
+      </div>
+
+      {/* ── What I Learned ── */}
+      <section className="mx-auto max-w-[720px] px-6 py-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={stagger}
+        >
+          <motion.p variants={fade(0)} className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">
+            What I Learned
+          </motion.p>
+          <div className="mt-6 text-[1.05rem] leading-[1.9] text-black/55 space-y-6">
+            <motion.p variants={fade(0.05)}>
+              Beyond the technical build, this project taught me how to turn a vague, personally-observed problem into something backed by real data and scoped into an actual buildable product. The building-code invite system in particular was a good lesson in access control — the instinct to "just let people sign up" is almost never right for a system tied to real physical spaces, and thinking through <em className="text-black font-semibold">who should be allowed in, and how do they prove it</em> early on shaped a lot of the rest of the architecture.
+            </motion.p>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Closing CTA ── */}
+      <section className="mx-auto max-w-[720px] px-6 pb-24 pt-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-3xl border border-black/8 bg-white p-10 text-center shadow-sm"
+        >
+          <p className="mb-2 font-mono text-xs uppercase tracking-[0.24em] text-black/35">
+            Curious about the build?
+          </p>
+          <h2 className="mb-6 text-3xl font-bold tracking-tight text-[#1a1a1a]">
+            Explore the project codebase or go back home.
+          </h2>
+          <div className="flex flex-wrap items-center justify-center gap-4">
+            <Link href="/">
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="rounded-full bg-[#ff5f1a] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#ff5f1a]/25 transition-opacity hover:opacity-90"
+              >
+                Back to homepage
+              </motion.button>
+            </Link>
+            <a
+              href="https://github.com/Zabedfolio"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <motion.button
+                whileHover={{ scale: 1.04 }}
+                whileTap={{ scale: 0.97 }}
+                className="rounded-full border border-black/8 bg-white px-8 py-3.5 text-sm font-semibold text-black/70 shadow-sm transition-all hover:bg-black/5"
+              >
+                View the code
+              </motion.button>
+            </a>
+          </div>
+        </motion.div>
+      </section>
+
+      {/* ── Research References & Data Sources ── */}
+      <section className="mx-auto max-w-[720px] px-6 border-t border-black/5 pt-10 pb-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true }}
+          variants={stagger}
+          className="space-y-4"
+        >
+          <motion.p variants={fade(0)} className="font-mono text-[9px] uppercase tracking-[0.2em] text-black/35 font-bold">
+            Research References & Data Sources
+          </motion.p>
+          <motion.ul variants={fade(0.05)} className="grid gap-2 text-[10px] text-black/40 font-mono select-text list-none p-0">
+            <li>• Bangladesh Bureau of Statistics (BBS) — Population & Housing Census Report 2022</li>
+            <li>• Real Estate & Housing Association of Bangladesh (REHAB) Annual Housing Index (2024–2025)</li>
+            <li>• Dhaka North City Corporation (DNCC) Zonal Revenue Department & Tenant Guidelines (Jan 2026)</li>
+            <li>• Sylhet City Corporation (SCC) Revenue Branch & BBS 2022 Ward Data</li>
+            <li>• Chattogram City Corporation (CCC) Annual Budget & CDA Master Plan</li>
+            <li>• Khulna City Corporation (KCC) Assessment Cell & KDA Master Plan</li>
+            <li>• Rajshahi City Corporation (RCC) Door-to-Door Assessment Records & Revenue Branch</li>
+            <li>• Barisal City Corporation (BCC) Assessment Cell & BBS Sanitation Survey</li>
+          </motion.ul>
+        </motion.div>
+      </section>
+      
+    </main>
   );
 }
