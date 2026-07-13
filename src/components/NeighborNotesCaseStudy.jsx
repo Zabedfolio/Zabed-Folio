@@ -540,42 +540,16 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
             </div>
           </motion.div>
 
-          {/* Coverage Card — 12.5% Out of Scope */}
+          {/* Image-only card */}
           <motion.div
             variants={fade(0.1)}
-            className="group relative overflow-hidden rounded-3xl border border-black/8 bg-white flex flex-col justify-between transition-all duration-500 hover:-translate-y-1 hover:border-black/20 hover:shadow-xl hover:shadow-black/5 min-h-[360px]"
+            className="group relative overflow-hidden rounded-3xl border border-black/8 transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/5 min-h-[360px]"
           >
-            {/* Full image — Out of Scope visual */}
-            <div className="relative h-[200px] w-full overflow-hidden rounded-t-3xl">
-              {/* Image fills the full card top area */}
-              <img
-                src="https://i.ibb.co/qFrZzrhP/Chat-GPT-Image-Jul-13-2026-10-33-22-PM.png"
-                alt="Out of scope — developer mortgage fraud visual"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
-              {/* Subtle gradient overlay at bottom so text below reads cleanly */}
-              <div className="absolute bottom-0 left-0 right-0 h-10 bg-gradient-to-t from-white/80 to-transparent pointer-events-none" />
-              {/* 12.5% badge pinned top-right */}
-              <div className="absolute top-3 right-3 z-10 flex flex-col items-end">
-                <span className="font-mono text-xs font-black tracking-tight text-white bg-black/50 backdrop-blur-sm px-2 py-0.5 rounded-full">
-                  12.5%
-                </span>
-              </div>
-            </div>
-            <div className="p-5 flex flex-col justify-between flex-grow text-left gap-2">
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="inline-flex h-2.5 w-2.5 rounded-full bg-black/20" />
-                  <h3 className="text-xs font-bold font-mono text-[#1a1a1a] uppercase tracking-wider">Out of Scope</h3>
-                </div>
-                <p className="text-[11px] text-black/55 leading-relaxed mt-2">
-                  1 out of 8 problems — developer mortgage fraud in Dhaka — is a legal/registry-verification issue no digital notice board can realistically solve.
-                </p>
-              </div>
-              <span className="font-mono text-[8px] text-black/30 uppercase tracking-widest font-bold">
-                Registry-level legal problem
-              </span>
-            </div>
+            <img
+              src="https://i.ibb.co/qFrZzrhP/Chat-GPT-Image-Jul-13-2026-10-33-22-PM.png"
+              alt="NeighborNotes case study visual"
+              className="absolute inset-0 w-full h-full object-cover object-center"
+            />
           </motion.div>
         </motion.div>
       </section>
