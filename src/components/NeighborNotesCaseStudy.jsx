@@ -270,24 +270,17 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
 
   return (
     <section className="section-shell py-24 sm:py-32">
-      <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+      <div className="mb-10 space-y-6">
+        <div className="flex flex-wrap items-center gap-3">
+          <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">
+            ← Back home
+          </Link>
+          <p className="section-label mb-0">{isFull ? "Case Study" : "03 — Case Study"}</p>
+        </div>
         <div className="space-y-4 w-full">
-          <div className="flex flex-wrap items-center gap-3">
-            <Link href="/" className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-sm text-white/75 transition hover:border-[#ff4d00]/30 hover:text-white">
-              ← Back home
-            </Link>
-            <p className="section-label mb-0">{isFull ? "Case Study" : "03 — Case Study"}</p>
-          </div>
           <h2 className="section-title mt-4">{study.title}</h2>
           {study.heroSubtitle ? <p className="mt-3 text-lg leading-8 text-white/60">{study.heroSubtitle}</p> : null}
           <p className="mt-5 text-lg leading-8 text-white/60">{study.summary}</p>
-        </div>
-        <div className="flex flex-wrap items-center gap-3">
-          {study.liveUrl ? (
-            <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-[#ff4d00]/10 px-5 py-3 text-sm text-white transition hover:border-[#ff4d00]/40">View Live Project <span aria-hidden>→</span></a>
-          ) : (
-            <button disabled className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-5 py-3 text-sm text-white/40">Coming soon</button>
-          )}
         </div>
       </div>
 
@@ -296,8 +289,19 @@ export default function NeighborNotesCaseStudy({ variant = "teaser", slug }) {
           <article className="mx-auto w-full max-w-7xl px-0 sm:px-2">
             <div className="rounded-[2rem] border border-white/10 bg-[#060606]/80 p-8 shadow-[0_20px_120px_rgba(0,0,0,0.25)]">
               <p className="section-label">Case study</p>
-              <h3 className="mt-3 text-4xl font-semibold text-white">NeighborNotes — Digital transformation of owner–resident communication</h3>
-              <p className="mt-5 max-w-2xl text-xl leading-9 text-white/70">A verified digital notice board connecting building owners and residents.</p>
+              <div className="flex flex-col gap-7 lg:flex-row lg:items-start lg:justify-between">
+                <div className="max-w-4xl">
+                  <h3 className="mt-3 text-4xl font-semibold text-white">NeighborNotes — Digital transformation of owner–resident communication</h3>
+                  <p className="mt-5 text-xl leading-9 text-white/70">A verified digital notice board connecting building owners and residents.</p>
+                </div>
+                <div className="mt-6 lg:mt-0">
+                  {study.liveUrl ? (
+                    <a href={study.liveUrl} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-[#ff4d00]/20 bg-gradient-to-r from-[#ff4d00] via-[#ff7a29] to-[#ff4d00]/90 px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_30px_rgba(255,77,0,0.18)] transition hover:brightness-110">View Live Project <span aria-hidden>→</span></a>
+                  ) : (
+                    <button disabled className="inline-flex cursor-not-allowed items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-6 py-3 text-sm text-white/40">Coming soon</button>
+                  )}
+                </div>
+              </div>
               <div className="mt-8 flex flex-wrap gap-3">
                 {study.tags.map((tag) => (
                   <span key={tag} className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs font-medium uppercase tracking-[0.24em] text-white/60">{tag}</span>
