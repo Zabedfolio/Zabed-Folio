@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
+import { requireAdminSession } from "@/lib/admin-auth";
 
-export async function GET() {
+export async function GET(request) {
   try {
+    const { error } = await requireAdminSession(request);
+    if (error) return error;
+
     const db = await getDb();
     const items = await db.collection("notes").find({}).sort({ order: 1 }).toArray();
     

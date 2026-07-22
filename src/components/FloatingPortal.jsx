@@ -1,14 +1,25 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { HiOutlineSparkles, HiOutlineTerminal } from "react-icons/hi";
+import { useSession } from "@/lib/auth-client";
 
 export default function FloatingPortal() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const { data: session } = useSession();
+  const [isAdminLocal, setIsAdminLocal] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setIsAdminLocal(localStorage.getItem("admin_logged_in") === "true");
+    }
+  }, [session]);
+
+  const showNotes = !!(session?.user || isAdminLocal);
 
   // Hidden on admin paths
   if (pathname?.startsWith("/admin")) {
@@ -47,18 +58,20 @@ export default function FloatingPortal() {
               </Link>
 
               {/* Notes Option */}
-              <Link href="/notes">
-                <div className="relative overflow-hidden skew-x-[-12deg] border border-white/10 hover:border-[#ff4d00]/40 bg-[#0a0808]/90 hover:bg-[#ff4d00]/5 backdrop-blur-xl px-4 py-2.5 transition duration-300 group shadow-lg shadow-black/40 cursor-pointer">
-                  <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#ff4d00] opacity-0 group-hover:opacity-100 transition-opacity" />
-                  
-                  <div className="skew-x-[12deg] flex flex-col items-start leading-none">
-                    <span className="text-[10px] text-white/45 tracking-wider uppercase">02 — Thoughts</span>
-                    <span className="text-xs font-bold text-white mt-1 group-hover:text-[#ff4d00] transition">
-                      NOTES & IDEAS
-                    </span>
+              {showNotes && (
+                <Link href="/notes">
+                  <div className="relative overflow-hidden skew-x-[-12deg] border border-white/10 hover:border-[#ff4d00]/40 bg-[#0a0808]/90 hover:bg-[#ff4d00]/5 backdrop-blur-xl px-4 py-2.5 transition duration-300 group shadow-lg shadow-black/40 cursor-pointer">
+                    <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#ff4d00] opacity-0 group-hover:opacity-100 transition-opacity" />
+                    
+                    <div className="skew-x-[12deg] flex flex-col items-start leading-none">
+                      <span className="text-[10px] text-white/45 tracking-wider uppercase">02 — Thoughts</span>
+                      <span className="text-xs font-bold text-white mt-1 group-hover:text-[#ff4d00] transition">
+                        NOTES & IDEAS
+                      </span>
+                    </div>
                   </div>
-                </div>
-              </Link>
+                </Link>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
