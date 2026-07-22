@@ -135,11 +135,13 @@ function SkillMarquee({ items, direction = "left" }) {
   const animationClass = direction === "left" ? "animate-marquee-left" : "animate-marquee-right";
 
   return (
-    <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden py-4 bg-[#050505] border-y border-white/[0.02]">
-      {/* Edge Fades for beautiful visual bleed */}
-      <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
-      <div className="absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
-
+    <div 
+      className="relative w-full overflow-hidden py-3"
+      style={{
+        WebkitMaskImage: "linear-gradient(to right, transparent, white 8%, white 92%, transparent)",
+        maskImage: "linear-gradient(to right, transparent, white 8%, white 92%, transparent)"
+      }}
+    >
       <div className="flex w-max">
         <div className={`flex gap-4 px-2 ${animationClass}`}>
           {repeatedItems.map((skill, idx) => (
