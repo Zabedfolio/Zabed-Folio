@@ -136,10 +136,10 @@ function SkillMarquee({ items, direction = "left" }) {
 
   return (
     <div 
-      className="relative w-full overflow-hidden py-3"
+      className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden py-3"
       style={{
-        WebkitMaskImage: "linear-gradient(to right, transparent, white 8%, white 92%, transparent)",
-        maskImage: "linear-gradient(to right, transparent, white 8%, white 92%, transparent)"
+        WebkitMaskImage: "linear-gradient(to right, transparent, white 15%, white 85%, transparent)",
+        maskImage: "linear-gradient(to right, transparent, white 15%, white 85%, transparent)"
       }}
     >
       <div className="flex w-max">
