@@ -77,6 +77,9 @@ export default function Timeline() {
                   <div className="glass-panel hover-glow rounded-2xl p-6">
                     <div className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff4d00]">{item.date}</div>
                     <h3 className="mt-3 text-lg font-bold text-white">{item.institution}</h3>
+                    {item.company && (
+                      <div className="mt-1 text-sm font-semibold text-white/80">{item.company}</div>
+                    )}
                     <p className="mt-3 text-white/55">{item.detail}</p>
                   </div>
                 </motion.div>

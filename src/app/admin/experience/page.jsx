@@ -19,6 +19,7 @@ export default function AdminExperience() {
   const [formData, setFormData] = useState({
     date: "",
     institution: "",
+    company: "",
     detail: "",
     active: true,
   });
@@ -49,6 +50,7 @@ export default function AdminExperience() {
     setFormData({
       date: "",
       institution: "",
+      company: "",
       detail: "",
       active: true,
     });
@@ -60,6 +62,7 @@ export default function AdminExperience() {
     setFormData({
       date: item.date || "",
       institution: item.institution || "",
+      company: item.company || "",
       detail: item.detail || "",
       active: item.active !== false,
     });
@@ -203,7 +206,7 @@ export default function AdminExperience() {
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
                         <h3 className="font-semibold text-white truncate text-sm">
-                          {item.institution}
+                          {item.institution} {item.company ? `@ ${item.company}` : ""}
                         </h3>
                         <span
                           className={`text-[9px] font-mono px-2 py-0.5 rounded-full border ${
@@ -253,7 +256,7 @@ export default function AdminExperience() {
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
-                  Company / Organization / Project Role Name
+                  Role Title / Designation
                 </label>
                 <input
                   type="text"
@@ -262,6 +265,20 @@ export default function AdminExperience() {
                   value={formData.institution}
                   onChange={handleInputChange}
                   placeholder="e.g. Frontend Developer"
+                  className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5 focus:ring-1 focus:ring-[#ff4d00]/30"
+                />
+              </div>
+
+              <div>
+                <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                  Company / Organization Name
+                </label>
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  placeholder="e.g. Google"
                   className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5 focus:ring-1 focus:ring-[#ff4d00]/30"
                 />
               </div>
