@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { fadeUp, slideLeft, slideRight, staggerContainer } from "@/utils/motionVariants";
 
 export default function Timeline() {
-  const [activeTab, setActiveTab] = useState("education");
+  const [activeTab, setActiveTab] = useState("experience");
   const [education, setEducation] = useState([]);
   const [experience, setExperience] = useState([]);
 
@@ -36,7 +36,7 @@ export default function Timeline() {
     <div id="education" className="section-shell py-24 sm:py-32">
       <motion.div initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer} className="space-y-10">
         <motion.p variants={fadeUp} className="section-label">
-          04 — Education & Experience
+          04 — Experience & Education
         </motion.p>
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <motion.h2 variants={fadeUp} className="section-title max-w-3xl">
@@ -49,7 +49,7 @@ export default function Timeline() {
 
         <Tabs.Root value={activeTab} onValueChange={setActiveTab}>
           <Tabs.List className="glass-panel flex w-fit rounded-full p-1.5">
-            {["education", "experience"]?.map((tab) => (
+            {["experience", "education"]?.map((tab) => (
               <Tabs.Trigger key={tab} value={tab} className="relative rounded-full px-5 py-2 text-sm capitalize text-white/55 data-[state=active]:text-white">
                 {activeTab === tab && <motion.span layoutId="timelineTab" className="absolute inset-0 rounded-full border border-[#ff4d00]/25 bg-[#ff4d00]/10" />}
                 <span className="relative z-10">{tab}</span>
