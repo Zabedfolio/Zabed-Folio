@@ -75,10 +75,16 @@ export default function Timeline() {
                     </span>
                   </div>
                   <div className="glass-panel hover-glow rounded-2xl p-6">
-                    <div className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff4d00]">{item.date}</div>
+                    <div className="font-mono text-xs uppercase tracking-[0.24em] text-[#ff4d00]">
+                      {item.startDate && item.endDate ? `${item.startDate} — ${item.endDate}` : item.date}
+                    </div>
                     <h3 className="mt-3 text-lg font-bold text-white">{item.institution}</h3>
-                    {item.company && (
-                      <div className="mt-1 text-sm font-semibold text-white/80">{item.company}</div>
+                    {(item.company || item.location) && (
+                      <div className="mt-1 text-sm font-semibold text-white/85 flex items-center gap-1.5 flex-wrap">
+                        {item.company && <span>{item.company}</span>}
+                        {item.company && item.location && <span className="text-white/30">&bull;</span>}
+                        {item.location && <span className="text-white/60">{item.location}</span>}
+                      </div>
                     )}
                     <p className="mt-3 text-white/55">{item.detail}</p>
                   </div>

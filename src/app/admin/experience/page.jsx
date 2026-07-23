@@ -17,9 +17,11 @@ export default function AdminExperience() {
 
   // Form State
   const [formData, setFormData] = useState({
-    date: "",
+    startDate: "",
+    endDate: "",
     institution: "",
     company: "",
+    location: "",
     detail: "",
     active: true,
   });
@@ -48,9 +50,11 @@ export default function AdminExperience() {
   const openAddModal = () => {
     setEditingExp(null);
     setFormData({
-      date: "",
+      startDate: "",
+      endDate: "",
       institution: "",
       company: "",
+      location: "",
       detail: "",
       active: true,
     });
@@ -59,10 +63,25 @@ export default function AdminExperience() {
 
   const openEditModal = (item) => {
     setEditingExp(item);
+    
+    let start = item.startDate || "";
+    let end = item.endDate || "";
+    if (!start && !end && item.date) {
+      const parts = item.date.split("—").map((p) => p.trim());
+      if (parts.length === 2) {
+        start = parts[0];
+        end = parts[1];
+      } else {
+        start = item.date;
+      }
+    }
+
     setFormData({
-      date: item.date || "",
+      startDate: start,
+      endDate: end,
       institution: item.institution || "",
       company: item.company || "",
+      location: item.location || "",
       detail: item.detail || "",
       active: item.active !== false,
     });
@@ -81,19 +100,24 @@ export default function AdminExperience() {
     e.preventDefault();
     setSaving(true);
 
+    const submissionData = {
+      ...formData,
+      date: `${formData.startDate} — ${formData.endDate}`
+    };
+
     try {
       let res;
       if (editingExp) {
         res = await fetch(`/api/admin/experience/${editingExp._id}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(submissionData),
         });
       } else {
         res = await fetch("/api/admin/experience", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(submissionData),
         });
       }
 
@@ -219,7 +243,8 @@ export default function AdminExperience() {
                         </span>
                       </div>
                       <p className="text-xs text-white/40 mt-1 truncate">
-                        {item.date} &bull; {item.detail}
+                        {item.startDate && item.endDate ? `${item.startDate} — ${item.endDate}` : item.date}
+                        {item.location ? ` • ${item.location}` : ""} &bull; {item.detail}
                       </p>
                     </div>
                   </div>
@@ -283,19 +308,52 @@ export default function AdminExperience() {
                 />
               </div>
 
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                    Start Date / Year
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    name="startDate"
+                    value={formData.startDate}
+                    onChange={handleInputChange}
+                    placeholder="e.g. 2023"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
+                    End Date / Present
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    name="endDate"
+                    value={formData.endDate}
+                    onChange={handleInputChange}
+                    placeholder="e.g. Present"
+                    className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
+                  />
+                </div>
+              </div>
+
               <div>
                 <label className="block text-xs font-mono uppercase tracking-wider text-white/60 mb-2">
-                  Duration / Date Range
+                  Job Location Type
                 </label>
-                <input
-                  type="text"
-                  required
-                  name="date"
-                  value={formData.date}
+                <select
+                  name="location"
+                  value={formData.location}
                   onChange={handleInputChange}
-                  placeholder="e.g. 2025 — Present"
-                  className="w-full rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50"
-                />
+                  className="w-full rounded-xl border border-white/10 bg-[#0a0808]/90 px-4 py-3 text-sm text-white transition focus:border-[#ff4d00]/50 focus:bg-[#ff4d00]/5"
+                >
+                  <option value="">Select location type...</option>
+                  <option value="On-site">On-site</option>
+                  <option value="Remote">Remote</option>
+                  <option value="Hybrid">Hybrid</option>
+                </select>
               </div>
 
               <div>
