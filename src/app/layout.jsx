@@ -1,8 +1,15 @@
 import { GeistMono, GeistSans } from "geist/font";
+import { Pacifico } from "next/font/google";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingPortal from "@/components/FloatingPortal";
 import MacIntroLoader from "@/components/MacIntroLoader";
 import "./globals.css";
+
+const pacifico = Pacifico({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-pacifico"
+});
 
 export const metadata = {
   metadataBase: new URL("https://zabedfolio.vercel.app"),
@@ -32,7 +39,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${pacifico.variable}`}
+    >
       <body>
         <MacIntroLoader />
         <CustomCursor />
