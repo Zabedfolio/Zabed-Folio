@@ -113,42 +113,42 @@ export default function MacIntroLoader() {
             {/* Orange Glow */}
             <motion.div
               animate={{
-                x: [-20, 20, -20],
-                y: [-20, 20, -20],
-                scale: [1, 1.15, 1],
-                opacity: [0.35, 0.5, 0.35]
+                x: [-15, 15, -15],
+                y: [-15, 15, -15],
+                scale: [1, 1.12, 1],
+                opacity: [0.3, 0.45, 0.3]
               }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-1/3 top-1/3 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-radial from-[#F97316]/30 via-[#FF4D00]/15 to-transparent blur-[140px]"
+              className="absolute left-1/2 top-1/3 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[300px] sm:h-[500px] sm:w-[500px] rounded-full bg-radial from-[#F97316]/30 via-[#FF4D00]/15 to-transparent blur-[80px] sm:blur-[140px]"
             />
             {/* Green Bokeh */}
             <motion.div
               animate={{
-                x: [30, -20, 30],
-                y: [20, -30, 20],
-                opacity: [0.25, 0.4, 0.25]
+                x: [20, -15, 20],
+                y: [15, -20, 15],
+                opacity: [0.2, 0.35, 0.2]
               }}
               transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute right-1/4 top-1/4 h-[400px] w-[400px] rounded-full bg-[#10B981]/20 blur-[150px]"
+              className="absolute right-5 top-1/4 h-[240px] w-[240px] sm:h-[400px] sm:w-[400px] rounded-full bg-[#10B981]/20 blur-[90px] sm:blur-[150px]"
             />
             {/* Red / Crimson Bokeh */}
             <motion.div
               animate={{
-                x: [-30, 30, -30],
-                y: [30, -20, 30],
-                opacity: [0.2, 0.35, 0.2]
+                x: [-20, 20, -20],
+                y: [20, -15, 20],
+                opacity: [0.18, 0.3, 0.18]
               }}
               transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute left-1/4 bottom-1/4 h-[420px] w-[420px] rounded-full bg-[#EF4444]/18 blur-[160px]"
+              className="absolute left-5 bottom-1/4 h-[250px] w-[250px] sm:h-[420px] sm:w-[420px] rounded-full bg-[#EF4444]/18 blur-[95px] sm:blur-[160px]"
             />
             {/* Blue / Sapphire Bokeh */}
             <motion.div
               animate={{
-                scale: [1, 1.2, 1],
-                opacity: [0.25, 0.45, 0.25]
+                scale: [1, 1.15, 1],
+                opacity: [0.2, 0.4, 0.2]
               }}
               transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute right-1/3 bottom-1/3 h-[450px] w-[450px] rounded-full bg-[#3B82F6]/22 blur-[150px]"
+              className="absolute right-1/3 bottom-1/3 h-[280px] w-[280px] sm:h-[450px] sm:w-[450px] rounded-full bg-[#3B82F6]/22 blur-[90px] sm:blur-[150px]"
             />
             <div className="absolute inset-0 noise-mask opacity-20 pointer-events-none" />
           </div>
@@ -158,39 +158,39 @@ export default function MacIntroLoader() {
             initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-            className="relative z-20 flex items-center justify-between px-5 py-3 backdrop-blur-xl bg-black/25 border-b border-white/[0.06] text-xs font-mono tracking-wider text-white/70"
+            className="relative z-20 flex items-center justify-between px-3.5 sm:px-5 py-2.5 sm:py-3 backdrop-blur-xl bg-black/25 border-b border-white/[0.06] text-xs font-mono tracking-wider text-white/70"
           >
             {/* macOS Window Controls */}
-            <div className="flex items-center space-x-3.5">
-              <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2.5 sm:space-x-3.5">
+              <div className="flex items-center space-x-1.5 sm:space-x-2">
                 <button
                   onClick={handleFinish}
                   title="Close / Skip"
-                  className="h-3 w-3 rounded-full bg-[#FF5F56] hover:brightness-110 border border-black/20 transition-transform active:scale-95 cursor-pointer"
+                  className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-[#FF5F56] hover:brightness-110 border border-black/20 transition-transform active:scale-95 cursor-pointer"
                 />
-                <div className="h-3 w-3 rounded-full bg-[#FFBD2E] border border-black/20" />
-                <div className="h-3 w-3 rounded-full bg-[#27C93F] border border-black/20" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-[#FFBD2E] border border-black/20" />
+                <div className="h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-[#27C93F] border border-black/20" />
               </div>
               <span className="text-white/30 text-[10px]">|</span>
-              <span className="font-medium text-white/90 flex items-center gap-2">
+              <span className="font-medium text-white/90 text-[11px] sm:text-xs flex items-center gap-1.5 sm:gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-[#ff4d00] animate-pulse" />
-                Zabed-OS v14.5
+                Zabed-OS
               </span>
             </div>
 
-            {/* System Indicators */}
-            <div className="flex items-center space-x-4 text-white/80">
+            {/* System Indicators & Skip Button */}
+            <div className="flex items-center space-x-2 sm:space-x-4 text-white/80">
               <button
                 onClick={handleFinish}
-                className="hidden sm:inline-block px-3 py-1 rounded-md bg-white/5 border border-white/10 hover:bg-[#ff4d00]/20 hover:border-[#ff4d00]/40 hover:text-white transition duration-200 text-[11px] font-mono"
+                className="px-2.5 py-1 rounded-md bg-white/10 border border-white/15 hover:bg-[#ff4d00]/20 hover:border-[#ff4d00]/40 hover:text-white active:scale-95 transition duration-200 text-[10px] sm:text-[11px] font-mono cursor-pointer"
               >
-                Skip Intro ↵
+                Skip ↵
               </button>
-              <div className="flex items-center space-x-3 text-white/60">
+              <div className="flex items-center space-x-2 sm:space-x-3 text-white/60">
                 <FiWifi className="h-3.5 w-3.5" />
-                <FiSliders className="h-3.5 w-3.5" />
+                <FiSliders className="hidden xs:inline-block h-3.5 w-3.5" />
                 <FiBattery className="h-4 w-4" />
-                <span className="text-white/80 font-mono text-[11px]">
+                <span className="text-white/80 font-mono text-[10px] sm:text-[11px]">
                   {timeString || "10:45 AM"}
                 </span>
               </div>
@@ -199,11 +199,11 @@ export default function MacIntroLoader() {
 
           {/* Center Stage: Apple Keynote "Hello" Handwriting Type Reveal */}
           <main className="relative z-10 flex flex-1 flex-col items-center justify-center px-4">
-            <div className="relative flex flex-col items-center justify-center min-h-[220px]">
+            <div className="relative flex flex-col items-center justify-center min-h-[160px] sm:min-h-[220px] w-full max-w-full">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentGreeting.text}
-                  initial={{ scale: 0.98, opacity: 0 }}
+                  initial={{ scale: 0.97, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{
                     scale: 1.02,
@@ -212,17 +212,17 @@ export default function MacIntroLoader() {
                     transition: { duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }
                   }}
                   transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
-                  className="flex flex-col items-center text-center relative"
+                  className="flex flex-col items-center text-center relative w-full"
                 >
                   {/* Handwritten Script Container */}
                   <div
-                    className="relative flex items-center justify-center py-2"
+                    className="relative flex items-center justify-center py-2 max-w-full"
                     style={{
                       filter:
-                        "drop-shadow(0 0 20px rgba(255, 255, 255, 0.75)) drop-shadow(0 0 45px rgba(255, 255, 255, 0.35))"
+                        "drop-shadow(0 0 15px rgba(255, 255, 255, 0.75)) drop-shadow(0 0 35px rgba(255, 255, 255, 0.35))"
                     }}
                   >
-                    <div className="flex items-baseline overflow-hidden">
+                    <div className="flex items-baseline overflow-hidden max-w-full px-2">
                       {characters.map((char, index) => (
                         <motion.span
                           key={`${currentGreeting.text}-${index}`}
@@ -241,7 +241,7 @@ export default function MacIntroLoader() {
                             ease: [0.25, 0.1, 0.25, 1],
                             delay: index * 0.04
                           }}
-                          className={`text-6xl sm:text-8xl md:text-9xl text-white select-none ${
+                          className={`text-5xl xs:text-6xl sm:text-8xl md:text-9xl text-white select-none ${
                             currentGreeting.isPacifico
                               ? "font-normal"
                               : "font-light"
@@ -251,7 +251,7 @@ export default function MacIntroLoader() {
                               ? "var(--font-pacifico), 'Pacifico', cursive"
                               : '-apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif',
                             lineHeight: 1.1,
-                            paddingRight: currentGreeting.isPacifico ? "0.08em" : "0.02em"
+                            paddingRight: currentGreeting.isPacifico ? "0.06em" : "0.02em"
                           }}
                         >
                           {char}
@@ -270,7 +270,7 @@ export default function MacIntroLoader() {
                         duration: Math.max(0.3, characters.length * 0.04 + 0.1),
                         ease: [0.25, 0.1, 0.25, 1]
                       }}
-                      className="pointer-events-none absolute -bottom-1 h-3 w-3 rounded-full bg-white shadow-[0_0_18px_#ffffff,0_0_35px_#ff4d00]"
+                      className="pointer-events-none absolute -bottom-1 h-2.5 w-2.5 sm:h-3 sm:w-3 rounded-full bg-white shadow-[0_0_18px_#ffffff,0_0_35px_#ff4d00]"
                     />
                   </div>
 
@@ -283,7 +283,7 @@ export default function MacIntroLoader() {
                       delay: characters.length * 0.04 + 0.03,
                       ease: [0.25, 0.1, 0.25, 1]
                     }}
-                    className="mt-4 font-mono text-xs uppercase tracking-[0.3em] text-[#ff4d00] font-medium"
+                    className="mt-3 sm:mt-4 font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-[#ff4d00] font-medium"
                   >
                     {currentGreeting.lang}
                   </motion.span>
@@ -292,7 +292,7 @@ export default function MacIntroLoader() {
             </div>
 
             {/* Apple Boot Progress Bar */}
-            <div className="mt-16 flex flex-col items-center w-full max-w-xs">
+            <div className="mt-10 sm:mt-16 flex flex-col items-center w-full max-w-[240px] sm:max-w-xs">
               <div className="relative h-1.5 w-full rounded-full bg-white/10 overflow-hidden backdrop-blur-md border border-white/10 shadow-[0_0_20px_rgba(255,255,255,0.1)]">
                 <motion.div
                   className="h-full bg-gradient-to-r from-[#ff4d00] via-[#ff7700] to-white shadow-[0_0_15px_rgba(255,255,255,0.8)]"
@@ -302,7 +302,7 @@ export default function MacIntroLoader() {
               </div>
 
               {/* Status and Percentage Label */}
-              <div className="mt-3.5 flex items-center justify-between w-full font-mono text-[11px] text-white/50">
+              <div className="mt-2.5 sm:mt-3.5 flex items-center justify-between w-full font-mono text-[10px] sm:text-[11px] text-white/50">
                 <span className="truncate pr-2">{getStatusText()}</span>
                 <span className="text-[#ff4d00] font-semibold">{progress}%</span>
               </div>
@@ -310,13 +310,13 @@ export default function MacIntroLoader() {
           </main>
 
           {/* Bottom Footer Hint */}
-          <footer className="relative z-20 flex items-center justify-between px-6 py-4 border-t border-white/[0.04] text-[11px] font-mono text-white/40">
+          <footer className="relative z-20 flex flex-row items-center justify-between px-4 sm:px-6 py-3 sm:py-4 border-t border-white/[0.04] text-[10px] sm:text-[11px] font-mono text-white/40">
             <span>© {new Date().getFullYear()} Zabed Mahmud</span>
             <button
               onClick={handleFinish}
-              className="hover:text-white transition duration-200 cursor-pointer underline decoration-[#ff4d00]/50 underline-offset-4"
+              className="hover:text-white active:text-white transition duration-200 cursor-pointer underline decoration-[#ff4d00]/50 underline-offset-4"
             >
-              Click anywhere or press Enter to launch
+              Tap or press Enter to launch
             </button>
           </footer>
         </motion.div>
