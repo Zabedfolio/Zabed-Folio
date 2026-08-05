@@ -7,12 +7,9 @@ import { FiWifi, FiBattery, FiSliders } from "react-icons/fi";
 const GREETINGS = [
   { text: "Hello", lang: "English", isPacifico: true },
   { text: "Hola", lang: "Spanish", isPacifico: true },
-  { text: "Bonjour", lang: "French", isPacifico: true },
   { text: "Ciao", lang: "Italian", isPacifico: true },
   { text: "Hallo", lang: "German", isPacifico: true },
-  { text: "নমস্কার", lang: "Bengali", isPacifico: false },
   { text: "こんにちは", lang: "Japanese", isPacifico: false },
-  { text: "안녕하세요", lang: "Korean", isPacifico: false },
   { text: "Olá", lang: "Portuguese", isPacifico: true },
   { text: "Merhaba", lang: "Turkish", isPacifico: true }
 ];
@@ -46,9 +43,9 @@ export default function MacIntroLoader() {
     updateTime();
     const clockInterval = setInterval(updateTime, 10000);
 
-    // Boot progress loader simulation (~8.5s luxurious Apple Keynote timing)
+    // Boot progress loader simulation (~5.5s smooth macOS boot timing)
     const startTime = Date.now();
-    const duration = 8500;
+    const duration = 5500;
 
     const progressInterval = setInterval(() => {
       const elapsed = Date.now() - startTime;
@@ -57,14 +54,14 @@ export default function MacIntroLoader() {
 
       if (pct >= 100) {
         clearInterval(progressInterval);
-        setTimeout(() => handleFinish(), 600);
+        setTimeout(() => handleFinish(), 400);
       }
-    }, 40);
+    }, 30);
 
-    // Cycle through greetings every 2.8 seconds (1.6s handwriting + 1.2s hold)
+    // Fast language switch interval (800ms per greeting)
     const langInterval = setInterval(() => {
       setLangIndex((prev) => (prev + 1) % GREETINGS.length);
-    }, 2800);
+    }, 800);
 
     return () => {
       clearInterval(clockInterval);
@@ -211,10 +208,10 @@ export default function MacIntroLoader() {
                   exit={{
                     scale: 1.02,
                     opacity: 0,
-                    filter: "blur(12px)",
-                    transition: { duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }
+                    filter: "blur(10px)",
+                    transition: { duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }
                   }}
-                  transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                  transition={{ duration: 0.28, ease: [0.25, 0.1, 0.25, 1] }}
                   className="flex flex-col items-center text-center relative"
                 >
                   {/* Handwritten Script Container */}
@@ -240,9 +237,9 @@ export default function MacIntroLoader() {
                             y: 0
                           }}
                           transition={{
-                            duration: 0.45,
+                            duration: 0.22,
                             ease: [0.25, 0.1, 0.25, 1],
-                            delay: index * 0.14
+                            delay: index * 0.04
                           }}
                           className={`text-6xl sm:text-8xl md:text-9xl text-white select-none ${
                             currentGreeting.isPacifico
@@ -270,7 +267,7 @@ export default function MacIntroLoader() {
                         opacity: [0, 1, 1, 0]
                       }}
                       transition={{
-                        duration: Math.max(0.8, characters.length * 0.14 + 0.2),
+                        duration: Math.max(0.3, characters.length * 0.04 + 0.1),
                         ease: [0.25, 0.1, 0.25, 1]
                       }}
                       className="pointer-events-none absolute -bottom-1 h-3 w-3 rounded-full bg-white shadow-[0_0_18px_#ffffff,0_0_35px_#ff4d00]"
@@ -279,11 +276,11 @@ export default function MacIntroLoader() {
 
                   {/* Subtitle Language Label */}
                   <motion.span
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 0, y: 6 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
-                      duration: 0.5,
-                      delay: characters.length * 0.14 + 0.1,
+                      duration: 0.22,
+                      delay: characters.length * 0.04 + 0.03,
                       ease: [0.25, 0.1, 0.25, 1]
                     }}
                     className="mt-4 font-mono text-xs uppercase tracking-[0.3em] text-[#ff4d00] font-medium"
