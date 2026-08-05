@@ -1,6 +1,7 @@
 import { GeistMono, GeistSans } from "geist/font";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingPortal from "@/components/FloatingPortal";
+import MacIntroLoader from "@/components/MacIntroLoader";
 import "./globals.css";
 
 export const metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
       <body>
+        <MacIntroLoader />
         <CustomCursor />
         {children}
         <FloatingPortal />
