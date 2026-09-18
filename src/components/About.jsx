@@ -4,6 +4,48 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import avtr from '@/assets/avtr.png';
+import {
+  SiReact,
+  SiNextdotjs,
+  SiExpress,
+  SiPostgresql,
+  SiMongodb,
+  SiTailwindcss,
+  SiTypescript,
+  SiJavascript,
+  SiHtml5,
+  SiCss,
+} from 'react-icons/si';
+import { HiOutlineGlobeAlt, HiOutlineCode } from 'react-icons/hi';
+
+const TECH_MAP = {
+  react: { name: "ReactJS", icon: SiReact, color: "#00B4D8", bg: "rgba(0, 180, 216, 0.1)", border: "rgba(0, 180, 216, 0.25)" },
+  next: { name: "NextJS", icon: SiNextdotjs, color: "#1a1a1a", bg: "rgba(0, 0, 0, 0.06)", border: "rgba(0, 0, 0, 0.15)" },
+  express: { name: "Express.js", icon: SiExpress, color: "#1a1a1a", bg: "rgba(0, 0, 0, 0.06)", border: "rgba(0, 0, 0, 0.15)" },
+  postgres: { name: "PostgreSQL", icon: SiPostgresql, color: "#336791", bg: "rgba(51, 103, 145, 0.1)", border: "rgba(51, 103, 145, 0.25)" },
+  mongo: { name: "MongoDB", icon: SiMongodb, color: "#13AA52", bg: "rgba(19, 170, 82, 0.1)", border: "rgba(19, 170, 82, 0.25)" },
+  tailwind: { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06B6D4", bg: "rgba(6, 182, 212, 0.1)", border: "rgba(6, 182, 212, 0.25)" },
+  typescript: { name: "TypeScript", icon: SiTypescript, color: "#3178C6", bg: "rgba(49, 120, 198, 0.1)", border: "rgba(49, 120, 198, 0.25)" },
+  javascript: { name: "JavaScript", icon: SiJavascript, color: "#B89600", bg: "rgba(247, 223, 30, 0.15)", border: "rgba(214, 186, 0, 0.3)" },
+  html: { name: "HTML", icon: SiHtml5, color: "#E34F26", bg: "rgba(227, 79, 38, 0.1)", border: "rgba(227, 79, 38, 0.25)" },
+  css: { name: "CSS", icon: SiCss, color: "#1572B6", bg: "rgba(21, 114, 182, 0.1)", border: "rgba(21, 114, 182, 0.25)" },
+  restapi: { name: "REST APIs", icon: HiOutlineGlobeAlt, color: "#ff5f1a", bg: "rgba(255, 95, 26, 0.1)", border: "rgba(255, 95, 26, 0.25)" },
+};
+
+function TechBadge({ name, techKey }) {
+  const item = TECH_MAP[techKey] || { name: name || techKey, icon: HiOutlineCode, color: "#ff5f1a", bg: "rgba(255, 95, 26, 0.1)", border: "rgba(255, 95, 26, 0.2)" };
+  const Icon = item.icon;
+
+  return (
+    <span
+      style={{ backgroundColor: item.bg, borderColor: item.border }}
+      className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg border font-mono text-[11.5px] font-bold align-middle mx-0.5 shadow-sm transition-transform hover:scale-105 duration-200"
+    >
+      <Icon style={{ color: item.color }} className="h-3.5 w-3.5 shrink-0" />
+      <span className="text-[#1a1a1a]">{item.name}</span>
+    </span>
+  );
+}
 
 const JOURNEY_START = new Date("2026-01-01T00:00:00+06:00").getTime();
 
@@ -139,7 +181,7 @@ export default function About() {
             </span>
           </motion.div>
 
-          {/* Main Title Header (Design matching reference screenshot) */}
+          {/* Main Title Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -200,39 +242,11 @@ export default function About() {
             </h2>
           </motion.div>
 
-          {/* Work & Role Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-wrap items-center gap-3 pt-2"
-          >
-            <div className="inline-flex items-center gap-2 rounded-xl border border-black/10 bg-white px-3.5 py-2 shadow-sm text-xs font-semibold text-[#1a1a1a]">
-              <span>Full Time</span>
-              <span className="font-mono text-black/40 bg-black/5 px-1.5 py-0.5 rounded text-[11px] font-bold">&gt;_</span>
-            </div>
-
-            <div className="inline-flex items-center gap-2 rounded-xl border border-black/10 bg-white px-3.5 py-2 shadow-sm text-xs font-semibold text-[#1a1a1a]">
-              <span className="text-black/50">Part-Time</span>
-              <div className="flex flex-wrap items-center gap-1.5 border-l border-black/10 pl-2">
-                <span title="Graphics Design" className="inline-flex items-center gap-1 rounded-lg bg-amber-500/10 px-2 py-0.5 text-[11px] text-amber-700 font-medium border border-amber-500/20">
-                  🎨 Graphics Design
-                </span>
-                <span title="Social Media Management" className="inline-flex items-center gap-1 rounded-lg bg-blue-500/10 px-2 py-0.5 text-[11px] text-blue-700 font-medium border border-blue-500/20">
-                  📱 Social Media Management
-                </span>
-                <span title="Tech & Gaming" className="inline-flex items-center gap-1 rounded-lg bg-purple-500/10 px-2 py-0.5 text-[11px] text-purple-700 font-medium border border-purple-500/20">
-                  🎮 Tech & Gaming
-                </span>
-              </div>
-            </div>
-          </motion.div>
-
           {/* Intro Paragraphs */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
             className="space-y-4 text-[1.05rem] leading-[1.85] text-black/65 font-normal pt-2"
           >
             <p>
@@ -249,8 +263,8 @@ export default function About() {
               Seconds!
             </p>
 
-            <p>
-              I use ReactJS, NextJS, Express, PostgreSQL, MongoDB, Tailwind CSS, and TypeScript most of the time. My focus is on building clean, high-performance web products, scalable APIs, and intuitive user interfaces.
+            <p className="leading-[2.2]">
+              I use <TechBadge techKey="react" />, <TechBadge techKey="next" />, <TechBadge techKey="express" />, <TechBadge techKey="postgres" />, <TechBadge techKey="mongo" />, <TechBadge techKey="tailwind" />, and <TechBadge techKey="typescript" /> most of the time. My focus is on building clean, high-performance web products, scalable APIs, and intuitive user interfaces.
             </p>
 
             <p>
@@ -297,8 +311,8 @@ export default function About() {
               By <span className="font-semibold text-[#1a1a1a]">September 2024</span>, I re-ignited my learning. And on <span className="font-semibold text-[#1a1a1a]">December 24, 2025</span>, I enrolled in Programming Hero's web development course.
             </p>
 
-            <p>
-              <span className="font-semibold text-[#1a1a1a]">January 1, 2026.</span> I went all-in. HTML, CSS, Tailwind CSS, JavaScript, React, Next.js, Express.js, MongoDB, PostgreSQL, and REST APIs. Each piece built upon the last into a full stack workflow.
+            <p className="leading-[2.2]">
+              <span className="font-semibold text-[#1a1a1a]">January 1, 2026.</span> I went all-in. <TechBadge techKey="html" />, <TechBadge techKey="css" />, <TechBadge techKey="tailwind" />, <TechBadge techKey="javascript" />, <TechBadge techKey="react" />, <TechBadge techKey="next" />, <TechBadge techKey="express" />, <TechBadge techKey="mongo" />, <TechBadge techKey="postgres" />, and <TechBadge techKey="restapi" />. Each piece built upon the last into a full stack workflow.
             </p>
 
             <p>
