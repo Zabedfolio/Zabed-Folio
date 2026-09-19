@@ -6,24 +6,21 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "@/lib/auth-client";
+import ExperienceModal from "@/components/ExperienceModal";
 import {
   HiOutlineHome,
   HiOutlineFolder,
+  HiOutlineAcademicCap,
   HiOutlineShieldCheck,
   HiOutlineMenuAlt4,
   HiOutlineX,
 } from "react-icons/hi";
 
-const navItems = [
-  { href: "/", label: "Home", icon: HiOutlineHome },
-  { href: "/projects", label: "Projects", icon: HiOutlineFolder },
-  { href: "/admin", label: "Admin", icon: HiOutlineShieldCheck },
-];
-
 export default function Navbar() {
   const pathname = usePathname();
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
+  const [experienceOpen, setExperienceOpen] = useState(false);
   const [isAdminLocal, setIsAdminLocal] = useState(false);
 
   useEffect(() => {
@@ -32,33 +29,49 @@ export default function Navbar() {
     }
   }, [session]);
 
+  const navItems = [
+    { type: "link", href: "/", label: "Home", icon: HiOutlineHome },
+    { type: "link", href: "/projects", label: "Projects", icon: HiOutlineFolder },
+    { type: "button", label: "Experience", icon: HiOutlineAcademicCap, onClick: () => setExperienceOpen(true) },
+    { type: "link", href: "/admin", label: "Admin", icon: HiOutlineShieldCheck },
+  ];
+
   return (
     <>
       {/* Desktop Vertical Sidebar Navigation Dock */}
       <aside className="hidden md:flex fixed left-5 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-3 rounded-3xl border border-black/10 bg-white/80 p-2.5 shadow-xl shadow-black/5 backdrop-blur-xl">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href;
+          const isActive = item.type === "link" && pathname === item.href;
 
           return (
-            <div key={item.href} className="relative group">
-              <Link
-                href={item.href}
-                className={`relative flex h-11 w-11 items-center justify-center rounded-2xl transition-all duration-300 ${
-                  isActive
-                    ? "bg-[#1a1a1a] text-white shadow-md shadow-black/10"
-                    : "text-black/60 hover:bg-black/5 hover:text-[#1a1a1a]"
-                }`}
-              >
-                <Icon className="text-xl" />
-                {isActive && (
-                  <motion.span
-                    layoutId="sidebarActivePill"
-                    className="absolute -right-1 h-2 w-2 rounded-full bg-[#ff5f1a]"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
-              </Link>
+            <div key={item.label} className="relative group">
+              {item.type === "link" ? (
+                <Link
+                  href={item.href}
+                  className={`relative flex h-11 w-11 items-center justify-center rounded-2xl transition-all duration-300 ${
+                    isActive
+                      ? "bg-[#1a1a1a] text-white shadow-md shadow-black/10"
+                      : "text-black/60 hover:bg-black/5 hover:text-[#1a1a1a]"
+                  }`}
+                >
+                  <Icon className="text-xl" />
+                  {isActive && (
+                    <motion.span
+                      layoutId="sidebarActivePill"
+                      className="absolute -right-1 h-2 w-2 rounded-full bg-[#ff5f1a]"
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </Link>
+              ) : (
+                <button
+                  onClick={item.onClick}
+                  className="relative flex h-11 w-11 items-center justify-center rounded-2xl text-black/60 hover:bg-black/5 hover:text-[#1a1a1a] transition-all duration-300"
+                >
+                  <Icon className="text-xl" />
+                </button>
+              )}
 
               {/* Hover Tooltip */}
               <div className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 rounded-xl bg-[#1a1a1a] px-3 py-1.5 font-mono text-[11px] font-semibold text-white opacity-0 shadow-lg transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-1 whitespace-nowrap z-50">
@@ -111,11 +124,11 @@ export default function Navbar() {
                     <div className="flex flex-col py-4 gap-2">
                       {navItems.map((item) => {
                         const Icon = item.icon;
-                        const isActive = pathname === item.href;
+                        const isActive = item.type === "link" && pathname === item.href;
 
-                        return (
+                        return item.type === "link" ? (
                           <Link
-                            key={item.href}
+                            key={item.label}
                             href={item.href}
                             onClick={() => setOpen(false)}
                             className={`flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-base font-bold transition-all ${
@@ -127,6 +140,18 @@ export default function Navbar() {
                             <Icon className="text-xl" />
                             <span>{item.label}</span>
                           </Link>
+                        ) : (
+                          <button
+                            key={item.label}
+                            onClick={() => {
+                              setOpen(false);
+                              item.onClick();
+                            }}
+                            className="flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-base font-bold text-black/70 hover:bg-black/5 hover:text-[#1a1a1a] transition-all w-full text-left"
+                          >
+                            <Icon className="text-xl" />
+                            <span>{item.label}</span>
+                          </button>
                         );
                       })}
                     </div>
@@ -147,6 +172,9 @@ export default function Navbar() {
           Wanna talk?
         </Link>
       </div>
+
+      {/* Experience Story Modal */}
+      <ExperienceModal open={experienceOpen} onOpenChange={setExperienceOpen} />
     </>
   );
 }
