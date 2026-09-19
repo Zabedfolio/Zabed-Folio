@@ -77,11 +77,11 @@ export default function ExperienceModal({ open, onOpenChange }) {
                   {/* Paragraph 1 */}
                   <p>
                     In <span className="font-semibold text-[#1a1a1a]">January 2026</span>, my actual journey began. With little steps, I became a MERN Stack Developer with the help of{" "}
-                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#D97706]">
+                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#AE2ED6]">
                       <img
                         src="/programming-hero.png"
                         alt="Programming Hero"
-                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-contain shrink-0 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain shrink-0 shadow-sm align-middle"
                       />
                       <span>Programming Hero</span>
                     </span>
@@ -91,11 +91,11 @@ export default function ExperienceModal({ open, onOpenChange }) {
                   {/* Paragraph 2 */}
                   <p>
                     Then, I started applying for multiple jobs while joining{" "}
-                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#1D4ED8]">
+                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#53E499]">
                       <img
                         src="/flyrank_logo.jpeg"
                         alt="FlyRank AI"
-                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-cover shrink-0 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-cover shrink-0 shadow-sm align-middle"
                       />
                       <span>FlyRank AI</span>
                     </span>{" "}
@@ -109,7 +109,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                       <img
                         src="/risetogetherbd_logo.jpeg"
                         alt="Rise Together"
-                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-cover shrink-0 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-cover shrink-0 shadow-sm align-middle"
                       />
                       <span>Rise Together</span>
                     </span>{" "}
@@ -119,11 +119,11 @@ export default function ExperienceModal({ open, onOpenChange }) {
                   {/* Paragraph 4 */}
                   <p>
                     After that, I took part in Programming Hero{" "}
-                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#1a1a1a]">
+                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#931BFD]">
                       <img
                         src="/endgame.webp"
                         alt="Endgame"
-                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-contain shrink-0 bg-[#1a1a1a] p-1 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain shrink-0 bg-[#1a1a1a] p-1 shadow-sm align-middle"
                       />
                       <span className="tracking-wide">Endgame</span>
                     </span>
@@ -182,7 +182,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
 
                   {/* Paragraph 6 (Closing) */}
                   <p className="pt-2 font-medium text-black/70">
-                    That’s all about my experience so far. Still now, I’m a noob haha 😂.
+                    That’s all about my experience so far. Still now, I’m a noob haha <span className="opacity-100 text-black font-normal inline-block select-none">😂</span>.
                   </p>
                 </div>
 

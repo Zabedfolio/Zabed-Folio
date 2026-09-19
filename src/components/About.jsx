@@ -228,7 +228,7 @@ export default function About() {
             className="space-y-4 text-[1.05rem] leading-[1.85] text-black/65 font-normal pt-2"
           >
             <p>
-              I'm a Web Developer, Designer, and Tech Enthusiast from Chittagong, Bangladesh 🇧🇩. I've been coding and building web applications for about <span className="font-bold text-lg text-[#1a1a1a]">{months}</span> months — or <span className="italic">exactly</span>{" "}
+              I'm a Web Developer, Designer, and Tech Enthusiast from Chittagong, Bangladesh <span className="opacity-100 text-black font-normal inline-block select-none">🇧🇩</span>. I've been coding and building web applications for about <span className="font-bold text-lg text-[#1a1a1a]">{months}</span> months — or <span className="italic">exactly</span>{" "}
               <span className="font-mono font-extrabold text-base sm:text-lg text-[#ff5f1a] tracking-tight px-1 tabular-nums inline-flex items-baseline">
                 {seconds !== null ? (
                   formatSeconds(seconds).split("").map((char, i, arr) => {
