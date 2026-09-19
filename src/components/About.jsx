@@ -1,5 +1,15 @@
 'use client';
 
+import {
+  FaFacebookF,
+  FaWhatsapp,
+  FaTelegramPlane,
+  FaLinkedinIn,
+  FaGithub,
+} from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+
+
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
@@ -150,6 +160,40 @@ function HoverImage({ src, alt, label }) {
   );
 }
 
+
+const socialLinks = [
+  {
+    name: "Facebook",
+    icon: FaFacebookF,
+    href: "https://facebook.com",
+  },
+  {
+    name: "WhatsApp",
+    icon: FaWhatsapp,
+    href: "https://wa.me/8801979333880",
+  },
+  {
+    name: "Telegram",
+    icon: FaTelegramPlane,
+    href: "https://t.me/Zabed_Mahmud",
+  },
+  {
+    name: "Twitter/X",
+    icon: FaXTwitter,
+    href: "https://x.com",
+  },
+  {
+    name: "LinkedIn",
+    icon: FaLinkedinIn,
+    href: "https://linkedin.com/in/zabedfolio",
+  },
+  {
+    name: "GitHub",
+    icon: FaGithub,
+    href: "https://github.com/Zabedfolio",
+  },
+];
+
 export default function About() {
   const months = useJourneyMonths();
   const seconds = useJourneySeconds();
@@ -218,6 +262,24 @@ export default function About() {
                 <span>Digital Products</span>
               </span>
             </h2>
+
+            {/* Smooth Expanding Social Links Bar */}
+            <div className="pt-3 flex flex-wrap items-center gap-2.5 sm:gap-3">
+              {socialLinks.map(({ name, icon: Icon, href }) => (
+                <a
+                  key={name}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative inline-flex h-11 items-center justify-center rounded-2xl border border-black/8 bg-[#f3f3f3] hover:bg-[#eaeaea] px-3.5 text-[#1a1a1a] shadow-sm transition-all duration-300 ease-out hover:shadow-md cursor-pointer overflow-hidden"
+                >
+                  <Icon className="text-lg shrink-0 text-[#1a1a1a] transition-transform duration-300 group-hover:scale-110" />
+                  <span className="max-w-0 opacity-0 whitespace-nowrap overflow-hidden transition-all duration-300 ease-out group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2.5 font-sans text-xs sm:text-sm font-bold text-[#1a1a1a]">
+                    {name}
+                  </span>
+                </a>
+              ))}
+            </div>
           </motion.div>
 
           {/* Intro Paragraphs */}
