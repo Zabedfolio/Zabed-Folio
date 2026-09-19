@@ -5,9 +5,10 @@ import {
   FaWhatsapp,
   FaTelegramPlane,
   FaLinkedinIn,
+  FaInstagram,
   FaGithub,
 } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+
 
 
 import { motion, AnimatePresence } from 'framer-motion';
@@ -165,7 +166,7 @@ const socialLinks = [
   {
     name: "Facebook",
     icon: FaFacebookF,
-    href: "https://facebook.com",
+    href: "https://www.facebook.com/profile.php?id=61585623848571",
   },
   {
     name: "WhatsApp",
@@ -178,9 +179,9 @@ const socialLinks = [
     href: "https://t.me/Zabed_Mahmud",
   },
   {
-    name: "Twitter/X",
-    icon: FaXTwitter,
-    href: "https://x.com",
+    name: "Instagram",
+    icon: FaInstagram,
+    href: "https://www.instagram.com/zaabed_maahmud/",
   },
   {
     name: "LinkedIn",
