@@ -52,13 +52,13 @@ export default function ExperienceModal({ open, onOpenChange }) {
               />
             </Dialog.Overlay>
 
-            <Dialog.Content asChild>
+            <Dialog.Content className="fixed inset-0 z-[101] flex items-center justify-center p-4 sm:p-6 overflow-y-auto outline-none">
               <motion.div
-                initial={{ opacity: 0, scale: 0.94, y: 15 }}
+                initial={{ opacity: 0, scale: 0.95, y: 15 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.94, y: 15 }}
+                exit={{ opacity: 0, scale: 0.95, y: 15 }}
                 transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-[calc(100%-2rem)] max-w-2xl max-h-[85vh] overflow-y-auto rounded-3xl border border-black/10 bg-white p-6 sm:p-10 shadow-2xl space-y-6"
+                className="w-full max-w-2xl my-auto max-h-[85vh] overflow-y-auto rounded-3xl border border-black/10 bg-white p-6 sm:p-10 shadow-2xl space-y-6 text-[#1a1a1a]"
               >
                 {/* Header */}
                 <div className="flex items-center justify-between border-b border-black/8 pb-4">
@@ -73,15 +73,15 @@ export default function ExperienceModal({ open, onOpenChange }) {
                 </div>
 
                 {/* Narrative Story Body */}
-                <div className="space-y-5 text-base sm:text-[1.05rem] leading-[1.85] text-black/75 font-normal">
+                <div className="space-y-5 text-base sm:text-[1.05rem] leading-[1.85] text-black/80 font-normal">
                   {/* Paragraph 1 */}
                   <p>
                     In <span className="font-semibold text-[#1a1a1a]">January 2026</span>, my actual journey began. With little steps, I became a MERN Stack Developer with the help of{" "}
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#FFF8E7] border border-[#FFE082] text-sm sm:text-base font-extrabold text-[#D97706] shadow-sm align-middle mx-0.5">
+                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#D97706]">
                       <img
                         src="/programming-hero.png"
                         alt="Programming Hero"
-                        className="h-5 w-5 rounded-full object-contain shrink-0"
+                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-contain shrink-0 shadow-sm align-middle"
                       />
                       <span>Programming Hero</span>
                     </span>
@@ -91,11 +91,11 @@ export default function ExperienceModal({ open, onOpenChange }) {
                   {/* Paragraph 2 */}
                   <p>
                     Then, I started applying for multiple jobs while joining{" "}
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#EFF6FF] border border-[#BFDBFE] text-sm sm:text-base font-extrabold text-[#1D4ED8] shadow-sm align-middle mx-0.5">
+                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#1D4ED8]">
                       <img
                         src="/flyrank_logo.jpeg"
                         alt="FlyRank AI"
-                        className="h-5 w-5 rounded-full object-cover shrink-0"
+                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-cover shrink-0 shadow-sm align-middle"
                       />
                       <span>FlyRank AI</span>
                     </span>{" "}
@@ -105,11 +105,11 @@ export default function ExperienceModal({ open, onOpenChange }) {
                   {/* Paragraph 3 */}
                   <p>
                     After that, I joined{" "}
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#ECFDF5] border border-[#A7F3D0] text-sm sm:text-base font-extrabold text-[#047857] shadow-sm align-middle mx-0.5">
+                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#047857]">
                       <img
                         src="/risetogetherbd_logo.jpeg"
                         alt="Rise Together"
-                        className="h-5 w-5 rounded-full object-cover shrink-0"
+                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-cover shrink-0 shadow-sm align-middle"
                       />
                       <span>Rise Together</span>
                     </span>{" "}
@@ -119,13 +119,13 @@ export default function ExperienceModal({ open, onOpenChange }) {
                   {/* Paragraph 4 */}
                   <p>
                     After that, I took part in Programming Hero{" "}
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#1a1a1a] border border-black/20 text-sm sm:text-base font-extrabold text-white shadow-md align-middle mx-0.5">
+                    <span className="inline-flex items-center gap-2 align-middle mx-1 font-extrabold text-[#1a1a1a]">
                       <img
                         src="/endgame.webp"
                         alt="Endgame"
-                        className="h-5 w-5 rounded-full object-contain shrink-0"
+                        className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl object-contain shrink-0 bg-[#1a1a1a] p-1 shadow-sm align-middle"
                       />
-                      <span className="tracking-wide text-white">Endgame</span>
+                      <span className="tracking-wide">Endgame</span>
                     </span>
                     , where I led the scrum as a scrum leader and also worked as a team leader. There, I worked on{" "}
                     {flixoraHref ? (
@@ -182,7 +182,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
 
                   {/* Paragraph 6 (Closing) */}
                   <p className="pt-2 font-medium text-black/70">
-                    That’s all about my experience so far. Still now, I’m a noob haha 😆.
+                    That’s all about my experience so far. Still now, I’m a noob haha 😂.
                   </p>
                 </div>
 
