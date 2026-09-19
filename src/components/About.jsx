@@ -271,7 +271,7 @@ export default function About() {
                   href={href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative inline-flex h-11 items-center justify-center rounded-2xl border border-black/8 bg-[#f3f3f3] hover:bg-[#eaeaea] px-3.5 text-[#1a1a1a] shadow-sm transition-all duration-300 ease-out hover:shadow-md cursor-pointer overflow-hidden"
+                  className="group relative inline-flex h-11 items-center justify-center rounded-2xl border border-black/8 bg-black/8 hover:bg-black/15 border border-black/10 px-3.5 text-[#1a1a1a] shadow-sm transition-all duration-300 ease-out hover:shadow-md cursor-pointer overflow-hidden"
                 >
                   <Icon className="text-lg shrink-0 text-[#1a1a1a] transition-transform duration-300 group-hover:scale-110" />
                   <span className="max-w-0 opacity-0 whitespace-nowrap overflow-hidden transition-all duration-300 ease-out group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2.5 font-sans text-xs sm:text-sm font-bold text-[#1a1a1a]">
