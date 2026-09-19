@@ -81,7 +81,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                       <img
                         src="/programming-hero.png"
                         alt="Programming Hero"
-                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain shrink-0 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain shrink-0 shadow-sm align-middle transition-transform duration-300 hover:scale-125 hover:rotate-3 cursor-pointer"
                       />
                       <span>Programming Hero</span>
                     </span>
@@ -95,7 +95,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                       <img
                         src="/flyrank_logo.jpeg"
                         alt="FlyRank AI"
-                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-cover shrink-0 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-cover shrink-0 shadow-sm align-middle transition-transform duration-300 hover:scale-125 hover:rotate-3 cursor-pointer"
                       />
                       <span>FlyRank AI</span>
                     </span>{" "}
@@ -109,7 +109,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                       <img
                         src="/risetogetherbd_logo.jpeg"
                         alt="Rise Together"
-                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-cover shrink-0 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-cover shrink-0 shadow-sm align-middle transition-transform duration-300 hover:scale-125 hover:rotate-3 cursor-pointer"
                       />
                       <span>Rise Together</span>
                     </span>{" "}
@@ -123,7 +123,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                       <img
                         src="/endgame.webp"
                         alt="Endgame"
-                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain shrink-0 bg-[#1a1a1a] p-1 shadow-sm align-middle"
+                        className="h-8 w-8 sm:h-9 sm:w-9 rounded-md object-contain shrink-0 bg-[#1a1a1a] p-1 shadow-sm align-middle transition-transform duration-300 hover:scale-125 hover:rotate-3 cursor-pointer"
                       />
                       <span className="tracking-wide">Endgame</span>
                     </span>
@@ -182,7 +182,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
 
                   {/* Paragraph 6 (Closing) */}
                   <p className="pt-2 font-medium text-black/70">
-                    That’s all about my experience so far. Still now, I’m a noob haha <span className="opacity-100 text-black font-normal inline-block select-none">😂</span>.
+                    That’s all about my experience so far. Still now, I’m a noob <span className="opacity-100 text-black font-normal inline-block select-none">😂</span>.
                   </p>
                 </div>
 

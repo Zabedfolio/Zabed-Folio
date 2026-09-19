@@ -7,9 +7,11 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useSession } from "@/lib/auth-client";
 import ExperienceModal from "@/components/ExperienceModal";
+import EducationModal from "@/components/EducationModal";
 import {
   HiOutlineHome,
   HiOutlineFolder,
+  HiOutlineBriefcase,
   HiOutlineAcademicCap,
   HiOutlineShieldCheck,
   HiOutlineMenuAlt4,
@@ -21,6 +23,7 @@ export default function Navbar() {
   const { data: session } = useSession();
   const [open, setOpen] = useState(false);
   const [experienceOpen, setExperienceOpen] = useState(false);
+  const [educationOpen, setEducationOpen] = useState(false);
   const [isAdminLocal, setIsAdminLocal] = useState(false);
 
   useEffect(() => {
@@ -32,7 +35,8 @@ export default function Navbar() {
   const navItems = [
     { type: "link", href: "/", label: "Home", icon: HiOutlineHome },
     { type: "link", href: "/projects", label: "Projects", icon: HiOutlineFolder },
-    { type: "button", label: "Experience", icon: HiOutlineAcademicCap, onClick: () => setExperienceOpen(true) },
+    { type: "button", label: "Experience", icon: HiOutlineBriefcase, onClick: () => setExperienceOpen(true) },
+    { type: "button", label: "Education", icon: HiOutlineAcademicCap, onClick: () => setEducationOpen(true) },
     { type: "link", href: "/admin", label: "Admin", icon: HiOutlineShieldCheck },
   ];
 
@@ -173,8 +177,9 @@ export default function Navbar() {
         </Link>
       </div>
 
-      {/* Experience Story Modal */}
+      {/* Experience & Education Modals */}
       <ExperienceModal open={experienceOpen} onOpenChange={setExperienceOpen} />
+      <EducationModal open={educationOpen} onOpenChange={setEducationOpen} />
     </>
   );
 }
