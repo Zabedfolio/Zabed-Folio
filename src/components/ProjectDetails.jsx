@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { HiOutlineLockClosed } from "react-icons/hi";
+import { HiOutlineLockClosed, HiOutlineArrowsExpand } from "react-icons/hi";
 import { fetchProjectById } from "@/utils/projectApi";
 import { fallbackProjects } from "@/data/fallbackProjects";
 
@@ -85,16 +85,22 @@ export default function ProjectDetails({ projectId }) {
           className="overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm"
         >
           {project.image ? (
-            <div className="relative w-full bg-black/[0.03] overflow-hidden border-b border-black/8 flex items-center justify-center p-2 sm:p-4">
-              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[720px] rounded-2xl overflow-hidden">
-                <Image
-                  src={project.image}
-                  alt={project.title ?? "Project preview"}
-                  fill
-                  className="object-contain"
-                  priority
-                />
-              </div>
+            <div className="relative w-full overflow-hidden rounded-t-3xl bg-[#0c0c0e] border-b border-black/8 group">
+              <img
+                src={project.image}
+                alt={project.title ?? "Project preview"}
+                className="w-full h-auto block max-h-[820px] object-cover sm:object-contain mx-auto"
+              />
+              <a
+                href={project.image}
+                target="_blank"
+                rel="noopener noreferrer"
+                title="View full-resolution image"
+                className="absolute top-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 hover:bg-black/85 backdrop-blur-md border border-white/15 text-white text-xs font-mono font-medium shadow-md transition-all hover:scale-105 active:scale-95 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 duration-200"
+              >
+                <HiOutlineArrowsExpand className="text-sm" />
+                <span>Full Image</span>
+              </a>
             </div>
           ) : null}
 
