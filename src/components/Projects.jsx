@@ -57,20 +57,43 @@ export default function Projects() {
             </div>
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          {/* Floating Badges at Positions 1 & 2 */}
+          <div className="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none z-10">
+            {/* Position 1 (Top-Left): Project Status Tag */}
+            <div>
+              {project.status === "running" ? (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-1 text-[10px] font-mono font-bold text-emerald-400 shadow-sm">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  Running
+                </span>
+              ) : project.status === "upcoming" ? (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-1 text-[10px] font-mono font-bold text-amber-400 shadow-sm">
+                  Upcoming
+                </span>
+              ) : null}
+            </div>
+
+            {/* Position 2 (Top-Right): Repository Status Tag */}
+            <div>
+              {project.isPrivateRepo ? (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-1 text-[10px] font-mono font-bold text-white/90 shadow-sm">
+                  <HiOutlineLockClosed className="text-xs text-white/70" />
+                  Private Repo
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 px-2.5 py-1 text-[10px] font-mono font-bold text-white/80 shadow-sm">
+                  Public Repo
+                </span>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="p-6 space-y-3">
           <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-black/40 gap-3">
             <span className="shrink-0 whitespace-nowrap">{String(index + 1).padStart(2, "0")} · {project.year || "2026"}</span>
-            <div className="flex items-center gap-2 shrink-0">
-              {project.status === "running" && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] text-emerald-700 font-bold tracking-normal normal-case shrink-0 whitespace-nowrap">
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                  Running
-                </span>
-              )}
-              <span className="text-[#ff5f1a] font-semibold shrink-0 whitespace-nowrap">{project.category || "Full Stack"}</span>
-            </div>
+            <span className="text-[#ff5f1a] font-semibold shrink-0 whitespace-nowrap">{project.category || "Full Stack"}</span>
           </div>
 
           <h3 className="text-xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#ff5f1a] transition-colors duration-200">
@@ -89,25 +112,23 @@ export default function Projects() {
             href={`/projects/${project.id || project._id}`}
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#ff5f1a] hover:underline underline-offset-4"
           >
-            View Case Study <span aria-hidden>→</span>
+            Details <span aria-hidden>→</span>
           </Link>
           <div className="flex items-center gap-3">
-            {project.isPrivateRepo && (
-              <span className="inline-flex items-center gap-1 font-mono text-[10px] text-black/40 font-semibold uppercase tracking-wider" title="Private Repository">
-                <HiOutlineLockClosed className="text-xs" />
-                Private Repo
-              </span>
-            )}
-            {project.liveUrl && (
+            {!project.noLiveLink && project.liveUrl ? (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono text-[10px] text-black/40 hover:text-black font-semibold uppercase tracking-wider transition-colors"
+                className="font-mono text-[10px] text-black/50 hover:text-black font-semibold uppercase tracking-wider transition-colors"
               >
-                Live Demo ↗
+                Live Link ↗
               </a>
-            )}
+            ) : project.noLiveLink ? (
+              <span className="font-mono text-[10px] text-black/35 font-semibold uppercase tracking-wider select-none">
+                Live Link Pending
+              </span>
+            ) : null}
           </div>
         </div>
       </div>

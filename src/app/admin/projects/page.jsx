@@ -31,6 +31,7 @@ export default function AdminProjects() {
     liveUrl: "",
     githubUrl: "",
     isPrivateRepo: false,
+    noLiveLink: false,
     tags: "",
   });
 
@@ -69,6 +70,7 @@ export default function AdminProjects() {
       liveUrl: "",
       githubUrl: "",
       isPrivateRepo: false,
+      noLiveLink: false,
       tags: "",
     });
     setModalOpen(true);
@@ -88,6 +90,7 @@ export default function AdminProjects() {
       liveUrl: project.liveUrl || "",
       githubUrl: project.githubUrl || "",
       isPrivateRepo: Boolean(project.isPrivateRepo),
+      noLiveLink: Boolean(project.noLiveLink),
       tags: Array.isArray(project.tags) ? project.tags.join(", ") : project.tags || "",
     });
     setModalOpen(true);
@@ -109,6 +112,7 @@ export default function AdminProjects() {
     const payload = {
       ...formData,
       isPrivateRepo: Boolean(formData.isPrivateRepo),
+      noLiveLink: Boolean(formData.noLiveLink),
       status: formData.status || "completed",
       category: formData.category || (isUpcoming ? "Upcoming" : "Full Stack"),
       year: formData.year || new Date().getFullYear().toString(),
@@ -462,17 +466,41 @@ export default function AdminProjects() {
               {/* Row 5: Live URL, Github URL */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <div>
-                  <label className="block text-[11px] font-mono font-semibold uppercase tracking-wider text-black/50 mb-2">
-                    Live Booking / App URL
-                  </label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-[11px] font-mono font-semibold uppercase tracking-wider text-black/50">
+                      Live Booking / App URL
+                    </label>
+                    {formData.noLiveLink && (
+                      <span className="text-[10px] font-mono font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                        Live Link Not Created Yet
+                      </span>
+                    )}
+                  </div>
                   <input
                     type="url"
                     name="liveUrl"
                     value={formData.liveUrl}
                     onChange={handleInputChange}
-                    placeholder="https://myproject.com"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    disabled={formData.noLiveLink}
+                    placeholder={formData.noLiveLink ? "Live link not created yet (Deployment pending)" : "https://myproject.com"}
+                    className={`w-full rounded-2xl border border-black/10 px-4 py-3 text-sm transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20 ${
+                      formData.noLiveLink
+                        ? "bg-black/5 text-black/40 cursor-not-allowed placeholder-black/30 border-dashed"
+                        : "bg-black/3 text-[#1a1a1a] placeholder-black/30"
+                    }`}
                   />
+                  <label className="mt-2.5 flex items-center gap-2 cursor-pointer select-none">
+                    <input
+                      type="checkbox"
+                      name="noLiveLink"
+                      checked={formData.noLiveLink}
+                      onChange={handleInputChange}
+                      className="rounded border-black/20 text-[#ff5f1a] focus:ring-[#ff5f1a] h-4 w-4"
+                    />
+                    <span className="text-xs text-black/60 font-medium">
+                      Live link not created yet (Tick if in development or pending)
+                    </span>
+                  </label>
                 </div>
 
                 <div>

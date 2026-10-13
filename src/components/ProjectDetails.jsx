@@ -85,15 +85,16 @@ export default function ProjectDetails({ projectId }) {
           className="overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm"
         >
           {project.image ? (
-            <div className="relative h-80 sm:h-[420px] w-full bg-black/5 overflow-hidden">
-              <Image
-                src={project.image}
-                alt={project.title ?? "Project preview"}
-                fill
-                className="object-cover"
-                priority
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent opacity-90" />
+            <div className="relative w-full bg-black/[0.03] overflow-hidden border-b border-black/8 flex items-center justify-center p-2 sm:p-4">
+              <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] max-h-[720px] rounded-2xl overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title ?? "Project preview"}
+                  fill
+                  className="object-contain"
+                  priority
+                />
+              </div>
             </div>
           ) : null}
 
@@ -167,16 +168,24 @@ export default function ProjectDetails({ projectId }) {
             )}
 
             <div className="flex flex-wrap items-center gap-4 pt-6 border-t border-black/8">
-              {project.liveUrl && (
+              {!project.noLiveLink && project.liveUrl ? (
                 <a
                   href={project.liveUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="rounded-full bg-[#ff5f1a] hover:bg-[#e04d0d] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-[#ff5f1a]/20 transition-all hover:scale-105 active:scale-95"
                 >
-                  Visit Live Site ↗
+                  Live Link ↗
                 </a>
-              )}
+              ) : project.noLiveLink ? (
+                <div
+                  title="Live deployment is pending or currently in development"
+                  className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/4 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-black/50 select-none"
+                >
+                  <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
+                  <span>Live Link Pending</span>
+                </div>
+              ) : null}
               {project.isPrivateRepo ? (
                 <div
                   title="Source code is in a private repository"
