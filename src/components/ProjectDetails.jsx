@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { HiOutlineLockClosed } from "react-icons/hi";
 import { fetchProjectById } from "@/utils/projectApi";
 import { fallbackProjects } from "@/data/fallbackProjects";
 
@@ -105,6 +106,12 @@ export default function ProjectDetails({ projectId }) {
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-black/40">
                   {project.year || "2026"}
                 </span>
+                {project.isPrivateRepo && (
+                  <span className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-black/4 px-3 py-1 font-mono text-[11px] font-bold uppercase tracking-wider text-black/60">
+                    <HiOutlineLockClosed className="text-xs text-black/50" />
+                    Private Repo
+                  </span>
+                )}
               </div>
 
               <h1 className="text-[clamp(2.2rem,5vw,4.2rem)] font-extrabold leading-[1.05] tracking-tight text-[#1a1a1a]">
@@ -170,7 +177,15 @@ export default function ProjectDetails({ projectId }) {
                   Visit Live Site ↗
                 </a>
               )}
-              {project.githubUrl && (
+              {project.isPrivateRepo ? (
+                <div
+                  title="Source code is in a private repository"
+                  className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black/4 px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-black/60 select-none"
+                >
+                  <HiOutlineLockClosed className="text-sm text-black/50" />
+                  <span>Private Repository</span>
+                </div>
+              ) : project.githubUrl ? (
                 <a
                   href={project.githubUrl}
                   target="_blank"
@@ -179,7 +194,7 @@ export default function ProjectDetails({ projectId }) {
                 >
                   Source Repository ↗
                 </a>
-              )}
+              ) : null}
             </div>
           </div>
         </motion.div>

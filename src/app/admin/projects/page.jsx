@@ -6,6 +6,7 @@ import {
   HiOutlinePencil,
   HiOutlineTrash,
   HiOutlineSelector,
+  HiOutlineLockClosed,
 } from "react-icons/hi";
 
 const UPCOMING_PLACEHOLDER_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Crect width='800' height='500' fill='%23222226'/%3E%3Cpath d='M0 0l800 500M800 0L0 500' stroke='%232b2b30' stroke-width='1.5'/%3E%3Ccircle cx='400' cy='250' r='60' fill='%231a1a1c' stroke='%2338383e' stroke-width='2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='bold' fill='%23ff5f1a' letter-spacing='4'%3EUPCOMING PROJECT%3C/text%3E%3C/svg%3E";
@@ -29,6 +30,7 @@ export default function AdminProjects() {
     improvements: "",
     liveUrl: "",
     githubUrl: "",
+    isPrivateRepo: false,
     tags: "",
   });
 
@@ -66,6 +68,7 @@ export default function AdminProjects() {
       improvements: "",
       liveUrl: "",
       githubUrl: "",
+      isPrivateRepo: false,
       tags: "",
     });
     setModalOpen(true);
@@ -84,14 +87,18 @@ export default function AdminProjects() {
       improvements: project.improvements || "",
       liveUrl: project.liveUrl || "",
       githubUrl: project.githubUrl || "",
+      isPrivateRepo: Boolean(project.isPrivateRepo),
       tags: Array.isArray(project.tags) ? project.tags.join(", ") : project.tags || "",
     });
     setModalOpen(true);
   };
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -101,6 +108,7 @@ export default function AdminProjects() {
     const isUpcoming = formData.status === "upcoming";
     const payload = {
       ...formData,
+      isPrivateRepo: Boolean(formData.isPrivateRepo),
       status: formData.status || "completed",
       category: formData.category || (isUpcoming ? "Upcoming" : "Full Stack"),
       year: formData.year || new Date().getFullYear().toString(),
@@ -255,6 +263,12 @@ export default function AdminProjects() {
                         }`}>
                           {project.status === "upcoming" ? "Upcoming" : project.status === "running" ? "Running" : "Completed"}
                         </span>
+                        {project.isPrivateRepo && (
+                          <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">
+                            <HiOutlineLockClosed className="text-xs text-stone-500" />
+                            Private Repo
+                          </span>
+                        )}
                       </div>
                       <p className="text-xs text-black/50 truncate max-w-lg mt-1 font-normal">
                         {project.description}
@@ -462,18 +476,64 @@ export default function AdminProjects() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] font-mono font-semibold uppercase tracking-wider text-black/50 mb-2">
-                    GitHub Code Repository URL
-                  </label>
+                  <div className="flex items-center justify-between mb-2">
+                    <label className="block text-[11px] font-mono font-semibold uppercase tracking-wider text-black/50">
+                      GitHub Code Repository URL
+                    </label>
+                    {formData.isPrivateRepo && (
+                      <span className="text-[10px] font-mono font-bold text-amber-600 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200">
+                        Private Mode Active
+                      </span>
+                    )}
+                  </div>
                   <input
                     type="url"
                     name="githubUrl"
                     value={formData.githubUrl}
                     onChange={handleInputChange}
-                    placeholder="https://github.com/Zabedfolio/..."
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    disabled={formData.isPrivateRepo}
+                    placeholder={formData.isPrivateRepo ? "Repository is private (public link hidden)" : "https://github.com/Zabedfolio/..."}
+                    className={`w-full rounded-2xl border border-black/10 px-4 py-3 text-sm transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20 ${
+                      formData.isPrivateRepo
+                        ? "bg-black/5 text-black/40 cursor-not-allowed placeholder-black/30 border-dashed"
+                        : "bg-black/3 text-[#1a1a1a] placeholder-black/30"
+                    }`}
                   />
                 </div>
+              </div>
+
+              {/* Private Repository Option */}
+              <div className="rounded-2xl border border-black/8 bg-black/2 p-4 sm:p-5 flex items-start sm:items-center justify-between gap-4 transition hover:bg-black/3">
+                <div className="flex items-start gap-3.5">
+                  <div className={`mt-0.5 p-2.5 rounded-xl transition ${formData.isPrivateRepo ? "bg-[#ff5f1a]/10 text-[#ff5f1a]" : "bg-black/5 text-black/40"}`}>
+                    <HiOutlineLockClosed className="text-xl" />
+                  </div>
+                  <div>
+                    <label htmlFor="isPrivateRepo" className="text-sm font-bold text-[#1a1a1a] cursor-pointer flex items-center gap-2">
+                      Private Repository
+                      {formData.isPrivateRepo && (
+                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#ff5f1a]/10 text-[#ff5f1a] border border-[#ff5f1a]/20">
+                          LOCKED
+                        </span>
+                      )}
+                    </label>
+                    <p className="text-xs text-black/50 mt-1 font-normal max-w-xl leading-relaxed">
+                      Tick this option if the source code is proprietary or in a private repository. The public site will render a protected &ldquo;Private Repository&rdquo; lock badge instead of a GitHub repository link.
+                    </p>
+                  </div>
+                </div>
+
+                <label className="relative inline-flex items-center cursor-pointer shrink-0 mt-1 sm:mt-0">
+                  <input
+                    type="checkbox"
+                    id="isPrivateRepo"
+                    name="isPrivateRepo"
+                    checked={formData.isPrivateRepo}
+                    onChange={handleInputChange}
+                    className="sr-only peer"
+                  />
+                  <div className="w-12 h-6 bg-black/15 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff5f1a]"></div>
+                </label>
               </div>
 
               <div className="flex items-center justify-end gap-3 pt-5 border-t border-black/8">

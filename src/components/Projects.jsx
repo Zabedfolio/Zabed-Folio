@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
-import { HiOutlineFolder, HiOutlineSparkles } from "react-icons/hi";
+import { HiOutlineFolder, HiOutlineSparkles, HiOutlineLockClosed } from "react-icons/hi";
 import { fetchProjects } from "@/utils/projectApi";
 import { fallbackProjects } from "@/data/fallbackProjects";
 
@@ -69,6 +69,12 @@ export default function Projects() {
                   Running
                 </span>
               )}
+              {project.isPrivateRepo && (
+                <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 border border-stone-200 px-2 py-0.5 text-[10px] text-stone-700 font-bold tracking-normal normal-case">
+                  <HiOutlineLockClosed className="text-[10px] text-stone-500" />
+                  Private
+                </span>
+              )}
               <span className="text-[#ff5f1a] font-semibold">{project.category || "Full Stack"}</span>
             </div>
           </div>
@@ -91,16 +97,24 @@ export default function Projects() {
           >
             View Case Study <span aria-hidden>→</span>
           </Link>
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-mono text-[10px] text-black/40 hover:text-black font-semibold uppercase tracking-wider transition-colors"
-            >
-              Live Demo ↗
-            </a>
-          )}
+          <div className="flex items-center gap-3">
+            {project.isPrivateRepo && (
+              <span className="inline-flex items-center gap-1 font-mono text-[10px] text-black/40 font-semibold uppercase tracking-wider" title="Private Repository">
+                <HiOutlineLockClosed className="text-xs" />
+                Private Repo
+              </span>
+            )}
+            {project.liveUrl && (
+              <a
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-[10px] text-black/40 hover:text-black font-semibold uppercase tracking-wider transition-colors"
+              >
+                Live Demo ↗
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </motion.article>
