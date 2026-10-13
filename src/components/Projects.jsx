@@ -60,22 +60,16 @@ export default function Projects() {
         </div>
 
         <div className="p-6 space-y-3">
-          <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-black/40">
-            <span>{String(index + 1).padStart(2, "0")} · {project.year || "2026"}</span>
-            <div className="flex items-center gap-2">
+          <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-black/40 gap-3">
+            <span className="shrink-0 whitespace-nowrap">{String(index + 1).padStart(2, "0")} · {project.year || "2026"}</span>
+            <div className="flex items-center gap-2 shrink-0">
               {project.status === "running" && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] text-emerald-700 font-bold tracking-normal normal-case">
+                <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 border border-emerald-200 px-2 py-0.5 text-[10px] text-emerald-700 font-bold tracking-normal normal-case shrink-0 whitespace-nowrap">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                   Running
                 </span>
               )}
-              {project.isPrivateRepo && (
-                <span className="inline-flex items-center gap-1 rounded-full bg-stone-100 border border-stone-200 px-2 py-0.5 text-[10px] text-stone-700 font-bold tracking-normal normal-case">
-                  <HiOutlineLockClosed className="text-[10px] text-stone-500" />
-                  Private
-                </span>
-              )}
-              <span className="text-[#ff5f1a] font-semibold">{project.category || "Full Stack"}</span>
+              <span className="text-[#ff5f1a] font-semibold shrink-0 whitespace-nowrap">{project.category || "Full Stack"}</span>
             </div>
           </div>
 
