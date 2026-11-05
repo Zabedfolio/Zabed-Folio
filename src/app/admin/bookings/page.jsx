@@ -118,11 +118,19 @@ export default function AdminBookingsPage() {
       if (!res.ok) throw new Error("Failed to load bookings");
       const data = await res.json();
 
-      setBookings(data.bookings || []);
+      const list = Array.isArray(data.bookings)
+        ? data.bookings
+        : Array.isArray(data.data)
+        ? data.data
+        : Array.isArray(data)
+        ? data
+        : [];
+
+      setBookings(list);
       setPagination((prev) => ({
         ...prev,
-        total: data.pagination?.total || 0,
-        totalPages: data.pagination?.totalPages || 1,
+        total: data.pagination?.total ?? (data.total ?? list.length),
+        totalPages: data.pagination?.totalPages ?? (data.totalPages ?? 1),
       }));
     } catch (err) {
       console.error("Failed to load bookings:", err);

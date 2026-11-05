@@ -24,23 +24,31 @@ export async function GET(request) {
     const col = db.collection("bookings");
 
     const now = new Date();
-    const query = {};
+    const conditions = [];
 
     // 1. Filter logic
     switch (filter) {
       case "upcoming":
-        query.status = "confirmed";
-        query.startTime = { $gte: now };
+        conditions.push({
+          status: { $in: ["confirmed", "accepted"] },
+          $or: [{ startTime: { $gte: now } }, { startTime: { $gte: now.toISOString() } }],
+        });
         break;
       case "past":
-        query.status = "confirmed";
-        query.startTime = { $lt: now };
+        conditions.push({
+          status: { $in: ["confirmed", "accepted"] },
+          $or: [{ startTime: { $lt: now } }, { startTime: { $lt: now.toISOString() } }],
+        });
         break;
       case "cancelled":
-        query.status = { $in: ["cancelled", "rejected"] };
+        conditions.push({
+          status: { $in: ["cancelled", "canceled", "rejected"] },
+        });
         break;
       case "rescheduled":
-        query.status = "rescheduled";
+        conditions.push({
+          status: "rescheduled",
+        });
         break;
       case "all":
       default:
@@ -48,20 +56,25 @@ export async function GET(request) {
         break;
     }
 
-    // 2. Search logic (name or email, case-insensitive)
+    // 2. Search logic (name, email, phone, or title)
     if (search) {
       const escaped = escapeRegex(search);
       const searchRegex = new RegExp(escaped, "i");
-      query.$or = [
-        { attendeeName: searchRegex },
-        { attendeeEmail: searchRegex },
-        { attendeePhone: searchRegex },
-      ];
+      conditions.push({
+        $or: [
+          { attendeeName: searchRegex },
+          { attendeeEmail: searchRegex },
+          { attendeePhone: searchRegex },
+          { title: searchRegex },
+        ],
+      });
     }
 
+    const query = conditions.length === 1 ? conditions[0] : conditions.length > 1 ? { $and: conditions } : {};
+
     // 3. Sorting logic:
-    // Upcoming: ascending by startTime (nearest upcoming first)
-    // Past/Cancelled/All: descending by startTime (most recent first)
+    // Upcoming: nearest upcoming first
+    // Past/Cancelled/All: most recent first
     const sort = filter === "upcoming" ? { startTime: 1 } : { startTime: -1, createdAt: -1 };
 
     const [total, items] = await Promise.all([
@@ -77,15 +90,21 @@ export async function GET(request) {
     const totalPages = Math.ceil(total / limit) || 1;
 
     return NextResponse.json({
+      bookings: serialized,
       data: serialized,
       total,
       page,
       totalPages,
       limit,
+      pagination: {
+        total,
+        page,
+        totalPages,
+        limit,
+      },
     });
   } catch (err) {
     console.error("GET /api/admin/bookings error:", err);
     return NextResponse.json({ error: "Failed to fetch bookings" }, { status: 500 });
   }
 }
-
