@@ -237,39 +237,41 @@ export default function AdminBookingsPage() {
   return (
     <div className="space-y-8 pb-12">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-3xl font-extrabold tracking-tight text-[#1a1a1a]">
+          <div className="flex flex-wrap items-center gap-2">
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1a1a1a]">
               Bookings & Meetings
             </h1>
-            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#12A36B]/10 text-[#12A36B] border border-[#12A36B]/20">
+            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-mono font-bold bg-[#12A36B]/10 text-[#12A36B] border border-[#12A36B]/20 whitespace-nowrap">
               Cal.com Live
             </span>
           </div>
-          <p className="mt-1 text-sm font-medium text-black/50">
+          <p className="mt-1 text-xs sm:text-sm font-medium text-black/50">
             Real-time appointments, automated sync, and attendee details. Displaying in Asia/Dhaka time.
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 self-end sm:self-auto">
           <a
             href="https://cal.com/zabed-mahmud/30min"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-2xl border border-black/10 bg-white hover:bg-black/4 text-xs font-semibold text-black/70 hover:text-[#1a1a1a] shadow-sm transition"
+            className="inline-flex items-center justify-center gap-1.5 p-2.5 sm:px-3.5 sm:py-2.5 rounded-2xl border border-black/10 bg-white hover:bg-black/4 text-xs font-semibold text-black/70 hover:text-[#1a1a1a] shadow-sm transition"
+            title="Open Cal.com"
           >
-            <span>Open Cal.com</span>
-            <HiOutlineExternalLink className="text-sm" />
+            <HiOutlineExternalLink className="text-base" />
+            <span className="hidden sm:inline">Open Cal.com</span>
           </a>
 
           <button
             onClick={handleSync}
             disabled={syncing}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-[#12A36B] hover:bg-[#0f8c5b] text-white text-xs font-bold shadow-sm shadow-[#12A36B]/20 transition disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 p-2.5 sm:px-4 sm:py-2.5 rounded-2xl bg-[#12A36B] hover:bg-[#0f8c5b] text-white text-xs font-bold shadow-sm shadow-[#12A36B]/20 transition disabled:opacity-50"
+            title="Sync Cal.com"
           >
-            <HiOutlineRefresh className={`text-sm ${syncing ? "animate-spin" : ""}`} />
-            <span>{syncing ? "Syncing..." : "Sync Cal.com"}</span>
+            <HiOutlineRefresh className={`text-base ${syncing ? "animate-spin" : ""}`} />
+            <span className="hidden sm:inline">{syncing ? "Syncing..." : "Sync Cal.com"}</span>
           </button>
         </div>
       </div>
@@ -291,56 +293,56 @@ export default function AdminBookingsPage() {
       )}
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
-        <div className="p-5 rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-black/50 uppercase tracking-wider">Upcoming</span>
-            <span className="p-2.5 rounded-2xl bg-emerald-500/10 text-emerald-600">
-              <HiOutlineCalendar className="text-lg" />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+        <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[10px] sm:text-xs font-semibold text-black/50 uppercase tracking-wider truncate">Upcoming</span>
+            <span className="p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-emerald-500/10 text-emerald-600 shrink-0">
+              <HiOutlineCalendar className="text-base sm:text-lg" />
             </span>
           </div>
-          <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.upcoming}</span>
-            <p className="text-[11px] text-black/40 mt-0.5">Scheduled from now</p>
+          <div className="mt-2 sm:mt-4">
+            <span className="text-2xl sm:text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.upcoming}</span>
+            <p className="text-[10px] sm:text-[11px] text-black/40 mt-0.5 truncate">Scheduled from now</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-black/50 uppercase tracking-wider">Today</span>
-            <span className="p-2.5 rounded-2xl bg-[#12A36B]/10 text-[#12A36B]">
-              <HiOutlineClock className="text-lg" />
+        <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[10px] sm:text-xs font-semibold text-black/50 uppercase tracking-wider truncate">Today</span>
+            <span className="p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-[#12A36B]/10 text-[#12A36B] shrink-0">
+              <HiOutlineClock className="text-base sm:text-lg" />
             </span>
           </div>
-          <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.today}</span>
-            <p className="text-[11px] text-black/40 mt-0.5">Dhaka time window</p>
+          <div className="mt-2 sm:mt-4">
+            <span className="text-2xl sm:text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.today}</span>
+            <p className="text-[10px] sm:text-[11px] text-black/40 mt-0.5 truncate">Dhaka time window</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-black/50 uppercase tracking-wider">Total Booked</span>
-            <span className="p-2.5 rounded-2xl bg-blue-500/10 text-blue-600">
-              <HiOutlineCheckCircle className="text-lg" />
+        <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[10px] sm:text-xs font-semibold text-black/50 uppercase tracking-wider truncate">Total Booked</span>
+            <span className="p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-blue-500/10 text-blue-600 shrink-0">
+              <HiOutlineCheckCircle className="text-base sm:text-lg" />
             </span>
           </div>
-          <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.total}</span>
-            <p className="text-[11px] text-black/40 mt-0.5">All-time appointments</p>
+          <div className="mt-2 sm:mt-4">
+            <span className="text-2xl sm:text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.total}</span>
+            <p className="text-[10px] sm:text-[11px] text-black/40 mt-0.5 truncate">All-time appointments</p>
           </div>
         </div>
 
-        <div className="p-5 rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-semibold text-black/50 uppercase tracking-wider">Cancelled</span>
-            <span className="p-2.5 rounded-2xl bg-red-500/10 text-red-600">
-              <HiOutlineXCircle className="text-lg" />
+        <div className="p-3.5 sm:p-5 rounded-2xl sm:rounded-3xl bg-white border border-black/8 shadow-sm flex flex-col justify-between">
+          <div className="flex items-center justify-between gap-1.5">
+            <span className="text-[10px] sm:text-xs font-semibold text-black/50 uppercase tracking-wider truncate">Cancelled</span>
+            <span className="p-1.5 sm:p-2.5 rounded-xl sm:rounded-2xl bg-red-500/10 text-red-600 shrink-0">
+              <HiOutlineXCircle className="text-base sm:text-lg" />
             </span>
           </div>
-          <div className="mt-4">
-            <span className="text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.cancelled}</span>
-            <p className="text-[11px] text-black/40 mt-0.5">Cancelled or rejected</p>
+          <div className="mt-2 sm:mt-4">
+            <span className="text-2xl sm:text-3xl font-extrabold text-[#1a1a1a] tracking-tight">{stats.cancelled}</span>
+            <p className="text-[10px] sm:text-[11px] text-black/40 mt-0.5 truncate">Cancelled or rejected</p>
           </div>
         </div>
       </div>

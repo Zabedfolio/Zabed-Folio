@@ -254,16 +254,18 @@ export default function AdminCaseStudies() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#1a1a1a]">Case Studies</h1>
-          <p className="mt-2 text-sm text-black/50">Manage portfolio case studies and their public detail pages.</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1a1a1a]">Case Studies</h1>
+          <p className="mt-1 text-xs sm:text-sm font-medium text-black/50">Manage portfolio case studies and their public detail pages.</p>
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] px-5 py-3 text-sm font-semibold text-white transition hover:from-[#19A36D] hover:to-[#0E8A5A] shadow-sm"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] p-2.5 sm:px-5 sm:py-3 text-xs sm:text-sm font-bold text-white transition hover:from-[#19A36D] hover:to-[#0E8A5A] shadow-sm self-end sm:self-auto"
+          title="Add Case Study"
         >
-          <HiOutlinePlus className="text-lg" /> Add Case Study
+          <HiOutlinePlus className="text-lg" />
+          <span className="hidden sm:inline">Add Case Study</span>
         </button>
       </div>
 

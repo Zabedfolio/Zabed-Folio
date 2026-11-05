@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import mainPic from "@/assets/main-pic.jpg";
+import AdminMobileBottomBar from "@/components/admin/AdminMobileBottomBar";
 import {
   HiOutlineBriefcase,
   HiOutlineAcademicCap,
@@ -224,10 +225,13 @@ export default function AdminLayout({ children }) {
           </div>
         )}
 
-        {/* Dashboard Content Container with Independent Vertical Scrollbar */}
-        <main className="flex-1 p-6 md:p-10 max-w-6xl w-full mx-auto overflow-y-auto h-full">
+        {/* Dashboard Content Container with Independent Vertical Scrollbar and Mobile Bottom Bar Padding */}
+        <main className="flex-1 p-4 sm:p-6 md:p-10 pb-24 md:pb-10 max-w-6xl w-full mx-auto overflow-y-auto h-full">
           {children}
         </main>
+
+        {/* Fixed Mobile Bottom Bar */}
+        <AdminMobileBottomBar />
       </div>
     </div>
   );

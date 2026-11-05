@@ -160,14 +160,18 @@ export default function AdminEducation() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#1a1a1a]">Timeline: Education</h1>
-          <p className="mt-2 text-sm text-black/50">Rearrange timeline order of your academic credentials</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1a1a1a]">Timeline: Education</h1>
+          <p className="mt-1 text-xs sm:text-sm font-medium text-black/50">Rearrange timeline order of your academic credentials</p>
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-sm font-semibold text-white transition active:scale-[0.98] shadow-sm self-start sm:self-auto"
+          className="flex items-center justify-center gap-2 p-2.5 sm:px-5 sm:py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-xs sm:text-sm font-bold text-white transition active:scale-[0.98] shadow-sm self-end sm:self-auto"
+          title="Add Education"
         >
-          <HiOutlinePlus className="text-lg" /> Add Education
+          <HiOutlinePlus className="text-lg" />
+          <span className="hidden sm:inline">Add Education</span>
+        </button>
+      </div>
         </button>
       </div>
 

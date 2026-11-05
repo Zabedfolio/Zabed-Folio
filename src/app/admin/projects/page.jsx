@@ -205,99 +205,126 @@ export default function AdminProjects() {
     <div className="space-y-8">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-extrabold tracking-tight text-[#1a1a1a]">Projects Showcase</h1>
-          <p className="mt-1 text-sm font-medium text-black/50">Drag items to rearrange public sorting order</p>
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1a1a1a]">Projects Showcase</h1>
+          <p className="mt-1 text-xs sm:text-sm font-medium text-black/50">Drag items to rearrange public sorting order</p>
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-xs font-bold text-white shadow-md shadow-[#12A36B]/20 transition active:scale-[0.98] self-start sm:self-auto"
+          className="flex items-center justify-center gap-2 p-2.5 sm:px-5 sm:py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-xs font-bold text-white shadow-md shadow-[#12A36B]/20 transition active:scale-[0.98] self-end sm:self-auto"
+          title="Add Project"
         >
-          <HiOutlinePlus className="text-lg" /> Add Project
+          <HiOutlinePlus className="text-lg" />
+          <span className="hidden sm:inline">Add Project</span>
         </button>
       </div>
 
       {loading ? (
         <div className="space-y-4">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-20 rounded-2xl bg-white border border-black/8 animate-pulse shadow-sm" />
+            <div key={i} className="h-32 rounded-3xl bg-white border border-black/8 animate-pulse shadow-sm" />
           ))}
         </div>
+      ) : projects.length === 0 ? (
+        <div className="border border-black/8 bg-white rounded-3xl p-12 text-center text-black/40 text-sm font-medium shadow-sm">
+          No projects added yet. Click &quot;Add Project&quot; to get started.
+        </div>
       ) : (
-        <div className="border border-black/8 bg-white rounded-3xl overflow-hidden shadow-sm">
-          {projects.length === 0 ? (
-            <div className="p-12 text-center text-black/40 text-sm font-medium">
-              No projects added yet. Click "Add Project" to get started.
-            </div>
-          ) : (
-            <div className="divide-y divide-black/5">
-              {projects.map((project, idx) => (
-                <div
-                  key={project._id}
-                  draggable
-                  onDragStart={() => handleDragStart(idx)}
-                  onDragOver={(e) => handleDragOver(e, idx)}
-                  onDragEnd={handleDragEnd}
-                  className={`flex items-center justify-between p-4 sm:p-5 transition hover:bg-black/3 ${
-                    draggedIndex === idx ? "opacity-35 bg-black/5" : ""
-                  }`}
-                >
-                  <div className="flex items-center gap-4 min-w-0">
-                    <span className="cursor-grab text-black/30 hover:text-[#12A36B] p-1 transition active:cursor-grabbing">
-                      <HiOutlineSelector className="text-xl" />
-                    </span>
-                    {project.image && (
-                      <img
-                        src={project.image}
-                        alt={project.title}
-                        className="w-12 h-12 rounded-xl object-cover bg-black/4 border border-black/8 hidden sm:block"
-                      />
-                    )}
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-[#1a1a1a] truncate">{project.title}</span>
-                        <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md bg-black/4 border border-black/8 text-black/60">
-                          {project.category}
-                        </span>
-                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border ${
+        <div className="space-y-3.5">
+          {projects.map((project, idx) => (
+            <div
+              key={project._id}
+              draggable
+              onDragStart={() => handleDragStart(idx)}
+              onDragOver={(e) => handleDragOver(e, idx)}
+              onDragEnd={handleDragEnd}
+              className={`rounded-2xl sm:rounded-3xl border border-black/8 bg-white p-4 sm:p-5 shadow-sm transition hover:shadow-md hover:border-[#1FB57A]/40 ${
+                draggedIndex === idx ? "opacity-35 bg-black/5" : ""
+              }`}
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                {/* Left: Drag Handle, Image Thumbnail & Title Info */}
+                <div className="flex items-start sm:items-center gap-3 sm:gap-4 min-w-0 flex-1">
+                  <span
+                    className="cursor-grab text-black/30 hover:text-[#12A36B] p-1.5 rounded-lg hover:bg-black/5 transition active:cursor-grabbing shrink-0 mt-0.5 sm:mt-0"
+                    title="Drag to reorder"
+                  >
+                    <HiOutlineSelector className="text-xl" />
+                  </span>
+
+                  {project.image && (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="w-11 h-11 sm:w-12 sm:h-12 rounded-xl object-cover bg-black/4 border border-black/8 shrink-0"
+                    />
+                  )}
+
+                  <div className="min-w-0 flex-1 space-y-1.5">
+                    {/* Title & Badges */}
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-bold text-sm sm:text-base text-[#1a1a1a] truncate">
+                        {project.title}
+                      </span>
+                      <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md bg-black/4 border border-black/8 text-black/60">
+                        {project.category}
+                      </span>
+                      <span
+                        className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border ${
                           project.status === "upcoming"
                             ? "bg-amber-50 text-amber-700 border-amber-200"
                             : project.status === "running"
                             ? "bg-emerald-50 text-emerald-700 border-emerald-200"
                             : "bg-blue-50 text-blue-700 border-blue-200"
-                        }`}>
-                          {project.status === "upcoming" ? "Upcoming" : project.status === "running" ? "Running" : "Completed"}
+                        }`}
+                      >
+                        {project.status === "upcoming"
+                          ? "Upcoming"
+                          : project.status === "running"
+                          ? "Running"
+                          : "Completed"}
+                      </span>
+                      {project.isPrivateRepo && (
+                        <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">
+                          <HiOutlineLockClosed className="text-xs text-stone-500" />
+                          Private Repo
                         </span>
-                        {project.isPrivateRepo && (
-                          <span className="inline-flex items-center gap-1 text-[10px] font-mono font-bold px-2 py-0.5 rounded-md bg-stone-100 text-stone-700 border border-stone-200">
-                            <HiOutlineLockClosed className="text-xs text-stone-500" />
-                            Private Repo
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-xs text-black/50 truncate max-w-lg mt-1 font-normal">
+                      )}
+                      {project.year && (
+                        <span className="text-[10px] font-mono text-black/40">
+                          {project.year}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Description */}
+                    {project.description && (
+                      <p className="text-xs text-black/50 line-clamp-2 max-w-2xl font-normal leading-relaxed">
                         {project.description}
                       </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 ml-4">
-                    <button
-                      onClick={() => openEditModal(project)}
-                      className="p-2 text-black/50 hover:text-[#1a1a1a] rounded-xl hover:bg-black/5 transition"
-                    >
-                      <HiOutlinePencil className="text-lg" />
-                    </button>
-                    <button
-                      onClick={() => handleDelete(project._id)}
-                      className="p-2 text-black/40 hover:text-red-600 rounded-xl hover:bg-red-500/10 transition"
-                    >
-                      <HiOutlineTrash className="text-lg" />
-                    </button>
+                    )}
                   </div>
                 </div>
-              ))}
+
+                {/* Right: Action Buttons */}
+                <div className="flex items-center gap-1.5 self-end sm:self-center shrink-0 border-t border-black/5 sm:border-t-0 pt-2 sm:pt-0 w-full sm:w-auto justify-end">
+                  <button
+                    onClick={() => openEditModal(project)}
+                    className="p-2 text-black/60 hover:text-[#1a1a1a] rounded-xl hover:bg-black/5 transition"
+                    title="Edit project"
+                  >
+                    <HiOutlinePencil className="text-lg" />
+                  </button>
+                  <button
+                    onClick={() => handleDelete(project._id)}
+                    className="p-2 text-black/40 hover:text-red-600 rounded-xl hover:bg-red-500/10 transition"
+                    title="Delete project"
+                  >
+                    <HiOutlineTrash className="text-lg" />
+                  </button>
+                </div>
+              </div>
             </div>
-          )}
+          ))}
         </div>
       )}
 
