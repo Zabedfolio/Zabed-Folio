@@ -199,10 +199,6 @@ export default function AdminExperience() {
           <span className="hidden sm:inline">Add Experience</span>
         </button>
       </div>
-        >
-          <HiOutlinePlus className="text-lg" /> Add Experience
-        </button>
-      </div>
 
       {loading ? (
         <div className="space-y-3">

@@ -6,38 +6,35 @@ if (!uri) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
+const options = {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  },
+  maxPoolSize: 10,
+  minPoolSize: 0,
+  maxIdleTimeMS: 30000,
+  serverSelectionTimeoutMS: 10000,
+  connectTimeoutMS: 10000,
+};
+
 let client;
 let clientPromise;
 
-if (process.env.NODE_ENV === "development") {
-  if (!global._mongoClient) {
-    global._mongoClient = new MongoClient(uri, {
-      serverApi: {
-        version: ServerApiVersion.v1,
-        strict: true,
-        deprecationErrors: true,
-      },
-    });
-    global._mongoClientPromise = global._mongoClient.connect();
-  }
-  client = global._mongoClient;
-  clientPromise = global._mongoClientPromise;
-} else {
-  client = new MongoClient(uri, {
-    serverApi: {
-      version: ServerApiVersion.v1,
-      strict: true,
-      deprecationErrors: true,
-    },
-  });
-  clientPromise = client.connect();
+if (!global._mongoClientPromise) {
+  client = new MongoClient(uri, options);
+  global._mongoClient = client;
+  global._mongoClientPromise = client.connect();
 }
 
-const db = client.db("zabed-folio-db");
+client = global._mongoClient;
+clientPromise = global._mongoClientPromise;
 
-export { client, db, clientPromise };
+export { client, clientPromise };
 export default clientPromise;
 
 export async function getDb() {
-  return db;
+  const connectedClient = await clientPromise;
+  return connectedClient.db("zabed-folio-db");
 }

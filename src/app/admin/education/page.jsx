@@ -172,8 +172,6 @@ export default function AdminEducation() {
           <span className="hidden sm:inline">Add Education</span>
         </button>
       </div>
-        </button>
-      </div>
 
       {loading ? (
         <div className="space-y-3">
