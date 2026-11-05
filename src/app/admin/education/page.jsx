@@ -165,7 +165,7 @@ export default function AdminEducation() {
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#ff5f1a] hover:bg-[#e04d0d] text-sm font-semibold text-white transition active:scale-[0.98] shadow-sm self-start sm:self-auto"
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-sm font-semibold text-white transition active:scale-[0.98] shadow-sm self-start sm:self-auto"
         >
           <HiOutlinePlus className="text-lg" /> Add Education
         </button>
@@ -197,7 +197,7 @@ export default function AdminEducation() {
                   }`}
                 >
                   <div className="flex items-center gap-4 min-w-0">
-                    <span className="cursor-grab text-black/30 hover:text-[#ff5f1a] p-1 transition active:cursor-grabbing">
+                    <span className="cursor-grab text-black/30 hover:text-[#12A36B] p-1 transition active:cursor-grabbing">
                       <HiOutlineSelector className="text-lg" />
                     </span>
                     <div className="min-w-0">
@@ -262,7 +262,7 @@ export default function AdminEducation() {
                   value={formData.institution}
                   onChange={handleInputChange}
                   placeholder="e.g. BSc in Computer Science"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </div>
 
@@ -277,7 +277,7 @@ export default function AdminEducation() {
                   value={formData.date}
                   onChange={handleInputChange}
                   placeholder="e.g. 2023 — Present"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </div>
 
@@ -292,7 +292,7 @@ export default function AdminEducation() {
                   value={formData.detail}
                   onChange={handleInputChange}
                   placeholder="e.g. International Islamic University Chittagong"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </div>
 
@@ -303,7 +303,7 @@ export default function AdminEducation() {
                   name="active"
                   checked={formData.active}
                   onChange={handleInputChange}
-                  className="h-4.5 w-4.5 rounded border-black/20 accent-[#ff5f1a] cursor-pointer"
+                  className="h-4.5 w-4.5 rounded border-black/20 accent-[#12A36B] cursor-pointer"
                 />
                 <label htmlFor="active" className="text-sm font-semibold text-[#1a1a1a] cursor-pointer">
                   Active (show this entry in the timeline)
@@ -321,7 +321,7 @@ export default function AdminEducation() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#ff5f1a] hover:bg-[#e04d0d] text-sm font-semibold text-white transition active:scale-[0.98] disabled:opacity-50"
+                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-sm font-semibold text-white transition active:scale-[0.98] disabled:opacity-50 shadow-md shadow-[#12A36B]/20"
                 >
                   {saving ? (
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

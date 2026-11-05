@@ -132,20 +132,20 @@ export default function ExperienceModal({ open, onOpenChange }) {
                       <Link
                         href={flixoraHref}
                         onClick={() => onOpenChange(false)}
-                        className="font-extrabold text-[#ff5f1a] underline decoration-[#ff5f1a]/50 underline-offset-4 hover:decoration-[#ff5f1a] transition-all inline-flex items-baseline gap-1"
+                        className="font-extrabold text-[#12A36B] underline decoration-[#1FB57A]/50 underline-offset-4 hover:decoration-[#12A36B] transition-all inline-flex items-baseline gap-1"
                       >
                         <span>Flixora</span>
-                        <HiOutlineExternalLink className="h-3.5 w-3.5 inline text-[#ff5f1a]" />
+                        <HiOutlineExternalLink className="h-3.5 w-3.5 inline text-[#12A36B]" />
                       </Link>
                     ) : (
                       <a
                         href="https://flixora-client.vercel.app"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="font-extrabold text-[#ff5f1a] underline decoration-[#ff5f1a]/50 underline-offset-4 hover:decoration-[#ff5f1a] transition-all inline-flex items-baseline gap-1"
+                        className="font-extrabold text-[#12A36B] underline decoration-[#1FB57A]/50 underline-offset-4 hover:decoration-[#12A36B] transition-all inline-flex items-baseline gap-1"
                       >
                         <span>Flixora</span>
-                        <HiOutlineExternalLink className="h-3.5 w-3.5 inline text-[#ff5f1a]" />
+                        <HiOutlineExternalLink className="h-3.5 w-3.5 inline text-[#12A36B]" />
                       </a>
                     )}{" "}
                     as my first team project.
@@ -157,7 +157,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                     <Link
                       href={jerseyXHref}
                       onClick={() => onOpenChange(false)}
-                      className="font-extrabold text-[#ff5f1a] hover:underline underline-offset-4 transition-all"
+                      className="font-extrabold text-[#12A36B] hover:text-[#1FB57A] hover:underline underline-offset-4 transition-all"
                     >
                       JerseyX
                     </Link>
@@ -165,7 +165,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                     <Link
                       href={paymentTrackerHref}
                       onClick={() => onOpenChange(false)}
-                      className="font-extrabold text-[#ff5f1a] hover:underline underline-offset-4 transition-all"
+                      className="font-extrabold text-[#12A36B] hover:text-[#1FB57A] hover:underline underline-offset-4 transition-all"
                     >
                       Payment Tracker
                     </Link>{" "}
@@ -173,7 +173,7 @@ export default function ExperienceModal({ open, onOpenChange }) {
                     <Link
                       href={academicWorkspaceHref}
                       onClick={() => onOpenChange(false)}
-                      className="font-extrabold text-[#ff5f1a] hover:underline underline-offset-4 transition-all"
+                      className="font-extrabold text-[#12A36B] hover:text-[#1FB57A] hover:underline underline-offset-4 transition-all"
                     >
                       Intelligent Collaborative Academic Workspace
                     </Link>

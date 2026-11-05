@@ -111,7 +111,7 @@ export default function UpcomingProjects() {
                       />
                     ) : (
                       <div className="h-full w-full flex flex-col items-center justify-center p-6 text-center space-y-2">
-                        <span className="font-mono text-xs uppercase tracking-[0.3em] font-extrabold text-[#ff5f1a]">
+                        <span className="font-mono text-xs uppercase tracking-[0.3em] font-extrabold text-[#1FB57A]">
                           UPCOMING PROJECT
                         </span>
                         <span className="text-white font-bold text-lg">{project.title}</span>

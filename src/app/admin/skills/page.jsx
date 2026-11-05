@@ -168,7 +168,7 @@ export default function AdminSkills() {
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#ff5f1a] hover:bg-[#e04d0d] text-sm font-semibold text-white transition active:scale-[0.98] shadow-sm self-start sm:self-auto"
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-sm font-semibold text-white transition active:scale-[0.98] shadow-sm self-start sm:self-auto"
         >
           <HiOutlinePlus className="text-lg" /> Add Skill
         </button>
@@ -199,7 +199,7 @@ export default function AdminSkills() {
                 }`}
               >
                 <div className="flex items-center gap-3 min-w-0">
-                  <span className="cursor-grab text-black/30 hover:text-[#ff5f1a] transition active:cursor-grabbing">
+                  <span className="cursor-grab text-black/30 hover:text-[#12A36B] transition active:cursor-grabbing">
                     <HiOutlineSelector className="text-lg" />
                   </span>
                   <div
@@ -256,7 +256,7 @@ export default function AdminSkills() {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="e.g. Next.js"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </div>
 
@@ -268,7 +268,7 @@ export default function AdminSkills() {
                   name="category"
                   value={formData.category}
                   onChange={handleInputChange}
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 >
                   <option value="Frontend" className="bg-white text-black">Frontend</option>
                   <option value="Backend" className="bg-white text-black">Backend</option>
@@ -289,7 +289,7 @@ export default function AdminSkills() {
                   value={formData.icon}
                   onChange={handleInputChange}
                   placeholder="e.g. SiNextdotjs, FaReact"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </div>
 
@@ -311,7 +311,7 @@ export default function AdminSkills() {
                     value={formData.color}
                     onChange={handleInputChange}
                     placeholder="#ffffff"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                 </div>
               </div>
@@ -328,7 +328,7 @@ export default function AdminSkills() {
                     name="percentage"
                     value={formData.percentage}
                     onChange={handleInputChange}
-                    className="w-full h-2 bg-black/10 rounded-lg appearance-none cursor-pointer accent-[#ff5f1a]"
+                    className="w-full h-2 bg-black/10 rounded-lg appearance-none cursor-pointer accent-[#12A36B]"
                   />
                   <input
                     type="number"
@@ -338,7 +338,7 @@ export default function AdminSkills() {
                     value={formData.percentage}
                     onChange={handleInputChange}
                     placeholder="80"
-                    className="w-20 rounded-2xl border border-black/10 bg-black/3 px-3 py-2 text-center text-sm text-[#1a1a1a] transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                    className="w-20 rounded-2xl border border-black/10 bg-black/3 px-3 py-2 text-center text-sm text-[#1a1a1a] transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                   <span className="text-black/60 font-mono text-sm">%</span>
                 </div>
@@ -355,7 +355,7 @@ export default function AdminSkills() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#ff5f1a] hover:bg-[#e04d0d] text-sm font-semibold text-white transition active:scale-[0.98] disabled:opacity-50"
+                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-sm font-semibold text-white transition active:scale-[0.98] disabled:opacity-50 shadow-md shadow-[#12A36B]/20"
                 >
                   {saving ? (
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

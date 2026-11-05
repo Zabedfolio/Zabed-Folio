@@ -40,7 +40,7 @@ export default function Projects() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
       transition={{ duration: 0.5, delay: index * 0.08 }}
-      className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#ff5f1a]/30 hover:shadow-2xl hover:shadow-[#ff5f1a]/10"
+      className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#1FB57A]/40 hover:shadow-2xl hover:shadow-[#12A36B]/15"
     >
       <div>
         <div className="relative h-56 w-full overflow-hidden bg-black/5">
@@ -93,10 +93,10 @@ export default function Projects() {
         <div className="p-6 space-y-3">
           <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-black/40 gap-3">
             <span className="shrink-0 whitespace-nowrap">{String(index + 1).padStart(2, "0")} · {project.year || "2026"}</span>
-            <span className="text-[#ff5f1a] font-semibold shrink-0 whitespace-nowrap">{project.category || "Full Stack"}</span>
+            <span className="text-[#12A36B] font-semibold shrink-0 whitespace-nowrap">{project.category || "Full Stack"}</span>
           </div>
 
-          <h3 className="text-xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#ff5f1a] transition-colors duration-200">
+          <h3 className="text-xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#12A36B] transition-colors duration-200">
             {project.title}
           </h3>
 
@@ -110,7 +110,7 @@ export default function Projects() {
         <div className="pt-4 border-t border-black/5 flex items-center justify-between">
           <Link
             href={`/projects/${project.id || project._id}`}
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#ff5f1a] hover:underline underline-offset-4"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#12A36B] hover:text-[#1FB57A] hover:underline underline-offset-4"
           >
             Details <span aria-hidden>→</span>
           </Link>
@@ -141,7 +141,7 @@ export default function Projects() {
         <h2 className="text-[clamp(2.2rem,5vw,4.2rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#1a1a1a] max-w-4xl flex flex-wrap items-center gap-x-3 gap-y-2">
           <span>Selected work</span>
           <span className="inline-flex items-center justify-center h-10 w-10 sm:h-13 sm:w-13 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-110 duration-300 shrink-0">
-            <HiOutlineFolder className="h-5 w-5 sm:h-6 sm:w-6 text-[#ff5f1a]" />
+            <HiOutlineFolder className="h-5 w-5 sm:h-6 sm:w-6 text-[#1FB57A]" />
           </span>
           <span>with premium execution</span>
           <span className="inline-flex items-center justify-center h-10 w-10 sm:h-13 sm:w-13 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-110 duration-300 shrink-0">

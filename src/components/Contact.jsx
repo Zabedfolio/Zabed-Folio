@@ -84,7 +84,7 @@ export default function Contact() {
             <h1 className="text-[clamp(2.2rem,4.5vw,3.8rem)] font-extrabold leading-[1.08] tracking-tight text-[#1a1a1a] flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
               <span>Let's build</span>
               <span className="inline-flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-110 duration-300 shrink-0">
-                <HiOutlineChatAlt2 className="h-5 w-5 sm:h-6 sm:w-6 text-[#ff5f1a]" />
+                <HiOutlineChatAlt2 className="h-5 w-5 sm:h-6 sm:w-6 text-[#1FB57A]" />
               </span>
               <span>something remarkable together.</span>
             </h1>
@@ -103,8 +103,8 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="block"
               >
-                <div className="flex items-center gap-4 rounded-2xl border border-black/8 bg-white p-4 shadow-sm transition hover:border-[#ff5f1a]/30 hover:shadow-md cursor-pointer group">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#ff5f1a]/10 text-[#ff5f1a] transition-transform group-hover:scale-110">
+                <div className="flex items-center gap-4 rounded-2xl border border-black/8 bg-white p-4 shadow-sm transition hover:border-[#1FB57A]/40 hover:shadow-md cursor-pointer group">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1FB57A]/10 text-[#12A36B] transition-transform group-hover:scale-110">
                     <Icon className="text-lg" />
                   </div>
 
@@ -112,7 +112,7 @@ export default function Contact() {
                     <div className="font-mono text-[10px] uppercase tracking-wider text-black/40 font-bold">
                       {label}
                     </div>
-                    <div className="mt-0.5 text-sm font-semibold text-[#1a1a1a] group-hover:text-[#ff5f1a] transition-colors">
+                    <div className="mt-0.5 text-sm font-semibold text-[#1a1a1a] group-hover:text-[#12A36B] transition-colors">
                       {value}
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function Contact() {
                   value={form.name}
                   onChange={handleChange}
                   placeholder="e.g. John Doe"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </label>
 
@@ -151,7 +151,7 @@ export default function Contact() {
                   value={form.email}
                   onChange={handleChange}
                   placeholder="john@example.com"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </label>
 
@@ -162,7 +162,7 @@ export default function Contact() {
                   value={form.phone}
                   onChange={handleChange}
                   placeholder="+880 1979 333880"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </label>
 
@@ -175,7 +175,7 @@ export default function Contact() {
                   value={form.message}
                   onChange={handleChange}
                   placeholder="Tell me about your project, timeline, and requirements..."
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </label>
             </div>
@@ -183,7 +183,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full sm:w-auto rounded-full bg-[#ff5f1a] hover:bg-[#e04d0d] px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-[#ff5f1a]/20 disabled:cursor-not-allowed disabled:opacity-70 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-[#12A36B]/25 disabled:cursor-not-allowed disabled:opacity-70 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>

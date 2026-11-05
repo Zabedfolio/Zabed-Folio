@@ -261,7 +261,7 @@ export default function AdminCaseStudies() {
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center justify-center gap-2 rounded-2xl bg-[#ff5f1a] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#e04d0d] shadow-sm"
+          className="flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] px-5 py-3 text-sm font-semibold text-white transition hover:from-[#19A36D] hover:to-[#0E8A5A] shadow-sm"
         >
           <HiOutlinePlus className="text-lg" /> Add Case Study
         </button>
@@ -289,7 +289,7 @@ export default function AdminCaseStudies() {
                   className="flex items-center justify-between p-4 sm:p-5 transition hover:bg-black/2"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="cursor-grab p-1 text-black/30 hover:text-[#ff5f1a]">
+                    <span className="cursor-grab p-1 text-black/30 hover:text-[#12A36B]">
                       <HiOutlineSelector className="text-xl" />
                     </span>
                     <div>
@@ -320,100 +320,100 @@ export default function AdminCaseStudies() {
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Title</label>
-                  <input name="title" value={formData.title} onChange={handleInputChange} required className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="title" value={formData.title} onChange={handleInputChange} required className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Subtitle</label>
-                  <input name="subtitle" value={formData.subtitle} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="subtitle" value={formData.subtitle} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Summary</label>
-                <textarea name="summary" rows={3} value={formData.summary} onChange={handleInputChange} required className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="summary" rows={3} value={formData.summary} onChange={handleInputChange} required className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Live project URL</label>
-                  <input name="liveUrl" value={formData.liveUrl} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="liveUrl" value={formData.liveUrl} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Year</label>
-                  <input name="year" value={formData.year} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="year" value={formData.year} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Image URL</label>
-                  <input name="image" value={formData.image} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="image" value={formData.image} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Tags (comma separated)</label>
-                  <input name="tags" value={formData.tags} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="tags" value={formData.tags} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
               </div>
 
               <div className="grid gap-5 sm:grid-cols-2">
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Hero subtitle</label>
-                  <input name="heroSubtitle" value={formData.heroSubtitle} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="heroSubtitle" value={formData.heroSubtitle} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
                 <div>
                   <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Sources (comma separated)</label>
-                  <input name="sources" value={formData.sources} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                  <input name="sources" value={formData.sources} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
                 </div>
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Market stats (JSON array)</label>
-                <textarea name="marketStats" rows={2} value={formData.marketStats} onChange={handleInputChange} placeholder='[{ "label": "Market value", "value": "$12B+", "detail": "~7.9%" }]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="marketStats" rows={2} value={formData.marketStats} onChange={handleInputChange} placeholder='[{ "label": "Market value", "value": "$12B+", "detail": "~7.9%" }]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Evidence cards (JSON array)</label>
-                <textarea name="evidenceCards" rows={2} value={formData.evidenceCards} onChange={handleInputChange} placeholder='[{ "title": "68–80% renters", "description": "..." }]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="evidenceCards" rows={2} value={formData.evidenceCards} onChange={handleInputChange} placeholder='[{ "title": "68–80% renters", "description": "..." }]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Chart data (JSON object)</label>
-                <textarea name="chartData" rows={2} value={formData.chartData} onChange={handleInputChange} placeholder='{"holdings":[{ "city":"Dhaka","holdings":592000 }]}' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="chartData" rows={2} value={formData.chartData} onChange={handleInputChange} placeholder='{"holdings":[{ "city":"Dhaka","holdings":592000 }]}' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Problem Coverage Analysis (JSON object)</label>
-                <textarea name="problemCoverageAnalysis" rows={2} value={formData.problemCoverageAnalysis} onChange={handleInputChange} placeholder='{"heading": "Problem Coverage Analysis", "intro": "..."}' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="problemCoverageAnalysis" rows={2} value={formData.problemCoverageAnalysis} onChange={handleInputChange} placeholder='{"heading": "Problem Coverage Analysis", "intro": "..."}' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Coverage rows (JSON array)</label>
-                <textarea name="coverageRows" rows={2} value={formData.coverageRows} onChange={handleInputChange} placeholder='[{"problem":"Unauthorized subletting","city":"Khulna","feature":"Verified registration","status":"Solved","tone":"positive"}]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="coverageRows" rows={2} value={formData.coverageRows} onChange={handleInputChange} placeholder='[{"problem":"Unauthorized subletting","city":"Khulna","feature":"Verified registration","status":"Solved","tone":"positive"}]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Backlog (comma separated)</label>
-                <input name="backlog" value={formData.backlog} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <input name="backlog" value={formData.backlog} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Tech stack (JSON array)</label>
-                <textarea name="techStack" rows={2} value={formData.techStack} onChange={handleInputChange} placeholder='[{"name": "Next.js 14", "reason": "Fast, responsive"}]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="techStack" rows={2} value={formData.techStack} onChange={handleInputChange} placeholder='[{"name": "Next.js 14", "reason": "Fast, responsive"}]' className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">Legal Backdrop (comma separated)</label>
-                <input name="legalBackdrop" value={formData.legalBackdrop} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <input name="legalBackdrop" value={formData.legalBackdrop} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div>
                 <label className="mb-2 block text-xs font-mono uppercase tracking-wider text-black/60">What I learned</label>
-                <textarea name="whatILearned" rows={2} value={formData.whatILearned} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#ff5f1a] focus:bg-white focus:outline-none" />
+                <textarea name="whatILearned" rows={2} value={formData.whatILearned} onChange={handleInputChange} className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20" />
               </div>
 
               <div className="flex justify-end gap-3 border-t border-black/10 pt-5">
                 <button type="button" onClick={() => setModalOpen(false)} className="rounded-2xl border border-black/10 px-5 py-3 text-sm font-semibold text-black/70 transition hover:bg-black/5">Cancel</button>
-                <button type="submit" disabled={saving} className="rounded-2xl bg-[#ff5f1a] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#e04d0d] disabled:opacity-50">
+                <button type="submit" disabled={saving} className="rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] px-6 py-3 text-sm font-semibold text-white transition hover:from-[#19A36D] hover:to-[#0E8A5A] disabled:opacity-50 shadow-md shadow-[#12A36B]/20">
                   {saving ? "Saving..." : "Save Case Study"}
                 </button>
               </div>

@@ -34,7 +34,7 @@ export default function CaseStudiesSection() {
             Deep-dives into architecture, user experience, and technical execution across my featured projects.
           </p>
         </div>
-        <Link href="/case-study" className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-xs font-semibold text-black/80 shadow-sm transition hover:border-[#ff5f1a] hover:text-[#ff5f1a]">
+        <Link href="/case-study" className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-xs font-semibold text-black/80 shadow-sm transition hover:border-[#1FB57A] hover:text-[#12A36B]">
           View all case studies <span aria-hidden>→</span>
         </Link>
       </div>
@@ -61,7 +61,7 @@ export default function CaseStudiesSection() {
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.3, delay: index * 0.06 }}
                 whileHover={{ y: -4 }}
-                className="group overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm transition-all duration-300 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5 flex flex-col justify-between"
+                className="group overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm transition-all duration-300 hover:border-[#1FB57A]/40 hover:shadow-xl hover:shadow-[#12A36B]/10 flex flex-col justify-between"
               >
                 <div>
                   <div className="relative h-44 overflow-hidden bg-black/5">
@@ -82,7 +82,7 @@ export default function CaseStudiesSection() {
                       <span>{study.year || "2026"}</span>
                     </div>
 
-                    <h3 className="text-xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#ff5f1a] transition-colors">
+                    <h3 className="text-xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#12A36B] transition-colors">
                       {study.title}
                     </h3>
 
@@ -102,7 +102,7 @@ export default function CaseStudiesSection() {
                   </div>
 
                   <div className="pt-3 border-t border-black/5 flex items-center justify-between">
-                    <Link href={detailPath} className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#ff5f1a] hover:underline underline-offset-4">
+                    <Link href={detailPath} className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#12A36B] hover:text-[#1FB57A] hover:underline underline-offset-4">
                       Read case study <span aria-hidden>→</span>
                     </Link>
                     {study.liveUrl ? (

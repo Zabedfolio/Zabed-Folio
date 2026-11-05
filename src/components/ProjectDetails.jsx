@@ -53,7 +53,7 @@ export default function ProjectDetails({ projectId }) {
     <div className="section-shell py-12 sm:py-20">
       <Link
         href="/projects"
-        className="mb-8 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-xs font-semibold text-black/80 shadow-sm transition hover:border-[#ff5f1a] hover:text-[#ff5f1a] active:scale-95"
+        className="mb-8 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white px-5 py-2.5 text-xs font-semibold text-black/80 shadow-sm transition hover:border-[#1FB57A] hover:text-[#12A36B] active:scale-95"
       >
         ← Back to projects
       </Link>
@@ -72,7 +72,7 @@ export default function ProjectDetails({ projectId }) {
           <p className="text-base font-semibold">{error}</p>
           <button
             onClick={loadProject}
-            className="rounded-full bg-[#ff5f1a] hover:bg-[#e04d0d] px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-white font-bold transition shadow-sm"
+            className="rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-6 py-2.5 text-xs uppercase tracking-[0.2em] text-white font-bold transition shadow-sm"
           >
             Retry
           </button>
@@ -107,7 +107,7 @@ export default function ProjectDetails({ projectId }) {
           <div className="space-y-10 p-6 sm:p-10 pt-8 sm:pt-10 relative z-10">
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">
-                <span className="rounded-full bg-[#ff5f1a] px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-white">
+                <span className="rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-white">
                   {project.category || "Case Study"}
                 </span>
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-black/40">
@@ -152,7 +152,7 @@ export default function ProjectDetails({ projectId }) {
               <div className="grid gap-6 lg:grid-cols-2">
                 {project.challenge && (
                   <div className="rounded-2xl border border-black/8 bg-black/2 p-6 space-y-2">
-                    <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[#ff5f1a]">
+                    <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[#12A36B]">
                       Challenge & Objective
                     </h3>
                     <p className="text-sm leading-relaxed text-black/70 font-normal">
@@ -179,7 +179,7 @@ export default function ProjectDetails({ projectId }) {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="rounded-full bg-[#ff5f1a] hover:bg-[#e04d0d] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-[#ff5f1a]/20 transition-all hover:scale-105 active:scale-95"
+                  className="rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-[#12A36B]/20 transition-all hover:scale-105 active:scale-95"
                 >
                   Live Link ↗
                 </a>

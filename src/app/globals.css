@@ -5,13 +5,14 @@
 :root {
   --bg-deep: #eeeeee;
   --bg-base: #f4f4f4;
-  --accent: #ff5f1a;
-  --accent-dim: rgba(255, 95, 26, 0.15);
+  --accent: #1FB57A;
+  --accent-dark: #12A36B;
+  --accent-dim: rgba(31, 181, 122, 0.15);
   --text-primary: #1a1a1a;
   --text-muted: rgba(0, 0, 0, 0.55);
   --text-dim: rgba(0, 0, 0, 0.35);
   --border: rgba(0, 0, 0, 0.08);
-  --border-accent: rgba(255, 95, 26, 0.3);
+  --border-accent: rgba(18, 163, 107, 0.3);
 }
 
 html {
@@ -33,7 +34,7 @@ body {
 }
 
 body::selection {
-  background: rgba(255, 95, 26, 0.25);
+  background: rgba(31, 181, 122, 0.25);
   color: #1a1a1a;
 }
 
@@ -70,7 +71,7 @@ body::selection {
   }
 
   .section-label {
-    @apply font-mono text-[11px] uppercase tracking-[0.24em] text-[#ff5f1a];
+    @apply font-mono text-[11px] uppercase tracking-[0.24em] text-[#12A36B];
   }
 
   .section-title {
@@ -82,7 +83,19 @@ body::selection {
   }
 
   .hover-glow {
-    @apply transition duration-300 hover:border-[#ff5f1a]/30 hover:shadow-xl hover:shadow-[#ff5f1a]/5;
+    @apply transition duration-300 hover:border-[#1FB57A]/40 hover:shadow-xl hover:shadow-[#12A36B]/10;
+  }
+
+  .gradient-accent {
+    @apply bg-gradient-to-r from-[#1FB57A] to-[#12A36B];
+  }
+
+  .gradient-accent-hover {
+    @apply bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A];
+  }
+
+  .text-gradient-accent {
+    @apply bg-gradient-to-r from-[#1FB57A] to-[#12A36B] bg-clip-text text-transparent;
   }
 }
 

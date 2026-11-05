@@ -40,11 +40,11 @@ const TECH_MAP = {
   javascript: { name: "JavaScript", icon: SiJavascript, color: "#B89600", bg: "rgba(247, 223, 30, 0.15)", border: "rgba(214, 186, 0, 0.3)" },
   html: { name: "HTML", icon: SiHtml5, color: "#E34F26", bg: "rgba(227, 79, 38, 0.1)", border: "rgba(227, 79, 38, 0.25)" },
   css: { name: "CSS", icon: SiCss, color: "#1572B6", bg: "rgba(21, 114, 182, 0.1)", border: "rgba(21, 114, 182, 0.25)" },
-  restapi: { name: "REST APIs", icon: HiOutlineGlobeAlt, color: "#ff5f1a", bg: "rgba(255, 95, 26, 0.1)", border: "rgba(255, 95, 26, 0.25)" },
+  restapi: { name: "REST APIs", icon: HiOutlineGlobeAlt, color: "#12A36B", bg: "rgba(31, 181, 122, 0.1)", border: "rgba(18, 163, 107, 0.25)" },
 };
 
 function TechBadge({ name, techKey }) {
-  const item = TECH_MAP[techKey] || { name: name || techKey, icon: HiOutlineCode, color: "#ff5f1a", bg: "rgba(255, 95, 26, 0.1)", border: "rgba(255, 95, 26, 0.2)" };
+  const item = TECH_MAP[techKey] || { name: name || techKey, icon: HiOutlineCode, color: "#12A36B", bg: "rgba(31, 181, 122, 0.1)", border: "rgba(18, 163, 107, 0.2)" };
   const Icon = item.icon;
 
   return (
@@ -97,11 +97,11 @@ function AnimatedDigit({ char }) {
   const isDigit = /\d/.test(char);
 
   if (!isDigit) {
-    return <span className="text-[#ff5f1a]/60 px-[0.5px]">{char}</span>;
+    return <span className="text-[#12A36B]/60 px-[0.5px]">{char}</span>;
   }
 
   return (
-    <span className="inline-block font-mono font-extrabold text-[#ff5f1a] tabular-nums">
+    <span className="inline-block font-mono font-extrabold text-[#12A36B] tabular-nums">
       {char}
     </span>
   );
@@ -123,7 +123,7 @@ function HoverImage({ src, alt, label }) {
       onMouseLeave={() => setVisible(false)}
       onMouseMove={handleMouseMove}
     >
-      <span className="cursor-default font-semibold text-[#1a1a1a] underline decoration-dashed decoration-[#ff5f1a]/60 underline-offset-4">
+      <span className="cursor-default font-semibold text-[#1a1a1a] underline decoration-dashed decoration-[#1FB57A]/60 underline-offset-4">
         {label}
       </span>
 
@@ -216,7 +216,7 @@ export default function About() {
               <span>Hey, I'm</span>
               
               {/* Avatar Vector Badge */}
-              <span className="relative inline-block h-14 w-14 sm:h-20 sm:w-20 rounded-2xl overflow-hidden shadow-md shadow-black/10 rotate-[-3deg] transition-all duration-300 ease-out hover:rotate-0 hover:scale-150 hover:z-30 hover:shadow-2xl hover:shadow-[#ff5f1a]/40 shrink-0 align-middle">
+              <span className="relative inline-block h-14 w-14 sm:h-20 sm:w-20 rounded-2xl overflow-hidden shadow-md shadow-black/10 rotate-[-3deg] transition-all duration-300 ease-out hover:rotate-0 hover:scale-150 hover:z-30 hover:shadow-2xl hover:shadow-[#12A36B]/30 shrink-0 align-middle">
                 <Image
                   src={mainPic}
                   alt="Zabed Mahmud"
@@ -236,7 +236,7 @@ export default function About() {
               {/* Web Solutions with Icon */}
               <span className="inline-flex items-center gap-3 whitespace-nowrap">
                 <span className="inline-flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-105 duration-300 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-[#ff5f1a]">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-[#1FB57A]">
                     <polyline points="16 18 22 12 16 6"></polyline>
                     <polyline points="8 6 2 12 8 18"></polyline>
                   </svg>
@@ -292,7 +292,7 @@ export default function About() {
           >
             <p>
               I'm a Web Developer, Designer, and Tech Enthusiast from Chittagong, Bangladesh <span className="opacity-100 text-black font-normal inline-block select-none">🇧🇩</span>. I've been coding and building web applications for about <span className="font-bold text-lg text-[#1a1a1a]">{months}</span> months — or <span className="italic">exactly</span>{" "}
-              <span className="font-mono font-extrabold text-base sm:text-lg text-[#ff5f1a] tracking-tight px-1 tabular-nums inline-flex items-baseline">
+              <span className="font-mono font-extrabold text-base sm:text-lg text-[#12A36B] tracking-tight px-1 tabular-nums inline-flex items-baseline">
                 {seconds !== null ? (
                   formatSeconds(seconds).split("").map((char, i, arr) => {
                     const posFromRight = arr.length - 1 - i;
@@ -363,7 +363,7 @@ export default function About() {
                 href="https://zabedfolio.github.io/Knowledge_A01/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group/link relative inline-flex items-baseline gap-1 font-semibold text-[#1a1a1a] underline decoration-[#ff5f1a]/50 underline-offset-4 transition-all hover:decoration-[#ff5f1a]"
+                className="group/link relative inline-flex items-baseline gap-1 font-semibold text-[#1a1a1a] underline decoration-[#1FB57A]/50 underline-offset-4 transition-all hover:decoration-[#12A36B]"
               >
                 first project
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="currentColor" className="mb-0.5 h-2.5 w-2.5 opacity-40 transition-opacity group-hover/link:opacity-100">
@@ -373,7 +373,7 @@ export default function About() {
               {" "}was a knowledge-base platform. I'm constantly learning, building real-world applications, and sharpening my skill set every day.
             </p>
 
-            <blockquote className="mt-8 border-l-2 border-[#ff5f1a]/50 pl-5 text-base italic leading-7 text-black/50">
+            <blockquote className="mt-8 border-l-2 border-[#12A36B]/50 pl-5 text-base italic leading-7 text-black/50">
               "The best time to start was yesterday. The second best time is{" "}
               <span className="font-semibold not-italic text-[#1a1a1a]">right now.</span>"
             </blockquote>

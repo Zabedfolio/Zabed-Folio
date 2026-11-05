@@ -210,7 +210,7 @@ export default function AdminProjects() {
         </div>
         <button
           onClick={openAddModal}
-          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-[#ff5f1a] hover:bg-[#e04d0d] text-xs font-bold text-white shadow-md shadow-[#ff5f1a]/20 transition active:scale-[0.98] self-start sm:self-auto"
+          className="flex items-center justify-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-xs font-bold text-white shadow-md shadow-[#12A36B]/20 transition active:scale-[0.98] self-start sm:self-auto"
         >
           <HiOutlinePlus className="text-lg" /> Add Project
         </button>
@@ -242,7 +242,7 @@ export default function AdminProjects() {
                   }`}
                 >
                   <div className="flex items-center gap-4 min-w-0">
-                    <span className="cursor-grab text-black/30 hover:text-[#ff5f1a] p-1 transition active:cursor-grabbing">
+                    <span className="cursor-grab text-black/30 hover:text-[#12A36B] p-1 transition active:cursor-grabbing">
                       <HiOutlineSelector className="text-xl" />
                     </span>
                     {project.image && (
@@ -319,14 +319,14 @@ export default function AdminProjects() {
                   name="status"
                   value={formData.status}
                   onChange={handleInputChange}
-                  className="w-full sm:w-1/2 rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm font-bold text-[#1a1a1a] transition focus:border-[#ff5f1a] focus:outline-none"
+                  className="w-full sm:w-1/2 rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm font-bold text-[#1a1a1a] transition focus:border-[#1FB57A] focus:outline-none"
                 >
                   <option value="completed">Completed Project</option>
                   <option value="running">Running / In Development</option>
                   <option value="upcoming">Upcoming Project</option>
                 </select>
                 {formData.status === "upcoming" && (
-                  <p className="text-xs font-semibold text-[#ff5f1a] pt-1">
+                  <p className="text-xs font-semibold text-[#12A36B] pt-1">
                     Note: For upcoming projects, only Project Title is required. A sleek default gray banner will be assigned automatically if no mockup URL is provided.
                   </p>
                 )}
@@ -345,7 +345,7 @@ export default function AdminProjects() {
                     value={formData.title}
                     onChange={handleInputChange}
                     placeholder="e.g. Taskly"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                 </div>
 
@@ -357,7 +357,7 @@ export default function AdminProjects() {
                     name="category"
                     value={formData.category}
                     onChange={handleInputChange}
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   >
                     <option value="Full Stack">Full Stack</option>
                     <option value="Frontend">Frontend</option>
@@ -380,7 +380,7 @@ export default function AdminProjects() {
                     value={formData.year}
                     onChange={handleInputChange}
                     placeholder="e.g. 2026"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                 </div>
               </div>
@@ -397,7 +397,7 @@ export default function AdminProjects() {
                     value={formData.image}
                     onChange={handleInputChange}
                     placeholder="https://example.com/mockup.png"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                 </div>
 
@@ -411,7 +411,7 @@ export default function AdminProjects() {
                     value={formData.tags}
                     onChange={handleInputChange}
                     placeholder="Next.js, React, Tailwind CSS, MongoDB"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                 </div>
               </div>
@@ -428,7 +428,7 @@ export default function AdminProjects() {
                   value={formData.description}
                   onChange={handleInputChange}
                   placeholder="A brief overview of the project scope and purpose..."
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                 />
               </div>
 
@@ -444,7 +444,7 @@ export default function AdminProjects() {
                     value={formData.challenge}
                     onChange={handleInputChange}
                     placeholder="What was the main engineering challenge you solved?"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                 </div>
 
@@ -458,7 +458,7 @@ export default function AdminProjects() {
                     value={formData.improvements}
                     onChange={handleInputChange}
                     placeholder="What would you add or refactor in future versions?"
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20"
+                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
                 </div>
               </div>
@@ -483,7 +483,7 @@ export default function AdminProjects() {
                     onChange={handleInputChange}
                     disabled={formData.noLiveLink}
                     placeholder={formData.noLiveLink ? "Live link not created yet (Deployment pending)" : "https://myproject.com"}
-                    className={`w-full rounded-2xl border border-black/10 px-4 py-3 text-sm transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20 ${
+                    className={`w-full rounded-2xl border border-black/10 px-4 py-3 text-sm transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20 ${
                       formData.noLiveLink
                         ? "bg-black/5 text-black/40 cursor-not-allowed placeholder-black/30 border-dashed"
                         : "bg-black/3 text-[#1a1a1a] placeholder-black/30"
@@ -495,7 +495,7 @@ export default function AdminProjects() {
                       name="noLiveLink"
                       checked={formData.noLiveLink}
                       onChange={handleInputChange}
-                      className="rounded border-black/20 text-[#ff5f1a] focus:ring-[#ff5f1a] h-4 w-4"
+                      className="rounded border-black/20 text-[#12A36B] focus:ring-[#1FB57A] h-4 w-4"
                     />
                     <span className="text-xs text-black/60 font-medium">
                       Live link not created yet (Tick if in development or pending)
@@ -521,7 +521,7 @@ export default function AdminProjects() {
                     onChange={handleInputChange}
                     disabled={formData.isPrivateRepo}
                     placeholder={formData.isPrivateRepo ? "Repository is private (public link hidden)" : "https://github.com/Zabedfolio/..."}
-                    className={`w-full rounded-2xl border border-black/10 px-4 py-3 text-sm transition focus:border-[#ff5f1a] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#ff5f1a]/20 ${
+                    className={`w-full rounded-2xl border border-black/10 px-4 py-3 text-sm transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20 ${
                       formData.isPrivateRepo
                         ? "bg-black/5 text-black/40 cursor-not-allowed placeholder-black/30 border-dashed"
                         : "bg-black/3 text-[#1a1a1a] placeholder-black/30"
@@ -533,14 +533,14 @@ export default function AdminProjects() {
               {/* Private Repository Option */}
               <div className="rounded-2xl border border-black/8 bg-black/2 p-4 sm:p-5 flex items-start sm:items-center justify-between gap-4 transition hover:bg-black/3">
                 <div className="flex items-start gap-3.5">
-                  <div className={`mt-0.5 p-2.5 rounded-xl transition ${formData.isPrivateRepo ? "bg-[#ff5f1a]/10 text-[#ff5f1a]" : "bg-black/5 text-black/40"}`}>
+                  <div className={`mt-0.5 p-2.5 rounded-xl transition ${formData.isPrivateRepo ? "bg-[#1FB57A]/10 text-[#12A36B]" : "bg-black/5 text-black/40"}`}>
                     <HiOutlineLockClosed className="text-xl" />
                   </div>
                   <div>
                     <label htmlFor="isPrivateRepo" className="text-sm font-bold text-[#1a1a1a] cursor-pointer flex items-center gap-2">
                       Private Repository
                       {formData.isPrivateRepo && (
-                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#ff5f1a]/10 text-[#ff5f1a] border border-[#ff5f1a]/20">
+                        <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-[#1FB57A]/10 text-[#12A36B] border border-[#1FB57A]/20">
                           LOCKED
                         </span>
                       )}
@@ -560,7 +560,7 @@ export default function AdminProjects() {
                     onChange={handleInputChange}
                     className="sr-only peer"
                   />
-                  <div className="w-12 h-6 bg-black/15 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#ff5f1a]"></div>
+                  <div className="w-12 h-6 bg-black/15 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-6 peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#12A36B]"></div>
                 </label>
               </div>
 
@@ -575,7 +575,7 @@ export default function AdminProjects() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-[#ff5f1a] hover:bg-[#e04d0d] text-xs font-bold text-white transition active:scale-[0.98] disabled:opacity-50 shadow-md shadow-[#ff5f1a]/20"
+                  className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-xs font-bold text-white transition active:scale-[0.98] disabled:opacity-50 shadow-md shadow-[#12A36B]/20"
                 >
                   {saving ? (
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />

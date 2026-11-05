@@ -64,7 +64,7 @@ export default function AdminLayout({ children }) {
   };
 
   return (
-    <div className="h-screen w-screen overflow-hidden bg-[#eeeeee] text-[#1a1a1a] flex selection:bg-[#ff5f1a]/20">
+    <div className="h-screen w-screen overflow-hidden bg-[#eeeeee] text-[#1a1a1a] flex selection:bg-[#1FB57A]/20">
       {/* Sidebar for Desktop */}
       <aside 
         className={`hidden md:flex flex-col bg-white border-r border-black/8 h-full flex-shrink-0 transition-all duration-300 z-30 shadow-sm ${
@@ -73,7 +73,7 @@ export default function AdminLayout({ children }) {
       >
         <div className="h-20 flex items-center justify-between px-5 border-b border-black/8 flex-shrink-0">
           <Link href="/admin" className="flex items-center gap-3 group overflow-hidden">
-            <div className="relative h-9 w-9 overflow-hidden rounded-xl border border-black/10 bg-white p-0.5 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-[#ff5f1a]/50 flex-shrink-0">
+            <div className="relative h-9 w-9 overflow-hidden rounded-xl border border-black/10 bg-white p-0.5 shadow-sm transition-all duration-300 group-hover:scale-105 group-hover:border-[#1FB57A]/50 flex-shrink-0">
               <Image
                 src={mainPic}
                 alt="Zabed Mahmud"
@@ -85,7 +85,7 @@ export default function AdminLayout({ children }) {
             {!isCollapsed && (
               <div className="leading-tight">
                 <div className="text-xs font-bold tracking-tight text-[#1a1a1a]">Zabed Mahmud</div>
-                <div className="text-[10px] font-mono tracking-wider text-[#ff5f1a] font-semibold uppercase">Admin Panel</div>
+                <div className="text-[10px] font-mono tracking-wider text-[#12A36B] font-semibold uppercase">Admin Panel</div>
               </div>
             )}
           </Link>
@@ -95,7 +95,7 @@ export default function AdminLayout({ children }) {
             title={isCollapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
             {isCollapsed ? (
-              <span className="text-xs font-bold font-mono text-[#ff5f1a] px-0.5">»</span>
+              <span className="text-xs font-bold font-mono text-[#12A36B] px-0.5">»</span>
             ) : (
               <span className="text-xs font-bold font-mono text-black/40 px-0.5">«</span>
             )}
@@ -167,7 +167,7 @@ export default function AdminLayout({ children }) {
               />
             </div>
             <span className="text-xs font-bold tracking-tight text-[#1a1a1a]">
-              Zabed <span className="text-[#ff5f1a]">Admin</span>
+              Zabed <span className="text-[#12A36B]">Admin</span>
             </span>
           </Link>
           <button

@@ -56,7 +56,7 @@ export default function AdminOverview() {
       count: stats.projects,
       desc: "Work case studies, details & tech tags",
       icon: HiOutlineBriefcase,
-      color: "bg-orange-500/5",
+      color: "bg-emerald-500/5",
       href: "/admin/projects",
     },
     {
@@ -115,16 +115,16 @@ export default function AdminOverview() {
                 <Link
                   key={idx}
                   href={card.href}
-                  className={`group relative flex flex-col justify-between p-6 rounded-3xl bg-white border border-black/8 ${card.color} hover:border-[#ff5f1a]/40 shadow-sm hover:shadow-xl hover:shadow-black/5 transition-all duration-300`}
+                  className={`group relative flex flex-col justify-between p-6 rounded-3xl bg-white border border-black/8 ${card.color} hover:border-[#1FB57A]/40 shadow-sm hover:shadow-xl hover:shadow-black/5 transition-all duration-300`}
                 >
                   <div className="flex items-start justify-between">
                     <div>
-                      <h3 className="font-bold text-base text-[#1a1a1a] group-hover:text-[#ff5f1a] transition">
+                      <h3 className="font-bold text-base text-[#1a1a1a] group-hover:text-[#12A36B] transition">
                         {card.title}
                       </h3>
                       <p className="mt-1 text-xs text-black/50 font-normal">{card.desc}</p>
                     </div>
-                    <span className="p-3 rounded-2xl bg-black/4 border border-black/5 text-black/60 group-hover:text-[#ff5f1a] group-hover:bg-[#ff5f1a]/10 transition duration-300">
+                    <span className="p-3 rounded-2xl bg-black/4 border border-black/5 text-black/60 group-hover:text-[#12A36B] group-hover:bg-[#1FB57A]/10 transition duration-300">
                       <Icon className="text-xl" />
                     </span>
                   </div>
@@ -133,7 +133,7 @@ export default function AdminOverview() {
                     <span className="text-3xl font-extrabold text-[#1a1a1a] tracking-tight">
                       {card.count}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-black/40 group-hover:text-[#ff5f1a] transition duration-300 font-mono font-semibold uppercase tracking-wider">
+                    <span className="flex items-center gap-1 text-xs text-black/40 group-hover:text-[#12A36B] transition duration-300 font-mono font-semibold uppercase tracking-wider">
                       Manage <HiOutlineChevronRight />
                     </span>
                   </div>

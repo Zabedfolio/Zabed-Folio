@@ -138,7 +138,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
                   href={liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-[#ff5f1a]/30 bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-[#1a1a1a] shadow-sm hover:border-[#ff5f1a] hover:bg-[#ff5f1a] hover:text-white hover:shadow-md transition-all duration-300"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#1FB57A]/40 bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-[#1a1a1a] shadow-sm hover:border-[#12A36B] hover:bg-gradient-to-r hover:from-[#1FB57A] hover:to-[#12A36B] hover:text-white hover:shadow-md transition-all duration-300"
                 >
                   View Live Project ↗
                 </a>
@@ -158,31 +158,31 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
           >
             <motion.div
               variants={fade(0)}
-              className="group rounded-3xl border border-black/8 bg-white p-6 flex flex-col justify-between min-h-[160px] hover:border-[#ff5f1a]/30 hover:shadow-lg transition-all duration-300 shadow-sm"
+              className="group rounded-3xl border border-black/8 bg-white p-6 flex flex-col justify-between min-h-[160px] hover:border-[#1FB57A]/40 hover:shadow-lg transition-all duration-300 shadow-sm"
             >
               <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Timeline / Year</span>
               <p className="text-2xl font-extrabold text-[#1a1a1a] mt-3">{year}</p>
-              <span className="text-[8px] font-mono text-[#ff5f1a]/70 uppercase tracking-widest font-bold mt-2">Active</span>
+              <span className="text-[8px] font-mono text-[#12A36B] uppercase tracking-widest font-bold mt-2">Active</span>
             </motion.div>
 
             <motion.div
               variants={fade(0.05)}
-              className="group rounded-3xl border border-black/8 bg-white p-6 flex flex-col justify-between min-h-[160px] hover:border-[#ff5f1a]/30 hover:shadow-lg transition-all duration-300 shadow-sm"
+              className="group rounded-3xl border border-black/8 bg-white p-6 flex flex-col justify-between min-h-[160px] hover:border-[#1FB57A]/40 hover:shadow-lg transition-all duration-300 shadow-sm"
             >
               <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Tags</span>
               <p className="text-sm font-semibold text-[#1a1a1a] truncate mt-3">
                 {tags.slice(0, 3).join(", ") || "Development"}
               </p>
-              <span className="text-[8px] font-mono text-[#ff5f1a]/70 uppercase tracking-widest font-bold mt-2">Core skills</span>
+              <span className="text-[8px] font-mono text-[#12A36B] uppercase tracking-widest font-bold mt-2">Core skills</span>
             </motion.div>
 
             <motion.div
               variants={fade(0.1)}
-              className="group rounded-3xl border border-black/8 bg-white p-6 flex flex-col justify-between min-h-[160px] hover:border-[#ff5f1a]/30 hover:shadow-lg transition-all duration-300 shadow-sm"
+              className="group rounded-3xl border border-black/8 bg-white p-6 flex flex-col justify-between min-h-[160px] hover:border-[#1FB57A]/40 hover:shadow-lg transition-all duration-300 shadow-sm"
             >
               <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Status</span>
               <p className="text-2xl font-extrabold text-[#1a1a1a] mt-3">{liveUrl ? "Live" : "Internal"}</p>
-              <span className="text-[8px] font-mono text-[#ff5f1a]/70 uppercase tracking-widest font-bold mt-2">Environment</span>
+              <span className="text-[8px] font-mono text-[#12A36B] uppercase tracking-widest font-bold mt-2">Environment</span>
             </motion.div>
           </motion.div>
         </section>
@@ -210,7 +210,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
               <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">Supporting Stats</p>
               <div className="grid gap-6 md:grid-cols-3">
                 {marketStats.map((stat, i) => (
-                  <div key={i} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#ff5f1a]/30 transition-colors">
+                  <div key={i} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#1FB57A]/40 transition-colors">
                     <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">{stat.label}</span>
                     <p className="text-3xl font-extrabold text-[#1a1a1a] mt-2">{stat.value}</p>
                     {stat.detail && <p className="text-[10px] text-black/40 mt-1">{stat.detail}</p>}
@@ -226,7 +226,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
               <p className="font-mono text-xs uppercase tracking-[0.24em] text-black/35 font-semibold">Key Insights</p>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {evidenceCards.map((card, i) => (
-                  <div key={i} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#ff5f1a]/30 transition-colors">
+                  <div key={i} className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#1FB57A]/40 transition-colors">
                     <h3 className="text-base font-bold text-[#1a1a1a]">{card.title}</h3>
                     <p className="text-xs leading-relaxed text-black/60 mt-2">{card.description}</p>
                   </div>
@@ -300,7 +300,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
               </div>
               <div className="space-y-3">
                 {techStack.map((tech, idx) => (
-                  <div key={idx} className="group flex flex-col justify-center rounded-2xl border border-black/8 bg-white px-5 py-4 shadow-sm hover:border-[#ff5f1a]/30 hover:shadow-md transition-all duration-300">
+                  <div key={idx} className="group flex flex-col justify-center rounded-2xl border border-black/8 bg-white px-5 py-4 shadow-sm hover:border-[#1FB57A]/40 hover:shadow-md transition-all duration-300">
                     <span className="font-semibold text-black/85">{tech.name}</span>
                     <p className="mt-1.5 text-xs text-black/50 leading-relaxed font-normal">{tech.reason}</p>
                   </div>
@@ -352,7 +352,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
             <h2 className="mb-6 text-2xl font-bold text-[#1a1a1a]">Explore the case study live demo or repository</h2>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link href="/">
-                <button className="rounded-full bg-[#ff5f1a] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#ff5f1a]/25 transition-opacity hover:opacity-90 animate-pulse">
+                <button className="rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#12A36B]/25 transition-opacity hover:opacity-90 animate-pulse">
                   Back home
                 </button>
               </Link>
@@ -434,7 +434,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
                 href={liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-[#ff5f1a]/30 bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-[#1a1a1a] shadow-sm hover:border-[#ff5f1a] hover:bg-[#ff5f1a] hover:text-white hover:shadow-md transition-all duration-300"
+                className="inline-flex items-center gap-2 rounded-full border border-[#1FB57A]/40 bg-white px-5 py-2.5 text-xs font-semibold tracking-wide text-[#1a1a1a] shadow-sm hover:border-[#12A36B] hover:bg-gradient-to-r hover:from-[#1FB57A] hover:to-[#12A36B] hover:text-white hover:shadow-md transition-all duration-300"
               >
                 View Live Project ↗
               </a>
@@ -607,7 +607,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
 
           {/* 3-up Simple Metric Cards (Full Width) */}
           <div className="grid gap-6 md:grid-cols-3 w-full">
-            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#ff5f1a]/30 transition-all duration-300">
+            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#1FB57A]/40 transition-all duration-300">
               <div className="flex justify-between items-center">
                 <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Market Value</span>
                 <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[8.5px] font-mono font-bold px-2 py-0.5 rounded-full">
@@ -620,7 +620,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
               </div>
             </div>
 
-            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#ff5f1a]/30 transition-all duration-300">
+            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#1FB57A]/40 transition-all duration-300">
               <div className="flex justify-between items-center">
                 <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">GDP Share</span>
                 <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[8.5px] font-mono font-bold px-2 py-0.5 rounded-full">
@@ -633,7 +633,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
               </div>
             </div>
 
-            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#ff5f1a]/30 transition-all duration-300">
+            <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between h-36 hover:-translate-y-1 hover:border-[#1FB57A]/40 transition-all duration-300">
               <div className="flex justify-between items-center">
                 <span className="text-[9px] font-mono text-black/40 font-bold uppercase tracking-wider">Urban Families</span>
                 <span className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 text-[8.5px] font-mono font-bold px-2 py-0.5 rounded-full">
@@ -648,9 +648,9 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
           </div>
 
           {/* Holdings Bar Chart Card (Spans Full Width) */}
-          <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#ff5f1a]/30 transition-all duration-300 w-full">
+          <div className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#1FB57A]/40 transition-all duration-300 w-full">
             <div className="mb-6">
-              <p className="font-mono text-[9px] text-[#ff5f1a] uppercase tracking-wider font-bold">Registered Holdings by City</p>
+              <p className="font-mono text-[9px] text-[#12A36B] uppercase tracking-wider font-bold">Registered Holdings by City</p>
               <h4 className="text-base font-bold text-[#1a1a1a] mt-1">Holdings distribution across major urban centers</h4>
             </div>
             <div className="space-y-4">
@@ -676,7 +676,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
                         whileInView={{ width: `${percent}%` }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: idx * 0.05, ease: "easeOut" }}
-                        className="h-full rounded-full bg-gradient-to-r from-[#ff5f1a] to-amber-500"
+                        className="h-full rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B]"
                       />
                     </div>
                   </div>
@@ -780,7 +780,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
               <motion.div
                 key={item.city}
                 variants={fade(idx * 0.05)}
-                className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between min-h-[340px] hover:-translate-y-1 hover:border-[#ff5f1a]/30 hover:shadow-lg transition-all duration-500"
+                className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm flex flex-col justify-between min-h-[340px] hover:-translate-y-1 hover:border-[#1FB57A]/40 hover:shadow-lg transition-all duration-500"
               >
                 <div>
                   <div className="flex justify-between items-start">
@@ -831,7 +831,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
 
           <motion.div
             variants={fade(0.05)}
-            className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#ff5f1a]/30 transition-all duration-300 w-full"
+            className="rounded-3xl border border-black/8 bg-white p-6 shadow-sm hover:border-[#1FB57A]/40 transition-all duration-300 w-full"
           >
             <p className="text-sm text-black/60 leading-relaxed mb-6 font-normal">
               Under the Rent Control Act 1991, the Dhaka North City Corporation released a 16-point tenant–owner guideline that NeighborNotes was designed to help owners comply with:
@@ -882,7 +882,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
 
           <motion.blockquote
             variants={fade(0.05)}
-            className="border-l-2 border-[#ff5f1a]/40 pl-6 text-base italic leading-8 text-black/45"
+            className="border-l-2 border-[#12A36B]/40 pl-6 text-base italic leading-8 text-black/45"
           >
             If registration were open, anyone could join any building's board — no way to guarantee the people posting and reading notices actually lived there.
           </motion.blockquote>
@@ -891,7 +891,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
             variants={fade(0.1)}
             className="space-y-4"
           >
-            <p className="font-mono text-xs uppercase tracking-wider text-[#ff5f1a] font-bold">A two-step verified-entry flow:</p>
+            <p className="font-mono text-xs uppercase tracking-wider text-[#12A36B] font-bold">A two-step verified-entry flow:</p>
             <ol className="space-y-4 text-[1.05rem] leading-[1.8] text-black/55">
               <li className="flex gap-4">
                 <span className="font-mono text-sm text-black/30 font-bold">1.</span>
@@ -930,7 +930,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
 
           <motion.blockquote
             variants={fade(0.05)}
-            className="border-l-2 border-[#ff5f1a]/40 pl-6 text-base italic leading-8 text-black/45"
+            className="border-l-2 border-[#12A36B]/40 pl-6 text-base italic leading-8 text-black/45"
           >
             Nothing gets said in private that either side can later deny — and nobody gets pinged outside reasonable hours.
           </motion.blockquote>
@@ -1079,7 +1079,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
               <motion.div
                 key={tech.name}
                 variants={fade(0.05 + idx * 0.03)}
-                className="group flex flex-col justify-center rounded-2xl border border-black/8 bg-white px-5 py-4 shadow-sm transition-all hover:border-[#ff5f1a]/30 hover:shadow-md hover:shadow-[#ff5f1a]/5 w-full"
+                className="group flex flex-col justify-center rounded-2xl border border-black/8 bg-white px-5 py-4 shadow-sm transition-all hover:border-[#1FB57A]/40 hover:shadow-md hover:shadow-[#12A36B]/10 w-full"
               >
                 <div className="flex justify-between items-center">
                   <span className="font-semibold text-black/85 transition-colors group-hover:text-[#1a1a1a]">
@@ -1207,7 +1207,7 @@ export default function NeighborNotesCaseStudy({ study, variant = "full", slug }
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="rounded-full bg-[#ff5f1a] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#ff5f1a]/25 transition-opacity hover:opacity-90"
+                  className="rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#12A36B]/25 transition-opacity hover:opacity-90"
                 >
                   Back to homepage
                 </motion.button>

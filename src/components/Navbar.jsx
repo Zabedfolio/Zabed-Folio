@@ -63,7 +63,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="sidebarActivePill"
-                      className="absolute -right-1 h-2 w-2 rounded-full bg-[#ff5f1a]"
+                      className="absolute -right-1 h-2 w-2 rounded-full bg-gradient-to-tr from-[#12A36B] to-[#1FB57A]"
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -171,7 +171,7 @@ export default function Navbar() {
       <div className="fixed top-5 right-5 sm:right-8 z-50">
         <Link
           href="/contact"
-          className="inline-flex items-center justify-center rounded-full bg-[#ff5f1a] hover:bg-[#e04d0d] px-6 py-3 text-xs sm:text-sm font-extrabold text-white shadow-xl shadow-[#ff5f1a]/30 transition-all duration-300 hover:scale-105 active:scale-95 tracking-wide"
+          className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-6 py-3 text-xs sm:text-sm font-extrabold text-white shadow-xl shadow-[#12A36B]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#12A36B]/40 active:scale-95 tracking-wide"
         >
           Wanna talk?
         </Link>
