@@ -19,6 +19,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/contact",
+        destination: "/30-min",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
