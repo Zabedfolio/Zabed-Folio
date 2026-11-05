@@ -31,6 +31,10 @@ export const metadata = {
     title: "Zabed Mahmud — Frontend Developer & Creative Engineer",
     description: "Cinematic developer portfolio built with Next.js and Framer Motion."
   },
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/logo.png",
+  },
   robots: "index, follow"
 };
 
