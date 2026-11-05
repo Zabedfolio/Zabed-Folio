@@ -55,9 +55,11 @@ export async function POST(request) {
       const attendees = Array.isArray(b.attendees) ? b.attendees : [];
       const primaryAttendee = attendees[0] || {};
       const responses = b.responses || {};
+      const bookingFieldsResponses = b.bookingFieldsResponses || {};
 
       const attendeeName =
         primaryAttendee.name ||
+        bookingFieldsResponses.name ||
         responses.name?.value ||
         responses.name ||
         b.name ||
@@ -65,6 +67,7 @@ export async function POST(request) {
 
       const attendeeEmail =
         primaryAttendee.email ||
+        bookingFieldsResponses.email ||
         responses.email?.value ||
         responses.email ||
         b.email ||
@@ -72,6 +75,7 @@ export async function POST(request) {
 
       const attendeePhone =
         primaryAttendee.phoneNumber ||
+        bookingFieldsResponses.phone ||
         responses.phone?.value ||
         responses.phone ||
         responses.phoneNumber?.value ||
@@ -83,10 +87,26 @@ export async function POST(request) {
         b.timeZone ||
         "Asia/Dhaka";
 
+      const meetingAbout =
+        bookingFieldsResponses.title ||
+        responses.title?.value ||
+        responses.title ||
+        bookingFieldsResponses["what-is-this-meeting-about"] ||
+        responses["what-is-this-meeting-about"]?.value ||
+        responses["what-is-this-meeting-about"] ||
+        responses["What is this meeting about?"]?.value ||
+        responses["What is this meeting about?"] ||
+        "";
+
       const notes =
         b.additionalNotes ||
+        bookingFieldsResponses.notes ||
         responses.notes?.value ||
         responses.notes ||
+        responses["additional-notes"]?.value ||
+        responses["additional-notes"] ||
+        responses["Project details"]?.value ||
+        responses["Project details"] ||
         b.description ||
         "";
 
@@ -116,6 +136,7 @@ export async function POST(request) {
             uid,
             calBookingId: b.id ? Number(b.id) : null,
             title: b.title || "30min Consultation",
+            meetingAbout: String(meetingAbout).trim(),
             status,
             startTime,
             endTime,

@@ -19,6 +19,7 @@ import {
   HiOutlineChevronRight,
   HiOutlineX,
   HiOutlineExclamation,
+  HiOutlineChatAlt2,
 } from "react-icons/hi";
 
 function formatDateTimeDhaka(isoString) {
@@ -168,7 +169,7 @@ export default function AdminBookingsPage() {
 
   const statusBadge = (status) => {
     const s = String(status || "").toLowerCase();
-    if (s === "confirmed") {
+    if (s === "confirmed" || s === "accepted") {
       return (
         <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-700 border border-emerald-500/20">
           <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
@@ -204,6 +205,32 @@ export default function AdminBookingsPage() {
       <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-black/5 text-black/70 border border-black/10">
         {status || "Unknown"}
       </span>
+    );
+  };
+
+  // Helper to extract "What is this meeting about?" from payload or document
+  const getMeetingPurpose = (booking) => {
+    if (!booking) return "";
+    return (
+      booking.meetingAbout ||
+      booking.rawPayload?.bookingFieldsResponses?.title ||
+      booking.rawPayload?.responses?.title?.value ||
+      booking.rawPayload?.responses?.title ||
+      booking.rawPayload?.responses?.["what-is-this-meeting-about"]?.value ||
+      booking.rawPayload?.responses?.["what-is-this-meeting-about"] ||
+      ""
+    );
+  };
+
+  const getAdditionalNotes = (booking) => {
+    if (!booking) return "";
+    return (
+      booking.notes ||
+      booking.rawPayload?.bookingFieldsResponses?.notes ||
+      booking.rawPayload?.responses?.notes?.value ||
+      booking.rawPayload?.responses?.notes ||
+      booking.rawPayload?.additionalNotes ||
+      ""
     );
   };
 
@@ -318,7 +345,7 @@ export default function AdminBookingsPage() {
         </div>
       </div>
 
-      {/* Main Table Card */}
+      {/* Main Content Card */}
       <div className="rounded-3xl border border-black/8 bg-white shadow-sm overflow-hidden">
         {/* Controls Bar: Filter Tabs & Search */}
         <div className="p-4 md:p-6 border-b border-black/8 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
@@ -396,106 +423,166 @@ export default function AdminBookingsPage() {
             </p>
           </div>
         ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-black/6 bg-black/2 text-[11px] font-bold text-black/50 uppercase tracking-wider">
-                  <th className="py-3.5 px-6">Attendee</th>
-                  <th className="py-3.5 px-6">Meeting Time (Dhaka)</th>
-                  <th className="py-3.5 px-6">Type & Topic</th>
-                  <th className="py-3.5 px-6">Status</th>
-                  <th className="py-3.5 px-6 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-black/6 text-xs">
-                {bookings.map((booking) => {
-                  const startTimeDhaka = formatDateTimeDhaka(booking.startTime);
-                  const endTimeDhaka = formatTimeOnlyDhaka(booking.endTime);
+          <>
+            {/* Desktop Table View (Hidden on mobile) */}
+            <div className="hidden md:block overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-black/6 bg-black/2 text-[11px] font-bold text-black/50 uppercase tracking-wider">
+                    <th className="py-3.5 px-6">Attendee</th>
+                    <th className="py-3.5 px-6">Meeting Time (Dhaka)</th>
+                    <th className="py-3.5 px-6 text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black/6 text-xs">
+                  {bookings.map((booking) => {
+                    const startTimeDhaka = formatDateTimeDhaka(booking.startTime);
+                    const endTimeDhaka = formatTimeOnlyDhaka(booking.endTime);
 
-                  return (
-                    <tr
-                      key={booking.uid || booking._id}
-                      className="hover:bg-black/2 transition-colors duration-150"
-                    >
-                      {/* Attendee */}
-                      <td className="py-4 px-6 align-top">
-                        <div className="font-bold text-[#1a1a1a]">{booking.attendeeName || "Guest"}</div>
-                        <div className="mt-0.5 flex items-center gap-1 text-[11px] text-black/60 font-mono">
-                          <HiOutlineMail className="text-xs text-black/40" />
-                          <a href={`mailto:${booking.attendeeEmail}`} className="hover:underline">
-                            {booking.attendeeEmail || "No email"}
-                          </a>
-                        </div>
-                        {booking.attendeePhone && (
-                          <div className="mt-0.5 flex items-center gap-1 text-[11px] text-black/60 font-mono">
-                            <HiOutlinePhone className="text-xs text-black/40" />
-                            <a href={`tel:${booking.attendeePhone}`} className="hover:underline">
-                              {booking.attendeePhone}
+                    return (
+                      <tr
+                        key={booking.uid || booking._id}
+                        className="hover:bg-black/2 transition-colors duration-150"
+                      >
+                        {/* Attendee */}
+                        <td className="py-4 px-6 align-top">
+                          <div className="font-bold text-[#1a1a1a] text-sm">{booking.attendeeName || "Guest"}</div>
+                          <div className="mt-1 flex items-center gap-1.5 text-xs text-black/60 font-mono">
+                            <HiOutlineMail className="text-sm text-black/40 flex-shrink-0" />
+                            <a href={`mailto:${booking.attendeeEmail}`} className="hover:underline">
+                              {booking.attendeeEmail || "No email"}
                             </a>
                           </div>
-                        )}
-                      </td>
-
-                      {/* Time */}
-                      <td className="py-4 px-6 align-top whitespace-nowrap">
-                        <div className="font-semibold text-[#1a1a1a]">
-                          {startTimeDhaka}
-                          {endTimeDhaka && <span className="text-black/40"> - {endTimeDhaka}</span>}
-                        </div>
-                        <div className="text-[11px] text-black/40 font-mono mt-0.5">
-                          Attendee: {booking.attendeeTimeZone || "Unknown TZ"}
-                        </div>
-                      </td>
-
-                      {/* Title & Notes */}
-                      <td className="py-4 px-6 align-top max-w-xs">
-                        <div className="font-medium text-[#1a1a1a] truncate" title={booking.title}>
-                          {booking.title || "30 Min Meeting"}
-                        </div>
-                        {booking.notes && (
-                          <p className="text-[11px] text-black/50 line-clamp-1 mt-0.5 font-normal italic">
-                            &quot;{booking.notes}&quot;
-                          </p>
-                        )}
-                      </td>
-
-                      {/* Status */}
-                      <td className="py-4 px-6 align-top whitespace-nowrap">
-                        {statusBadge(booking.status)}
-                      </td>
-
-                      {/* Actions */}
-                      <td className="py-4 px-6 align-top text-right whitespace-nowrap">
-                        <div className="inline-flex items-center gap-2">
-                          {booking.meetingUrl &&
-                            booking.status !== "cancelled" &&
-                            booking.status !== "canceled" && (
-                              <a
-                                href={booking.meetingUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-[#12A36B]/10 hover:bg-[#12A36B]/20 text-[#12A36B] font-bold text-xs transition"
-                                title="Join Google Meet / Video call"
-                              >
-                                <HiOutlineVideoCamera className="text-sm" />
-                                <span>Join</span>
+                          {booking.attendeePhone && (
+                            <div className="mt-1 flex items-center gap-1.5 text-xs text-black/60 font-mono">
+                              <HiOutlinePhone className="text-sm text-black/40 flex-shrink-0" />
+                              <a href={`tel:${booking.attendeePhone}`} className="hover:underline">
+                                {booking.attendeePhone}
                               </a>
-                            )}
-                          <button
-                            onClick={() => setSelectedBooking(booking)}
-                            className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl border border-black/10 hover:bg-black/5 text-black/70 hover:text-[#1a1a1a] font-semibold text-xs transition"
-                          >
-                            <HiOutlineInformationCircle className="text-sm" />
-                            <span>Details</span>
-                          </button>
+                            </div>
+                          )}
+                        </td>
+
+                        {/* Meeting Time */}
+                        <td className="py-4 px-6 align-top whitespace-nowrap">
+                          <div className="font-semibold text-sm text-[#1a1a1a]">
+                            {startTimeDhaka}
+                            {endTimeDhaka && <span className="text-black/40"> - {endTimeDhaka}</span>}
+                          </div>
+                          <div className="text-xs text-black/40 font-mono mt-1">
+                            Attendee timezone: {booking.attendeeTimeZone || "Unknown"}
+                          </div>
+                        </td>
+
+                        {/* Actions */}
+                        <td className="py-4 px-6 align-top text-right whitespace-nowrap">
+                          <div className="inline-flex items-center gap-2">
+                            {booking.meetingUrl &&
+                              booking.status !== "cancelled" &&
+                              booking.status !== "canceled" && (
+                                <a
+                                  href={booking.meetingUrl}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#12A36B]/10 hover:bg-[#12A36B]/20 text-[#12A36B] font-bold text-xs transition"
+                                  title="Join Google Meet / Video call"
+                                >
+                                  <HiOutlineVideoCamera className="text-sm" />
+                                  <span>Join</span>
+                                </a>
+                              )}
+                            <button
+                              onClick={() => setSelectedBooking(booking)}
+                              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-black/10 hover:bg-black/5 text-black/70 hover:text-[#1a1a1a] font-semibold text-xs transition"
+                            >
+                              <HiOutlineInformationCircle className="text-sm" />
+                              <span>Details</span>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Mobile Responsive Cards View (Shown on screens < 768px) */}
+            <div className="md:hidden divide-y divide-black/6 p-3 sm:p-4 space-y-3">
+              {bookings.map((booking) => {
+                const startTimeDhaka = formatDateTimeDhaka(booking.startTime);
+                const endTimeDhaka = formatTimeOnlyDhaka(booking.endTime);
+                const purpose = getMeetingPurpose(booking);
+
+                return (
+                  <div
+                    key={booking.uid || booking._id}
+                    className="p-4 rounded-2xl bg-black/2 border border-black/5 space-y-3"
+                  >
+                    {/* Header: Name & Time */}
+                    <div className="space-y-1">
+                      <div className="font-bold text-[#1a1a1a] text-sm">
+                        {booking.attendeeName || "Guest"}
+                      </div>
+                      <div className="text-xs font-semibold text-black/80 flex items-center gap-1">
+                        <HiOutlineCalendar className="text-sm text-[#12A36B] flex-shrink-0" />
+                        <span>{startTimeDhaka}{endTimeDhaka ? ` - ${endTimeDhaka}` : ""}</span>
+                      </div>
+                    </div>
+
+                    {/* Email & Phone */}
+                    <div className="space-y-1 text-xs text-black/60 font-mono">
+                      <div className="flex items-center gap-1.5 truncate">
+                        <HiOutlineMail className="text-sm text-black/40 flex-shrink-0" />
+                        <a href={`mailto:${booking.attendeeEmail}`} className="hover:underline truncate">
+                          {booking.attendeeEmail}
+                        </a>
+                      </div>
+                      {booking.attendeePhone && (
+                        <div className="flex items-center gap-1.5">
+                          <HiOutlinePhone className="text-sm text-black/40 flex-shrink-0" />
+                          <a href={`tel:${booking.attendeePhone}`} className="hover:underline">
+                            {booking.attendeePhone}
+                          </a>
                         </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
+                      )}
+                    </div>
+
+                    {/* Quick Topic preview if available */}
+                    {purpose && (
+                      <p className="text-xs text-black/60 italic line-clamp-1 bg-white/60 p-2 rounded-xl border border-black/5">
+                        &quot;{purpose}&quot;
+                      </p>
+                    )}
+
+                    {/* Actions Row */}
+                    <div className="flex items-center gap-2 pt-1">
+                      {booking.meetingUrl &&
+                        booking.status !== "cancelled" &&
+                        booking.status !== "canceled" && (
+                          <a
+                            href={booking.meetingUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl bg-[#12A36B] hover:bg-[#0f8c5b] text-white font-bold text-xs shadow-sm transition"
+                          >
+                            <HiOutlineVideoCamera className="text-sm" />
+                            <span>Join Meeting</span>
+                          </a>
+                        )}
+                      <button
+                        onClick={() => setSelectedBooking(booking)}
+                        className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 rounded-xl border border-black/10 bg-white hover:bg-black/5 text-[#1a1a1a] font-semibold text-xs transition"
+                      >
+                        <HiOutlineInformationCircle className="text-sm" />
+                        <span>Details</span>
+                      </button>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </>
         )}
 
         {/* Pagination Footer */}
@@ -556,7 +643,18 @@ export default function AdminBookingsPage() {
 
             {/* Modal Body */}
             <div className="space-y-5 text-xs">
-              {/* Meeting Info */}
+              {/* Meeting What is this about? (Topic / Purpose) */}
+              <div className="p-4 rounded-2xl bg-[#12A36B]/5 border border-[#12A36B]/20 space-y-1.5">
+                <div className="flex items-center gap-2 text-[#12A36B] font-bold text-xs uppercase tracking-wider">
+                  <HiOutlineChatAlt2 className="text-base" />
+                  <span>What is this meeting about?</span>
+                </div>
+                <p className="text-sm font-semibold text-[#1a1a1a] whitespace-pre-wrap leading-relaxed pl-6">
+                  {getMeetingPurpose(selectedBooking) || "Not specified by attendee"}
+                </p>
+              </div>
+
+              {/* Time & Duration */}
               <div className="p-4 rounded-2xl bg-black/2 border border-black/5 space-y-2.5">
                 <div className="font-bold text-sm text-[#1a1a1a]">{selectedBooking.title}</div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-black/70">
@@ -636,17 +734,18 @@ export default function AdminBookingsPage() {
                 </div>
               )}
 
-              {/* Notes / Agenda */}
-              {selectedBooking.notes && (
-                <div className="p-4 rounded-2xl bg-black/2 border border-black/5 space-y-1">
-                  <span className="text-black/40 font-semibold uppercase tracking-wider text-[10px]">
-                    Attendee Notes / Agenda
-                  </span>
-                  <p className="text-black/80 whitespace-pre-wrap leading-relaxed">
-                    {selectedBooking.notes}
-                  </p>
-                </div>
-              )}
+              {/* Additional Notes (if provided and different from purpose) */}
+              {getAdditionalNotes(selectedBooking) &&
+                getAdditionalNotes(selectedBooking) !== getMeetingPurpose(selectedBooking) && (
+                  <div className="p-4 rounded-2xl bg-black/2 border border-black/5 space-y-1">
+                    <span className="text-black/40 font-semibold uppercase tracking-wider text-[10px]">
+                      Additional Notes
+                    </span>
+                    <p className="text-black/80 whitespace-pre-wrap leading-relaxed">
+                      {getAdditionalNotes(selectedBooking)}
+                    </p>
+                  </div>
+                )}
 
               {/* Cancellation Reason if cancelled */}
               {selectedBooking.cancellationReason && (
@@ -688,4 +787,3 @@ export default function AdminBookingsPage() {
     </div>
   );
 }
-

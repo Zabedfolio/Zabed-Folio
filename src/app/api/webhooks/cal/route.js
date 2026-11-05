@@ -34,9 +34,11 @@ function extractBookingData(payload, statusOverride) {
   const attendees = Array.isArray(payload?.attendees) ? payload.attendees : [];
   const primaryAttendee = attendees[0] || {};
   const responses = payload?.responses || {};
+  const bookingFieldsResponses = payload?.bookingFieldsResponses || {};
 
   const attendeeName =
     primaryAttendee.name ||
+    bookingFieldsResponses.name ||
     responses.name?.value ||
     responses.name ||
     payload?.name ||
@@ -44,6 +46,7 @@ function extractBookingData(payload, statusOverride) {
 
   const attendeeEmail =
     primaryAttendee.email ||
+    bookingFieldsResponses.email ||
     responses.email?.value ||
     responses.email ||
     payload?.email ||
@@ -51,6 +54,7 @@ function extractBookingData(payload, statusOverride) {
 
   const attendeePhone =
     primaryAttendee.phoneNumber ||
+    bookingFieldsResponses.phone ||
     responses.phone?.value ||
     responses.phone ||
     responses.phoneNumber?.value ||
@@ -63,10 +67,24 @@ function extractBookingData(payload, statusOverride) {
     payload?.timeZone ||
     "Asia/Dhaka";
 
+  const meetingAbout =
+    bookingFieldsResponses.title ||
+    responses.title?.value ||
+    responses.title ||
+    bookingFieldsResponses["what-is-this-meeting-about"] ||
+    responses["what-is-this-meeting-about"]?.value ||
+    responses["what-is-this-meeting-about"] ||
+    responses["What is this meeting about?"]?.value ||
+    responses["What is this meeting about?"] ||
+    "";
+
   const notes =
     payload?.additionalNotes ||
+    bookingFieldsResponses.notes ||
     responses.notes?.value ||
     responses.notes ||
+    responses["additional-notes"]?.value ||
+    responses["additional-notes"] ||
     responses["Project details"]?.value ||
     responses["Project details"] ||
     payload?.description ||
@@ -91,6 +109,7 @@ function extractBookingData(payload, statusOverride) {
     uid: String(payload?.uid || payload?.id),
     calBookingId: payload?.id ? Number(payload.id) : null,
     title: payload?.title || payload?.eventTitle || "30min Consultation",
+    meetingAbout: String(meetingAbout).trim(),
     status: statusOverride,
     startTime,
     endTime,
