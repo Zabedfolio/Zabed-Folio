@@ -1,12 +1,7 @@
 'use client';
 
-import { motion } from "framer-motion";
-import { useState } from "react";
 import { FaEnvelope, FaPhoneAlt, FaWhatsapp } from "react-icons/fa";
-import { HiOutlineChatAlt2 } from "react-icons/hi";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import emailjs from "emailjs-com";
+import BookingCalendar from "@/components/BookingCalendar";
 
 const contactCards = [
   {
@@ -29,68 +24,21 @@ const contactCards = [
   }
 ];
 
-const initialState = {
-  name: "",
-  email: "",
-  phone: "",
-  message: ""
-};
-
 export default function Contact() {
-  const [form, setForm] = useState(initialState);
-  const [loading, setLoading] = useState(false);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setForm((current) => ({ ...current, [name]: value }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setLoading(true);
-
-    const templateParams = {
-      name: form.name,
-      email: form.email,
-      phone: form.phone,
-      message: form.message,
-    };
-
-    try {
-      await emailjs.send(
-        "service_t1jbkqn",
-        "template_xhala38",
-        templateParams,
-        "aPfInZVkZDN3gQXkT"
-      );
-
-      toast.success("Message sent successfully!");
-      setForm(initialState);
-    } catch (error) {
-      console.error("EmailJS Error:", error);
-      toast.error("Failed to send message. Try again.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   return (
-    <div id="contact" className="section-shell pt-24 pb-28 sm:pt-36 sm:pb-40">
-      <div className="grid gap-10 lg:grid-cols-5 items-start">
-        {/* Left Column: Heading & Info Cards */}
-        <div className="space-y-8 lg:col-span-2">
-          <div className="space-y-4">
+    <div id="contact" className="section-shell pt-20 pb-24 sm:pt-28 sm:pb-32">
+      {/* Accessible h1 heading for screen readers & SEO without visible text */}
+      <h1 className="sr-only">Book a meeting</h1>
 
-            <h1 className="text-[clamp(2.2rem,4.5vw,3.8rem)] font-extrabold leading-[1.08] tracking-tight text-[#1a1a1a] flex flex-wrap items-center gap-x-2.5 gap-y-1.5">
-              <span>Let's build</span>
-              <span className="inline-flex items-center justify-center h-10 w-10 sm:h-12 sm:w-12 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-110 duration-300 shrink-0">
-                <HiOutlineChatAlt2 className="h-5 w-5 sm:h-6 sm:w-6 text-[#1FB57A]" />
-              </span>
-              <span>something remarkable together.</span>
-            </h1>
-
-            <p className="text-base leading-relaxed text-black/60 font-normal">
-              Whether you need a web application, portfolio, or custom digital product, I'm excited to collaborate and turn your vision into reality.
+      <div className="grid gap-8 lg:grid-cols-12 items-start">
+        {/* Contact Info Cards (Left ~35% on Desktop, Stacks 2nd on Mobile) */}
+        <div className="order-2 lg:order-1 lg:col-span-4 space-y-4">
+          <div className="space-y-1">
+            <span className="font-mono text-xs uppercase tracking-[0.24em] text-[#12A36B] font-semibold">
+              Get In Touch
+            </span>
+            <p className="text-xs text-black/50 font-normal">
+              Prefer a direct message? Reach out through any of these channels anytime.
             </p>
           </div>
 
@@ -104,15 +52,15 @@ export default function Contact() {
                 className="block"
               >
                 <div className="flex items-center gap-4 rounded-2xl border border-black/8 bg-white p-4 shadow-sm transition hover:border-[#1FB57A]/40 hover:shadow-md cursor-pointer group">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1FB57A]/10 text-[#12A36B] transition-transform group-hover:scale-110">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#1FB57A]/10 text-[#12A36B] transition-transform group-hover:scale-110 flex-shrink-0">
                     <Icon className="text-lg" />
                   </div>
 
-                  <div>
+                  <div className="min-w-0">
                     <div className="font-mono text-[10px] uppercase tracking-wider text-black/40 font-bold">
                       {label}
                     </div>
-                    <div className="mt-0.5 text-sm font-semibold text-[#1a1a1a] group-hover:text-[#12A36B] transition-colors">
+                    <div className="mt-0.5 text-sm font-semibold text-[#1a1a1a] group-hover:text-[#12A36B] transition-colors truncate">
                       {value}
                     </div>
                   </div>
@@ -120,85 +68,25 @@ export default function Contact() {
               </a>
             ))}
           </div>
+
+          {/* Quick FAQ / note card */}
+          <div className="rounded-2xl border border-black/8 bg-white/70 p-5 shadow-sm space-y-2">
+            <h3 className="text-xs font-bold font-mono uppercase tracking-wider text-[#1a1a1a]">
+              What to expect
+            </h3>
+            <ul className="text-xs leading-relaxed text-black/60 space-y-1.5 list-disc list-inside">
+              <li>30-minute Google Meet video consultation</li>
+              <li>Project scope, tech stack & timeline discussion</li>
+              <li>Free architecture advice & instant invite confirmation</li>
+            </ul>
+          </div>
         </div>
 
-        {/* Right Column: Form Container */}
-        <div className="lg:col-span-3">
-          <form onSubmit={handleSubmit} className="rounded-3xl border border-black/8 bg-white p-6 sm:p-10 shadow-sm space-y-6">
-            <h2 className="text-xl font-bold tracking-tight text-[#1a1a1a]">
-              Send Me A Message
-            </h2>
-
-            <div className="grid gap-5 sm:grid-cols-2">
-              <label className="space-y-2 sm:col-span-2">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-black/60">Your Name</span>
-                <input
-                  required
-                  name="name"
-                  value={form.name}
-                  onChange={handleChange}
-                  placeholder="e.g. John Doe"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
-                />
-              </label>
-
-              <label className="space-y-2">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-black/60">Email Address</span>
-                <input
-                  required
-                  type="email"
-                  name="email"
-                  value={form.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
-                />
-              </label>
-
-              <label className="space-y-2">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-black/60">Phone Number</span>
-                <input
-                  name="phone"
-                  value={form.phone}
-                  onChange={handleChange}
-                  placeholder="+880 1979 333880"
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
-                />
-              </label>
-
-              <label className="space-y-2 sm:col-span-2">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-black/60">Project Details / Message</span>
-                <textarea
-                  required
-                  rows={5}
-                  name="message"
-                  value={form.message}
-                  onChange={handleChange}
-                  placeholder="Tell me about your project, timeline, and requirements..."
-                  className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3.5 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
-                />
-              </label>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full sm:w-auto rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-white shadow-md shadow-[#12A36B]/25 disabled:cursor-not-allowed disabled:opacity-70 transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <>
-                  <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                  Sending...
-                </>
-              ) : (
-                "Send Message"
-              )}
-            </button>
-          </form>
+        {/* Cal.com Booking Calendar (Right ~65% on Desktop, Stacks 1st on Mobile) */}
+        <div className="order-1 lg:order-2 lg:col-span-8">
+          <BookingCalendar />
         </div>
       </div>
-
-      <ToastContainer position="bottom-right" theme="light" toastClassName="toast-theme" />
     </div>
   );
 }

@@ -10,10 +10,12 @@ import {
   HiOutlineLibrary,
   HiOutlineDatabase,
   HiOutlineChevronRight,
+  HiOutlineCalendar,
 } from "react-icons/hi";
 
 export default function AdminOverview() {
   const [stats, setStats] = useState({
+    bookings: 0,
     projects: 0,
     skills: 0,
     caseStudies: 0,
@@ -25,15 +27,17 @@ export default function AdminOverview() {
   useEffect(() => {
     async function fetchStats() {
       try {
-        const [proj, skl, cs, edu, exp] = await Promise.all([
-          fetch("/api/admin/projects").then((r) => r.json()),
-          fetch("/api/admin/skills").then((r) => r.json()),
-          fetch("/api/admin/case-studies").then((r) => r.json()),
-          fetch("/api/admin/education").then((r) => r.json()),
-          fetch("/api/admin/experience").then((r) => r.json()),
+        const [proj, skl, cs, edu, exp, book] = await Promise.all([
+          fetch("/api/admin/projects").then((r) => r.json()).catch(() => []),
+          fetch("/api/admin/skills").then((r) => r.json()).catch(() => []),
+          fetch("/api/admin/case-studies").then((r) => r.json()).catch(() => []),
+          fetch("/api/admin/education").then((r) => r.json()).catch(() => []),
+          fetch("/api/admin/experience").then((r) => r.json()).catch(() => []),
+          fetch("/api/admin/bookings/stats").then((r) => r.json()).catch(() => ({ upcoming: 0, total: 0 })),
         ]);
 
         setStats({
+          bookings: book?.upcoming ?? (book?.total ?? 0),
           projects: Array.isArray(proj) ? proj.length : 0,
           skills: Array.isArray(skl) ? skl.length : 0,
           caseStudies: Array.isArray(cs) ? cs.length : 0,
@@ -51,6 +55,14 @@ export default function AdminOverview() {
   }, []);
 
   const cards = [
+    {
+      title: "Cal.com Bookings",
+      count: stats.bookings,
+      desc: "Upcoming client meetings & sync",
+      icon: HiOutlineCalendar,
+      color: "bg-[#12A36B]/5",
+      href: "/admin/bookings",
+    },
     {
       title: "Projects Showcase",
       count: stats.projects,
@@ -102,7 +114,7 @@ export default function AdminOverview() {
 
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[...Array(5)].map((_, i) => (
+          {[...Array(6)].map((_, i) => (
             <div key={i} className="h-44 rounded-3xl bg-white border border-black/8 animate-pulse shadow-sm" />
           ))}
         </div>

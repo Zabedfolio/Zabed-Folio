@@ -19,10 +19,12 @@ import {
   HiOutlineCog,
   HiOutlineDocumentText,
   HiOutlineLibrary,
+  HiOutlineCalendar,
 } from "react-icons/hi";
 
 const sidebarItems = [
   { href: "/admin", label: "Overview", icon: HiOutlineChartBar },
+  { href: "/admin/bookings", label: "Bookings", icon: HiOutlineCalendar },
   { href: "/admin/projects", label: "Projects", icon: HiOutlineBriefcase },
   { href: "/admin/skills", label: "Skills", icon: HiOutlineCog },
   { href: "/admin/case-studies", label: "Case Studies", icon: HiOutlineLibrary },
