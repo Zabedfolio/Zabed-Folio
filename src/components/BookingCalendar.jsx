@@ -36,7 +36,7 @@ export default function BookingCalendar() {
       } finally {
         if (isMounted) {
           // Allow a brief moment for the iframe to mount smoothly
-          const timer = setTimeout(() => setIsLoading(false), 600);
+          const timer = setTimeout(() => setIsLoading(false), 500);
           return () => clearTimeout(timer);
         }
       }
@@ -50,16 +50,16 @@ export default function BookingCalendar() {
   }, []);
 
   return (
-    <div className="relative w-full rounded-3xl border border-black/8 bg-white p-3 sm:p-6 shadow-sm overflow-hidden flex flex-col justify-between">
-      {/* Fixed height wrapper for desktop (~700px) and mobile (~760px) */}
-      <div className="relative w-full h-[760px] md:h-[700px] overflow-hidden rounded-2xl">
+    <div className="relative w-full rounded-2xl sm:rounded-3xl border border-black/8 bg-white p-2 sm:p-5 md:p-6 shadow-sm overflow-hidden flex flex-col justify-between">
+      {/* Responsive height wrapper: 720px on mobile for full slot list, 700px on desktop */}
+      <div className="relative w-full h-[720px] sm:h-[700px] overflow-hidden rounded-xl sm:rounded-2xl">
         {/* Loading Skeleton */}
         {isLoading && (
-          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm p-6 text-center space-y-4 animate-pulse">
-            <div className="h-12 w-12 rounded-2xl bg-emerald-500/10 text-[#12A36B] flex items-center justify-center">
+          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center bg-white/95 backdrop-blur-sm p-6 text-center space-y-4 animate-pulse">
+            <div className="h-12 w-12 rounded-2xl bg-[#12A36B]/10 text-[#12A36B] flex items-center justify-center">
               <HiOutlineCalendar className="h-6 w-6 animate-spin" />
             </div>
-            <div className="space-y-2">
+            <div className="space-y-1.5">
               <p className="text-sm font-semibold text-[#1a1a1a]">Loading booking calendar...</p>
               <p className="text-xs text-black/40">Connecting with Google Calendar & Google Meet</p>
             </div>
@@ -68,7 +68,7 @@ export default function BookingCalendar() {
 
         {/* Fallback if embed encounters an error */}
         {hasError ? (
-          <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center space-y-4">
+          <div className="flex h-full w-full flex-col items-center justify-center p-6 sm:p-8 text-center space-y-4">
             <div className="h-14 w-14 rounded-2xl bg-black/5 text-[#12A36B] flex items-center justify-center">
               <HiOutlineCalendar className="h-7 w-7" />
             </div>
@@ -93,13 +93,13 @@ export default function BookingCalendar() {
             namespace="30min"
             calLink={calLink}
             config={{ layout: "month_view", theme: "light" }}
-            style={{ width: "100%", height: "100%", overflow: "scroll" }}
+            style={{ width: "100%", height: "100%", minHeight: "100%", overflow: "auto" }}
           />
         )}
       </div>
 
-      {/* Subtle Footer Note */}
-      <div className="mt-3 pt-3 border-t border-black/5 flex flex-wrap items-center justify-between text-[11px] font-mono text-black/40 px-2">
+      {/* Responsive Footer Note */}
+      <div className="mt-3 pt-3 border-t border-black/5 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] font-mono text-black/40 px-2 text-center sm:text-left">
         <span className="flex items-center gap-1.5">
           <span className="h-2 w-2 rounded-full bg-[#12A36B] animate-pulse" />
           <span>Real-time availability synced with Google Calendar</span>
@@ -116,4 +116,3 @@ export default function BookingCalendar() {
     </div>
   );
 }
-
