@@ -31,7 +31,9 @@ if (!global._mongoClientPromise) {
 client = global._mongoClient;
 clientPromise = global._mongoClientPromise;
 
-export { client, clientPromise };
+const db = client.db("zabed-folio-db");
+
+export { client, db, clientPromise };
 export default clientPromise;
 
 export async function getDb() {
