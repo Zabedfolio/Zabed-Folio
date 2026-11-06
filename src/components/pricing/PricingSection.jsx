@@ -191,10 +191,10 @@ export default function PricingSection() {
 
           <Link
             href={bookingUrl}
-            className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-[#1a1a1a] hover:bg-black px-4 py-2.5 text-xs font-bold text-white shadow-md shadow-[#12A36B]/20 transition-transform active:scale-95"
+            className="shrink-0 inline-flex items-center gap-1.5 rounded-xl bg-[#1a1a1a] hover:bg-black px-4 py-2.5 text-xs font-bold text-white visited:text-white shadow-md shadow-[#12A36B]/20 transition-transform active:scale-95"
           >
-            <span>Book Call</span>
-            <HiOutlineArrowRight className="text-sm" />
+            <span className="text-white font-bold">Book Call</span>
+            <HiOutlineArrowRight className="text-sm text-white" />
           </Link>
         </div>
       </div>

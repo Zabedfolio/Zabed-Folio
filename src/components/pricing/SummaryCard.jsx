@@ -191,12 +191,12 @@ export default function SummaryCard({
         <div className="pt-2">
           <Link
             href={bookingUrl}
-            className="group relative flex w-full items-center justify-center gap-2 rounded-2xl bg-[#1a1a1a] hover:bg-black py-4 px-6 text-center font-bold text-white shadow-[0_8px_25px_-5px_rgba(31,181,122,0.45)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#12A36B] focus-visible:ring-offset-2"
+            className="group relative flex w-full items-center justify-center gap-2 rounded-2xl bg-[#1a1a1a] hover:bg-black py-4 px-6 text-center font-bold text-white visited:text-white shadow-[0_8px_25px_-5px_rgba(31,181,122,0.45)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#12A36B] focus-visible:ring-offset-2"
           >
-            <span className="relative z-10 text-sm sm:text-base tracking-wide">
+            <span className="relative z-10 text-sm sm:text-base font-bold text-white tracking-wide">
               {PRICING_COPY.ctaText}
             </span>
-            <HiOutlineArrowRight className="text-lg transition-transform duration-300 group-hover:translate-x-1" />
+            <HiOutlineArrowRight className="text-lg text-white transition-transform duration-300 group-hover:translate-x-1" />
             {/* Bottom edge neon gradient reflection */}
             <span className="absolute inset-x-8 bottom-0 h-[2px] bg-gradient-to-r from-transparent via-[#1FB57A] to-transparent opacity-80" />
           </Link>
