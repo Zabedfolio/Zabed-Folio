@@ -1,11 +1,17 @@
 import { GeistMono, GeistSans } from "geist/font";
-import { Pacifico } from "next/font/google";
+import { Bricolage_Grotesque, Pacifico } from "next/font/google";
 import "./globals.css";
 
 const pacifico = Pacifico({
   weight: "400",
   subsets: ["latin"],
   variable: "--font-pacifico"
+});
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  variable: "--font-bricolage",
+  display: "swap",
 });
 
 export const metadata = {
@@ -42,7 +48,7 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${GeistSans.variable} ${GeistMono.variable} ${pacifico.variable}`}
+      className={`${GeistSans.variable} ${GeistMono.variable} ${pacifico.variable} ${bricolage.variable}`}
     >
       <body>
         {children}

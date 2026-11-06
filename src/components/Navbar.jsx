@@ -17,6 +17,7 @@ import {
   HiOutlineMenuAlt4,
   HiOutlineX,
 } from "react-icons/hi";
+import { LuBadgeDollarSign } from "react-icons/lu";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -25,6 +26,7 @@ export default function Navbar() {
   const [experienceOpen, setExperienceOpen] = useState(false);
   const [educationOpen, setEducationOpen] = useState(false);
   const [isAdminLocal, setIsAdminLocal] = useState(false);
+  const [isPricingInView, setIsPricingInView] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -32,12 +34,95 @@ export default function Navbar() {
     }
   }, [session]);
 
+  // Scroll spy for #pricing when on the homepage
+  useEffect(() => {
+    if (pathname !== "/") {
+      setIsPricingInView(false);
+      return;
+    }
+
+    const checkPricing = () => {
+      const el = document.getElementById("pricing");
+      if (!el) {
+        setIsPricingInView(false);
+        return;
+      }
+      const rect = el.getBoundingClientRect();
+      // Section is active when its top is within viewport upper-middle area
+      const inView = rect.top <= window.innerHeight * 0.45 && rect.bottom >= window.innerHeight * 0.2;
+      setIsPricingInView(inView);
+    };
+
+    checkPricing();
+    window.addEventListener("scroll", checkPricing, { passive: true });
+    return () => window.removeEventListener("scroll", checkPricing);
+  }, [pathname]);
+
+  // Deep-link smooth scroll to #pricing on load or navigation
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.location.hash === "#pricing") {
+      const el = document.getElementById("pricing");
+      if (el) {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: "smooth" });
+        }, 150);
+      }
+    }
+  }, [pathname]);
+
+  const handlePricingClick = (e) => {
+    if (pathname === "/") {
+      e?.preventDefault?.();
+      const el = document.getElementById("pricing");
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth" });
+        window.history.pushState(null, "", "#pricing");
+      }
+    }
+  };
+
   const navItems = [
-    { type: "link", href: "/", label: "Home", icon: HiOutlineHome },
-    { type: "link", href: "/projects", label: "Projects", icon: HiOutlineFolder },
-    { type: "button", label: "Experience", icon: HiOutlineBriefcase, onClick: () => setExperienceOpen(true) },
-    { type: "button", label: "Education", icon: HiOutlineAcademicCap, onClick: () => setEducationOpen(true) },
-    { type: "link", href: "/admin", label: "Admin", icon: HiOutlineShieldCheck },
+    {
+      type: "link",
+      href: "/",
+      label: "Home",
+      icon: HiOutlineHome,
+      isActive: pathname === "/" && !isPricingInView,
+    },
+    {
+      type: "link",
+      href: "/projects",
+      label: "Projects",
+      icon: HiOutlineFolder,
+      isActive: pathname === "/projects",
+    },
+    {
+      type: "button",
+      label: "Experience",
+      icon: HiOutlineBriefcase,
+      onClick: () => setExperienceOpen(true),
+    },
+    {
+      type: "button",
+      label: "Education",
+      icon: HiOutlineAcademicCap,
+      onClick: () => setEducationOpen(true),
+    },
+    {
+      type: "link",
+      href: "/#pricing",
+      label: "Pricing",
+      icon: LuBadgeDollarSign,
+      isActive: isPricingInView,
+      onClick: handlePricingClick,
+    },
+    {
+      type: "link",
+      href: "/admin",
+      label: "Admin",
+      icon: HiOutlineShieldCheck,
+      isActive: pathname === "/admin",
+    },
   ];
 
   return (
@@ -46,13 +131,14 @@ export default function Navbar() {
       <aside className="hidden md:flex fixed left-5 top-1/2 -translate-y-1/2 z-50 flex-col items-center gap-3 rounded-3xl border border-black/10 bg-white/80 p-2.5 shadow-xl shadow-black/5 backdrop-blur-xl">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = item.type === "link" && pathname === item.href;
+          const isActive = item.type === "link" && (item.isActive !== undefined ? item.isActive : pathname === item.href);
 
           return (
             <div key={item.label} className="relative group">
               {item.type === "link" ? (
                 <Link
                   href={item.href}
+                  onClick={item.onClick}
                   className={`relative flex h-11 w-11 items-center justify-center rounded-2xl transition-all duration-300 ${
                     isActive
                       ? "bg-[#1a1a1a] text-white shadow-md shadow-black/10"
@@ -128,13 +214,16 @@ export default function Navbar() {
                     <div className="flex flex-col py-4 gap-2">
                       {navItems.map((item) => {
                         const Icon = item.icon;
-                        const isActive = item.type === "link" && pathname === item.href;
+                        const isActive = item.type === "link" && (item.isActive !== undefined ? item.isActive : pathname === item.href);
 
                         return item.type === "link" ? (
                           <Link
                             key={item.label}
                             href={item.href}
-                            onClick={() => setOpen(false)}
+                            onClick={(e) => {
+                              setOpen(false);
+                              if (item.onClick) item.onClick(e);
+                            }}
                             className={`flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-base font-bold transition-all ${
                               isActive
                                 ? "bg-[#1a1a1a] text-white"

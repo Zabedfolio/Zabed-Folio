@@ -3,6 +3,9 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      fontFamily: {
+        bricolage: ["var(--font-bricolage)", "sans-serif"],
+      },
       colors: {
         deep: "#050505",
         base: "#0a0808",

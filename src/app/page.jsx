@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import PricingSection from "@/components/pricing/PricingSection";
 import Navbar from "@/components/Navbar";
 
 export default function HomePage() {
@@ -7,6 +8,7 @@ export default function HomePage() {
       <Navbar />
       <main className="relative z-10 md:pl-16">
         <About />
+        <PricingSection />
       </main>
     </div>
   );
