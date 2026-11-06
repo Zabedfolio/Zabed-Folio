@@ -138,7 +138,7 @@ export default function Projects() {
   return (
     <div id="projects" className="section-shell py-16 sm:py-24">
       <div className="space-y-10">
-        <h2 className="text-[clamp(2.2rem,5vw,4.2rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#1a1a1a] max-w-4xl flex flex-wrap items-center gap-x-3 gap-y-2">
+        <h2 className="font-bricolage text-[clamp(2.2rem,5vw,4.2rem)] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#1a1a1a] max-w-4xl flex flex-wrap items-center gap-x-3 gap-y-2">
           <span>Selected work</span>
           <span className="inline-flex items-center justify-center h-10 w-10 sm:h-13 sm:w-13 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-110 duration-300 shrink-0">
             <HiOutlineFolder className="h-5 w-5 sm:h-6 sm:w-6 text-[#1FB57A]" />

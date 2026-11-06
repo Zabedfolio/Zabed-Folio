@@ -53,6 +53,15 @@ body::selection {
     @apply font-sans antialiased;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-bricolage), sans-serif;
+  }
+
   a,
   button,
   input,
@@ -75,7 +84,7 @@ body::selection {
   }
 
   .section-title {
-    @apply text-[clamp(2.2rem,4.5vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a];
+    @apply font-bricolage text-[clamp(2.2rem,4.5vw,4rem)] font-bold leading-[1.05] tracking-[-0.04em] text-[#1a1a1a];
   }
 
   .text-muted {

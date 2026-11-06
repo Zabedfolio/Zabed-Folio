@@ -212,7 +212,7 @@ export default function About() {
             className="space-y-3"
           >
             {/* Title Line 1 */}
-            <h1 className="text-[clamp(1.85rem,5.2vw,4.5rem)] font-extrabold leading-[1.15] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-2.5 sm:gap-x-3.5 gap-y-2">
+            <h1 className="font-bricolage text-[clamp(1.85rem,5.2vw,4.5rem)] font-extrabold leading-[1.15] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-2.5 sm:gap-x-3.5 gap-y-2">
               <span>Hey, I&apos;m</span>
               
               {/* Avatar Vector Badge */}
@@ -230,7 +230,7 @@ export default function About() {
             </h1>
 
             {/* Title Line 2 */}
-            <h2 className="text-[clamp(1.55rem,4.6vw,4rem)] font-extrabold leading-[1.18] sm:leading-[1.12] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2.5 sm:gap-y-3">
+            <h2 className="font-bricolage text-[clamp(1.55rem,4.6vw,4rem)] font-extrabold leading-[1.18] sm:leading-[1.12] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2.5 sm:gap-y-3">
               <span>Full Stack Developer</span>
               
               {/* Web Solutions / SaaS with Icon */}
@@ -328,7 +328,7 @@ export default function About() {
             transition={{ duration: 0.6 }}
             className="pt-10 border-t border-black/8"
           >
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-black/35 font-sans">
+            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-black/35 font-bricolage">
               Little more <span className="text-[#1a1a1a]">about me..</span>
             </h3>
           </motion.div>
