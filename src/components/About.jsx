@@ -212,11 +212,11 @@ export default function About() {
             className="space-y-3"
           >
             {/* Title Line 1 */}
-            <h1 className="text-[clamp(2.5rem,6.5vw,5rem)] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-3 gap-y-2">
-              <span>Hey, I'm</span>
+            <h1 className="text-[clamp(1.85rem,5.2vw,4.5rem)] font-extrabold leading-[1.15] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-2.5 sm:gap-x-3.5 gap-y-2">
+              <span>Hey, I&apos;m</span>
               
               {/* Avatar Vector Badge */}
-              <span className="relative inline-block h-14 w-14 sm:h-20 sm:w-20 rounded-2xl overflow-hidden shadow-md shadow-black/10 rotate-[-3deg] transition-all duration-300 ease-out hover:rotate-0 hover:scale-150 hover:z-30 hover:shadow-2xl hover:shadow-[#12A36B]/30 shrink-0 align-middle">
+              <span className="relative inline-block h-10 w-10 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-xl sm:rounded-2xl overflow-hidden shadow-md shadow-black/10 rotate-[-3deg] transition-all duration-300 ease-out hover:rotate-0 hover:scale-110 sm:hover:scale-135 hover:z-30 hover:shadow-2xl hover:shadow-[#12A36B]/30 shrink-0 align-middle">
                 <Image
                   src={mainPic}
                   alt="Zabed Mahmud"
@@ -230,24 +230,27 @@ export default function About() {
             </h1>
 
             {/* Title Line 2 */}
-            <h2 className="text-[clamp(2.2rem,6vw,4.6rem)] font-extrabold leading-[1.1] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-4 gap-y-3">
-              <span>And I Design</span>
+            <h2 className="text-[clamp(1.55rem,4.6vw,4rem)] font-extrabold leading-[1.18] sm:leading-[1.12] tracking-[-0.04em] text-[#1a1a1a] flex flex-wrap items-center gap-x-3 sm:gap-x-4 gap-y-2.5 sm:gap-y-3">
+              <span>Full Stack Developer</span>
               
-              {/* Web Solutions with Icon */}
-              <span className="inline-flex items-center gap-3 whitespace-nowrap">
-                <span className="inline-flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-105 duration-300 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-[#1FB57A]">
+              {/* Web Solutions / SaaS with Icon */}
+              <span className="inline-flex items-center gap-2 sm:gap-3">
+                <span className="inline-flex items-center justify-center h-8 w-8 sm:h-12 sm:w-12 md:h-14 md:w-14 rounded-xl sm:rounded-2xl bg-[#1a1a1a] text-white shadow-md sm:shadow-lg shadow-black/10 transition-transform hover:scale-105 duration-300 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 sm:h-6 sm:w-6 text-[#1FB57A]">
                     <polyline points="16 18 22 12 16 6"></polyline>
                     <polyline points="8 6 2 12 8 18"></polyline>
                   </svg>
                 </span>
-                <span>Web Solutions &</span>
+                <span className="inline sm:whitespace-nowrap">
+                  <span className="whitespace-nowrap">Building Saas,</span>{" "}
+                  <span className="whitespace-nowrap">E-commerce &amp;</span>
+                </span>
               </span>
 
-              {/* Digital Products with Icon */}
-              <span className="inline-flex items-center gap-3 whitespace-nowrap">
-                <span className="inline-flex items-center justify-center h-12 w-12 sm:h-14 sm:w-14 rounded-2xl bg-[#1a1a1a] text-white shadow-lg shadow-black/10 transition-transform hover:scale-105 duration-300 shrink-0">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6 text-emerald-400">
+              {/* Digital Products / AI with Icon */}
+              <span className="inline-flex items-center gap-2 sm:gap-3">
+                <span className="inline-flex items-center justify-center h-8 w-8 sm:h-12 sm:w-12 md:h-14 md:w-14 rounded-xl sm:rounded-2xl bg-[#1a1a1a] text-white shadow-md sm:shadow-lg shadow-black/10 transition-transform hover:scale-105 duration-300 shrink-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 sm:h-6 sm:w-6 text-[#1FB57A]">
                     <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
                     <rect x="9" y="9" width="6" height="6"></rect>
                     <line x1="9" y1="1" x2="9" y2="4"></line>
@@ -260,7 +263,10 @@ export default function About() {
                     <line x1="1" y1="15" x2="4" y2="15"></line>
                   </svg>
                 </span>
-                <span>Digital Products</span>
+                <span className="inline sm:whitespace-nowrap">
+                  <span className="whitespace-nowrap">AI-Powered</span>{" "}
+                  <span className="whitespace-nowrap">Web Apps</span>
+                </span>
               </span>
             </h2>
 
