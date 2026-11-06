@@ -22,7 +22,7 @@ export const PACKAGES = [
   {
     id: "starter",
     name: "Starter",
-    tagline: "Individuals & small shops",
+    tagline: "Landing Page & Starter Website",
     price: {
       BDT: 12000,
       USD: 99,
@@ -46,7 +46,7 @@ export const PACKAGES = [
   {
     id: "business",
     name: "Business",
-    tagline: "Growing businesses",
+    tagline: "Full Business Website & Admin Panel",
     price: {
       BDT: 25000,
       USD: 219,
@@ -72,7 +72,7 @@ export const PACKAGES = [
   {
     id: "premium",
     name: "Premium",
-    tagline: "E-commerce & established brands",
+    tagline: "E-commerce Store & Web Application",
     price: {
       BDT: 50000,
       USD: 429,
