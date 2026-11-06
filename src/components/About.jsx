@@ -13,6 +13,7 @@ import {
 
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import mainPic from '@/assets/main-pic.jpg';
 import {
@@ -27,7 +28,8 @@ import {
   SiHtml5,
   SiCss,
 } from 'react-icons/si';
-import { HiOutlineGlobeAlt, HiOutlineCode } from 'react-icons/hi';
+import { HiOutlineGlobeAlt, HiOutlineCode, HiOutlineArrowRight } from 'react-icons/hi';
+import { LuBadgeDollarSign } from 'react-icons/lu';
 
 const TECH_MAP = {
   react: { name: "ReactJS", icon: SiReact, color: "#00B4D8", bg: "rgba(0, 180, 216, 0.1)", border: "rgba(0, 180, 216, 0.25)" },
@@ -383,6 +385,33 @@ export default function About() {
               "The best time to start was yesterday. The second best time is{" "}
               <span className="font-semibold not-italic text-[#1a1a1a]">right now.</span>"
             </blockquote>
+          </motion.div>
+
+          {/* Subtle Callout Banner to /pricing */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="pt-4"
+          >
+            <Link
+              href="/pricing"
+              className="group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl border border-black/8 bg-white/70 hover:bg-white hover:border-[#1FB57A]/40 shadow-sm hover:shadow-md hover:shadow-[#12A36B]/5 transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 min-w-0">
+                <span className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-[#12A36B]/10 text-[#12A36B] shrink-0 transition-transform group-hover:scale-105">
+                  <LuBadgeDollarSign className="text-lg sm:text-xl" />
+                </span>
+                <span className="text-sm sm:text-base font-semibold text-[#1a1a1a] tracking-tight">
+                  Looking to start a project?{" "}
+                  <span className="text-[#12A36B] font-bold underline decoration-[#1FB57A]/40 underline-offset-4 group-hover:decoration-[#12A36B]">
+                    Explore transparent pricing packages
+                  </span>
+                </span>
+              </div>
+              <HiOutlineArrowRight className="text-base sm:text-lg text-black/40 group-hover:text-[#12A36B] transition-transform group-hover:translate-x-1 shrink-0" />
+            </Link>
           </motion.div>
 
         </div>
