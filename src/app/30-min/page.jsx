@@ -33,7 +33,7 @@ export default function BookingPage() {
   return (
     <div className="relative min-h-screen bg-[#eeeeee] text-[#1a1a1a] selection:bg-[#1FB57A]/20">
       <Navbar />
-      <main className="relative z-10 pt-6 md:pl-16">
+      <main className="relative z-10 pt-12 sm:pt-16 md:pl-16">
         <Contact />
       </main>
     </div>

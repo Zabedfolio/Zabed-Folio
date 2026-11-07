@@ -173,15 +173,17 @@ export default function Navbar() {
         </Dialog.Root>
       </div>
 
-      {/* Top Right Fixed 'Wanna talk?' CTA Button */}
-      <div className="fixed top-5 right-5 sm:right-8 z-50">
-        <Link
-          href="/30-min"
-          className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-6 py-3 text-xs sm:text-sm font-extrabold text-white shadow-xl shadow-[#12A36B]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#12A36B]/40 active:scale-95 tracking-wide"
-        >
-          Wanna talk?
-        </Link>
-      </div>
+      {/* Top Right Fixed 'Wanna talk?' CTA Button (hidden on /30-min since user is already there) */}
+      {pathname !== "/30-min" && (
+        <div className="fixed top-5 right-5 sm:right-8 z-50">
+          <Link
+            href="/30-min"
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-6 py-3 text-xs sm:text-sm font-extrabold text-white shadow-xl shadow-[#12A36B]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#12A36B]/40 active:scale-95 tracking-wide"
+          >
+            Wanna talk?
+          </Link>
+        </div>
+      )}
 
       {/* Experience & Education Modals */}
       <ExperienceModal open={experienceOpen} onOpenChange={setExperienceOpen} />
