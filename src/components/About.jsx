@@ -16,6 +16,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import mainPic from '@/assets/main-pic.jpg';
+import ProductionShowcase from "@/components/ProductionShowcase";
 import {
   SiReact,
   SiNextdotjs,
@@ -386,6 +387,9 @@ export default function About() {
               <span className="font-semibold not-italic text-[#1a1a1a]">right now.</span>"
             </blockquote>
           </motion.div>
+
+          {/* Production Engineering Showcase (Flagship Works) */}
+          <ProductionShowcase />
 
           {/* 1-Line 30-Min Call Theme Gradient Callout Banner */}
           <motion.div

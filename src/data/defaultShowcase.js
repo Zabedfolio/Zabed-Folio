@@ -1,0 +1,98 @@
+export const defaultShowcase = [
+  {
+    id: "jerseyx",
+    title: "JerseyX",
+    category: "E-Commerce · Production 2026",
+    tagline: "High-Performance Sports Apparel Platform",
+    story:
+      "A high-performance sports apparel e-commerce store. Slashed mobile load times by 70% to make checkout feel instant, significantly lowering bounce rates on mobile networks.",
+    highlights: [
+      "Sub-second 4G load times with edge-rendered Next.js catalog queries",
+      "Instant cart state management with zero cumulative layout shifts",
+      "Automated WebP/AVIF image pipeline delivering ultra-light mobile payloads",
+    ],
+    metrics: [
+      { label: "Mobile Latency", value: "-70%" },
+      { label: "Mobile Checkout", value: "Instant" },
+    ],
+    liveUrl: "https://jerseyxsports.com",
+    githubUrl: "",
+    caseStudyUrl: "",
+    image: "https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000&auto=format&fit=crop",
+    logo: "jerseyx",
+    active: true,
+    order: 0,
+  },
+  {
+    id: "hatkhola-bazar",
+    title: "Hatkhola Bazar",
+    category: "E-Commerce & ERP · Live Operations",
+    tagline: "Artisanal Marketplace & Full-Stack Operations ERP",
+    story:
+      "A production-grade, full-stack artisanal e-commerce and enterprise ERP system actively powering live operations for Hatkhola Bazar, serving over 1,000+ customers nationwide. Built with Next.js, TypeScript, Node.js, and MongoDB, this production deployment manages end-to-end commercial workflows: high-throughput seasonal pre-orders, real-time Pathao courier logistics, live parcel tracking, customer loyalty tiers, and automated financial gross-profit analytics.",
+    highlights: [
+      "End-to-end commercial ERP serving 1,000+ live customers nationwide",
+      "Automated real-time Pathao logistics dispatch and live courier tracking",
+      "Dynamic financial gross-profit calculation and seasonal pre-order engine",
+    ],
+    metrics: [
+      { label: "Live Customers", value: "1,000+" },
+      { label: "Logistics Dispatch", value: "Pathao API" },
+    ],
+    liveUrl: "https://hatkhola-bazar.zabedmahmud.com",
+    githubUrl: "",
+    caseStudyUrl: "",
+    image: "https://i.ibb.co.com/ccbP8KBw/Mockup-Views-2x-WEBP-20261031-348.webp",
+    logo: "hatkhola",
+    active: true,
+    order: 1,
+  },
+  {
+    id: "neighbornotes",
+    title: "NeighborNotes",
+    category: "Full Stack SaaS · Civic Case Study",
+    tagline: "Apartment Community Hub & Resident Communication Platform",
+    story:
+      "Replaced paper notice boards and chaotic WhatsApp groups in apartment buildings with a role-based digital notice system. Engineered a 2-step verified resident entry system and structured notice categories aligned with DNCC 2026 tenant-owner compliance regulations.",
+    highlights: [
+      "Validated housing disconnect across 6 major Bangladeshi metropolitan cities",
+      "Two-step verified resident entry flow eliminating unauthorized board access",
+      "Public notice trails with timestamped comments to prevent verbal disputes",
+    ],
+    metrics: [
+      { label: "Urban Market Study", value: "6 Cities" },
+      { label: "Resident Access", value: "2-Step Verified" },
+    ],
+    liveUrl: "https://neighbor-notes-client-eta.vercel.app/",
+    githubUrl: "",
+    caseStudyUrl: "/case-study/neighbornotes",
+    image: "https://i.ibb.co.com/xtYHqmCj/Mockup-Views-1x-PNG-20260727-210.png",
+    logo: "neighbornotes",
+    active: true,
+    order: 2,
+  },
+  {
+    id: "icaw",
+    title: "ICAW",
+    category: "AI & SaaS · Academic Platform",
+    tagline: "Intelligent Collaborative Academic Workspace",
+    story:
+      "A university-focused digital learning workspace unifying students, faculty, and academic resources. Features an AI study tutor grounded strictly in instructor-provided course materials and syllabi to eliminate hallucinations, paired with semester resource management and exam preparation tools.",
+    highlights: [
+      "AI study tutor grounded directly in instructor course syllabi & lecture notes",
+      "Multi-tenant academic hierarchy structured by university, department, and course",
+      "Collaborative student channels, peer notes, and topic-level progress tracking",
+    ],
+    metrics: [
+      { label: "AI Study Tutor", value: "Grounded" },
+      { label: "Workspace Scope", value: "Campus-Wide" },
+    ],
+    liveUrl: "",
+    githubUrl: "https://github.com/Zabedfolio/Intelligent-Collaborative-Academic-Workspace",
+    caseStudyUrl: "",
+    image: "https://i.ibb.co.com/7Jnk8CkF/Mockup-Views-2x-PNG-20261107-135.png",
+    logo: "icaw",
+    active: true,
+    order: 3,
+  },
+];
