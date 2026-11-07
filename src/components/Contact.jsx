@@ -36,16 +36,40 @@ export default function Contact() {
           </span>
         </h1>
 
-        {/* Subtitle with WhatsApp & Telegram interactive links */}
-        <p className="mt-3.5 sm:mt-4 text-[0.95rem] sm:text-base md:text-lg text-black/60 max-w-xl mx-auto leading-relaxed">
-          Please select a date and time for the call, or just text me on{" "}
+        {/* Description */}
+        <p className="mt-3.5 sm:mt-4 text-[0.95rem] sm:text-base md:text-lg text-black/70 max-w-xl mx-auto leading-relaxed font-sans">
+          A 30-minute conversation to explore your ideas, requirements, and potential project. We&apos;ll discuss your vision, tech stack, and timeline to see if we&apos;re a good fit.
+        </p>
+
+        {/* Highlight punchline pill */}
+        <div className="mt-3.5 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/8 shadow-xs text-xs sm:text-sm font-mono font-bold text-[#1a1a1a]">
+          <span className="text-[#12A36B]">⚡</span>
+          <span>No pressure. Just clarity.</span>
+        </div>
+
+        {/* Meeting metadata pills */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-black/60">
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/[0.04] border border-black/5 font-medium">
+            <span>⏱ 30 min</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/[0.04] border border-black/5 font-medium">
+            <span>📹 Google Meet</span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/[0.04] border border-black/5 font-medium text-[#12A36B] font-semibold">
+            <span>✓ Free Consultation</span>
+          </span>
+        </div>
+
+        {/* Direct text alternatives */}
+        <p className="mt-4 text-xs sm:text-sm text-black/50 max-w-lg mx-auto">
+          Select a date and time below, or message me directly on{" "}
           <a
             href="https://wa.me/8801979333880"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] font-medium text-[0.92em] border border-[#25D366]/25 transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs align-baseline"
+            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs align-baseline"
           >
-            <FaWhatsapp className="text-[#25D366] text-sm shrink-0" />
+            <FaWhatsapp className="text-[#25D366] text-xs shrink-0" />
             <span>WhatsApp</span>
           </a>{" "}
           or{" "}
@@ -53,9 +77,9 @@ export default function Contact() {
             href="https://t.me/Zabed_Mahmud"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-lg bg-[#0088cc]/10 hover:bg-[#0088cc]/20 text-[#0077b5] font-medium text-[0.92em] border border-[#0088cc]/25 transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs align-baseline"
+            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#0088cc]/10 hover:bg-[#0088cc]/20 text-[#0077b5] font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs align-baseline"
           >
-            <FaTelegramPlane className="text-[#0088cc] text-sm shrink-0" />
+            <FaTelegramPlane className="text-[#0088cc] text-xs shrink-0" />
             <span>Telegram</span>
           </a>
         </p>

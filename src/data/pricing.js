@@ -133,7 +133,7 @@ export const PRICING_COPY = {
   notes: [
     "Domain and hosting are not included. You purchase them separately and I'll help you set them up.",
     "A revision round is one batch of changes sent together. Work outside the original scope is quoted separately.",
-    "Not sure which package fits? Book a free call and we'll figure it out.",
+    "Book a 30-min call to see if we're a good fit. No pressure. Just clarity.",
   ],
 };
 
