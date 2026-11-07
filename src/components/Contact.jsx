@@ -49,27 +49,29 @@ export default function Contact() {
         </div>
 
         {/* Direct text alternatives */}
-        <p className="mt-4 text-xs sm:text-sm text-black/50 max-w-lg mx-auto">
-          Select a date and time below, or message me directly on{" "}
-          <a
-            href="https://wa.me/8801979333880"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs align-baseline"
-          >
-            <FaWhatsapp className="text-[#25D366] text-xs shrink-0" />
-            <span>WhatsApp</span>
-          </a>{" "}
-          or{" "}
-          <a
-            href="https://t.me/Zabed_Mahmud"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#0088cc]/10 hover:bg-[#0088cc]/20 text-[#0077b5] font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs align-baseline"
-          >
-            <FaTelegramPlane className="text-[#0088cc] text-xs shrink-0" />
-            <span>Telegram</span>
-          </a>
+        <p className="mt-4 text-xs sm:text-sm text-black/50 max-w-xl mx-auto leading-relaxed">
+          <span>Select a date and time below, or message directly on </span>
+          <span className="inline-flex items-center gap-1.5 whitespace-nowrap align-baseline">
+            <a
+              href="https://wa.me/8801979333880"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#25D366]/10 hover:bg-[#25D366]/20 text-[#128C7E] font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs"
+            >
+              <FaWhatsapp className="text-[#25D366] text-xs shrink-0" />
+              <span>WhatsApp</span>
+            </a>
+            <span>or</span>
+            <a
+              href="https://t.me/Zabed_Mahmud"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#0088cc]/10 hover:bg-[#0088cc]/20 text-[#0077b5] font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-xs"
+            >
+              <FaTelegramPlane className="text-[#0088cc] text-xs shrink-0" />
+              <span>Telegram</span>
+            </a>
+          </span>
         </p>
       </div>
 
