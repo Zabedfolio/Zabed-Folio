@@ -2,8 +2,31 @@ import Navbar from "@/components/Navbar";
 import Contact from "@/components/Contact";
 
 export const metadata = {
-  title: "Book 30 Min Meeting — Zabed Mahmud",
-  description: "Schedule a 30-minute consultation with Zabed Mahmud to discuss full-stack projects, architecture, or tech collaborations.",
+  title: "Book a Free 30-Min Project Discovery Call — Zabed Mahmud",
+  description:
+    "A 30-minute conversation to explore your ideas, requirements, and potential project. We'll discuss your vision, tech stack, and timeline to see if we're a good fit. No pressure. Just clarity.",
+  openGraph: {
+    title: "Book a Free 30-Min Project Discovery Call — Zabed Mahmud",
+    description:
+      "A 30-minute conversation to explore your ideas, requirements, and potential project. No pressure. Just clarity.",
+    url: "/30-min",
+    images: [
+      {
+        url: "/30-min.png",
+        width: 1200,
+        height: 627,
+        alt: "Book a 30-min call with Zabed Mahmud",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Book a Free 30-Min Project Discovery Call — Zabed Mahmud",
+    description:
+      "A 30-minute conversation to explore your ideas, requirements, and potential project. No pressure. Just clarity.",
+    images: ["/30-min.png"],
+  },
 };
 
 export default function BookingPage() {
@@ -16,4 +39,3 @@ export default function BookingPage() {
     </div>
   );
 }
-

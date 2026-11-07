@@ -15,7 +15,7 @@ const bricolage = Bricolage_Grotesque({
 });
 
 export const metadata = {
-  metadataBase: new URL("https://zabedfolio.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://zabedmahmud.com"),
   title: "Zabed Mahmud — Frontend Developer & Creative Engineer",
   description:
     "Portfolio of Zabed Mahmud, a frontend developer building Next.js experiences with sharp interaction design and production-ready execution.",
