@@ -36,7 +36,7 @@ export default function PackageCard({ pkg, isSelected, onSelect }) {
       <div className="flex items-center gap-3.5 sm:gap-4 min-w-0 pr-3">
         {/* Soft tinted icon tile */}
         <div
-          className={`flex h-12 w-12 sm:h-13 sm:w-13 items-center justify-center rounded-xl transition-colors duration-300 shrink-0 ${
+          className={`flex h-12 w-12 items-center justify-center rounded-xl transition-colors duration-300 shrink-0 ${
             isSelected
               ? "bg-[#1FB57A]/15 text-[#12A36B]"
               : "bg-black/5 text-black/60 group-hover:text-[#1a1a1a]"

@@ -24,7 +24,7 @@ export default function Contact() {
           <span>Book a 30-min</span>{" "}
           <span className="inline-flex items-center gap-2 sm:gap-3 whitespace-nowrap">
             <span>Call</span>
-            <span className="relative inline-block h-9 w-9 sm:h-11 sm:w-11 md:h-13 md:w-13 rounded-full overflow-hidden shadow-md shadow-black/10 ring-2 ring-white shrink-0 align-middle transition-transform duration-300 hover:scale-110 hover:rotate-3">
+            <span className="relative inline-block h-9 w-9 sm:h-11 sm:w-11 md:h-12 md:w-12 rounded-full overflow-hidden shadow-md shadow-black/10 ring-2 ring-white shrink-0 align-middle transition-transform duration-300 hover:scale-110 hover:rotate-3">
               <Image
                 src={mainPic}
                 alt="Zabed Mahmud"

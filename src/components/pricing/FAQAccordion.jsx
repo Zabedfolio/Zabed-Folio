@@ -77,12 +77,14 @@ export default function FAQAccordion() {
           {/* Mint-tinted "Still have a question?" Callout Card */}
           <div className="rounded-3xl p-6 sm:p-7 bg-[#EAF6F0] border border-[#1FB57A]/25 shadow-sm space-y-4">
             {/* Avatar */}
-            <div className="relative h-13 w-13 rounded-full overflow-hidden ring-2 ring-white shadow-sm">
+            <div className="relative h-14 w-14 rounded-full overflow-hidden ring-4 ring-white shadow-md shrink-0">
               <Image
                 src={mainPic}
                 alt="Zabed Mahmud"
-                fill
-                className="object-cover"
+                width={56}
+                height={56}
+                className="h-full w-full object-cover"
+                priority
               />
             </div>
 
