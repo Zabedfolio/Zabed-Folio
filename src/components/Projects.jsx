@@ -156,7 +156,7 @@ export default function Projects() {
                       : "bg-black/[0.04] text-black/65 border-black/8"
                   }`}
                 >
-                  {m.highlight && <span className="text-emerald-500">⚡</span>}
+                  {m.highlight && <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />}
                   {m.label}
                 </span>
               ))}

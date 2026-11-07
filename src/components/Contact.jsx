@@ -41,23 +41,11 @@ export default function Contact() {
           A 30-minute conversation to explore your ideas, requirements, and potential project. We&apos;ll discuss your vision, tech stack, and timeline to see if we&apos;re a good fit.
         </p>
 
-        {/* Highlight punchline pill */}
-        <div className="mt-3.5 inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-black/8 shadow-xs text-xs sm:text-sm font-mono font-bold text-[#1a1a1a]">
-          <span className="text-[#12A36B]">⚡</span>
-          <span>No pressure. Just clarity.</span>
-        </div>
-
-        {/* Meeting metadata pills */}
-        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-mono text-black/60">
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/[0.04] border border-black/5 font-medium">
-            <span>⏱ 30 min</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/[0.04] border border-black/5 font-medium">
-            <span>📹 Google Meet</span>
-          </span>
-          <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-black/[0.04] border border-black/5 font-medium text-[#12A36B] font-semibold">
-            <span>✓ Free Consultation</span>
-          </span>
+        {/* Highlight punchline pill with Free Consultation on the side */}
+        <div className="mt-4 inline-flex items-center gap-2 sm:gap-2.5 px-4 py-1.5 rounded-full bg-white border border-black/8 shadow-xs text-xs sm:text-sm font-mono text-[#1a1a1a]">
+          <span className="font-medium text-black/75">No pressure. Just clarity</span>
+          <span className="text-black/30 font-normal">·</span>
+          <span className="font-semibold text-[#12A36B]">Free Consultation</span>
         </div>
 
         {/* Direct text alternatives */}

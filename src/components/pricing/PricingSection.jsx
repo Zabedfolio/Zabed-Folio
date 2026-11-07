@@ -69,14 +69,6 @@ export default function PricingSection() {
             {PRICING_COPY.subtext}
           </p>
         </div>
-
-        {/* Currency Badge */}
-        <div className="shrink-0 flex items-center md:pb-1">
-          <span className="inline-flex items-center gap-2 rounded-full bg-white border border-black/8 px-4 py-2 text-xs font-mono font-bold text-[#1a1a1a] shadow-xs">
-            <span className="h-2 w-2 rounded-full bg-[#12A36B] animate-pulse" />
-            All rates in USD ($)
-          </span>
-        </div>
       </div>
 
       {/* Main Two-Column Layout */}
