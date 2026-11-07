@@ -11,18 +11,18 @@ const ADDON_ICONS = {
   shield: HiOutlineShieldCheck,
 };
 
-export default function AddonCard({ addon, isChecked, currency, packageBasePrice, onToggle }) {
+export default function AddonCard({ addon, isChecked, packageBasePrice, onToggle }) {
   const Icon = ADDON_ICONS[addon.icon] || HiOutlineLightningBolt;
 
   // Calculate price label
   let priceLabel = "";
   if (addon.isPercentage) {
     const calculatedAmount = Math.round(packageBasePrice * addon.percentage);
-    priceLabel = `+${formatCurrency(calculatedAmount, currency)} (+40%)`;
+    priceLabel = `+${formatCurrency(calculatedAmount)} (+40%)`;
   } else if (addon.isRecurring) {
-    priceLabel = `+${formatCurrency(addon.price[currency], currency)}/mo`;
+    priceLabel = `+${formatCurrency(addon.price)}/mo`;
   } else {
-    priceLabel = `+${formatCurrency(addon.price[currency], currency)}`;
+    priceLabel = `+${formatCurrency(addon.price)}`;
   }
 
   return (

@@ -1,49 +1,17 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { HiOutlineArrowRight } from "react-icons/hi";
 import { PACKAGES, ADDONS, PRICING_COPY, formatCurrency } from "@/data/pricing";
 import PackageCard from "./PackageCard";
 import AddonCard from "./AddonCard";
 import SummaryCard from "./SummaryCard";
-import CurrencyToggle from "./CurrencyToggle";
 import FAQAccordion from "./FAQAccordion";
 
 export default function PricingSection() {
   const [selectedPackage, setSelectedPackage] = useState("business"); // default: Business
   const [selectedAddons, setSelectedAddons] = useState([]);
-  const [currency, setCurrency] = useState("BDT");
-  const [hasMounted, setHasMounted] = useState(false);
-
-  // SSR-safe locale and cached currency detection
-  useEffect(() => {
-    setHasMounted(true);
-    try {
-      const saved = localStorage.getItem("pricing_currency");
-      if (saved && (saved === "BDT" || saved === "USD")) {
-        setCurrency(saved);
-        return;
-      }
-      const tz = Intl?.DateTimeFormat?.().resolvedOptions?.().timeZone;
-      const lang = navigator?.language || "";
-      if (tz === "Asia/Dhaka" || lang.startsWith("bn")) {
-        setCurrency("BDT");
-      } else {
-        setCurrency("USD");
-      }
-    } catch (e) {
-      // Fallback stays BDT
-    }
-  }, []);
-
-  const handleCurrencyChange = (newCurrency) => {
-    setCurrency(newCurrency);
-    try {
-      localStorage.setItem("pricing_currency", newCurrency);
-    } catch (e) {}
-  };
 
   const handleToggleAddon = (addonId) => {
     setSelectedAddons((prev) =>
@@ -51,9 +19,9 @@ export default function PricingSection() {
     );
   };
 
-  // Calculations
+  // Calculations (standardized in USD)
   const selectedPkg = PACKAGES.find((p) => p.id === selectedPackage) || PACKAGES[1];
-  const basePrice = selectedPkg.price[currency];
+  const basePrice = typeof selectedPkg.price === "number" ? selectedPkg.price : (selectedPkg.price?.USD || 0);
 
   const isFastTrack = selectedAddons.includes("fast");
   const fastTrackPrice = isFastTrack ? Math.round(basePrice * 0.4) : 0;
@@ -62,19 +30,22 @@ export default function PricingSection() {
     .filter((id) => id !== "fast" && id !== "maintenance")
     .reduce((sum, id) => {
       const addon = ADDONS.find((a) => a.id === id);
-      return sum + (addon ? addon.price[currency] : 0);
+      if (!addon) return sum;
+      const p = typeof addon.price === "number" ? addon.price : (addon.price?.USD || 0);
+      return sum + p;
     }, 0);
 
   const totalOneTime = basePrice + fastTrackPrice + otherAddonPrices;
 
   const isMaintenance = selectedAddons.includes("maintenance");
+  const maintenanceAddon = ADDONS.find((a) => a.id === "maintenance");
   const recurringMonthly = isMaintenance
-    ? ADDONS.find((a) => a.id === "maintenance").price[currency]
+    ? (typeof maintenanceAddon?.price === "number" ? maintenanceAddon.price : (maintenanceAddon?.price?.USD || 0))
     : 0;
 
   const bookingUrl = `/30-min?package=${selectedPkg.id}&addons=${
     selectedAddons.length > 0 ? selectedAddons.join(",") : "none"
-  }&currency=${currency}`;
+  }&currency=USD`;
 
   return (
     <section id="pricing" className="section-shell scroll-mt-24 pt-20 pb-28 sm:pt-28 sm:pb-36">
@@ -99,9 +70,12 @@ export default function PricingSection() {
           </p>
         </div>
 
-        {/* Currency Toggle */}
+        {/* Currency Badge */}
         <div className="shrink-0 flex items-center md:pb-1">
-          <CurrencyToggle currency={currency} onCurrencyChange={handleCurrencyChange} />
+          <span className="inline-flex items-center gap-2 rounded-full bg-white border border-black/8 px-4 py-2 text-xs font-mono font-bold text-[#1a1a1a] shadow-xs">
+            <span className="h-2 w-2 rounded-full bg-[#12A36B] animate-pulse" />
+            All rates in USD ($)
+          </span>
         </div>
       </div>
 
@@ -128,7 +102,6 @@ export default function PricingSection() {
                   key={pkg.id}
                   pkg={pkg}
                   isSelected={selectedPackage === pkg.id}
-                  currency={currency}
                   onSelect={() => setSelectedPackage(pkg.id)}
                 />
               ))}
@@ -150,7 +123,6 @@ export default function PricingSection() {
                   key={addon.id}
                   addon={addon}
                   isChecked={selectedAddons.includes(addon.id)}
-                  currency={currency}
                   packageBasePrice={basePrice}
                   onToggle={() => handleToggleAddon(addon.id)}
                 />
@@ -164,7 +136,6 @@ export default function PricingSection() {
           <SummaryCard
             selectedPackage={selectedPkg}
             selectedAddons={selectedAddons}
-            currency={currency}
             totalOneTime={totalOneTime}
             recurringMonthly={recurringMonthly}
           />
@@ -183,11 +154,11 @@ export default function PricingSection() {
             </div>
             <div className="flex items-baseline gap-1.5 flex-wrap">
               <span className="text-lg font-bold font-bricolage text-[#1a1a1a]">
-                {formatCurrency(totalOneTime, currency)}
+                {formatCurrency(totalOneTime)}
               </span>
               {recurringMonthly > 0 && (
                 <span className="text-[11px] font-mono text-[#12A36B] font-semibold">
-                  + {formatCurrency(recurringMonthly, currency)}/mo
+                  + {formatCurrency(recurringMonthly)}/mo
                 </span>
               )}
             </div>
@@ -206,4 +177,3 @@ export default function PricingSection() {
     </section>
   );
 }
-

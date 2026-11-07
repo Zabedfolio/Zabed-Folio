@@ -15,7 +15,6 @@ import { formatCurrency, PRICING_COPY, ADDONS } from "@/data/pricing";
 export default function SummaryCard({
   selectedPackage,
   selectedAddons,
-  currency,
   totalOneTime,
   recurringMonthly,
 }) {
@@ -72,7 +71,7 @@ export default function SummaryCard({
 
   // Build query string for /30-min CTA link
   const addonQuery = selectedAddons.length > 0 ? selectedAddons.join(",") : "none";
-  const bookingUrl = `/30-min?package=${selectedPackage.id}&addons=${addonQuery}&currency=${currency}`;
+  const bookingUrl = `/30-min?package=${selectedPackage.id}&addons=${addonQuery}&currency=USD`;
 
   // Gather all add-on check items
   const addonFeatureItems = ADDONS.filter((a) => selectedAddons.includes(a.id)).map(
@@ -107,13 +106,13 @@ export default function SummaryCard({
         {/* Big Animated Price Region */}
         <div className="py-6 sm:py-8 text-center" aria-live="polite">
           <h3 className="font-bricolage text-5xl sm:text-6xl font-extrabold tracking-tight text-[#1a1a1a]">
-            {formatCurrency(displayPrice, currency)}
+            {formatCurrency(displayPrice)}
           </h3>
 
           {/* Separate recurring line if monthly maintenance is selected */}
           {recurringMonthly > 0 ? (
             <div className="mt-2 text-sm font-mono font-bold text-[#12A36B] inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1FB57A]/10 border border-[#1FB57A]/25 animate-fadeIn">
-              <span>+ {formatCurrency(recurringMonthly, currency)} / month</span>
+              <span>+ {formatCurrency(recurringMonthly)} / month</span>
               <span className="text-black/40 font-normal text-xs">(maintenance)</span>
             </div>
           ) : (

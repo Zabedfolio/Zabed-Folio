@@ -9,7 +9,7 @@ const FAQ_ITEMS = [
     id: "payment",
     question: "How does payment work?",
     answer:
-      "We work on a standard 50/50 milestone model: 50% upfront deposit to initiate architecture, sprint planning, and design setup, and the remaining 50% upon final sign-off, live staging demo approval, and deployment handover. We accept Stripe, Wise, international bank wire, and local Bangladeshi methods (bKash, Nagad).",
+      "We work on a standard 50/50 milestone model: 50% upfront deposit to initiate architecture, sprint planning, and design setup, and the remaining 50% upon final sign-off, live staging demo approval, and deployment handover. We accept Stripe, Wise, international bank wire, and major credit cards.",
   },
   {
     id: "ownership",
@@ -121,3 +121,4 @@ export default function FAQAccordion() {
     </div>
   );
 }
+

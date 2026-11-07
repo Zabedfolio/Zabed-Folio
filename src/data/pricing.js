@@ -1,21 +1,14 @@
 /**
  * Pricing configuration file
  * Single source of truth for packages, add-ons, copy, and currency rules.
+ * All pricing is standardized in USD ($).
  */
 
-export const CURRENCIES = {
-  BDT: {
-    code: "BDT",
-    symbol: "৳",
-    locale: "bn-BD",
-    name: "BDT",
-  },
-  USD: {
-    code: "USD",
-    symbol: "$",
-    locale: "en-US",
-    name: "USD",
-  },
+export const CURRENCY = {
+  code: "USD",
+  symbol: "$",
+  locale: "en-US",
+  name: "USD",
 };
 
 export const PACKAGES = [
@@ -23,10 +16,7 @@ export const PACKAGES = [
     id: "starter",
     name: "Starter",
     tagline: "Landing Page & Starter Website",
-    price: {
-      BDT: 12000,
-      USD: 99,
-    },
+    price: 99,
     turnaround: {
       standard: "5-7 days",
       fastTrack: "3-4 days",
@@ -47,10 +37,7 @@ export const PACKAGES = [
     id: "business",
     name: "Business",
     tagline: "Full Business Website & Admin Panel",
-    price: {
-      BDT: 25000,
-      USD: 219,
-    },
+    price: 219,
     turnaround: {
       standard: "10-14 days",
       fastTrack: "5-7 days",
@@ -73,10 +60,7 @@ export const PACKAGES = [
     id: "premium",
     name: "Premium",
     tagline: "E-commerce Store & Web Application",
-    price: {
-      BDT: 50000,
-      USD: 429,
-    },
+    price: 429,
     turnaround: {
       standard: "20-30 days",
       fastTrack: "10-15 days",
@@ -91,7 +75,7 @@ export const PACKAGES = [
       "Advanced SEO",
       "Contact form",
       "Admin panel",
-      "Online store with bKash / Nagad / card payments",
+      "Online store with secure Stripe / card checkout",
       "Analytics setup",
       "Deployment on client's hosting",
     ],
@@ -114,10 +98,7 @@ export const ADDONS = [
     name: "Logo design",
     subtitle: "Custom brand mark & web assets",
     isPercentage: false,
-    price: {
-      BDT: 5000,
-      USD: 45,
-    },
+    price: 45,
     isRecurring: false,
     icon: "palette",
     featureText: "Custom logo design & branding assets",
@@ -127,10 +108,7 @@ export const ADDONS = [
     name: "Domain & hosting setup help",
     subtitle: "DNS, SSL & live deployment setup (you buy direct)",
     isPercentage: false,
-    price: {
-      BDT: 1000,
-      USD: 10,
-    },
+    price: 10,
     isRecurring: false,
     icon: "globe",
     featureText: "Domain, DNS, SSL & hosting configuration",
@@ -140,10 +118,7 @@ export const ADDONS = [
     name: "Monthly maintenance",
     subtitle: "Updates, security patches & automated backups",
     isPercentage: false,
-    price: {
-      BDT: 2000,
-      USD: 20,
-    },
+    price: 20,
     isRecurring: true, // Not added to one-time total!
     icon: "shield",
     featureText: "Ongoing monthly updates & security backups",
@@ -153,7 +128,7 @@ export const ADDONS = [
 export const PRICING_COPY = {
   sectionLabel: "Pricing",
   heading: "Choose what works for you",
-  subtext: "Transparent fixed pricing. Pick a package, toggle what you need, and see the price instantly.",
+  subtext: "Transparent fixed pricing in USD. Pick a package, toggle what you need, and see the price instantly.",
   ctaText: "Book a 30-min call",
   notes: [
     "Domain and hosting are not included. You purchase them separately and I'll help you set them up.",
@@ -163,14 +138,12 @@ export const PRICING_COPY = {
 };
 
 /**
- * Format currency without decimals
+ * Format currency without decimals, standardized in USD ($)
  */
-export function formatCurrency(amount, currencyCode = "BDT") {
-  const rounded = Math.round(amount);
-  if (currencyCode === "BDT") {
-    // Standard format for BDT with ৳ symbol
-    return `৳${rounded.toLocaleString("en-IN")}`;
+export function formatCurrency(amount) {
+  if (typeof amount === "object" && amount !== null) {
+    amount = amount.USD ?? amount.usd ?? Object.values(amount)[0] ?? 0;
   }
+  const rounded = Math.round(Number(amount) || 0);
   return `$${rounded.toLocaleString("en-US")}`;
 }
-

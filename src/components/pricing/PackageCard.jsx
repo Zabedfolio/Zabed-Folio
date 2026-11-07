@@ -10,9 +10,9 @@ const PACKAGE_ICONS = {
   premium: HiOutlineSparkles,
 };
 
-export default function PackageCard({ pkg, isSelected, currency, onSelect }) {
+export default function PackageCard({ pkg, isSelected, onSelect }) {
   const Icon = PACKAGE_ICONS[pkg.id] || HiOutlineCode;
-  const priceDisplay = formatCurrency(pkg.price[currency], currency);
+  const priceDisplay = formatCurrency(pkg.price);
 
   return (
     <div
