@@ -11,3 +11,4 @@ export async function DELETE(request, { params }) {
   const { id } = await params;
   return DELETE_ONE(request, id);
 }
+

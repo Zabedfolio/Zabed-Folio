@@ -14,48 +14,40 @@ import { defaultShowcase } from "@/data/defaultShowcase";
 
 // Bespoke Project Logo Icons
 function ProjectLogo({ logo, title }) {
-  if (typeof logo === "string" && (logo.startsWith("http") || logo.startsWith("/"))) {
+  let src = "";
+  const l = (typeof logo === "string" ? logo : "").toLowerCase();
+  const t = (typeof title === "string" ? title : "").toLowerCase();
+
+  if (l.includes("jersey") || t.includes("jersey")) {
+    src = "/jerseyX-light.png";
+  } else if (l.includes("hatkhola") || t.includes("hatkhola")) {
+    src = "/hatkhola.png";
+  } else if (l.includes("neighbor") || l.includes("bell") || t.includes("neighbor")) {
+    src = "/neighbornotes-bell.png";
+  } else if (l.includes("icaw") || t.includes("icaw") || t.includes("academic")) {
+    src = "/ICAW.png";
+  } else if (logo && (logo.startsWith("http") || logo.startsWith("/"))) {
+    src = logo;
+  }
+
+  if (src) {
     return (
-      <div className="relative h-6 w-6 rounded-lg overflow-hidden shrink-0 bg-white">
+      <div className="relative h-6 w-6 sm:h-6.5 sm:w-6.5 flex items-center justify-center shrink-0">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={logo} alt={title} className="h-full w-full object-contain" />
+        <img
+          src={src}
+          alt={title || "Project Logo"}
+          className="h-full w-full object-contain"
+        />
       </div>
     );
   }
 
-  // Presets
-  switch (logo) {
-    case "jerseyx":
-      return (
-        <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-black text-[11px] font-mono font-black tracking-tighter text-[#1FB57A] shadow-xs shrink-0">
-          JX
-        </span>
-      );
-    case "hatkhola":
-      return (
-        <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#E07A5F]/15 border border-[#E07A5F]/30 text-[#C85A32] text-[11px] font-mono font-black tracking-tighter shrink-0">
-          HB
-        </span>
-      );
-    case "neighbornotes":
-      return (
-        <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#12A36B]/15 border border-[#12A36B]/30 text-[#12A36B] text-[11px] font-mono font-black tracking-tighter shrink-0">
-          NN
-        </span>
-      );
-    case "icaw":
-      return (
-        <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-[#3B82F6]/15 border border-[#3B82F6]/30 text-[#2563EB] text-[11px] font-mono font-black tracking-tighter shrink-0">
-          IC
-        </span>
-      );
-    default:
-      return (
-        <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-black/10 text-[11px] font-mono font-bold text-black/70 shrink-0">
-          {title ? title.slice(0, 2).toUpperCase() : "PW"}
-        </span>
-      );
-  }
+  return (
+    <span className="flex h-6 w-6 items-center justify-center rounded-lg bg-black/10 text-[11px] font-mono font-bold text-black/70 shrink-0">
+      {title ? title.slice(0, 2).toUpperCase() : "PW"}
+    </span>
+  );
 }
 
 export default function ProductionShowcase() {
@@ -240,7 +232,15 @@ export default function ProductionShowcase() {
                       <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80 inline-block" />
                       <span className="h-2.5 w-2.5 rounded-full bg-emerald-400/80 inline-block" />
                       <span className="ml-2 text-[10px] font-mono text-black/35 truncate">
-                        {activeItem.liveUrl ? new URL(activeItem.liveUrl).hostname : "production-build.preview"}
+                        {(() => {
+                          if (!activeItem.liveUrl) return "production-build.preview";
+                          try {
+                            const u = activeItem.liveUrl.startsWith("http") ? activeItem.liveUrl : `https://${activeItem.liveUrl}`;
+                            return new URL(u).hostname.replace(/^www\./, "");
+                          } catch {
+                            return "production-build.preview";
+                          }
+                        })()}
                       </span>
                     </div>
 
@@ -290,3 +290,4 @@ export default function ProductionShowcase() {
     </section>
   );
 }
+
