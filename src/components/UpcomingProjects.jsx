@@ -126,7 +126,13 @@ export default function UpcomingProjects() {
                   <div className="p-6 space-y-3">
                     <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-black/40">
                       <span>Release Target · {project.year || "2026"}</span>
-                      <span className="text-amber-600 font-semibold">{project.category || "Upcoming"}</span>
+                      <span className="text-amber-600 font-semibold">
+                        {Array.isArray(project.categories) && project.categories.length > 0
+                          ? project.categories.join(" · ")
+                          : typeof project.category === "string" && project.category.includes(",")
+                          ? project.category.split(",").map((c) => c.trim()).join(" · ")
+                          : project.category || "Upcoming"}
+                      </span>
                     </div>
 
                     <h3 className="text-xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-amber-600 transition-colors duration-200">

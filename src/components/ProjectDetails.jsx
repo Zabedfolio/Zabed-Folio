@@ -108,7 +108,11 @@ export default function ProjectDetails({ projectId }) {
             <div className="space-y-4">
               <div className="flex flex-wrap items-center gap-3">
                 <span className="rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] px-3.5 py-1 text-[11px] font-mono font-bold uppercase tracking-wider text-white">
-                  {project.category || "Case Study"}
+                  {Array.isArray(project.categories) && project.categories.length > 0
+                    ? project.categories.join(" · ")
+                    : typeof project.category === "string" && project.category.includes(",")
+                    ? project.category.split(",").map((c) => c.trim()).join(" · ")
+                    : project.category || "Case Study"}
                 </span>
                 <span className="font-mono text-xs font-bold uppercase tracking-wider text-black/40">
                   {project.year || "2026"}

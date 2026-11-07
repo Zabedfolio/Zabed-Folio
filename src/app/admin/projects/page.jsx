@@ -11,6 +11,19 @@ import {
 
 const UPCOMING_PLACEHOLDER_IMAGE = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='500' viewBox='0 0 800 500'%3E%3Crect width='800' height='500' fill='%23222226'/%3E%3Cpath d='M0 0l800 500M800 0L0 500' stroke='%232b2b30' stroke-width='1.5'/%3E%3Ccircle cx='400' cy='250' r='60' fill='%231a1a1c' stroke='%2338383e' stroke-width='2'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-size='20' font-weight='bold' fill='%23ff5f1a' letter-spacing='4'%3EUPCOMING PROJECT%3C/text%3E%3C/svg%3E";
 
+const AVAILABLE_CATEGORIES = [
+  "Full Stack",
+  "SaaS & Web Apps",
+  "E-Commerce",
+  "Frontend",
+  "Backend",
+  "Mobile",
+  "Design",
+  "AI / Web3",
+  "UI Library",
+  "Upcoming",
+];
+
 export default function AdminProjects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,7 +35,8 @@ export default function AdminProjects() {
   const [formData, setFormData] = useState({
     title: "",
     status: "completed",
-    category: "",
+    categories: ["Full Stack"],
+    category: "Full Stack",
     year: "",
     image: "",
     description: "",
@@ -61,6 +75,7 @@ export default function AdminProjects() {
     setFormData({
       title: "",
       status: "completed",
+      categories: ["Full Stack"],
       category: "Full Stack",
       year: new Date().getFullYear().toString(),
       image: "",
@@ -78,10 +93,26 @@ export default function AdminProjects() {
 
   const openEditModal = (project) => {
     setEditingProject(project);
+
+    // Extract categories cleanly from either categories array or category string
+    let initialCategories = [];
+    if (Array.isArray(project.categories) && project.categories.length > 0) {
+      initialCategories = project.categories;
+    } else if (typeof project.category === "string" && project.category) {
+      initialCategories = project.category
+        .split(",")
+        .map((c) => c.trim())
+        .filter(Boolean);
+    }
+    if (initialCategories.length === 0) {
+      initialCategories = [project.status === "upcoming" ? "Upcoming" : "Full Stack"];
+    }
+
     setFormData({
       title: project.title || "",
       status: project.status || "completed",
-      category: project.category || "",
+      categories: initialCategories,
+      category: initialCategories.join(", "),
       year: project.year || "",
       image: project.image || "",
       description: project.description || "",
@@ -94,6 +125,20 @@ export default function AdminProjects() {
       tags: Array.isArray(project.tags) ? project.tags.join(", ") : project.tags || "",
     });
     setModalOpen(true);
+  };
+
+  const toggleCategory = (cat) => {
+    setFormData((prev) => {
+      const current = prev.categories || [];
+      const updated = current.includes(cat)
+        ? current.filter((c) => c !== cat)
+        : [...current, cat];
+      return {
+        ...prev,
+        categories: updated,
+        category: updated.join(", "),
+      };
+    });
   };
 
   const handleInputChange = (e) => {
@@ -109,12 +154,20 @@ export default function AdminProjects() {
     setSaving(true);
 
     const isUpcoming = formData.status === "upcoming";
+    const selectedCategories =
+      Array.isArray(formData.categories) && formData.categories.length > 0
+        ? formData.categories
+        : isUpcoming
+        ? ["Upcoming"]
+        : ["Full Stack"];
+
     const payload = {
       ...formData,
       isPrivateRepo: Boolean(formData.isPrivateRepo),
       noLiveLink: Boolean(formData.noLiveLink),
       status: formData.status || "completed",
-      category: formData.category || (isUpcoming ? "Upcoming" : "Full Stack"),
+      categories: selectedCategories,
+      category: selectedCategories.join(", "),
       year: formData.year || new Date().getFullYear().toString(),
       image: formData.image || (isUpcoming ? UPCOMING_PLACEHOLDER_IMAGE : ""),
       description: formData.description || (isUpcoming ? "Upcoming project currently in architectural planning phase." : ""),
@@ -266,7 +319,9 @@ export default function AdminProjects() {
                         {project.title}
                       </span>
                       <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-md bg-black/4 border border-black/8 text-black/60">
-                        {project.category}
+                        {Array.isArray(project.categories) && project.categories.length > 0
+                          ? project.categories.join(", ")
+                          : project.category}
                       </span>
                       <span
                         className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded-md border ${
@@ -359,9 +414,9 @@ export default function AdminProjects() {
                 )}
               </div>
 
-              {/* Row 1: Title, Category, Year */}
+              {/* Row 1: Title & Release Year */}
               <div className="grid grid-cols-1 sm:grid-cols-4 gap-5">
-                <div className="sm:col-span-2">
+                <div className="sm:col-span-3">
                   <label className="block text-[11px] font-mono font-semibold uppercase tracking-wider text-black/50 mb-2">
                     Project Title *
                   </label>
@@ -371,29 +426,9 @@ export default function AdminProjects() {
                     name="title"
                     value={formData.title}
                     onChange={handleInputChange}
-                    placeholder="e.g. Taskly"
+                    placeholder="e.g. JerseyXSports"
                     className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
-                </div>
-
-                <div>
-                  <label className="block text-[11px] font-mono font-semibold uppercase tracking-wider text-black/50 mb-2">
-                    Category
-                  </label>
-                  <select
-                    name="category"
-                    value={formData.category}
-                    onChange={handleInputChange}
-                    className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
-                  >
-                    <option value="Full Stack">Full Stack</option>
-                    <option value="Frontend">Frontend</option>
-                    <option value="Backend">Backend</option>
-                    <option value="Mobile">Mobile</option>
-                    <option value="Design">Design</option>
-                    <option value="UI Library">UI Library</option>
-                    <option value="Upcoming">Upcoming</option>
-                  </select>
                 </div>
 
                 <div>
@@ -409,6 +444,38 @@ export default function AdminProjects() {
                     placeholder="e.g. 2026"
                     className="w-full rounded-2xl border border-black/10 bg-black/3 px-4 py-3 text-sm text-[#1a1a1a] placeholder-black/30 transition focus:border-[#1FB57A] focus:bg-white focus:outline-none focus:ring-2 focus:ring-[#1FB57A]/20"
                   />
+                </div>
+              </div>
+
+              {/* Row 2: Multi-Category Pill Selector */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <label className="block text-[11px] font-mono font-semibold uppercase tracking-wider text-black/50">
+                    Categories (Select all that apply)
+                  </label>
+                  <span className="text-[11px] font-mono text-[#12A36B] font-semibold">
+                    {formData.categories?.length || 0} selected
+                  </span>
+                </div>
+                <div className="p-3.5 rounded-2xl border border-black/10 bg-black/2 flex flex-wrap gap-2">
+                  {AVAILABLE_CATEGORIES.map((cat) => {
+                    const isSelected = formData.categories?.includes(cat);
+                    return (
+                      <button
+                        key={cat}
+                        type="button"
+                        onClick={() => toggleCategory(cat)}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all duration-150 active:scale-95 ${
+                          isSelected
+                            ? "bg-[#1FB57A] text-white shadow-sm ring-2 ring-[#12A36B]/30"
+                            : "bg-white text-black/65 hover:text-black hover:bg-black/5 border border-black/8 shadow-xs"
+                        }`}
+                      >
+                        <span className="text-[11px]">{isSelected ? "✓" : "+"}</span>
+                        <span>{cat}</span>
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
 

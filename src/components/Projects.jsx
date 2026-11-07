@@ -36,37 +36,59 @@ export default function Projects() {
     loadProjects();
   }, [loadProjects]);
 
-  // Robust filter matcher that checks category and related tags
+  // Robust filter matcher that checks multiple categories and related tags
   const matchesFilter = (project, filter) => {
     if (filter === "All") return true;
     if (!project) return false;
 
-    const cat = project.category || "";
+    // Collect all category strings into a normalized list
+    const categoriesList = [];
+    if (Array.isArray(project.categories)) {
+      categoriesList.push(...project.categories);
+    }
+    if (Array.isArray(project.category)) {
+      categoriesList.push(...project.category);
+    } else if (typeof project.category === "string" && project.category) {
+      categoriesList.push(...project.category.split(",").map((c) => c.trim()));
+    }
+
     const tags = Array.isArray(project.tags) ? project.tags.map((t) => t.toLowerCase()) : [];
+    const catLower = categoriesList.map((c) => c.toLowerCase());
 
     if (filter === "SaaS & Web Apps") {
       return (
-        cat === "SaaS & Web Apps" ||
-        cat === "SaaS" ||
-        cat === "Web App" ||
-        tags.some((t) => t.includes("saas") || t.includes("ai"))
+        catLower.some(
+          (c) =>
+            c === "saas & web apps" ||
+            c.includes("saas") ||
+            c.includes("web app") ||
+            c.includes("ai") ||
+            c === "frontend"
+        ) ||
+        tags.some((t) => t.includes("saas") || t.includes("ai") || t.includes("web app"))
       );
     }
     if (filter === "E-Commerce") {
       return (
-        cat === "E-Commerce" ||
-        cat === "Ecommerce" ||
-        tags.some((t) => t.includes("e-commerce") || t.includes("ecommerce") || t.includes("store"))
+        catLower.some(
+          (c) =>
+            c === "e-commerce" ||
+            c.includes("commerce") ||
+            c.includes("store") ||
+            c.includes("shop")
+        ) ||
+        tags.some((t) => t.includes("commerce") || t.includes("store") || t.includes("shop"))
       );
     }
     if (filter === "Full Stack") {
       return (
-        cat === "Full Stack" ||
-        cat === "Fullstack" ||
+        catLower.some(
+          (c) => c === "full stack" || c.includes("full stack") || c.includes("fullstack")
+        ) ||
         tags.some((t) => t.includes("full stack") || t.includes("node") || t.includes("express"))
       );
     }
-    return cat === filter;
+    return categoriesList.includes(filter);
   };
 
   const getFilterCount = (filter) => {
@@ -137,7 +159,13 @@ export default function Projects() {
         <div className="p-6 space-y-3">
           <div className="flex items-center justify-between font-mono text-[11px] font-bold uppercase tracking-wider text-black/40 gap-3">
             <span className="shrink-0 whitespace-nowrap">{String(index + 1).padStart(2, "0")} · {project.year || "2026"}</span>
-            <span className="text-[#12A36B] font-semibold shrink-0 whitespace-nowrap">{project.category || "Full Stack"}</span>
+            <span className="text-[#12A36B] font-semibold shrink-0 whitespace-nowrap">
+              {Array.isArray(project.categories) && project.categories.length > 0
+                ? project.categories.join(" · ")
+                : typeof project.category === "string" && project.category.includes(",")
+                ? project.category.split(",").map((c) => c.trim()).join(" · ")
+                : project.category || "Full Stack"}
+            </span>
           </div>
 
           <h3 className="text-xl font-bold tracking-tight text-[#1a1a1a] group-hover:text-[#12A36B] transition-colors duration-200">
