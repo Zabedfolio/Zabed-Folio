@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
@@ -8,9 +8,12 @@ import { HiOutlineFolder, HiOutlineSparkles, HiOutlineLockClosed } from "react-i
 import { fetchProjects } from "@/utils/projectApi";
 import { fallbackProjects } from "@/data/fallbackProjects";
 
+const FILTERS = ["All", "SaaS & Web Apps", "E-Commerce", "Full Stack"];
+
 export default function Projects() {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("All");
 
   const loadProjects = useCallback(async () => {
     try {
@@ -33,13 +36,54 @@ export default function Projects() {
     loadProjects();
   }, [loadProjects]);
 
+  // Robust filter matcher that checks category and related tags
+  const matchesFilter = (project, filter) => {
+    if (filter === "All") return true;
+    if (!project) return false;
+
+    const cat = project.category || "";
+    const tags = Array.isArray(project.tags) ? project.tags.map((t) => t.toLowerCase()) : [];
+
+    if (filter === "SaaS & Web Apps") {
+      return (
+        cat === "SaaS & Web Apps" ||
+        cat === "SaaS" ||
+        cat === "Web App" ||
+        tags.some((t) => t.includes("saas") || t.includes("ai"))
+      );
+    }
+    if (filter === "E-Commerce") {
+      return (
+        cat === "E-Commerce" ||
+        cat === "Ecommerce" ||
+        tags.some((t) => t.includes("e-commerce") || t.includes("ecommerce") || t.includes("store"))
+      );
+    }
+    if (filter === "Full Stack") {
+      return (
+        cat === "Full Stack" ||
+        cat === "Fullstack" ||
+        tags.some((t) => t.includes("full stack") || t.includes("node") || t.includes("express"))
+      );
+    }
+    return cat === filter;
+  };
+
+  const getFilterCount = (filter) => {
+    if (filter === "All") return projects.length;
+    return projects.filter((p) => matchesFilter(p, filter)).length;
+  };
+
+  const filteredProjects = projects.filter((p) => matchesFilter(p, activeFilter));
+
   const renderProjectCard = (project, index) => (
     <motion.article
+      layout
       key={project.id || project._id || index}
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.1 }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
+      initial={{ opacity: 0, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.96 }}
+      transition={{ duration: 0.25, ease: "easeInOut" }}
       className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-black/8 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:border-[#1FB57A]/40 hover:shadow-2xl hover:shadow-[#12A36B]/15"
     >
       <div>
@@ -100,6 +144,25 @@ export default function Projects() {
             {project.title}
           </h3>
 
+          {/* Metric / Performance Badges */}
+          {project.metrics && project.metrics.length > 0 && (
+            <div className="flex flex-wrap items-center gap-1.5 pt-0.5">
+              {project.metrics.map((m, idx) => (
+                <span
+                  key={idx}
+                  className={`inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-mono font-bold tracking-tight border ${
+                    m.highlight
+                      ? "bg-emerald-50 text-emerald-700 border-emerald-200/90 shadow-xs"
+                      : "bg-black/[0.04] text-black/65 border-black/8"
+                  }`}
+                >
+                  {m.highlight && <span className="text-emerald-500">⚡</span>}
+                  {m.label}
+                </span>
+              ))}
+            </div>
+          )}
+
           <p className="text-xs text-black/60 leading-relaxed font-normal line-clamp-3">
             {project.description}
           </p>
@@ -150,6 +213,38 @@ export default function Projects() {
           <span>and product clarity.</span>
         </h2>
 
+        {/* 1-Click Interactive Pill Filters */}
+        <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 -mx-4 px-4 sm:mx-0 sm:px-0">
+          {FILTERS.map((filter) => {
+            const count = getFilterCount(filter);
+            const isActive = activeFilter === filter;
+            return (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => setActiveFilter(filter)}
+                className={`group shrink-0 inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-mono font-bold transition-all duration-200 active:scale-95 ${
+                  isActive
+                    ? "bg-[#1a1a1a] text-white shadow-md shadow-black/10 ring-2 ring-[#1FB57A]/40"
+                    : "bg-white/80 text-black/60 hover:text-black hover:bg-white border border-black/8 shadow-xs"
+                }`}
+              >
+                <span>{filter}</span>
+                <span
+                  className={`inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-mono leading-none transition-colors ${
+                    isActive
+                      ? "bg-white/20 text-white"
+                      : "bg-black/5 text-black/50 group-hover:bg-black/10"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Project Cards Grid */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Array.from({ length: 3 }).map((_, index) => (
@@ -163,10 +258,23 @@ export default function Projects() {
               </div>
             ))}
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => renderProjectCard(project, index))}
+        ) : filteredProjects.length === 0 ? (
+          <div className="rounded-3xl border border-black/8 bg-white/60 p-12 text-center space-y-3">
+            <p className="font-mono text-sm text-black/60">No projects found in this category.</p>
+            <button
+              type="button"
+              onClick={() => setActiveFilter("All")}
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#1a1a1a] px-4 py-2 text-xs font-mono font-bold text-white shadow-sm hover:bg-black transition-colors"
+            >
+              Show all projects
+            </button>
           </div>
+        ) : (
+          <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => renderProjectCard(project, index))}
+            </AnimatePresence>
+          </motion.div>
         )}
       </div>
     </div>

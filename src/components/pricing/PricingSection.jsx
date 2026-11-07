@@ -9,6 +9,7 @@ import PackageCard from "./PackageCard";
 import AddonCard from "./AddonCard";
 import SummaryCard from "./SummaryCard";
 import CurrencyToggle from "./CurrencyToggle";
+import FAQAccordion from "./FAQAccordion";
 
 export default function PricingSection() {
   const [selectedPackage, setSelectedPackage] = useState("business"); // default: Business
@@ -169,6 +170,9 @@ export default function PricingSection() {
           />
         </div>
       </div>
+
+      {/* Client FAQs Accordion */}
+      <FAQAccordion />
 
       {/* Mobile Compact Sticky Bottom Bar (< 1024px) */}
       <div className="lg:hidden fixed bottom-4 inset-x-4 z-40">
