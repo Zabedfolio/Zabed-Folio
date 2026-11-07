@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import { HiOutlineFolder, HiOutlineSparkles, HiOutlineLockClosed } from "react-icons/hi";
 import { fetchProjects } from "@/utils/projectApi";
 import { fallbackProjects } from "@/data/fallbackProjects";
+import mainPic from "@/assets/main-pic.jpg";
 
 const FILTERS = ["All", "SaaS & Web Apps", "E-Commerce", "Full Stack"];
 
@@ -304,6 +305,54 @@ export default function Projects() {
             </AnimatePresence>
           </motion.div>
         )}
+
+        {/* 30-Min Free Consultation Callout - "Sit with me" */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.5 }}
+          className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1FB57A] via-[#16A870] to-[#12A36B] p-6 sm:p-10 text-white shadow-2xl shadow-[#12A36B]/25 mt-8 sm:mt-12"
+        >
+          {/* Subtle ambient light reflections */}
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 h-52 w-52 rounded-full bg-white/10 blur-2xl pointer-events-none" />
+          <div className="absolute bottom-0 left-1/4 -mb-12 h-44 w-44 rounded-full bg-black/10 blur-2xl pointer-events-none" />
+
+          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8">
+            <div className="space-y-3.5 max-w-2xl">
+              <div className="flex items-center gap-3">
+                <div className="relative h-11 w-11 rounded-full overflow-hidden ring-2 ring-white/50 shadow-sm shrink-0">
+                  <Image src={mainPic} alt="Zabed Mahmud" fill className="object-cover" />
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 px-3.5 py-1 text-xs font-mono font-bold text-white shadow-xs">
+                  <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
+                  <span>Sit with me · Free 30-min Consultation</span>
+                </div>
+              </div>
+
+              <h3 className="font-bricolage text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white">
+                Have a project or web app in mind? Let&apos;s sit together.
+              </h3>
+
+              <p className="text-sm sm:text-base text-white/90 leading-relaxed font-sans">
+                Book a 30-minute free consultation to discuss your vision, system architecture, and roadmap. No sales pressure. Just clarity.
+              </p>
+            </div>
+
+            <div className="shrink-0 flex items-center">
+              <Link
+                href="/30-min"
+                style={{ color: "#0B3B2B" }}
+                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white hover:bg-stone-50 px-6 py-4 text-sm font-mono font-bold !text-[#0B3B2B] shadow-xl shadow-black/15 transition-all duration-200 hover:scale-105 active:scale-95"
+              >
+                <span style={{ color: "#0B3B2B" }} className="!text-[#0B3B2B] font-bold">
+                  Book 30-min Free Call
+                </span>
+                <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );

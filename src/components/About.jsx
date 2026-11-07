@@ -387,7 +387,7 @@ export default function About() {
             </blockquote>
           </motion.div>
 
-          {/* Subtle Callout Banner to /pricing */}
+          {/* 30-Min Call Theme Gradient Callout Banner */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -396,21 +396,31 @@ export default function About() {
             className="pt-4"
           >
             <Link
-              href="/pricing"
-              className="group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl border border-black/8 bg-white/70 hover:bg-white hover:border-[#1FB57A]/40 shadow-sm hover:shadow-md hover:shadow-[#12A36B]/5 transition-all duration-300"
+              href="/30-min"
+              className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] shadow-xl shadow-[#12A36B]/25 hover:shadow-2xl hover:shadow-[#12A36B]/35 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
             >
-              <div className="flex items-center gap-3 min-w-0">
-                <span className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-[#12A36B]/10 text-[#12A36B] shrink-0 transition-transform group-hover:scale-105">
-                  <LuBadgeDollarSign className="text-lg sm:text-xl" />
-                </span>
-                <span className="text-sm sm:text-base font-semibold text-[#1a1a1a] tracking-tight">
-                  Looking to start a project?{" "}
-                  <span className="text-[#12A36B] font-bold underline decoration-[#1FB57A]/40 underline-offset-4 group-hover:decoration-[#12A36B]">
-                    Explore transparent pricing packages
-                  </span>
+              <div className="flex items-center gap-3.5 min-w-0">
+                <div className="relative h-11 w-11 rounded-2xl overflow-hidden ring-2 ring-white/30 shrink-0 shadow-sm">
+                  <Image src={mainPic} alt="Zabed Mahmud" fill className="object-cover" />
+                </div>
+                <div className="min-w-0">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm sm:text-base font-extrabold text-white tracking-tight font-bricolage">
+                      Have a project in mind? Book a 30-min call
+                    </span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-white/85 font-mono">
+                    Free Consultation · No pressure. Just clarity.
+                  </p>
+                </div>
+              </div>
+
+              <div className="shrink-0 flex items-center gap-2 self-start sm:self-center">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white text-[#0B3B2B] px-4 py-2 text-xs font-mono font-bold shadow-md transition-transform group-hover:scale-105">
+                  <span>Book Call</span>
+                  <HiOutlineArrowRight className="text-sm transition-transform group-hover:translate-x-0.5" />
                 </span>
               </div>
-              <HiOutlineArrowRight className="text-base sm:text-lg text-black/40 group-hover:text-[#12A36B] transition-transform group-hover:translate-x-1 shrink-0" />
             </Link>
           </motion.div>
 
