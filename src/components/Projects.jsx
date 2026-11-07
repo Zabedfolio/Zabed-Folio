@@ -306,52 +306,35 @@ export default function Projects() {
           </motion.div>
         )}
 
-        {/* 30-Min Free Consultation Callout - "Sit with me" */}
+        {/* 1-Line 30-Min Free Consultation Callout - "Sit with me" */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.5 }}
-          className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1FB57A] via-[#16A870] to-[#12A36B] p-6 sm:p-10 text-white shadow-2xl shadow-[#12A36B]/25 mt-8 sm:mt-12"
+          transition={{ duration: 0.4 }}
+          className="mt-8 sm:mt-12"
         >
-          {/* Subtle ambient light reflections */}
-          <div className="absolute top-0 right-0 -mt-10 -mr-10 h-52 w-52 rounded-full bg-white/10 blur-2xl pointer-events-none" />
-          <div className="absolute bottom-0 left-1/4 -mb-12 h-44 w-44 rounded-full bg-black/10 blur-2xl pointer-events-none" />
-
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 sm:gap-8">
-            <div className="space-y-3.5 max-w-2xl">
-              <div className="flex items-center gap-3">
-                <div className="relative h-11 w-11 rounded-full overflow-hidden ring-2 ring-white/50 shadow-sm shrink-0">
-                  <Image src={mainPic} alt="Zabed Mahmud" fill className="object-cover" />
-                </div>
-                <div className="inline-flex items-center gap-2 rounded-full bg-white/15 backdrop-blur-md border border-white/20 px-3.5 py-1 text-xs font-mono font-bold text-white shadow-xs">
-                  <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
-                  <span>Sit with me · Free 30-min Consultation</span>
-                </div>
+          <Link
+            href="/30-min"
+            className="group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-white shadow-lg shadow-[#12A36B]/20 hover:shadow-xl hover:shadow-[#12A36B]/30 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+          >
+            <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+              <div className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-full overflow-hidden ring-2 ring-white/50 shrink-0 shadow-sm">
+                <Image src={mainPic} alt="Zabed Mahmud" fill className="object-cover" />
               </div>
-
-              <h3 className="font-bricolage text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight leading-tight text-white">
-                Have a project or web app in mind? Let&apos;s sit together.
-              </h3>
-
-              <p className="text-sm sm:text-base text-white/90 leading-relaxed font-sans">
-                Book a 30-minute free consultation to discuss your vision, system architecture, and roadmap. No sales pressure. Just clarity.
-              </p>
-            </div>
-
-            <div className="shrink-0 flex items-center">
-              <Link
-                href="/30-min"
-                style={{ color: "#0B3B2B" }}
-                className="inline-flex items-center justify-center gap-2 rounded-2xl bg-white hover:bg-stone-50 px-6 py-4 text-sm font-mono font-bold !text-[#0B3B2B] shadow-xl shadow-black/15 transition-all duration-200 hover:scale-105 active:scale-95"
-              >
-                <span style={{ color: "#0B3B2B" }} className="!text-[#0B3B2B] font-bold">
-                  Book 30-min Free Call
+              <span className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
+                Have a project in mind?{" "}
+                <span className="underline decoration-white/40 underline-offset-4 group-hover:decoration-white font-extrabold">
+                  Let&apos;s sit together for a 30-min free consultation
                 </span>
-                <span aria-hidden>→</span>
-              </Link>
+              </span>
             </div>
-          </div>
+
+            <span className="shrink-0 inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white text-[#0B3B2B] px-3.5 sm:px-4 py-2 text-xs font-mono font-bold shadow-md transition-transform group-hover:scale-105">
+              <span>Sit with me</span>
+              <span aria-hidden>→</span>
+            </span>
+          </Link>
         </motion.div>
       </div>
     </div>

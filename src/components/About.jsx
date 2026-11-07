@@ -387,40 +387,34 @@ export default function About() {
             </blockquote>
           </motion.div>
 
-          {/* 30-Min Call Theme Gradient Callout Banner */}
+          {/* 1-Line 30-Min Call Theme Gradient Callout Banner */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.4 }}
             className="pt-4"
           >
             <Link
               href="/30-min"
-              className="group flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] shadow-xl shadow-[#12A36B]/25 hover:shadow-2xl hover:shadow-[#12A36B]/35 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
+              className="group flex items-center justify-between gap-4 p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-white shadow-lg shadow-[#12A36B]/20 hover:shadow-xl hover:shadow-[#12A36B]/30 transition-all duration-300 hover:scale-[1.01] active:scale-[0.99]"
             >
-              <div className="flex items-center gap-3.5 min-w-0">
-                <div className="relative h-11 w-11 rounded-2xl overflow-hidden ring-2 ring-white/30 shrink-0 shadow-sm">
+              <div className="flex items-center gap-3 sm:gap-3.5 min-w-0">
+                <div className="relative h-9 w-9 sm:h-10 sm:w-10 rounded-full overflow-hidden ring-2 ring-white/50 shrink-0 shadow-sm">
                   <Image src={mainPic} alt="Zabed Mahmud" fill className="object-cover" />
                 </div>
-                <div className="min-w-0">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm sm:text-base font-extrabold text-white tracking-tight font-bricolage">
-                      Have a project in mind? Book a 30-min call
-                    </span>
-                  </div>
-                  <p className="text-xs sm:text-sm text-white/85 font-mono">
-                    Free Consultation · No pressure. Just clarity.
-                  </p>
-                </div>
-              </div>
-
-              <div className="shrink-0 flex items-center gap-2 self-start sm:self-center">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white text-[#0B3B2B] px-4 py-2 text-xs font-mono font-bold shadow-md transition-transform group-hover:scale-105">
-                  <span>Book Call</span>
-                  <HiOutlineArrowRight className="text-sm transition-transform group-hover:translate-x-0.5" />
+                <span className="text-sm sm:text-base font-bold text-white tracking-tight truncate">
+                  Looking to start a project?{" "}
+                  <span className="underline decoration-white/40 underline-offset-4 group-hover:decoration-white font-extrabold">
+                    Book a 30-min free consultation
+                  </span>
                 </span>
               </div>
+
+              <span className="shrink-0 inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white text-[#0B3B2B] px-3.5 sm:px-4 py-2 text-xs font-mono font-bold shadow-md transition-transform group-hover:scale-105">
+                <span>Book Call</span>
+                <HiOutlineArrowRight className="text-sm transition-transform group-hover:translate-x-0.5" />
+              </span>
             </Link>
           </motion.div>
 
