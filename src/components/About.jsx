@@ -29,7 +29,7 @@ import {
   SiHtml5,
   SiCss,
 } from 'react-icons/si';
-import { HiOutlineGlobeAlt, HiOutlineCode, HiOutlineArrowRight } from 'react-icons/hi';
+import { HiOutlineGlobeAlt, HiOutlineCode, HiOutlineArrowRight, HiOutlineDocumentText } from 'react-icons/hi';
 import { LuBadgeDollarSign } from 'react-icons/lu';
 
 const TECH_MAP = {
@@ -195,6 +195,11 @@ const socialLinks = [
     name: "GitHub",
     icon: FaGithub,
     href: "https://github.com/Zabedfolio",
+  },
+  {
+    name: "Resume",
+    icon: HiOutlineDocumentText,
+    href: "/Zabed_Mahmud_Resume.pdf",
   },
 ];
 

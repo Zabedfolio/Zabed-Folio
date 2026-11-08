@@ -16,6 +16,7 @@ import {
   HiOutlineShieldCheck,
   HiOutlineMenuAlt4,
   HiOutlineX,
+  HiOutlineDocumentText,
 } from "react-icons/hi";
 import { LuBadgeDollarSign } from "react-icons/lu";
 
@@ -164,6 +165,17 @@ export default function Navbar() {
                           </button>
                         );
                       })}
+
+                      {/* Mobile Drawer Resume Link */}
+                      <a
+                        href="/Zabed_Mahmud_Resume.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-3.5 rounded-2xl px-4 py-3.5 text-base font-bold text-black/70 hover:bg-black/5 hover:text-[#1a1a1a] transition-all border border-black/8 mt-1 bg-black/[0.02]"
+                      >
+                        <HiOutlineDocumentText className="text-xl text-[#12A36B]" />
+                        <span>View Resume (PDF)</span>
+                      </a>
                     </div>
                   </motion.div>
                 </Dialog.Content>
@@ -173,17 +185,28 @@ export default function Navbar() {
         </Dialog.Root>
       </div>
 
-      {/* Top Right Fixed 'Wanna talk?' CTA Button (hidden on /30-min since user is already there) */}
-      {pathname !== "/30-min" && (
-        <div className="fixed top-5 right-5 sm:right-8 z-50">
+      {/* Top Right Fixed Action Buttons */}
+      <div className="fixed top-4 sm:top-5 right-4 sm:right-8 z-50 flex items-center gap-2 sm:gap-2.5">
+        <a
+          href="/Zabed_Mahmud_Resume.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center justify-center gap-1.5 rounded-full bg-white/90 hover:bg-white border border-black/10 px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-bold text-[#1a1a1a] shadow-lg shadow-black/5 backdrop-blur-md transition-all duration-300 hover:scale-105 active:scale-95"
+          title="View & Download Resume"
+        >
+          <HiOutlineDocumentText className="text-base text-[#12A36B]" />
+          <span>Resume</span>
+        </a>
+
+        {pathname !== "/30-min" && (
           <Link
             href="/30-min"
-            className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-6 py-3 text-xs sm:text-sm font-extrabold text-white shadow-xl shadow-[#12A36B]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#12A36B]/40 active:scale-95 tracking-wide"
+            className="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm font-extrabold text-white shadow-xl shadow-[#12A36B]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#12A36B]/40 active:scale-95 tracking-wide"
           >
             Wanna talk?
           </Link>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Experience & Education Modals */}
       <ExperienceModal open={experienceOpen} onOpenChange={setExperienceOpen} />
