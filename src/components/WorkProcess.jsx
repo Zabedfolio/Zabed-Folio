@@ -1,6 +1,8 @@
 'use client';
 
 import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
 import {
   HiOutlineVideoCamera,
   HiOutlineDocumentText,
@@ -10,6 +12,7 @@ import {
   HiOutlineArrowRight,
 } from "react-icons/hi";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
+import mainPic from "@/assets/main-pic.jpg";
 
 const STEPS = [
   {
@@ -23,7 +26,8 @@ const STEPS = [
     pinGlow: "shadow-[#12A36B]/40",
     numColor: "text-[#12A36B]",
     badgeBg: "bg-[#12A36B]/10 text-[#0F8A5A] border-[#12A36B]/20",
-    tag: "Start Here",
+    tag: "30-Min Strategy Call",
+    rotation: "-rotate-1",
   },
   {
     step: "02",
@@ -36,7 +40,8 @@ const STEPS = [
     pinGlow: "shadow-blue-500/40",
     numColor: "text-blue-600",
     badgeBg: "bg-blue-50 text-blue-700 border-blue-200",
-    tag: "Timeline & Cost",
+    tag: "Fixed Scope & Timeline",
+    rotation: "rotate-1",
   },
   {
     step: "03",
@@ -49,40 +54,43 @@ const STEPS = [
     pinGlow: "shadow-purple-500/40",
     numColor: "text-purple-600",
     badgeBg: "bg-purple-50 text-purple-700 border-purple-200",
-    tag: "Customer-Centric",
+    tag: "Customer-Centric UI",
+    rotation: "-rotate-1",
   },
   {
     step: "04",
-    title: "Full-Stack Build",
-    subtitle: "Weekly Interactive Demos",
+    title: "Modern Tech Stack",
+    subtitle: "Fast, Secure & Scalable",
     icon: HiOutlineCode,
     description:
-      "Engineered with clean Next.js, robust database schemas, and scalable APIs. You get private staging URLs and direct updates on WhatsApp or Telegram to test real progress at every step.",
+      "We choose the battle-tested technologies for your project (Next.js, Tailwind, PostgreSQL / MongoDB), making it Fast🚀, Secure🔒, and Scalable📈.",
     pinColor: "bg-gradient-to-br from-teal-400 to-emerald-600",
     pinGlow: "shadow-teal-500/40",
     numColor: "text-teal-600",
     badgeBg: "bg-teal-50 text-teal-700 border-teal-200",
-    tag: "Fast & Scalable",
+    tag: "Fast & Scalable Build",
+    rotation: "rotate-1",
   },
   {
     step: "05",
-    title: "Production Launch",
-    subtitle: "Audited & Handed Over",
+    title: "Development & Launch",
+    subtitle: "Audited & Live in Prod",
     icon: HiOutlineRocketLaunch,
     description:
-      "Rigorous audits for speed (sub-second 4G loads), SEO indexing, and cross-browser testing. We connect your custom domain, transfer 100% code ownership, and provide launch support.",
+      "Senior Full-Stack engineering working directly on your project. Weekly interactive demos, sub-second speed audits, custom domain setup, and live launch.",
     pinColor: "bg-gradient-to-br from-amber-400 to-orange-500",
     pinGlow: "shadow-amber-500/40",
     numColor: "text-amber-600",
     badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
-    tag: "Live & Protected",
+    tag: "Live & Audited in Prod",
+    rotation: "-rotate-1",
   },
 ];
 
 export default function WorkProcess() {
   return (
-    <section id="process" className="relative z-10 pt-16 pb-12 sm:pt-24 sm:pb-16 border-t border-black/8">
-      <div className="max-w-5xl mx-auto space-y-12 sm:space-y-16">
+    <section id="process" className="relative z-10 pt-16 pb-6 sm:pt-24 sm:pb-8 border-t border-black/8">
+      <div className="max-w-4xl mx-auto space-y-12 sm:space-y-16">
         
         {/* Section Header */}
         <div className="space-y-3">
@@ -91,7 +99,7 @@ export default function WorkProcess() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#12A36B] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#12A36B]"></span>
             </span>
-            <span>How We Work Together · The 5-Step Process</span>
+            <span className="whitespace-nowrap">How We Work Together · The 5-Step Process</span>
           </div>
 
           <h2 className="font-bricolage text-[clamp(2rem,5vw,3.6rem)] font-extrabold tracking-[-0.035em] text-[#1a1a1a] leading-[1.15]">
@@ -99,129 +107,147 @@ export default function WorkProcess() {
             <span className="text-[#12A36B]">Production Launch.</span>
           </h2>
           <p className="text-black/60 text-sm sm:text-base max-w-2xl font-sans leading-relaxed">
-            No vague timelines or messy handoffs. Here is the exact path we follow to take your idea from a 30-minute chat to a fast, reliable, revenue-ready product.
+            Follow the path from Step 01 to production. No vague timelines, no hidden fees, and zero surprises.
           </p>
         </div>
 
-        {/* Pinned Note Cards Flow Grid */}
-        <div className="relative">
-          {/* Subtle curved dashed path connector in background (Desktop only) */}
-          <div className="hidden lg:block absolute inset-0 pointer-events-none">
-            <svg
-              className="w-full h-full stroke-black/15"
-              fill="none"
-              strokeDasharray="6 6"
-              strokeWidth="2"
-            >
-              <path d="M 120 100 Q 250 40 450 100 T 800 100" />
-              <path d="M 800 140 Q 600 320 300 360" />
-              <path d="M 300 420 Q 550 460 750 460" />
-            </svg>
-          </div>
+        {/* ── Top-to-Bottom Connected Path Timeline with Notebook Paper Feel ── */}
+        <div className="relative rounded-3xl p-4 sm:p-8 bg-[repeating-linear-gradient(to_bottom,transparent,transparent_31px,rgba(0,0,0,0.03)_31px,rgba(0,0,0,0.03)_32px)] border border-black/6">
+          
+          {/* Continuous Center Dashed Path (Desktop >= 768px) */}
+          <div className="hidden md:block absolute left-1/2 top-10 bottom-16 -translate-x-1/2 w-0.5 border-l-2 border-dashed border-black/20 pointer-events-none" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-9">
+          {/* Continuous Left Dashed Path (Mobile < 768px) */}
+          <div className="md:hidden absolute left-5 top-10 bottom-16 w-0.5 border-l-2 border-dashed border-black/20 pointer-events-none" />
+
+          {/* Steps List flowing from Top to Bottom (01 to 05) */}
+          <div className="space-y-10 sm:space-y-12">
             {STEPS.map((item, index) => {
               const Icon = item.icon;
+              const isEven = index % 2 === 0;
+
               return (
-                <motion.div
+                <div
                   key={item.step}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`group relative rounded-3xl bg-white border border-black/8 p-6 sm:p-7 shadow-lg shadow-black/5 hover:shadow-2xl hover:shadow-black/10 transition-all duration-300 hover:-translate-y-1.5 flex flex-col justify-between ${
-                    index === 3 || index === 4 ? "lg:col-span-1" : ""
-                  }`}
+                  className={`relative flex flex-col md:flex-row items-center ${
+                    isEven ? "md:flex-row" : "md:flex-row-reverse"
+                  } gap-6 md:gap-0`}
                 >
-                  {/* Realistic 3D Pushpin on top */}
-                  <div className="absolute -top-3.5 left-7 flex items-center justify-center z-20">
-                    {/* Shadow underneath */}
-                    <div className="absolute top-2.5 w-4 h-2 rounded-full bg-black/25 blur-[2.5px]" />
-                    {/* 3D Pushpin Cap */}
-                    <div
-                      className={`relative h-7 w-7 rounded-full shadow-md ${item.pinColor} ${item.pinGlow} ring-2 ring-white flex items-center justify-center transition-transform group-hover:scale-110 duration-200`}
+                  {/* Card Container (Takes half width on desktop, full width on mobile) */}
+                  <div className="w-full md:w-[calc(50%-2.5rem)] pl-10 md:pl-0">
+                    <motion.div
+                      initial={{ opacity: 0, y: 24 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.2 }}
+                      transition={{ duration: 0.5, delay: index * 0.08 }}
+                      className={`group relative rounded-3xl bg-white border border-black/8 p-6 sm:p-7 shadow-lg shadow-black/5 hover:shadow-2xl hover:shadow-black/10 transition-all duration-300 hover:-translate-y-1 ${item.rotation} hover:rotate-0`}
                     >
-                      {/* Highlight reflection */}
-                      <div className="h-2 w-2 rounded-full bg-white/75" />
+                      {/* Realistic 3D Pushpin on top */}
+                      <div className="absolute -top-3.5 left-7 flex items-center justify-center z-20">
+                        {/* Shadow underneath */}
+                        <div className="absolute top-2.5 w-4 h-2 rounded-full bg-black/25 blur-[2.5px]" />
+                        {/* 3D Pushpin Cap */}
+                        <div
+                          className={`relative h-7 w-7 rounded-full shadow-md ${item.pinColor} ${item.pinGlow} ring-2 ring-white flex items-center justify-center transition-transform group-hover:scale-110 duration-200`}
+                        >
+                          <div className="h-2 w-2 rounded-full bg-white/80" />
+                        </div>
+                      </div>
+
+                      {/* Header row: Step & Icon */}
+                      <div className="flex items-center justify-between pb-3 border-b border-black/5">
+                        <span className={`font-mono text-2xl sm:text-3xl font-black italic tracking-tight ${item.numColor}`}>
+                          {item.step}
+                        </span>
+
+                        <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-black/4 border border-black/5 text-[#1a1a1a] transition-transform group-hover:scale-110 duration-200">
+                          <Icon className="text-xl" />
+                        </span>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="space-y-2 pt-3">
+                        <h3 className="font-bricolage text-xl font-extrabold text-[#1a1a1a] tracking-tight">
+                          {item.title}
+                        </h3>
+                        <p className="text-xs font-mono font-semibold text-black/45">
+                          {item.subtitle}
+                        </p>
+                        <p className="text-xs sm:text-sm text-black/65 font-sans leading-relaxed pt-1">
+                          {item.description}
+                        </p>
+                      </div>
+
+                      {/* Card Footer (Strict Single Line Guaranteed) */}
+                      <div className="pt-4 mt-4 border-t border-black/5 flex items-center justify-between gap-3 flex-nowrap">
+                        <span
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border whitespace-nowrap shrink-0 ${item.badgeBg}`}
+                        >
+                          {item.tag}
+                        </span>
+
+                        <span className="text-[11px] font-mono text-black/40 font-semibold whitespace-nowrap shrink-0">
+                          Step {item.step} of 05
+                        </span>
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  {/* Center Node / Milestone Pin on the path line */}
+                  <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center z-10">
+                    <div className="h-8 w-8 rounded-full bg-white border-2 border-black/15 shadow-sm flex items-center justify-center">
+                      <span className={`h-2.5 w-2.5 rounded-full ${item.pinColor}`} />
                     </div>
                   </div>
 
-                  {/* Card Content Top */}
-                  <div className="space-y-4 pt-1">
-                    <div className="flex items-center justify-between">
-                      {/* Step Number in Italic Serif/Mono style */}
-                      <span className={`font-mono text-2xl font-black italic tracking-tight ${item.numColor}`}>
-                        {item.step}
-                      </span>
-
-                      {/* Icon Container */}
-                      <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-black/4 border border-black/5 text-[#1a1a1a] transition-transform group-hover:scale-110 duration-200">
-                        <Icon className="text-xl" />
-                      </span>
+                  {/* Mobile Left Pin Indicator on the line */}
+                  <div className="md:hidden absolute left-5 -translate-x-1/2 top-7 z-10">
+                    <div className="h-6 w-6 rounded-full bg-white border-2 border-black/15 shadow-xs flex items-center justify-center">
+                      <span className={`h-2 w-2 rounded-full ${item.pinColor}`} />
                     </div>
-
-                    <div>
-                      <h3 className="font-bricolage text-xl font-extrabold text-[#1a1a1a] tracking-tight">
-                        {item.title}
-                      </h3>
-                      <p className="text-xs font-mono font-semibold text-black/45 mt-0.5">
-                        {item.subtitle}
-                      </p>
-                    </div>
-
-                    <p className="text-xs sm:text-sm text-black/65 font-sans leading-relaxed">
-                      {item.description}
-                    </p>
                   </div>
 
-                  {/* Card Bottom Tag */}
-                  <div className="pt-5 mt-4 border-t border-black/5 flex items-center justify-between">
-                    <span
-                      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold border ${item.badgeBg}`}
-                    >
-                      <span>{item.tag}</span>
-                    </span>
-
-                    <span className="text-[11px] font-mono text-black/35 font-semibold group-hover:text-[#12A36B] transition-colors">
-                      Step {item.step} of 05 →
-                    </span>
-                  </div>
-                </motion.div>
+                  {/* Spacer for the other side on desktop */}
+                  <div className="hidden md:block w-[calc(50%-2.5rem)]" />
+                </div>
               );
             })}
-
-            {/* Final CTA Mini-Card inside the grid on desktop */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
-              className="relative rounded-3xl bg-gradient-to-br from-[#1a1a1a] to-[#252525] text-white p-6 sm:p-7 shadow-xl shadow-black/15 flex flex-col justify-between"
-            >
-              <div className="space-y-3">
-                <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#1FB57A]">
-                  <HiOutlineSparkles className="text-sm" />
-                  Ready to Start?
-                </span>
-                <h3 className="font-bricolage text-xl sm:text-2xl font-extrabold text-white tracking-tight leading-tight">
-                  Your project starts with Step 01.
-                </h3>
-                <p className="text-xs sm:text-sm text-white/70 font-sans leading-relaxed">
-                  Book a free 30-minute discovery call directly to discuss roadmap, tech stack, and fixed scope.
-                </p>
-              </div>
-
-              <div className="pt-6">
-                <a
-                  href="/30-min"
-                  className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-white text-xs sm:text-sm font-extrabold shadow-lg shadow-[#12A36B]/30 transition-all hover:scale-[1.02] active:scale-[0.98]"
-                >
-                  <span>Book 30-min Strategy Call</span>
-                  <HiOutlineArrowRight className="text-sm" />
-                </a>
-              </div>
-            </motion.div>
           </div>
+
+          {/* Path Destination / Final Step 01 Consultation Banner */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5 }}
+            className="mt-14 relative rounded-3xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] text-white p-5 sm:p-6 shadow-xl shadow-[#12A36B]/25 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          >
+            <div className="flex items-center gap-3.5 min-w-0">
+              <div className="relative h-11 w-11 sm:h-12 sm:w-12 rounded-full overflow-hidden ring-2 ring-white/60 shrink-0 shadow-md">
+                <Image src={mainPic} alt="Zabed Mahmud" fill className="object-cover" />
+              </div>
+              <div className="space-y-0.5 min-w-0">
+                <div className="flex items-center gap-1.5 text-[11px] font-mono font-bold text-white/80">
+                  <HiOutlineSparkles className="text-xs" />
+                  <span className="whitespace-nowrap">Your Project Starts With Step 01</span>
+                </div>
+                <h3 className="text-base sm:text-lg font-bold text-white tracking-tight truncate">
+                  Looking to start a project? Book a free 30-min strategy call.
+                </h3>
+              </div>
+            </div>
+
+            <div className="shrink-0 pt-2 sm:pt-0">
+              <Link
+                href="/30-min"
+                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white text-[#0B3B2B] hover:bg-neutral-100 text-xs sm:text-sm font-mono font-extrabold shadow-md transition-transform hover:scale-105 active:scale-95 whitespace-nowrap"
+              >
+                <span className="whitespace-nowrap">Book 30-Min Strategy Call</span>
+                <HiOutlineArrowRight className="text-sm shrink-0" />
+              </Link>
+            </div>
+          </motion.div>
+
         </div>
 
       </div>
