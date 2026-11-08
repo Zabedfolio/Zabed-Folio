@@ -53,10 +53,11 @@ export const defaultProcess = [
     subtitle: "Audited & Live in Prod",
     icon: "rocket",
     description:
-      "Senior Full-Stack engineering working directly on your project. Weekly interactive demos, sub-second speed audits, custom domain setup, and live launch.",
+      "Full-Stack engineering working directly on your project. Weekly interactive demos, sub-second speed audits, custom domain setup, and live launch.",
     pinColor: "amber",
     tag: "Live & Audited in Prod",
     order: 4,
     active: true,
   },
 ];
+
