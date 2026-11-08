@@ -17,6 +17,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import mainPic from '@/assets/main-pic.jpg';
 import ProductionShowcase from "@/components/ProductionShowcase";
+import WorkProcess from "@/components/WorkProcess";
 import {
   SiReact,
   SiNextdotjs,
@@ -395,6 +396,9 @@ export default function About() {
 
           {/* Production Engineering Showcase (Flagship Works) */}
           <ProductionShowcase />
+
+          {/* 5-Step Work Process (From Meeting to Launch) */}
+          <WorkProcess />
 
           {/* 1-Line 30-Min Call Theme Gradient Callout Banner */}
           <motion.div
