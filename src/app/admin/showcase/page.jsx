@@ -11,15 +11,27 @@ import {
   HiOutlineExternalLink,
   HiOutlineCheck,
   HiOutlineRefresh,
+  HiOutlineMap,
 } from "react-icons/hi";
 import { defaultShowcase } from "@/data/defaultShowcase";
+import AdminProcessManager from "@/components/admin/AdminProcessManager";
 
 export default function AdminShowcase() {
+  const [activeTab, setActiveTab] = useState("showcase"); // "showcase" | "process"
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("tab") === "process") {
+        setActiveTab("process");
+      }
+    }
+  }, []);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -266,13 +278,13 @@ export default function AdminShowcase() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
             <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#1a1a1a]">
-              Production Showcase
+              Showcase & Process
             </h1>
             <span className="inline-flex items-center gap-1 rounded-full bg-[#12A36B]/10 px-2.5 py-0.5 text-xs font-mono font-bold text-[#12A36B]">
               <HiOutlineSparkles className="text-sm" />
@@ -280,36 +292,72 @@ export default function AdminShowcase() {
             </span>
           </div>
           <p className="mt-1 text-xs sm:text-sm font-medium text-black/50">
-            Manage flagship works displayed with flat logo tabs on the Home page
+            Manage your flagship works and the 5-step roadmap displayed on the Home page
           </p>
         </div>
 
-        <div className="flex items-center gap-2 self-end sm:self-auto">
-          {items.length === 0 && (
-            <button
-              onClick={handleSeedDefaults}
-              disabled={saving}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-2xl border border-black/10 bg-white hover:bg-black/5 text-xs sm:text-sm font-bold text-black/70 transition shadow-sm"
-              title="Populate with the 4 default flagships"
-            >
-              <HiOutlineRefresh className="text-base" />
-              <span>Seed 4 Defaults</span>
-            </button>
-          )}
+        {activeTab === "showcase" && (
+          <div className="flex items-center gap-2 self-end sm:self-auto">
+            {items.length === 0 && (
+              <button
+                onClick={handleSeedDefaults}
+                disabled={saving}
+                className="flex items-center gap-2 px-4 py-2.5 rounded-2xl border border-black/10 bg-white hover:bg-black/5 text-xs sm:text-sm font-bold text-black/70 transition shadow-sm"
+                title="Populate with the 4 default flagships"
+              >
+                <HiOutlineRefresh className="text-base" />
+                <span>Seed 4 Defaults</span>
+              </button>
+            )}
 
-          <button
-            onClick={openAddModal}
-            className="flex items-center justify-center gap-2 p-2.5 sm:px-5 sm:py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-xs sm:text-sm font-bold text-white transition active:scale-[0.98] shadow-sm"
-            title="Add Showcase Item"
-          >
-            <HiOutlinePlus className="text-lg" />
-            <span className="hidden sm:inline">Add Item</span>
-          </button>
-        </div>
+            <button
+              onClick={openAddModal}
+              className="flex items-center justify-center gap-2 p-2.5 sm:px-5 sm:py-3 rounded-2xl bg-gradient-to-r from-[#1FB57A] to-[#12A36B] hover:from-[#19A36D] hover:to-[#0E8A5A] text-xs sm:text-sm font-bold text-white transition active:scale-[0.98] shadow-sm"
+              title="Add Showcase Item"
+            >
+              <HiOutlinePlus className="text-lg" />
+              <span className="hidden sm:inline">Add Item</span>
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* List Container */}
-      {loading ? (
+      {/* Tab Switcher */}
+      <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-white border border-black/8 shadow-xs w-fit">
+        <button
+          type="button"
+          onClick={() => setActiveTab("showcase")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            activeTab === "showcase"
+              ? "bg-[#12A36B] text-white shadow-sm"
+              : "text-black/60 hover:text-[#1a1a1a] hover:bg-black/4"
+          }`}
+        >
+          <HiOutlineSparkles className="text-base" />
+          <span>Flagship Showcase ({items.length})</span>
+        </button>
+
+        <button
+          type="button"
+          onClick={() => setActiveTab("process")}
+          className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all ${
+            activeTab === "process"
+              ? "bg-[#12A36B] text-white shadow-sm"
+              : "text-black/60 hover:text-[#1a1a1a] hover:bg-black/4"
+          }`}
+        >
+          <HiOutlineMap className="text-base" />
+          <span>Work Process (Steps)</span>
+        </button>
+      </div>
+
+      {/* Render Process Tab */}
+      {activeTab === "process" ? (
+        <AdminProcessManager />
+      ) : (
+        <>
+          {/* List Container */}
+          {loading ? (
         <div className="space-y-3">
           {[...Array(4)].map((_, i) => (
             <div
@@ -679,6 +727,8 @@ export default function AdminShowcase() {
             </form>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );

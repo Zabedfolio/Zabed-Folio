@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,84 +11,92 @@ import {
   HiOutlineCode,
   HiOutlineSparkles,
   HiOutlineArrowRight,
+  HiOutlineGlobeAlt,
+  HiOutlineBriefcase,
+  HiOutlineCog,
 } from "react-icons/hi";
 import { HiOutlineRocketLaunch } from "react-icons/hi2";
 import mainPic from "@/assets/main-pic.jpg";
+import { defaultProcess } from "@/data/defaultProcess";
 
-const STEPS = [
-  {
-    step: "01",
-    title: "Discovery Call",
-    subtitle: "30-Min Strategy Session",
-    icon: HiOutlineVideoCamera,
-    description:
-      "We sit together on a 30-minute Google Meet or call to discuss your product vision, required features, timeline, and tech stack. No sales pressure—just clarity on whether we're a good fit.",
+const ICON_MAP = {
+  video: HiOutlineVideoCamera,
+  meeting: HiOutlineVideoCamera,
+  document: HiOutlineDocumentText,
+  proposal: HiOutlineDocumentText,
+  scope: HiOutlineDocumentText,
+  design: HiOutlineColorSwatch,
+  ui: HiOutlineColorSwatch,
+  color: HiOutlineColorSwatch,
+  code: HiOutlineCode,
+  tech: HiOutlineCode,
+  rocket: HiOutlineRocketLaunch,
+  launch: HiOutlineRocketLaunch,
+  sparkles: HiOutlineSparkles,
+  globe: HiOutlineGlobeAlt,
+  briefcase: HiOutlineBriefcase,
+  cog: HiOutlineCog,
+};
+
+const COLOR_MAP = {
+  emerald: {
     pinColor: "bg-gradient-to-br from-[#1FB57A] to-[#12A36B]",
     pinGlow: "shadow-[#12A36B]/40",
     numColor: "text-[#12A36B]",
     badgeBg: "bg-[#12A36B]/10 text-[#0F8A5A] border-[#12A36B]/20",
-    tag: "30-Min Strategy Call",
-    rotation: "-rotate-1",
   },
-  {
-    step: "02",
-    title: "Proposal & Scope",
-    subtitle: "Fixed Pricing & Roadmap",
-    icon: HiOutlineDocumentText,
-    description:
-      "You receive a clear, comprehensive project roadmap outlining exact deliverable milestones, architecture decisions, and transparent fixed pricing. Zero hidden fees or surprise hourly billing.",
+  blue: {
     pinColor: "bg-gradient-to-br from-blue-400 to-blue-600",
     pinGlow: "shadow-blue-500/40",
     numColor: "text-blue-600",
     badgeBg: "bg-blue-50 text-blue-700 border-blue-200",
-    tag: "Fixed Scope & Timeline",
-    rotation: "rotate-1",
   },
-  {
-    step: "03",
-    title: "Design Concept",
-    subtitle: "UI/UX & User Flows",
-    icon: HiOutlineColorSwatch,
-    description:
-      "We craft high-fidelity, modern designs with clean typography, intuitive user flows, and brand-tailored aesthetics that your customers will actually love and remember.",
+  purple: {
     pinColor: "bg-gradient-to-br from-purple-400 to-purple-600",
     pinGlow: "shadow-purple-500/40",
     numColor: "text-purple-600",
     badgeBg: "bg-purple-50 text-purple-700 border-purple-200",
-    tag: "Customer-Centric UI",
-    rotation: "-rotate-1",
   },
-  {
-    step: "04",
-    title: "Modern Tech Stack",
-    subtitle: "Fast, Secure & Scalable",
-    icon: HiOutlineCode,
-    description:
-      "We choose the battle-tested technologies for your project (Next.js, Tailwind, PostgreSQL / MongoDB), making it Fast🚀, Secure🔒, and Scalable📈.",
+  teal: {
     pinColor: "bg-gradient-to-br from-teal-400 to-emerald-600",
     pinGlow: "shadow-teal-500/40",
     numColor: "text-teal-600",
     badgeBg: "bg-teal-50 text-teal-700 border-teal-200",
-    tag: "Fast & Scalable Build",
-    rotation: "rotate-1",
   },
-  {
-    step: "05",
-    title: "Development & Launch",
-    subtitle: "Audited & Live in Prod",
-    icon: HiOutlineRocketLaunch,
-    description:
-      "Senior Full-Stack engineering working directly on your project. Weekly interactive demos, sub-second speed audits, custom domain setup, and live launch.",
+  amber: {
     pinColor: "bg-gradient-to-br from-amber-400 to-orange-500",
     pinGlow: "shadow-amber-500/40",
     numColor: "text-amber-600",
     badgeBg: "bg-amber-50 text-amber-700 border-amber-200",
-    tag: "Live & Audited in Prod",
-    rotation: "-rotate-1",
   },
-];
+  rose: {
+    pinColor: "bg-gradient-to-br from-rose-400 to-red-500",
+    pinGlow: "shadow-rose-500/40",
+    numColor: "text-rose-600",
+    badgeBg: "bg-rose-50 text-rose-700 border-rose-200",
+  },
+};
 
 export default function WorkProcess() {
+  const [steps, setSteps] = useState(defaultProcess);
+
+  useEffect(() => {
+    async function loadProcess() {
+      try {
+        const res = await fetch("/api/public/process");
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            setSteps(data.filter((s) => s.active !== false));
+          }
+        }
+      } catch (err) {
+        console.error("Failed loading process steps:", err);
+      }
+    }
+    loadProcess();
+  }, []);
+
   return (
     <section id="process" className="relative z-10 pt-16 pb-6 sm:pt-24 sm:pb-8 border-t border-black/8">
       <div className="max-w-4xl mx-auto space-y-12 sm:space-y-16">
@@ -99,7 +108,7 @@ export default function WorkProcess() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#12A36B] opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[#12A36B]"></span>
             </span>
-            <span className="whitespace-nowrap">How We Work Together · The 5-Step Process</span>
+            <span className="whitespace-nowrap">How We Work Together · The {steps.length}-Step Process</span>
           </div>
 
           <h2 className="font-bricolage text-[clamp(2rem,5vw,3.6rem)] font-extrabold tracking-[-0.035em] text-[#1a1a1a] leading-[1.15]">
@@ -122,13 +131,16 @@ export default function WorkProcess() {
 
           {/* Steps List flowing from Top to Bottom (01 to 05) */}
           <div className="space-y-10 sm:space-y-12">
-            {STEPS.map((item, index) => {
-              const Icon = item.icon;
+            {steps.map((item, index) => {
+              const Icon = ICON_MAP[item.icon] || HiOutlineCode;
+              const colorConfig = COLOR_MAP[item.pinColor] || COLOR_MAP.emerald;
               const isEven = index % 2 === 0;
+              const rotation = isEven ? "-rotate-1" : "rotate-1";
+              const stepDisplay = item.step || String(index + 1).padStart(2, "0");
 
               return (
                 <div
-                  key={item.step}
+                  key={item._id || item.step || index}
                   className={`relative flex flex-col md:flex-row items-center ${
                     isEven ? "md:flex-row" : "md:flex-row-reverse"
                   } gap-6 md:gap-0`}
@@ -140,7 +152,7 @@ export default function WorkProcess() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.2 }}
                       transition={{ duration: 0.5, delay: index * 0.08 }}
-                      className={`group relative rounded-3xl bg-white border border-black/8 p-6 sm:p-7 shadow-lg shadow-black/5 hover:shadow-2xl hover:shadow-black/10 transition-all duration-300 hover:-translate-y-1 ${item.rotation} hover:rotate-0`}
+                      className={`group relative rounded-3xl bg-white border border-black/8 p-6 sm:p-7 shadow-lg shadow-black/5 hover:shadow-2xl hover:shadow-black/10 transition-all duration-300 hover:-translate-y-1 ${rotation} hover:rotate-0`}
                     >
                       {/* Realistic 3D Pushpin on top */}
                       <div className="absolute -top-3.5 left-7 flex items-center justify-center z-20">
@@ -148,7 +160,7 @@ export default function WorkProcess() {
                         <div className="absolute top-2.5 w-4 h-2 rounded-full bg-black/25 blur-[2.5px]" />
                         {/* 3D Pushpin Cap */}
                         <div
-                          className={`relative h-7 w-7 rounded-full shadow-md ${item.pinColor} ${item.pinGlow} ring-2 ring-white flex items-center justify-center transition-transform group-hover:scale-110 duration-200`}
+                          className={`relative h-7 w-7 rounded-full shadow-md ${colorConfig.pinColor} ${colorConfig.pinGlow} ring-2 ring-white flex items-center justify-center transition-transform group-hover:scale-110 duration-200`}
                         >
                           <div className="h-2 w-2 rounded-full bg-white/80" />
                         </div>
@@ -156,8 +168,8 @@ export default function WorkProcess() {
 
                       {/* Header row: Step & Icon */}
                       <div className="flex items-center justify-between pb-3 border-b border-black/5">
-                        <span className={`font-mono text-2xl sm:text-3xl font-black italic tracking-tight ${item.numColor}`}>
-                          {item.step}
+                        <span className={`font-mono text-2xl sm:text-3xl font-black italic tracking-tight ${colorConfig.numColor}`}>
+                          {stepDisplay}
                         </span>
 
                         <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-black/4 border border-black/5 text-[#1a1a1a] transition-transform group-hover:scale-110 duration-200">
@@ -170,9 +182,11 @@ export default function WorkProcess() {
                         <h3 className="font-bricolage text-xl font-extrabold text-[#1a1a1a] tracking-tight">
                           {item.title}
                         </h3>
-                        <p className="text-xs font-mono font-semibold text-black/45">
-                          {item.subtitle}
-                        </p>
+                        {item.subtitle && (
+                          <p className="text-xs font-mono font-semibold text-black/45">
+                            {item.subtitle}
+                          </p>
+                        )}
                         <p className="text-xs sm:text-sm text-black/65 font-sans leading-relaxed pt-1">
                           {item.description}
                         </p>
@@ -181,13 +195,13 @@ export default function WorkProcess() {
                       {/* Card Footer (Strict Single Line Guaranteed) */}
                       <div className="pt-4 mt-4 border-t border-black/5 flex items-center justify-between gap-3 flex-nowrap">
                         <span
-                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border whitespace-nowrap shrink-0 ${item.badgeBg}`}
+                          className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold border whitespace-nowrap shrink-0 ${colorConfig.badgeBg}`}
                         >
-                          {item.tag}
+                          {item.tag || "Milestone"}
                         </span>
 
                         <span className="text-[11px] font-mono text-black/40 font-semibold whitespace-nowrap shrink-0">
-                          Step {item.step} of 05
+                          Step {stepDisplay} of {String(steps.length).padStart(2, "0")}
                         </span>
                       </div>
                     </motion.div>
@@ -196,14 +210,14 @@ export default function WorkProcess() {
                   {/* Center Node / Milestone Pin on the path line */}
                   <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center justify-center z-10">
                     <div className="h-8 w-8 rounded-full bg-white border-2 border-black/15 shadow-sm flex items-center justify-center">
-                      <span className={`h-2.5 w-2.5 rounded-full ${item.pinColor}`} />
+                      <span className={`h-2.5 w-2.5 rounded-full ${colorConfig.pinColor}`} />
                     </div>
                   </div>
 
                   {/* Mobile Left Pin Indicator on the line */}
                   <div className="md:hidden absolute left-5 -translate-x-1/2 top-7 z-10">
                     <div className="h-6 w-6 rounded-full bg-white border-2 border-black/15 shadow-xs flex items-center justify-center">
-                      <span className={`h-2 w-2 rounded-full ${item.pinColor}`} />
+                      <span className={`h-2 w-2 rounded-full ${colorConfig.pinColor}`} />
                     </div>
                   </div>
 

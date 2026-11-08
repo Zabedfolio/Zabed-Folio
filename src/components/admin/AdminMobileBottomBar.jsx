@@ -29,7 +29,7 @@ const PRIMARY_TABS = [
 ];
 
 const MORE_NAV_ITEMS = [
-  { href: "/admin/showcase", label: "Showcase", icon: HiOutlineSparkles },
+  { href: "/admin/showcase", label: "Showcase & Process", icon: HiOutlineSparkles },
   { href: "/admin/case-studies", label: "Case Studies", icon: HiOutlineLibrary },
   { href: "/admin/education", label: "Education", icon: HiOutlineAcademicCap },
   { href: "/admin/experience", label: "Experience", icon: HiOutlineCube },
