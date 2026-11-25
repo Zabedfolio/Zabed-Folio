@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getDb } from "@/lib/mongodb";
 import { requireAdminSession } from "@/lib/admin-auth";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   const { error } = await requireAdminSession(request);
   if (error) return error;
